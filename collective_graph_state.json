@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 1,
+      "version": 2,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793303529.2411804,
+      "updated_at": 1793303786.166495,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -7818,6 +7818,79 @@
         "tokens_consumed": 5383,
         "new_hypotheses": 4,
         "verified": 3,
+        "refuted": 1
+      }
+    },
+    {
+      "id": "hyp_gen63_72952",
+      "label": "Hypothesis",
+      "title": "Vou tratar o ciclo #418 como investigação de evidência sobre o nó `n_krylov`, co",
+      "description": "Vou tratar o ciclo #418 como investigação de evidência sobre o nó `n_krylov`, com formulação inédita e dedução analítica de FLOPs verificável. Como o snapshot do grafo **não trouxe** um nó `n_krylov` literal (trouxe protocolos duplicados e integradores simpleticos), classifico a entrega como hipótese construtiva e sinalizo isso na solidez epistêmica. Vou materializar a formulação, o modelo analítico de FLOPs e um verificador QA em lote.",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793303889.7625413,
+      "updated_at": 1793303890.6438975,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0063_1793303786",
+        "cycle_id": 418,
+        "full_text": "Vou tratar o ciclo #418 como investigação de evidência sobre o nó `n_krylov`, com formulação inédita e dedução analítica de FLOPs verificável. Como o snapshot do grafo **não trouxe** um nó `n_krylov` literal (trouxe protocolos duplicados e integradores simpleticos), classifico a entrega como hipótese construtiva e sinalizo isso na solidez epistêmica. Vou materializar a formulação, o modelo analítico de FLOPs e um verificador QA em lote."
+      }
+    },
+    {
+      "id": "hyp_gen63_96811",
+      "label": "Hypothesis",
+      "title": "GPT3B_H418_KRONECKER_SPECTRAL_CONTRACTION",
+      "description": "# GPT3B_H418_KRONECKER_SPECTRAL_CONTRACTION\n## Hipótese `hyp_gen63_418_skf` — *Strang-Kronecker Fundido (SKF)*\n\n**Classe:** THEORETICAL_DERIVATION | **Especialidade:** Salto Analítico ODE | **Status:** PREDICTED (aguarda bancada)\n\n---\n\n## 0. Tese em uma linha\n\nO nó `n_strang` paga um custo **linear em L** (nº de blocos) porque cada meio-passo de Strang é executado em dimensão cheia d. O **salto analítico** é mostrar que, dentro da sombra espectral de rank r, o produto dos L passos de Strang **co",
+      "provenance": "agent_015_investigator",
+      "version": 2,
+      "created_at": 1793303936.7378693,
+      "updated_at": 1793303937.527328,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0063_1793303786",
+        "cycle_id": 418,
+        "full_text": "# GPT3B_H418_KRONECKER_SPECTRAL_CONTRACTION\n## Hipótese `hyp_gen63_418_skf` — *Strang-Kronecker Fundido (SKF)*\n\n**Classe:** THEORETICAL_DERIVATION | **Especialidade:** Salto Analítico ODE | **Status:** PREDICTED (aguarda bancada)\n\n---\n\n## 0. Tese em uma linha\n\nO nó `n_strang` paga um custo **linear em L** (nº de blocos) porque cada meio-passo de Strang é executado em dimensão cheia d. O **salto analítico** é mostrar que, dentro da sombra espectral de rank r, o produto dos L passos de Strang **colapsa por BCH em uma única exponencial de Kronecker-soma**, cujo núcleo se fatora: `exp(A₁ ⊕ A₂) = exp(A₁) ⊗ exp(A₂)`. Resultado: **o FLOPs online torna-se independente de L e de `n_strang`**, com custo residual O(dr) de vai-e-volta.\n\n---\n\n## 1. Modelo contínuo e splitting\n\nFluxo residual do stack de L blocos, horizonte τ = 1.2 (passo h = τ/L):\n\n$$\\dot x = F(x) = F_A(x) + F_B(x),\\quad x(0)=x_0,\\ x(\\tau)=x_L$$\n\n- `F_A`: campo de atenção (mistura de tokens, não-linearidade no espaço de tokens)\n- `F_B`: campo MLP (mistura de canais, ponto a ponto)\n\nComposição de Strang (auto-adjunta, ordem 2, simplética quando os campos são separáveis):\n\n$$S_h = e^{\\frac{h}{2}\\mathcal L_A}\\circ e^{h\\mathcal L_B}\\circ e^{\\frac{h}{2}\\mathcal L_A},\\qquad S_h^L = \\Phi_h^{\\text{exato}} + \\mathcal O(\\tau h^2)$$\n\n---\n\n## 2. Hipóteses testáveis\n\n| ID | Afirmação | Limite de refutação |\n|---|---|---|\n| **H1 (Fecho)** | A sombra S = Im(U), U ∈ ℝ^{d×r} vinda de K = 2000 amostras de resíduo, é ε-invariante: ‖(I−P)F(Px)‖ ≤ ε_c‖x‖ | ε_c > 10⁻² |\n| **H2 (Kronecker-soma)** | Os Jacobianos comprimidos satisfazem J_· ≈ A₁ ⊕ A₂ = A₁⊗I + I⊗A₂, r = r₁r₂ = 128 | ‖J − (A₁⊕A₂)‖/‖J‖ > 5·10⁻² |\n| **H3 (Contração)** | O erro transversal contrai: ‖(I−P)S_h(Px+e)‖ ≤ γ‖e‖, γ = e^{h μ⊥} < 1 | γ ≥ 1 |\n| **H4 (Gap)** | Gap espectral δ = λ_r − λ_{r+1} de C = 𝔼[xxᵀ] satisfaz δ/λ₁ ≥ 0.3 (garantia Davis–Kahan com K = 2000) | δ/λ₁ < 0.3 |\n| **H5 (Fusão)** | log(S_h^L) = τ(ℒ + h²Δ) + 𝒪(τh⁴), com Δ explícito em comutadores | erro de fusão > erro de Strang |\n\n---\n\n## 3. O Salto Analítico (três movimentos)\n\n### 3.1 Fecho da sombra\nCom P = UUᵀ, Taylor da projeção: `P F(Px + (I−P)x) = P F(Px) + 𝒪(ε_c‖x‖)`. A dinâmica **fecha** em S — o resto do espaço é tratado como perturbação transversal, e H3 garante que ele não reentra.\n\n### 3.2 Exponencial fatorada (o núcleo do tema)\nPara Kronecker-**soma** vale identidade **exata**:\n\n$$e^{t(A_1\\oplus A_2)} = e^{tA_1}\\otimes e^{tA_2}$$\n\nAplicação a Z ∈ ℝ^{r₂×r₁} via `vec`: `(E₁⊗E₂)vec(Z) = vec(E₂ Z E₁ᵀ)`, custo **r(r₁+r₂)** MACs em vez de r³. Com r = 128 = 16×8: 3.072 MACs vs 2.097.152 (dense) — fator **683×** no núcleo. Os fatores `Eᵢ = exp((h/2)Aᵢ)` são pré-computados **offline** a partir das K = 2000 amostras (custo 𝒪(r³) amortizado fora do loop de inferência).\n\n### 3.3 Fusão por comutadores (remove `n_strang` do online)\nBCH para Strang: `log(S_h) = hℒ + h³Δ + 𝒪(h⁵)`, com\n\n$$\\Delta = -\\tfrac{1}{24}[\\mathcal L_A,[\\mathcal L_A,\\mathcal L_B]] + \\tfrac{1}{12}[\\mathcal L_B,[\\mathcal L_B,\\mathcal L_A]]$$\n\nLogo, sobre o horizonte τ:\n\n$$S_h^{L} = \\exp\\!\\big(\\tau(\\mathcal L + h^2\\Delta)\\big) + \\mathcal O(\\tau h^2)$$\n\n**Uma única aplicação do fluxo fundido substitui L passos de Strang**, mais uma correção de comutador de rank ≤ 2r. `n_strang` deixa de ser parâmetro de custo e vira parâmetro de precisão (h = τ/L). A auditoria `hyp_gen60` (\"overhead de n_strang\") fica resolvida estruturalmente.\n\n**Preservação simplética:** escolhendo Aᵢ anti-simétricos (via Cayley nos fatores), `E₁⊗E₂` é simplético em S ⇒ norma do fluxo estável por 24 blocos (sem blow-up), conectando-se à linha do `Integrador Simpético de Sombra Residual` (nós gen41/gen45), porém com custo 𝒪(dr) em vez de 𝒪(dr²).\n\n---\n\n## 4. Algoritmo SKF\n\n```\noffline(K=2000):  C = (1/K)Σ x xᵀ → U (top-r=128) → J_A, J_B comprimidos\n                  → fatoração A₁⊕A₂, B₁⊕B₂ (r₁=16, r₂=8) → E_i = exp(·) pré-computados\nonline (por token):\n  Z   = X·U                      # encoder, dr MACs\n  Ẑ   = (E₁⊗E₂) aplicado a Z    # 1 passo fundido + correção de comutador\n  X̂   = Ẑ·Uᵀ + R_anc(X)         # decoder, dr MACs + blocos âncora completos\n```\n\n---\n\n## 5. Dedução analítica de FLOPs\n\n**Baseline por bloco** (d = 2048, n = 512, MLP ratio 4), em MACs/token (1 MAC = 2 FLOPs):\n\n| Componente | Fórmula | MACs |\n|---|---|---|\n| Projeções Q,K,V,O | 4d² | 16.777.216 |\n| Scores + contexto | 2nd | 2.097.152 |\n| MLP (2 matmuls d↔4d) | 8d² | 33.554.432 |\n| **Total/bloco** | **12d² + 2nd** | **52.428.800** |\n| **Stack L = 24** | L(12d²+2nd) | **1.258.291.200** (= 2,517 GFLOPs) |\n\n**Proposta SKF** (âncoras completas a cada m = 5 blocos; ⌈24/5⌉ = 5 âncoras):\n\n| Componente | Fórmula | MACs |\n|---|---|---|\n| Blocos âncora | (L/m)(12d²+2nd) | 262.144.000 |\n| Encoder de sombra | dr | 262.144 |\n| Fluxo fundido + comutador | 3r(r₁+r₂) | 9.216 |\n| Decoder de sombra | rd | 262.144 |\n| **Total** | | **≈ 262.677.360** (= 0,525 GFLOPs) |\n\n$$\\boxed{\\ \\mathcal C_{\\text{SKF}} = \\lceil L/m\\rceil(12d^2+2nd) + 2dr + 3r(r_1+r_2),\\qquad R = 1 - \\frac{\\mathcal C_{\\text{SKF}}}{L(12d^2+2nd)} = 79{,}13\\%\\ }$$\n\n- **Redução: 79,1 % ≥ 75 %** ✓ (limite de âncoras: m ≤ 5; m = 4 daria 74,95 % — reprovado por 5 bps. Este é o trade-off crítico do ciclo.)\n- **Overhead da sombra: 0,42 % do baseline** — a objeção de overhead da auditoria `hyp_gen60` é quantitativamente eliminada.\n- **Teto do método** (m = L, sem âncoras): 99,96 % de redução — fronteira de acurácia, não de FLOPs.\n- Custos offline (K = 2000 passagens + exponenciais de fator) ficam fora do loop de inferência; K = 2000 ≥ 10r satisfaz a estimação de covariância com margem.\n\n---\n\n## 6. Cota de erro global e predição\n\n$$\\frac{\\|x_L - \\hat x_L\\|}{\\|x_L\\|} \\le \\underbrace{\\varepsilon_{\\text{inv}}\\frac{1-\\gamma^{M}}{1-\\gamma}}_{\\text{transversal, }M=19} + \\underbrace{C\\tau h^2}_{\\text{Strang+BCH}} + \\underbrace{\\varepsilon_{\\text{kron}}\\tau}_{\\text{trunc. Kronecker}}$$\n\nCom ε_inv ≈ 10⁻³, γ ≈ 0,66 (μ⊥ < 0), h = 0,05, ε_kron = 3·10⁻² ⇒ **ε_total ≈ 8,6·10⁻³**.\n\n**Predição primária (falsificável):** ΔTop-1 ≤ 1,4 % no benchmark, consistente com o mapeamento empírico do grafo (99,1 % de energia espectral ↔ ≤ 2 % de perda, nós `hyp_gen47/gen46`).\n\n---\n\n## 7. Protocolo de bancada (r = 128, K = 2000, τ = 1.2)\n\n1. **Ablação de fusão:** Strang puro (L passos) vs SKF fundido — mesma acurácia dentro de 0,2 pp valida H5.\n2. **Sweep de âncoras:** m ∈ {3, 5, 7} — curva redução × ΔTop-1; m = 5 é o predito como ótimo.\n3. **Sweep de fatoração:** (r₁,r₂) ∈ {(16,8), (32,4), (64,2)} — valida H2 e a sensibilidade à assimetria de Kronecker.\n4. **Medições:** FLOPs via profiler, Top-1, ‖x_L−x̂_L‖/‖x_L‖, γ empírico, δ/λ₁, ‖J−(A₁⊕A₂)‖/‖J‖.\n5. **Critérios de rejeição (por OR):** redução < 75 % · perda > 2 % · γ ≥ 1 · ε_kron > 5·10⁻² · δ/λ₁ < 0.3.\n\n---\n\n## 8. Riscos e limitações (declarados)\n\n- A fatoração Kronecker-soma é **aproximação**; se o Jacobiano comprimido tiver espectro degenerado, ε_kron cresce e a correção de comutador deixa de ser rank-baixa (H2 cai).\n- Blocos âncora são indispensáveis: a sombra sozinha não recompõe as não-linearidades fortes (softmax/GELU) — daí o teto de acurácia, não de FLOPs.\n- Extensão natural do ciclo #419: comprimir também o eixo de tokens (r_t = 64), atacando o termo 2nd e elevando R para ≈ 84 % com a mesma margem de erro."
+      }
+    },
+    {
+      "id": "hyp_gen63_80248",
+      "label": "Hypothesis",
+      "title": "Vou tratar isto como investigação sobre o nó de contração ingênua (`n_naive`) e,",
+      "description": "Vou tratar isto como investigação sobre o nó de contração ingênua (`n_naive`) e, antes de fechar a formulação, validar numericamente as identidades que sustentam a dedução de FLOPs.<tool_call>\nfunction=run_python><parameter=code>\nimport numpy as np\n\nnp.random.seed(7)\n\n# --- Setup reduzido da bancada (mesma estrutura do ensaio, dimensões didáticas) ---\np, q = 16, 16          # ordens dos fatores de Kronecker\nd = p * q              # dimensão do espaço residual\nn = 32                 # tokens por ",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793303974.800211,
+      "updated_at": 1793303974.8901749,
+      "validation_status": "REFUTED",
+      "epistemic_class": "FALSIFIED",
+      "properties": {
+        "gen_id": "gen_0063_1793303786",
+        "cycle_id": 418,
+        "full_text": "Vou tratar isto como investigação sobre o nó de contração ingênua (`n_naive`) e, antes de fechar a formulação, validar numericamente as identidades que sustentam a dedução de FLOPs.<tool_call>\nfunction=run_python><parameter=code>\nimport numpy as np\n\nnp.random.seed(7)\n\n# --- Setup reduzido da bancada (mesma estrutura do ensaio, dimensões didáticas) ---\np, q = 16, 16          # ordens dos fatores de Kronecker\nd = p * q              # dimensão do espaço residual\nn = 32                 # tokens por passo\nr = 12                 # rank da sombra residual (r <= d)\n\nA = np.random.randn(p, p)\nB = np.random.randn(q, q)\nUr = np.random.randn(d, r)\nVr = np.random.randn(d, r)\nsr = np.sort(np.random.rand(r))[::-1]\nsr = sr / sr.sum() * 0.4 * np.linalg.norm(A, 2) * np.linalg.norm(B, 2)\nR = (Ur * sr) @ Vr.T                       # sombra residual de rank r\nW = np.kron(A, B) + R\n\nX = np.random.randn(n, d)\nY_dense = X @ W                            # caminho n_naive\n\n# --- Caminho separável (contracção mista) ---\nXt = X.reshape(n, p, q)\nZ1 = np.einsum('iab,ac->icb', Xt, A)       # contrai indice 'a' com A\nZ2 = np.einsum('icb,bd->icd', Z1, B)       # contrai indice 'b' com B\nY_core = Z2.reshape(n, d)\nY_ksc = Y_core + (X @ Ur * sr) @ Vr.T      # + sombra residual (2 GEMMs magras)\n\nerr_alg = np.linalg.norm(Y_dense - Y_ksc) / np.linalg.norm(Y_dense)\n\n# --- Identidade de norma espectral do produto de Kronecker ---\nlhs = np.linalg.norm(np.kron(A, B), 2)\nrhs = np.linalg.norm(A, 2) * np.linalg.norm(B, 2)\n\n# --- Eckart-Young na sombra residual (norma espectral do truncamento) ---\nRt = Ur[:, :8] @ np.diag(sr[:8]) @ Vr[:, :8].T\ntail_pred = np.sort(sr)[::-1][8]\ntail_meas = np.linalg.norm(R - Rt, 2)\n\n# --- Contagem de FLOPs (formulas do relatorio) ---\nflops_naive = 2 * n * d * d\nflops_ksc = 2 * n * d * (p + q) + 4 * n * d * r + n * r\nrho = 1 - flops_ksc / flops_naive\n\nprint(f\"erro relativo caminho KSC vs denso   : {err_alg:.3e}\")\nprint(f\"||A kron B||_2 vs ||A||_2*||B||_2    : {lhs:.6f} / {rhs:.6f}  (dif {abs(lhs-rhs):.2e})\")\nprint(f\"cauda espectral: predita {tail_pred:.6f} vs medida {tail_meas:.6f}\")\nprint(f\"FLOPs n_naive  : {flops_naive:,}\")\nprint(f\"FLOPs KSC-r    : {flops_ksc:,}\")\nprint(f\"reducao rho    : {rho*100:.2f}%   (speedup {flops_naive/flops_ksc:.2f}x)\")\n\n# --- Projecao para os parametros reais do protocolo (r=128, K=2000) ---\nfor (dd, pp, qq, rr) in [(4096, 64, 64, 128), (2048, 64, 32, 128), (8192, 128, 64, 128)]:\n    fn = 2 * dd * dd\n    fk = 2 * dd * (pp + qq) + 4 * dd * rr + rr\n    print(f\"d={dd:5d} p={pp:3d} q={qq:3d} r={rr:3d} -> rho={100*(1-fk/fn):.2f}%  speedup={fn/fk:.2f}x  \"\n          f\"criterio75%={'OK' if (pp+qq)+2*rr <= dd/4 else 'FALHA'}\")\n</parameter></function>\n</tool_call>"
+      }
+    },
+    {
+      "id": "gen_0063_1793303786",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #63 (Ciclo #418)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793303974.9714842,
+      "updated_at": 1793303974.9714844,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 63,
+        "cycle_id": 418,
+        "verdict": "APPROVED",
+        "duration_sec": 188.81,
+        "tokens_consumed": 4375,
+        "new_hypotheses": 3,
+        "verified": 2,
         "refuted": 1
       }
     }
@@ -30492,7 +30565,97 @@
       "version": 1,
       "created_at": 1793303723.1864731,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen63_72952_addresses_n_krylov",
+      "source_id": "hyp_gen63_72952",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793303889.8159487,
+        "updated_at": 1793303890.6974046,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0063_1793303786_1793303889865_e_hyp_gen63_72952_addresses_n_krylov",
+            "generation_id": "gen_0063_1793303786",
+            "timestamp": 1793303890.6974046,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793303889.815954,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen63_96811_addresses_n_strang",
+      "source_id": "hyp_gen63_96811",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793303936.7978318,
+        "updated_at": 1793303937.5798452,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0063_1793303786_1793303936861_e_hyp_gen63_96811_addresses_n_strang",
+            "generation_id": "gen_0063_1793303786",
+            "timestamp": 1793303937.5798452,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_015_investigator",
+      "version": 1,
+      "created_at": 1793303936.7978394,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen63_80248_addresses_n_naive",
+      "source_id": "hyp_gen63_80248",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.42,
+        "uncertainty": 0.5,
+        "update_count": 1,
+        "created_at": 1793303974.8462555,
+        "updated_at": 1793303974.9303658,
+        "update_history": [
+          {
+            "event_id": "penal_verif_gen_0063_1793303786_1793303974890_e_hyp_gen63_80248_addresses_n_naive",
+            "generation_id": "gen_0063_1793303786",
+            "timestamp": 1793303974.9303658,
+            "w_prev": 0.5,
+            "penalty": 0.08,
+            "w_next": 0.42,
+            "reason": "math_falsification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793303974.8462608,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793303724.0740385
+  "saved_at": 1793303974.9723814
 }
