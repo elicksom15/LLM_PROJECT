@@ -18,7 +18,7 @@ Desenvolver uma formulação matemática inédita que reduza o custo computacion
 ---
 
 ### 🧮 Diretriz: Cálculo Primeiro, GPU Depois (Fase 0)
-1. **Auditoria Matemática:** Antes de acionar a GPU, os operadores são auditados formalmente no papel. Se a redução teórica de FLOPs e tráfego de VRAM for $< 75\%$, a hipótese é **imediatamente rejeitada**, poupando ciclos físicos da RTX 3060.
+1. **Auditoria Matemática:** Antes de acionar a GPU, os operadores são auditados formalmente no papel. Se a redução teórica de FLOPs e tráfego de VRAM for $< 75%$, a hipótese é **imediatamente rejeitada**, poupando ciclos físicos da RTX 3060.
 2. **Validação Física em GPU:** Modelos aprovados no cálculo são compilados e medidos na bancada física local (`~3B GPT`), aferindo throughput real (tokens/s), divergência KL e acurácia Top-1.
 3. **Persistência e Telemetria em Tempo Real:** Todos os ciclos, teses e pareceres são registrados em SQLite e transmitidos ao Discord com sincronização contínua neste repositório.
 
