@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 44,
+      "version": 45,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793316386.4880772,
+      "updated_at": 1793316677.330654,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -11154,6 +11154,79 @@
         "verdict": "APPROVED",
         "duration_sec": 249.54,
         "tokens_consumed": 4682,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen105_77127",
+      "label": "Hypothesis",
+      "title": "Vou executar primeiro a bancada numérica real (corretude da fatoração, identidad",
+      "description": "Vou executar primeiro a bancada numérica real (corretude da fatoração, identidade do propagador de Kronecker, ordem de Strang vs. Lie, defeito simpletico e auditoria de energia), e só então emito o relatório com a formulação inédita e a dedução analítica de FLOPs.",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793316725.269126,
+      "updated_at": 1793316726.0140724,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0105_1793316677",
+        "cycle_id": 460,
+        "full_text": "Vou executar primeiro a bancada numérica real (corretude da fatoração, identidade do propagador de Kronecker, ordem de Strang vs. Lie, defeito simpletico e auditoria de energia), e só então emito o relatório com a formulação inédita e a dedução analítica de FLOPs."
+      }
+    },
+    {
+      "id": "hyp_gen105_98829",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: primeiro uma bancada numérica r",
+      "description": "Vou executar a verificação independente de fato: primeiro uma bancada numérica real (ordem de convergência do `n_strang`, defeito simpleético, deriva de energia, fuga da sombra residual, auditoria do critério \"r=128 = 99,1% de energia\" e fechamento aritmético de FLOPs/bytes de VRAM) e só então emito o relatório com a formulação inédita e a dedução analítica.",
+      "provenance": "agent_069_independent_verifier",
+      "version": 2,
+      "created_at": 1793316786.4415247,
+      "updated_at": 1793316787.3435636,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0105_1793316677",
+        "cycle_id": 460,
+        "full_text": "Vou executar a verificação independente de fato: primeiro uma bancada numérica real (ordem de convergência do `n_strang`, defeito simpleético, deriva de energia, fuga da sombra residual, auditoria do critério \"r=128 = 99,1% de energia\" e fechamento aritmético de FLOPs/bytes de VRAM) e só então emito o relatório com a formulação inédita e a dedução analítica."
+      }
+    },
+    {
+      "id": "hyp_gen105_19981",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real primeiro (corretude da fatoração, fecho sim",
+      "description": "Vou executar a bancada numérica real primeiro (corretude da fatoração, fecho simplético, contagem exata de MACs, auditoria do critério de energia e fronteira de 75%) e só então emitir o parecer.",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793316878.8860002,
+      "updated_at": 1793316879.6441314,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0105_1793316677",
+        "cycle_id": 460,
+        "full_text": "Vou executar a bancada numérica real primeiro (corretude da fatoração, fecho simplético, contagem exata de MACs, auditoria do critério de energia e fronteira de 75%) e só então emitir o parecer."
+      }
+    },
+    {
+      "id": "gen_0105_1793316677",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #105 (Ciclo #460)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793316879.790011,
+      "updated_at": 1793316879.790011,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 105,
+        "cycle_id": 460,
+        "verdict": "APPROVED",
+        "duration_sec": 202.46,
+        "tokens_consumed": 2686,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -38486,7 +38559,97 @@
       "version": 1,
       "created_at": 1793316635.1712923,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen105_77127_addresses_n_krylov",
+      "source_id": "hyp_gen105_77127",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316725.3320096,
+        "updated_at": 1793316726.0746987,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0105_1793316677_1793316725390_e_hyp_gen105_77127_addresses_n_krylov",
+            "generation_id": "gen_0105_1793316677",
+            "timestamp": 1793316726.0746987,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793316725.332014,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen105_98829_addresses_n_strang",
+      "source_id": "hyp_gen105_98829",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316786.5047276,
+        "updated_at": 1793316787.4115229,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0105_1793316677_1793316786563_e_hyp_gen105_98829_addresses_n_strang",
+            "generation_id": "gen_0105_1793316677",
+            "timestamp": 1793316787.4115229,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_069_independent_verifier",
+      "version": 1,
+      "created_at": 1793316786.504733,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen105_19981_addresses_n_naive",
+      "source_id": "hyp_gen105_19981",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316878.9445574,
+        "updated_at": 1793316879.721206,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0105_1793316677_1793316879006_e_hyp_gen105_19981_addresses_n_naive",
+            "generation_id": "gen_0105_1793316677",
+            "timestamp": 1793316879.721206,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793316878.944562,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793316636.0309823
+  "saved_at": 1793316879.7917154
 }
