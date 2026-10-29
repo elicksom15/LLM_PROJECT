@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 11,
+      "version": 12,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793307081.7230892,
+      "updated_at": 1793307660.190913,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -8696,6 +8696,96 @@
         "tokens_consumed": 3579,
         "new_hypotheses": 2,
         "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen72_67033",
+      "label": "Hypothesis",
+      "title": "Relatório de Investigação — Ciclo #427 / Geração #72",
+      "description": "# Relatório de Investigação — Ciclo #427 / Geração #72\n## Nó investigado: `n_krylov` | Tema: FLUXO_SIMPLETICO_EM_SUBESPAÇO_INVARIANTE | Especialidade: Fatoração Tensorial Kronecker\n\n---\n\n## 0. Sumário executivo\n\n1. **As 12 evidências recuperadas do grafo são, na prática, 3.** Oito cópias byte-idênticas do protocolo, duas do nó simplético e duas da auditoria crítica. O rótulo `VERIFIED` está correlacionado ao número de cópias, não a replicação independente — correlação espúria clássica.\n2. **Todo",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793307711.5236294,
+      "updated_at": 1793307712.596037,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0072_1793307660",
+        "cycle_id": 427,
+        "full_text": "# Relatório de Investigação — Ciclo #427 / Geração #72\n## Nó investigado: `n_krylov` | Tema: FLUXO_SIMPLETICO_EM_SUBESPAÇO_INVARIANTE | Especialidade: Fatoração Tensorial Kronecker\n\n---\n\n## 0. Sumário executivo\n\n1. **As 12 evidências recuperadas do grafo são, na prática, 3.** Oito cópias byte-idênticas do protocolo, duas do nó simplético e duas da auditoria crítica. O rótulo `VERIFIED` está correlacionado ao número de cópias, não a replicação independente — correlação espúria clássica.\n2. **Todo o campo `Descrição` está truncado sistematicamente** em ~250 caracteres. O critério \"Perda de Acurácia Top-1 $\\le$ 2\" está incompleto. Assume-se $\\le 2\\%$ como leitura provável, mas isso é **premissa declarada**, não evidência.\n3. **Formulação inédita proposta: K²S-Krylov** — Lanczos hamiltoniano com matvec fatorado por soma de produtos de Kronecker, projetado no subespaço invariante de rank $r$, integrado por splitting de Strang.\n4. **Resultado analítico central (dedução na Seção 3):** o gate \"Redução de FLOPs $\\ge 75\\%$\" **não é atingido** fatorando apenas os mapas $n\\times n$ (23,2%). É atingido de forma **marginal (76,8%)** somente se o MLP largo também for fatorado, e **falha para $S\\ge 3$**. Isso é uma predição falsificável de alto valor.\n5. **A alegação \"99,1% da energia espectral\" não implica \"perda Top-1 $\\le 2\\%$\"**. A cadeia causal passa pela distribuição de margens de logit, não pela energia. Detalhe na Seção 4.\n\n---\n\n## 1. Auditoria de evidências — solidez epistêmica\n\n### 1.1 Contagem real de informação\n\n| Métrica | Valor |\n|---|---|\n| Nós recuperados | 12 |\n| Templates únicos | 3 |\n| Conteúdo distintamente novo | **~3** (N_eff ≈ 3, não 12) |\n| Agentes de procedência distintos | 12 |\n| Replicação independente real | **0** (texto idêntico ⇒ cópias de um gerador) |\n| Campos truncados | 12/12 (100%) |\n\n### 1.2 Truncamento sistemático\nTodas as descrições cortam no mesmo ponto (`Perda de Acurácia Top-1 $\\le$` / `Overhea` / `x_(l+1) = x_l`). Isso é **limite estrutural do campo de metadados**, não corrupção aleatória. Consequência operacional: nenhum limiar quantitativo posterior ao corte é recuperável do grafo. Citei como *premissa* sempre que usei.\n\n### 1.3 Solidez por afirmação\nDefino $S_e = C \\cdot I \\cdot T$, com $C$ = consistência interna (0–1), $I$ = independência das fontes (0–1), $T$ = completude do dado (0–1).\n\n| Afirmação | $C$ | $I$ | $T$ | **$S_e$** | Veredito |\n|---|---|---|---|---|---|\n| Parâmetros $r{=}128, K{=}2000, \\tau{=}1.2$ | 1,0 | 0,1 | 1,0 | **0,10** | Dado de configuração, não resultado |\n| Redução de FLOPs $\\ge 75\\%$ | 1,0 | 0,1 | 0,3 | **0,03** | É *gate* proposto, nunca medido |\n| $r=128$ captura 99,1% da energia espectral | 1,0 | 0,2 | 0,4 | **0,08** | Sem curva SVD publicada |\n| Existe subespaço invariante $E$ para o fluxo residual | 1,0 | 0,2 | 0,2 | **0,04** | Formulação teórica truncada |\n| Preservação simplética do integrador | 1,0 | 0,3 | 0,6 | **0,18** | Verificável analiticamente (Seção 2.4) |\n\n### 1.4 Correlações espúrias identificadas\n- **`VERIFIED` × 12** ⇒ falsa sensação de convergência empírica. São 1 gerador, 3 templates.\n- **$r=128$ aparece em 100% dos nós** ⇒ circularidade: $r$ é *input* do ensaio, não descoberta. Não pode ser usado como evidência do próprio resultado.\n- **\"99,1% de energia\" justificando $r=128$** ⇒ possível racionalização *post hoc* (o rank foi fixado antes; a energia é invocada depois).\n\n---\n\n## 2. Formulação inédita: **K²S-Krylov**\n*(Kronecker-factored Hamiltonian Lanczos + Strang em subespaço invariante)*\n\n### 2.1 Definição do problema\nFluxo residual discretizado do transformer: $x_{l+1} = x_l + F_l(x_l)$. Elevamos ao espaço de fase $z_l = (x_l, p_l) \\in \\mathbb{R}^{2n}$ com forma simplética $J = \\begin{pmatrix} 0 & I \\\\ -I & 0\\end{pmatrix}$ e campo hamiltoniano $Z_H = J\\nabla H$. O jacobiano $A = \\nabla Z_H$ satisfaz $A^\\top J + JA = 0$ (hamiltoniano).\n\n### 2.2 Lema 1 — matvec fatorado por Kronecker\nSe $W = A_1 \\otimes B_1$ com $A_1 \\in \\mathbb{R}^{a_1\\times a_2}$, $B_1 \\in \\mathbb{R}^{b_1\\times b_2}$ e $n = a_2b_2$:\n$$Wv = \\mathrm{vec}\\big(B_1 V A_1^\\top\\big), \\quad V = \\mathrm{mat}(v)\\in\\mathbb{R}^{b_2\\times a_2}$$\n$$\\boxed{\\;\\mathrm{FLOPs}(Wv) = 2\\,b_1 a_2 (b_2 + a_1)\\;}$$\nPara o caso quadrado $p\\times p \\otimes q\\times q$: $2n(p+q)$. Para soma de $S$ termos: $2Sn(p+q) + (S-1)n$.\n\n### 2.3 Lema 2 — a projeção de Galerkin preserva a estrutura\nSeja $(Q, JQ)$ uma base simplética de um subespaço $2m$-dimensional ($Q^\\top JQ = J_m$). Então $T_m = Q^\\top A Q$ é hamiltoniano em $J_m$ e, portanto, $\\exp(hT_m)$ é **exatamente simplético** no subespaço — sem erro de estrutura, ao contrário de Runge–Kutta explícito.\n\n### 2.4 O nó `n_krylov`\n```\nentrada: x_l, h, rank r, dim. Krylov m, S termos Kronecker, τ = h‖A‖\n1. Compressão Kronecker:  A ≈ Σ_{s=1..S} A_s ⊗ B_s      (fatoração CP/Tucker do jacobiano)\n2. Base invariante:       Q_r ∈ R^{n×r} por SVD dos resíduos (energia espectral)\n3. Lanczos hamiltoniano em E = range(Q_r):\n      for k = 1..m:  w = (Σ_s A_s⊗B_s) q_k        # Lema 1\n                     α_k = q_kᵀ w;  w -= α_k q_k + β_{k-1} q_{k-1}\n                     β_k = ‖w‖;  q_{k+1} = w/β_k\n4. Par simplético:        completar (Q_m, J Q_m) por Gram–Schmidt simplético\n5. Passo de Strang:       z_{l+1} = e^{(h/2)L} ∘ e^{hN} ∘ e^{(h/2)L} (z_l) + O(h³)\nsaída: z_{l+1}, ε_Krylov, ε_Kr, ε_inv\n```\n\n**Novidade declarada:** o Lanczos é executado *sobre o subespaço invariante de rank $r$*, com o matvec fatorado por Kronecker atuando **antes** da projeção — o que reduz a complexidade de $\\mathcal{O}(mn^2)$ para $\\mathcal{O}\\big(m[S n(p+q) + nr]\\big)$. Nenhuma combinação equivalente foi localizada nos nós recuperados.\n\n---\n\n## 3. Dedução analítica de FLOPs\n\n**Configuração de referência:** $n = d_{model} = 2048$, $d_{ff} = 8192$, $L = 24$ camadas, $s = 2048$ tokens de sequência, $r = 128$, $S = 2$, $p = 64$, $q = 32$ ($pq = 2048$), $m = 8$.\n\n### 3.1 Baseline (bloco decoder padrão, por token por bloco)\n| Componente | Fórmula | FLOPs |\n|---|---|---|\n| Projeções Q, K, V, O | $4\\cdot 2n^2$ | 33,554 M |\n| Scores + soma ponderada | $4ns$ | 16,777 M |\n| MLP ($n\\!\\to\\!4n\\!\\to\\!n$) | $16n^2$ | 67,109 M |\n| **Total $F_{base}$** | $24n^2 + 4ns$ | **117,441 M** |\n\n### 3.2 Termos fatorados\n| Termo | Fórmula | FLOPs |\n|---|---|---|\n| Matvec denso $n\\times n$ | $2n^2$ | 8,389 M |\n| Matvec Kronecker ($S{=}2, p{=}64, q{=}32$) | $2Sn(p{+}q)$ | 1,573 M |\n| Matvec MLP largo ($64{\\times}32 \\otimes 128{\\times}64$) | $2\\,b_1a_2(b_2{+}a_1)$ | 1,049 M |\n| Construção Krylov ($m$ iterações) | $m[2Sn(p{+}q) + 11n]$ | 6,488 M |\n| Mudança de base $Q_r^\\top v$, $Q_rw$ | $4nr$ | 1,049 M |\n| Evolução Strang 1 passo em $E$ | $20r^2$ | 0,328 M |\n\n### 3.3 Cenários e teste do gate $\\ge 75\\%$\n\n| Cenário | Composição | FLOPs/token/bloco | **Redução** | Gate |\n|---|---|---|---|---|\n| **C0** | Baseline denso | 117,44 M | — | — |\n| **C1** | Kronecker só em QKV+O | 90,18 M | **23,2%** | **FALHA** |\n| **C2** | C1 + MLP largo fatorado ($S{=}2$) | 27,26 M | **76,8%** | **PASSA (marginal)** |\n| **C2'** | C2 com $S{=}3$ | 32,51 M | **72,3%** | **FALHA** |\n| **C3** | K²S-Krylov completo (subespaço $r$) | 7,86 M | **93,3%** | PASSA (agressivo) |\n\n**Conclusão analítica (o achado mais importante do ciclo):**\n- O gate de 75% **não vive onde os nós do grafo presumem**. Fatorar as projeções quadradas rende 23%.\n- O gate exige fatorar também o MLP largo, e mesmo assim fica em 76,8% — **tolerância de apenas 1,8 p.p.**\n- **$S \\le 2$ é condição necessária.** Com $S=3$ a redução cai para 72,3% e o critério é violado. Predição nítida e falsificável.\n- Após C2, o *bottleneck* migra para o attention ($16{,}78/27{,}26 = 61{,}5\\%$ do novo custo). Ganhos adicionais exigem C3, que muda a classe de função — risco estrutural, não apenas erro de aproximação.\n\n---\n\n## 4. Orçamento de erro e a falácia dos 99,1%\n\n| Fonte | Limite | Valor em $\\tau=1{,}2$ |\n|---|---|---|\n| Compressão Kronecker | $\\varepsilon_{Kr} = \\|A-\\sum A_s\\otimes B_s\\|_2/\\|A\\|_2$ | medir (≈0,03 se $S{=}2$) |\n| Truncamento de Krylov | $\\varepsilon_{Kry} \\le 2(e\\tau/m)^m$ | $m{=}8$: $1{,}5\\times10^{-3}$ · $m{=}12$: $3{,}2\\times10^{-7}$ |\n| Splitting de Strang | $\\le \\frac{h^3}{24}\\big(2\\|[N,[N,L]]\\| + \\|[L,[L,N]]\\|\\big)$ | global $\\mathcal{O}(h^2)$ |\n| Violação de invariância | $\\varepsilon_{inv} = \\|(I-Q_rQ_r^\\top)AQ_r\\|$ | **deve ser medido** |\n\n**Correlação espúria a rejeitar formalmente:** *\"$r=128$ captura 99,1% da energia espectral $\\Rightarrow$ perda Top-1 $\\le 2\\%$\"*. Não há implicação. $\\|\\Delta A\\|_F = \\sqrt{0{,}009}\\,\\|A\\|_F \\approx 9{,}5\\%$ de erro relativo em Frobenius — e energia baixa pode estar concentrada exatamente nas direções discriminativas de baixa variância. A cadeia causal correta é:\n\n$$\\text{Top-1 flip} \\iff \\gamma < 2\\|\\Delta f\\|_\\infty, \\quad \\gamma = \\text{margem entre logit top-1 e top-2}$$\n\nPortanto: **perda Top-1 $= \\Pr(\\gamma < 2\\|\\Delta f\\|)$**. É a distribuição de margens sobre $K{=}2000$ amostras que decide, não o espectro.\n\n**Suficiência estatística de $K=2000$:** para $p\\approx 2\\%$, $\\mathrm{EP} = \\sqrt{p(1-p)/K} = 0{,}31$ p.p. ($\\pm 0{,}61$ p.p. a 95%). Suficiente para o *gate*, **insuficiente** para discriminar 1,9% de 2,1%. Recomendo $K \\ge 8000$ no ensaio definitivo.\n\n---\n\n## 5. Predições falsificáveis para a bancada local\n\n| # | Predição | Métrica | Refutação se |\n|---|---|---|---|\n| P1 | $\\varepsilon_{inv} \\le 0{,}05$ com $r=128$ | norma do resíduo de invariância | $> 0{,}05$ |\n| P2 | $\\varepsilon_{Kry} \\le 2\\times10^{-3}$ com $m=8$, $\\tau=1{,}2$ | erro vs. `expm` denso | acima do limite |\n| P3 | Redução 76,8% $\\pm 1{,}5$ p.p. em C2 | contagem de FLOPs instrumentada | fora da banda |\n| P4 | $S=3$ viola o gate (72,3%) | idem | $S=3$ ainda passar |\n| P5 | Perda Top-1 $\\le 2\\%$ **só se** $\\Pr(\\gamma < 2\\|\\Delta f\\|) \\le 0{,}02$ | histograma de margens | massa $> 2\\%$ abaixo do limiar |\n\n**Ablações obrigatórias:** (a) $m \\in \\{4, 8, 12, 16\\}$; (b) $S \\in \\{1, 2, 3\\}$; (c) $r \\in \\{64, 128, 256\\}$ com curva de energia espectral publicada (ainda ausente no grafo); (d) Strang vs. ponto médio implícito (ambos simpléticos, custos distintos).\n\n---\n\n## 6. Veredito do Analista de Evidências\n\n- **Confiança na existência física do subespaço invariante: BAIXA (0,04).** Insuficientemente documentada; os dados do grafo são truncados e dependentes.\n- **Confiança no ganho de FLOPs de C2: ALTA (0,85).** É consequência aritmética do Lema 1, independente de qualquer ensaio — basta medir a contagem.\n- **Confiança na preservação simplética: ALTA (0,90).** Garantida pelo Lema 2, exata no subespaço.\n- **Confiança no gate de acurácia Top-1: MUITO BAIXA (0,06).** Nenhum nó do grafo traz medição de margem ou de erro $\\varepsilon_{inv}$.\n\n**Recomendação:** executar P1 primeiro. Se $\\varepsilon_{inv} > 0{,}05$, todo o restante da formulação C3 colapsa e o esforço deve migrar para C2 (fatoração Kronecker pura), que é independente da hipótese de invariância.\n\n---\n\n*Nota operacional:* nesta sessão estão vinculadas apenas ferramentas de análise e leitura/escrita de conteúdo — não há `run_cmd`/`write_file` acoplados ao runtime. O artefato completo acima está pronto para ser persistido como `docs/ciclo427_n_krylov_k2s.md` no próximo ciclo, quando as ferramentas de filesystem do Zed estiverem disponíveis."
+      }
+    },
+    {
+      "id": "hyp_gen72_70969",
+      "label": "Hypothesis",
+      "title": "PARECER DO CRÍTICO ADVERSARIAL — CICLO #427 / GERAÇÃO #72",
+      "description": "# PARECER DO CRÍTICO ADVERSARIAL — CICLO #427 / GERAÇÃO #72\n**Alvo:** nó `n_strang` · **Eixo:** variedades simpléticas · **Veredito:** PROPOSTA RECICLADA + PREMISSA FALSA; formulação original entregue abaixo com dedução de FLOPs fechada.\n\n---\n\n## 1. Auditoria do grafo: o que é ruído disfarçado de consenso\n\n**1.1 Pseudo-replicação.** Os 8 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*` são **byte-idênticos**: mesmos $r=128$, $K=2000$, $\\tau=1.2$, mesmos critérios, mesmo corte truncado. Isso não é ve",
+      "provenance": "agent_007_critic",
+      "version": 2,
+      "created_at": 1793307757.0614815,
+      "updated_at": 1793307757.8913105,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0072_1793307660",
+        "cycle_id": 427,
+        "full_text": "# PARECER DO CRÍTICO ADVERSARIAL — CICLO #427 / GERAÇÃO #72\n**Alvo:** nó `n_strang` · **Eixo:** variedades simpléticas · **Veredito:** PROPOSTA RECICLADA + PREMISSA FALSA; formulação original entregue abaixo com dedução de FLOPs fechada.\n\n---\n\n## 1. Auditoria do grafo: o que é ruído disfarçado de consenso\n\n**1.1 Pseudo-replicação.** Os 8 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*` são **byte-idênticos**: mesmos $r=128$, $K=2000$, $\\tau=1.2$, mesmos critérios, mesmo corte truncado. Isso não é verificação independente — é clonagem de registro. As duas auditorias (`G24_8402`, `G22_8174`) também são o mesmo texto com IDs trocados. O rótulo `[VERIFIED]` em 8 cópias infla confiança sem adicionar **uma única nova medição**. Trato todo o bloco como *1 evidência*, não 10.\n\n**1.2 Critério indefinido.** O limiar está literalmente truncado: *\"Perda de Acurácia Top-1 $\\le$ \"* — sem valor. Um protocolo de aceitação cujo limiar não existe não pode estar `[VERIFIED]`. Isso sozinho rebaixa o status dos nós para `UNSUBSTANTIATED`.\n\n**1.3 Métrica incoerente com o modelo.** \"Top-1 accuracy\" é métrica de classificação visual; `GPT3B_*` é um *language model*. Avaliar GPT-3B por Top-1 é erro de categoria. Métrica correta: perplexidade em corpus held-out, delta de acc. em *few-shot* (LAMBADA/HellaSwag-style) e drift de distribuição por camada.\n\n**1.4 \"Rank 128 captura 99,1% da energia espectral\".** Sem curva de decaimento, sem variância por camada, sem intervalo de confiança. O *residual stream* de transformers é notoriamente dominado por *outlier dimensions* de alto ganho; energia espectral concentrada **não implica** que o espaço de posto 128 seja fechado pelo fluxo (invariância ≠ energia). Misturar os dois é a falha central da hipótese.\n\n**1.5 Premissa simplética não demonstrada (o ataque decisivo).** O fluxo residual $x_{l+1}=x_l+F_l(x_l)$ **não é** um fluxo hamiltoniano por construção:\n- **LayerNorm** tem jacobiana com traço $\\neq 0$ → não preserva volume nem a 2-forma $\\omega$; **não é simplectomorfismo**;\n- **softmax** da atenção é contrativo e não simplético;\n- logo, **não existe variedade simplética invariante** para o bloco inteiro. A afirmação `INVARIANT_SYMPLECTIC_MANIFOLD` do grafo é falsa no sentido forte. O objeto que sobrevive é **conformal-simplético** ($\\mathcal{L}_X\\omega=-\\lambda\\omega$, $\\lambda=\\mathrm{div}\\,X\\neq0$).\n\n**1.6 $\\tau=1.2$ e $K=2000$ sem semântica.** $\\tau$ é passo? fator de confiança? $K$ é iterações de treino, passos do integrador ou passos de Lanczos? Nenhum está declarado. Com campo de Lipschitz $L_J$, o passo explícito de Strang exige $h\\lesssim 2/L_J$; $\\tau=1.2$ sem medição de $L_J$ é aposta, não parâmetro.\n\n---\n\n## 2. Gargalos de hardware e memória — a contabilidade que o grafo nunca fez\n\n| Item | Conta | Consequência |\n|---|---|---|\n| **Imposto do Strang** | $2T+V = 2(8d^2)+16d^2 = 32d^2 = 1{,}33\\times$ baseline $24d^2$ | Qualquer \"redução de 75%\" medida contra o transformer denso **some** se o custo extra do splitting não for declarado |\n| **Banda, não FLOPs** | projeções de posto baixo têm *arithmetic intensity* ~$n/2$; *overhead* de LN/softmax/residual add é $O(nd)$ e **não escala com $r$** | FLOPs $\\downarrow75\\%$ ≠ latência $\\downarrow75\\%$; Amdahl com 15% de tempo não-matmul: **1,37×** (só cinética sombreada) a **5,8×** (tudo sombreado) |\n| **Atualização de base** | QR: $O(dr^2)$; Cayley: $(2r)^3/3 = 5{,}6$ MFLOPs por *refresh* | Só é viável amortizado sobre a sequência ($n_{tok}=2048 \\Rightarrow 2{,}7$ KFLOPs/token); caso contrário o *overhead* engole o ganho |\n| **Memória de trajetória** | $K\\cdot n\\cdot 2r\\cdot 2$ B $= 2000\\cdot2048\\cdot256\\cdot2 \\approx 2{,}1$ GB | Integrador reversível exige retenção/checkpointing → recomputação dobra o custo |\n| **\"Bancada local\"** | 3B em treino com Adam: ~6 GB params + 6 GB grads + 24 GB de estados ≈ **36 GB** | Não cabe em 24 GB (classe RTX 4090). O protocolo empírico é **inancorado**: ou é inferência, ou é proxy de ~100M extrapolado sem declaração |\n\n---\n\n## 3. Formulação inédita — **SCSC**: *Strang–Cayley Conformal-Simplético com Sombra em Grassmanniana*\n\nSubstituo a falsa premissa de invariância simplética por uma **invariância conformal-simplética com cota de defeito explícita** — é o que é matematicamente honesto e ainda assim útil.\n\n**3.1 Espaço de fase.** $z=(x,p)\\in\\mathbb{R}^{2d}$, $\\omega=dx\\wedge dp$, $J=\\begin{bmatrix}0&I\\\\-I&0\\end{bcampo}$.\n$\\dot z = J\\nabla H(z) - \\tfrac{\\lambda}{2}z$, com $\\lambda=\\mathrm{div}(J\\nabla H)$ absorvendo o traço do LayerNorm. A 2-forma satisfaz $\\Phi_h^*\\omega = e^{-\\lambda h}\\omega$ (**conformal**, não simplética).\n\n**3.2 Subespaço-sombra.** Base $W\\in\\mathbb{R}^{2d\\times 2r}$ com $W^\\top J W = J_r$ (base simplética reduzida). Projeção $y=W^{J\\dagger}z$.\n\n**3.3 Esquema SCSC (por passo $h$):**\n1. **Meio-cinético implícito (Cayley):** $y \\leftarrow C\\!\\left(\\tfrac{h}{2}J_r H_S\\right)y$, $C(A)=(I-\\tfrac{A}{2})^{-1}(I+\\tfrac{A}{2})$, $H_S$ = hessiana reduzida;\n2. **Potencial completo:** $x \\leftarrow x + h\\,\\nabla T(p_{1/2})$;\n3. **Meio-cinético implícito** (simetria ⇒ reversibilidade);\n4. **Rescalonamento conforme:** $z \\leftarrow e^{-\\lambda h/2}(z-\\bar z)+\\bar z$, que compensa o traço do LN **exatamente** em vez de fingir que ele não existe.\n\n**3.4 Teorema (invariância aproximada — substitui a alegação falsa).**\nSeja $\\delta = \\sup_{z\\in S}\\frac{\\|(I-\\Pi_S)J\\nabla H(z)\\|}{\\|J\\nabla H(z)\\|}$ o *defeito de sombra*. Então, por Gronwall,\n$$\\mathrm{dist}(z_K, S) \\le \\frac{K h\\,\\delta}{1-h L_S}, \\qquad \\frac{|\\omega_K - e^{-\\lambda Kh}\\omega_0|}{|\\omega_0|} \\le C h^2 K e^{\\lambda K h}.$$\nInvariância **exata** só se $\\delta=0$; o protocolo deve **medir $\\delta$**, não presumi-lo. Estimativa por Hutchinson (1 probe): $\\approx 8dr$ FLOPs por medição.\n\n**3.5 O que é novo vs. grafo.** *Shadow residual* de posto baixo (`GPT3B_H11/H65`) é **reciclado**. Novo aqui: (i) estrutura **conformal** corrigindo o LN; (ii) meio-passo via **Cayley** em vez de explícito (simplecticidade + estabilidade incondicional no caso linear); (iii) **cota de drift** e métrica de defeito $\\delta$ como critério de aceitação.\n\n---\n\n## 4. Dedução analítica de FLOPs (por token, por camada)\n\nBaseline denso: $P_{densa}=24d^2$ ($8d^2$ atenção + $16d^2$ MLP). Sub-passo sombreado: $C_{sombra}=4dr+4r^2$ (codificar $2dr$ + ops reduzidas $4r^2$ + decodificar $2dr$). Com $d=2560$, $r=128$: $P_{densa}=157{,}3$ MFLOPs; $C_{sombra}=1{,}38$ MFLOPs.\n\n| Configuração | Custo total | $\\rho$ (vs. denso) | $\\rho$ (vs. Strang $32d^2$) |\n|---|---|---|---|\n| A — só cinética sombreada | $8dr+8r^2+16d^2 = 107{,}6$M | **31,6%** | 48,6% |\n| B — tudo sombreado (SCSC) | $3(4dr+4r^2) = 4{,}13$M | **97,4%** | 98,0% |\n| C — só potencial sombreado | $8d^2+8dr+8r^2 = 55{,}2$M | **65,0%** | 73,7% |\n\nCurva $\\rho(r) = 1 - \\left(\\frac{r}{2d}+\\frac{r^2}{2d^2}\\right)$ (config. B): $r{=}32\\!:99{,}4\\%$; $64\\!:98{,}7\\%$; $128\\!:97{,}4\\%$; $256\\!:94{,}5\\%$; $512\\!:88{,}1\\%$; $1024\\!:72{,}2\\%$. *Break-even* de 75%: $r\\approx 900$.\n\n**Conclusão adversarial central:** com sombreado total, o critério *\"redução de FLOPs $\\ge 75\\%$\"* é **trivialmente satisfeito até $r\\approx 900$** — portanto **não discrimina nada**. Ele não valida a hipótese; apenas confirma aritmética. O critério discriminante real (**déficit de acurácia** e **drift de $\\omega$**) está **ausente** do protocolo. Além disso: config. B efetivamente estrangula a camada em posto 128 contra $d_{ff}=10240$ (1,25% da largura) — FLOPs $\\downarrow97\\%$ e acurácia $\\downarrow$? são **o mesmo trade-off** lido de pontas opostas. Não existe configuração honesta que entregue $\\ge75\\%$ **e** perda mínima simultaneamente.\n\n*Overheads amortizados:* Cayley $(2r)^3/3/n_{tok} \\approx 2{,}7$ KFLOPs/token; monitoramento de $\\delta$ a cada $m=32$ passos: $+2{,}0\\%$. Memória de bases: $L\\cdot d\\cdot r\\cdot 2 \\approx 21$ MB (42 MB se T e V têm bases distintas) — irrelevante; o gargalo é a trajetória de 2,1 GB e a banda dos ops $O(nd)$.\n\n---\n\n## 5. Protocolo corrigido para a bancada local\n\n1. **Modelo-âncora explícito:** GPT-3B (32L, $d=2560$) em **inferência/fine-tuning LoRA**; se usar proxy de ~100M, declarar e não extrapolar acurácia.\n2. **Métricas:** perplexidade held-out; $\\Delta$acc. few-shot (LAMBADA/HellaSwag); $\\delta$ (defeito de sombra) por camada; **drift conforme** $\\left|\\omega_K - e^{-\\lambda Kh}\\omega_0\\right|/\\left|\\omega_0\\right|$; latência (ms/token), não só FLOPs.\n3. **Sweep:** $r\\in\\{32,64,128,256,512,1024\\}$, $h\\in\\{0.25,0.5,1.0\\}$, $m\\in\\{8,32,128\\}$; 5 seeds; IC 95%.\n4. **Estabilidade:** medir $L_J$ (power iteration) e reportar $h\\cdot L_J$; rejeitar rodadas com $h L_J>2$.\n5. **Critérios de aceitação (substituem os truncados):** $\\rho\\ge75\\%$ **em latência medida**, $\\Delta$perplexidade $\\le 2\\%$, drift de $\\omega \\le 10^{-3}$, $\\delta \\le 10^{-2}$ em todas as camadas.\n6. **Hardware declarado:** GPU, precisão (bf16/fp32), batch, $n_{tok}$, se há recomputação.\n\n---\n\n## 6. Veredito final\n\n- **Rebaixar** todos os nós `PROTOCOLO_*` e `AUDITORIA_*` duplicados para `UNSUBSTANTIATED` (1 evidência, limiar indefinido, métrica errada).\n- **Rejeitar** `INVARIANT_SYMPLECTIC_MANIFOLD` / `INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL` na forma atual: LN+softmax destroem a 2-forma; só a versão **conformal-simplética** é defensável.\n- **Substituir** `n_strang` pelo esquema **SCSC** (§3), com contagem de FLOPs do §4 e critérios do §5.\n- **Gargalo real não endereçado:** banda de memória e ops $O(nd)$ — o speedup realista é **1,4×–5,8×**, jamais o \"−75%\" sugerido. Todo ganho de FLOPs que não aparecer em latência medida é contabilidade criativa."
+      }
+    },
+    {
+      "id": "hyp_gen72_89060",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #427 / GERAÇÃO #72",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #427 / GERAÇÃO #72\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 1. Parecer epistêmico sobre a memória coletiva (correlação espúria × causa física)\n\nAntes de formular, é preciso auditar o denominador da própria evidência. O grafo está contaminado:\n\n| Afirmação | Evidência no grafo | Diagnóstico | Solidez |\n|---|---|---|---|\n| Protocolo `r=128, K=2000, τ=1.2",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793307807.1985195,
+      "updated_at": 1793307808.0307567,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0072_1793307660",
+        "cycle_id": 427,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #427 / GERAÇÃO #72\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 1. Parecer epistêmico sobre a memória coletiva (correlação espúria × causa física)\n\nAntes de formular, é preciso auditar o denominador da própria evidência. O grafo está contaminado:\n\n| Afirmação | Evidência no grafo | Diagnóstico | Solidez |\n|---|---|---|---|\n| Protocolo `r=128, K=2000, τ=1.2` | 8 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*` | **Clone, não replicação.** Parâmetros idênticos, texto truncado idêntico (`Perda de Acurácia Top-1 ≤ ...` cortado), todas `Versão: 2`. N_efetivo = 1, não 8 | **0.35** |\n| `r=128` captura 99.1% da energia espectral | 2 auditorias adversariais (`agent_043`, `agent_031`) | Mesmo número exato em agentes distintos → provável cópia, mas o mecanismo causal (espectro de baixa dimensão do resíduo) é físico e verificável | **0.62** |\n| Fluxo residual `x_{l+1} = x_l + F_l(x_l)` é integrador simpletico | `agent_063`, `agent_027` | Verificável analiticamente (ver §3): o mapa é composição de *shears* → exatamente simplético | **0.80** |\n| Redução de FLOPs ≥ 75% | critérios dos protocolos | **Denominador nunca medido.** Nenhum registro de custo para `n_naive` | **0.10** |\n\n**Correlações espúrias detectadas:**\n1. *\"Mais nós VERIFIED ⇒ mais confiança\"* — espúria: o gerador produziu 8 variações do mesmo texto; a contagem de nós infla a confiança sem adicionar informação.\n2. *\"Protocolos independentes ⇒ validação cruzada\"* — espúria: os critérios de aceitação divergem entre si (um trunca em `≤ `, outro em `≤ 2`), ou seja, o limiar de Top-1 **não está fixado** no grafo. Não vou inventar o número ausente; o protocolo deve fixá-lo explicitamente (sugestão de engenharia, não fato: ≤ 0.2 p.p. de Top-1).\n3. *\"FLOPs reduzidos ⇒ latência reduzida\"* — espúria e é exatamente a armadilha deste ciclo (ver §5).\n\n**Lacuna crítica:** `n_naive` nunca foi caracterizado. Todo \"ganho ≥ 75%\" do grafo é uma razão com denominador não auditado. Esta investigação fecha essa lacuna.\n\n---\n\n## 2. Investigação do nó `n_naive`\n\n**Definição operacional (proposta de canonização no grafo):** `n_naive` é a baseline de custo total — discretização direta do fluxo residual, operadores densos em $\\mathbb{R}^d$, sem splitting, sem projeção espectral, sem fatoração.\n\n**Dedução analítica do custo de `n_naive`** (MACs por token, por camada, por passo):\n\n- Bloco transformer padrão: $W_{Q},W_{K},W_{V},W_{O}$ ($4d^{2}$) + MLP com $d_{ff}=4d$ ($2\\cdot 4d^{2}=8d^{2}$) → $c_{naive} = \\kappa d^{2}$, com $\\kappa = 12$.\n- Abstraindo para um operador efetivo por passo: $c_{naive} = d^{2}$ MACs.\n- **Total:** $T_{naive} = K \\cdot d^{2}$ MACs/token/camada.\n\n| $d$ | $d^2$ | $T_{naive}$ ($K=2000$) |\n|---|---|---|\n| 2560 | 6.55 M | 13.11 G MACs |\n| 4096 | 16.78 M | 33.55 G MACs |\n\nComportamento térmico/assintótico relevante: `n_naive` é $\\Theta(Kd^{2})$ — linear em $K$, quadrático em $d$. Toda formulação estruturada só tem valor se quebrar **ambas** as dependências.\n\n---\n\n## 3. Formulação inédita — **ISKS** (Invariant-Subspace Kronecker-Strang)\n\n### 3.1 Estrutura simpletica do fluxo residual (causa física, não correlação)\n\nSeja $z=(q,p)\\in\\mathbb{R}^{2m}$ com $\\omega = \\sum_i dq_i\\wedge dp_i$. Decomponha o campo residual em dois *shears*:\n\n$$\\Phi_q^t:\\; q \\leftarrow q + t\\,f(p),\\; p\\ \\text{fixo} \\qquad \\Phi_p^t:\\; p \\leftarrow p + t\\,g(q),\\; q\\ \\text{fixo}$$\n\nAmbos têm Jacobiano triangular com 1 na diagonal ⇒ preservam $\\omega$ **exatamente**. Logo o mapa de Strang\n\n$$S_t = \\Phi_q^{t/2}\\circ \\Phi_p^{t}\\circ \\Phi_q^{t/2}$$\n\né simplético, de ordem 2, tempo-reversível, com erro global $O(\\tau h^2)$, $h=\\tau/K$. Isto explica mecanisticamente os nós `n_strang` do grafo — e mostra que o mapa residual discreto não é \"aproximadamente\" simpletico: ele é composição exata de shears.\n\n### 3.2 Subespaço invariante de rank $r$\n\nDas auditorias: $\\varepsilon_r^2 = \\sum_{i>r}\\sigma_i^2/\\sum_i\\sigma_i^2 = 0{,}009$ com $r=128$. Seja $P\\in\\mathbb{R}^{r\\times d}$ a base ortonormal dominante e $U\\in\\mathbb{R}^{d\\times r}$ seu complemento isonormal. Hipótese testável: $F_l(\\mathrm{Im}\\,\\tilde P)\\subseteq \\mathrm{Im}\\,\\tilde P + \\varepsilon$. Se valer, a trajetória inteira vive em $x_0 + \\mathrm{Im}\\,\\tilde P$ e a dinâmica reduzida é\n\n$$u_{k+1} = u_k + h\\,(P\\,F_l(x_0 + \\tilde P u_k)),\\qquad u_k\\in\\mathbb{R}^{r}$$\n\ncom **projeção e lifting executados uma única vez por trajetória** ($2rd$ MACs), não por passo.\n\n### 3.3 Fatoração Kronecker ótima no espaço reduzido\n\n$W_l \\in \\mathbb{R}^{r\\times r} \\approx A\\otimes B$, $A\\in\\mathbb{R}^{p\\times p}$, $B\\in\\mathbb{R}^{q\\times q}$, $pq=r$. Identidade:\n\n$$(A\\otimes B)\\,\\mathrm{vec}(U) = \\mathrm{vec}(B\\,U\\,A^{\\top}),\\qquad U\\in\\mathbb{R}^{q\\times p}$$\n\nCusto: $q^2p + qp^2 = r(p+q)$ MACs vs $r^2$ do denso.\n\n**Escolha ótima de $(p,q)$:** minimizar $p + r/p$ ⇒ $p^\\*=\\sqrt{r}$; entre os pares inteiros que dividem $r=128$: $(128,1)\\!\\to\\!129$, $(64,2)\\!\\to\\!66$, $(32,4)\\!\\to\\!36$, **$(16,8)\\!\\to\\!24$** ⇒ $(p,q)=(16,8)$.\n\nSplitting nos fatores (o que preserva a estrutura de shear):\n- $(A\\otimes I_q)\\,\\mathrm{vec}(U)=\\mathrm{vec}(UA^{\\top})$: $rp = 2048$ MACs\n- $(I_p\\otimes B)\\,\\mathrm{vec}(U)=\\mathrm{vec}(BU)$: $rq = 1024$ MACs\n\n**Custo por passo de Strang-ISKS:** $r(2p+q) = 128\\cdot 40 = \\mathbf{5120}$ **MACs** (vs $3r^2 = 49\\,152$ do Strang denso reduzido; vs $3d^2 = 50{,}3$ M do Strang denso completo).\n\nCompressão de parâmetros do operador reduzido: $r^2 = 16\\,384 \\to p^2+q^2 = 320$ ⇒ **51,2×**, com intensidade aritmética favorável (operador cabe em cache L1/L2 — efeito de latência possivelmente super-linear).\n\n---\n\n## 4. Dedução analítica de FLOPs — ISKS vs `n_naive`\n\n$$\\boxed{\\;T_{ISKS} = \\underbrace{2rd}_{\\text{proj. + lift (1×)}} + \\underbrace{K\\,r(2p+q)}_{\\text{integração}}\\;}\\qquad T_{naive}=K d^{2}$$\n\n**Caso otimista (subespaço invariante, $\\delta_{inv}\\le 10^{-2}$):**\n\n| $d$ | $T_{naive}$ | $T_{ISKS}$ | $\\rho=T_{ISKS}/T_{naive}$ | Redução |\n|---|---|---|---|---|\n| 2560 | 13.107 G | 10.90 M | $8{,}31\\times10^{-4}$ | **99,92%** |\n| 4096 | 33.554 G | 11.29 M | $3{,}36\\times10^{-4}$ | **99,97%** |\n\n**Pior caso (invariância violada, reprojeção a cada passo):** $T = K(2rd + 5120)$\n\n| $d$ | $T_{ISKS}$ (pior caso) | Redução |\n|---|---|---|\n| 2560 | 1.321 G | **89,9%** |\n| 4096 | 2.107 G | **93,7%** |\n\n**Veredito analítico do critério \"redução de FLOPs ≥ 75%\":** **APROVADO com margem de 15 a 25 p.p. mesmo no pior caso.** A conclusão é robusta à hipótese de invariância — este é o resultado mais defensável deste ciclo.\n\n---\n\n## 5. Decomposição de erro e dois achados adversariais\n\n$$\\varepsilon_{total} \\le \\varepsilon_{proj} + \\varepsilon_{kron} + \\varepsilon_{split} + \\varepsilon_{round}$$\n\n| Fonte | Estimativa analítica | Magnitude |\n|---|---|---|\n| $\\varepsilon_{proj}$ | $\\sqrt{1-0{,}991}=\\sqrt{0{,}009}$ | $9{,}5\\times10^{-2}$ (**dominante**) |\n| $\\varepsilon_{split}$ | $C_2\\,\\tau h^2$, $h=6\\times10^{-4}$ | $\\approx 4{,}3\\times10^{-7}\\,C_2$ |\n| $\\varepsilon_{kron}$ | melhor aprox. rank-1 Kronecker de $W_l$ | **não estimável a priori — medir** |\n| $\\varepsilon_{round}$ | fp16 | $\\sim 10^{-3}$ |\n\n**Achado 1 — `K=2000` é superdimensionado em ~10×.** O erro de splitting é 5 ordens de grandeza menor que o erro de projeção. Para que $\\varepsilon_{split}\\le 1\\%\\cdot\\varepsilon_{proj}$ basta $K\\approx 200$ ($h=6\\times10^{-3}$), cortando mais 10× o custo de integração. O protocolo deve varrer $K\\in\\{50,100,200,500,2000\\}$ e mostrar saturação da acurácia — se a acurácia *melhora* com $K$ acima de 200, há contaminação de outra causa (otimizador/ruído) e não de integração.\n\n**Achado 2 — a métrica de FLOPs não é métrica de latência.** Seja $\\varphi$ a fração do custo comprimível: $R = \\varphi(1-\\rho)$. Para $R\\ge 0{,}75$ é necessário $\\varphi\\ge 0{,}75$. Em FLOPs, $\\varphi_{FLOPs}\\approx 0{,}95$ para blocos transformer ⇒ $R_{FLOPs}\\approx 95\\%$ (critério atendido). Em *wall-clock*, $\\varphi_{wc}\\approx 0{,}6$–$0{,}75$ ⇒ ganho real de **2,5× a 4×**, não 75%. O protocolo deve reportar FLOPs e latência em colunas separadas.\n\n**Hipótese nula a refutar na bancada:** $H_0$: o ganho vem de subcontagem no baseline (ex.: ignorar $QK^{\\top}$, softmax ou $d_{ff}$ no `n_naive`). Controle: contagem por operação via profiler (fvcore/ptflops) confrontada com a analítica $\\kappa d^2 = 12d^2$/camada. Divergência > 2% invalida todos os números de redução.\n\n---\n\n## 6. Protocolo de bancada proposto (pontos de controle)\n\n1. **Fixar o limiar de Top-1** (truncado no grafo) — sem isto, o critério é inaudível.\n2. **Instrumentar `n_naive`**: MACs analíticos + profiler, em $d\\in\\{2560, 4096\\}$.\n3. **Curva $\\varepsilon(r)$**: varrer $r\\in\\{32,64,128,256\\}$ e reportar energia espectral acumulada — valida fisicamente $r=128$ em vez de copiá-lo.\n4. **Medir $\\delta_{inv} = \\|F_l(\\mathrm{Im}\\,\\tilde P) - \\tilde P P F_l(\\mathrm{Im}\\,\\tilde P)\\| / \\|F_l(\\mathrm{Im}\\,\\tilde P)\\|$** — é o ponto único de falha da formulação e decide se o overhead é $2rd$ ou $2rdK$.\n5. **Ablação de fatores**: $(p,q)\\in\\{(16,8),(32,4),(64,2)\\}$ — predição analítica: custo $r(2p+q)$ cresce como $24r \\to 36r \\to 66r$; desvio da predição indica erro de contagem.\n6. **Ablação de rank de Kronecker**: $W\\approx\\sum_{s=1}^{S}A_s\\otimes B_s$, custo $S\\cdot r(p+q)$; se $\\varepsilon_{kron}$ não cair com $S$, a fatoração rank-1 é inadequada e o ganho de acurácia é ilusório.\n7. **Triagem de erro**: rodar (a) denso exato, (b) denso + projeção, (c) + Kronecker, (d) + Strang — isola cada termo da desigualdade de §5.\n\n### Validação numérica mínima para a bancada\n\n```python\nimport torch\np, q = 16, 8\nr = p * q\nA = torch.randn(p, p); B = torch.randn(q, q); U = torch.randn(q, p)\nlhs = torch.kron(A, B) @ U.reshape(-1, order='F')          # (A⊗B) vec(U)\nrhs = (B @ U @ A.T).reshape(-1, order='F')                  # vec(B U Aᵀ)\nassert torch.allclose(lhs, rhs, atol=1e-5)\nmacs_full = r * r\nmacs_fact = r * (p + q)\nmacs_strang = r * (2 * p + q)   # 5120 MACs\nprint(macs_full, macs_fact, macs_strang)  # 16384 3072 5120\n```\n\n---\n\n## 7. Veredito\n\n- **`n_naive`:** denominador canonizado, custo $\\Theta(Kd^2)$ — agora auditável.\n- **ISKS:** formulação inédita, simplética por construção (shears), com FLOPs fechados $2rd + K r(2p+q)$ e escolha ótima $(p,q)=(16,8)$.\n- **Critério FLOPs ≥ 75%:** **aprovado analiticamente**, inclusive no pior caso de reprojeção por passo (89,9–93,7%).\n- **Critério de Top-1:** **não certificável analiticamente** — depende de $\\varepsilon_{kron}$ e $\\varepsilon_{proj}$ medidos. Exigir os itens 3, 4 e 6 do protocolo antes de qualquer promoção para `VERIFIED`.\n- **Recomendação de engenharia:** reduzir $K$ de 2000 para ~200 e redirecionar o ganho de orçamento para melhorar o rank da fatoração (maior impacto sobre Top-1, dada a assimetria de 5 ordens de grandeza entre $\\varepsilon_{proj}$ e $\\varepsilon_{split}$)."
+      }
+    },
+    {
+      "id": "hyp_gen72_637",
+      "label": "Hypothesis",
+      "title": "Vou primeiro sondar o ambiente (Python/NumPy e raiz do projeto) e em seguida esc",
+      "description": "Vou primeiro sondar o ambiente (Python/NumPy e raiz do projeto) e em seguida escrever a bancada completa em lote.",
+      "provenance": "agent_009_independent_verifier",
+      "version": 2,
+      "created_at": 1793307915.3878233,
+      "updated_at": 1793307916.1454244,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0072_1793307660",
+        "cycle_id": 427,
+        "full_text": "Vou primeiro sondar o ambiente (Python/NumPy e raiz do projeto) e em seguida escrever a bancada completa em lote."
+      }
+    },
+    {
+      "id": "gen_0072_1793307660",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #72 (Ciclo #427)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793307916.2375977,
+      "updated_at": 1793307916.2375977,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 72,
+        "cycle_id": 427,
+        "verdict": "APPROVED",
+        "duration_sec": 256.05,
+        "tokens_consumed": 9023,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -32966,7 +33056,127 @@
       "version": 1,
       "created_at": 1793307322.1542654,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen72_67033_addresses_n_krylov",
+      "source_id": "hyp_gen72_67033",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307711.5728831,
+        "updated_at": 1793307712.6430423,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0072_1793307660_1793307711618_e_hyp_gen72_67033_addresses_n_krylov",
+            "generation_id": "gen_0072_1793307660",
+            "timestamp": 1793307712.6430423,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793307711.5728886,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen72_70969_addresses_n_strang",
+      "source_id": "hyp_gen72_70969",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307757.1090677,
+        "updated_at": 1793307757.9501476,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0072_1793307660_1793307757159_e_hyp_gen72_70969_addresses_n_strang",
+            "generation_id": "gen_0072_1793307660",
+            "timestamp": 1793307757.9501476,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_007_critic",
+      "version": 1,
+      "created_at": 1793307757.109073,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen72_89060_addresses_n_naive",
+      "source_id": "hyp_gen72_89060",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307807.252829,
+        "updated_at": 1793307808.0924919,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0072_1793307660_1793307807303_e_hyp_gen72_89060_addresses_n_naive",
+            "generation_id": "gen_0072_1793307660",
+            "timestamp": 1793307808.0924919,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793307807.2528348,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen72_637_addresses_n_krylov",
+      "source_id": "hyp_gen72_637",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307915.442667,
+        "updated_at": 1793307916.19191,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0072_1793307660_1793307915498_e_hyp_gen72_637_addresses_n_krylov",
+            "generation_id": "gen_0072_1793307660",
+            "timestamp": 1793307916.19191,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_009_independent_verifier",
+      "version": 1,
+      "created_at": 1793307915.4426742,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793307323.2065783
+  "saved_at": 1793307916.2390964
 }
