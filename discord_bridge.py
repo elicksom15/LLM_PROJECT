@@ -580,11 +580,12 @@ class DiscordBridge:
         if bench_res:
             top1 = bench_res.get("top1_accuracy", 0.0)
             speedup = bench_res.get("speedup_pct", 0.0)
-            tps = bench_res.get("optimized_tps", bench_res.get("tokens_per_sec", 0.0))
+            tps = bench_res.get("optimized_tokens_per_sec") or bench_res.get("optimized_tps") or bench_res.get("tokens_per_sec", 0.0)
+            base_tps = bench_res.get("baseline_tokens_per_sec", 0.0)
             fields.append({
                 "name": "💻 Validação Física em Bancada (RTX 3060 12GB)",
                 "value": (
-                    f"• **Throughput:** `{tps:.1f} tokens/s` (Aceleração: `+{speedup:.1f}%`)\n"
+                    f"• **Throughput Real:** `{tps:.1f} tokens/s` (Base: `{base_tps:.1f}` | Aceleração: `+{speedup:.1f}%`)\n"
                     f"• **Acurácia Top-1:** `{top1:.2f}%` (Meta: `>= 98.0%`)\n"
                     f"• **Memória VRAM:** `{bench_res.get('vram_mb', 0)} MB` | **Status:** `{verdict}`"
                 ),
@@ -605,13 +606,14 @@ class DiscordBridge:
         embed = {
             "title": f"🧠 [INTELIGÊNCIA COLETIVA] Ciclo #{cycle_id} (Geração #{generation_num}) — {status_icon} {verdict}",
             "description": (
-                f"**Bancada:** Modelo GPT (~3B) • **Alvo:** Viabilizar Qwen 32B em RTX 3060 12GB sem quantização\n"
+                f"**Bancada & Alvo:** Modelo GPT (~3B) na RTX 3060 12GB sem quantização\n"
+                f"*(Alvo Qwen 32B em espera até solução 100% e autorização)*\n"
                 f"**Hipótese Central:** `{hypothesis_title}`"
             ),
             "color": status_color,
             "fields": fields,
             "footer": {
-                "text": f"Sistema Cognitivo Multiagente • 100 Agentes Lógicos • Neo4j GDS • RTX 3060 • Ciclo #{cycle_id}"
+                "text": f"Sistema Cognitivo Multiagente • 100 Agentes Lógicos • Bancada GPT-3B • RTX 3060 • Ciclo #{cycle_id}"
             }
         }
         content_msg = f"🧠 **[INTELIGÊNCIA COLETIVA]** Ciclo #{cycle_id} finalizado: {status_icon} `{verdict}` — `{hypothesis_title}`"
