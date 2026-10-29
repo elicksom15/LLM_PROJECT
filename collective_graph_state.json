@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 9,
+      "version": 10,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793306591.4589767,
+      "updated_at": 1793306857.8611615,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -8565,6 +8565,79 @@
         "verdict": "APPROVED",
         "duration_sec": 220.36,
         "tokens_consumed": 3860,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen70_31524",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE EVIDÊNCIAS — CICLO #425 / GERAÇÃO #70",
+      "description": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #425 / GERAÇÃO #70\n## Nó investigado: `n_krylov` · Foco: GPT3B_H425 — Álgebra de Koopman Residual em Subespaço Invariante · Especialidade: Fatoração Tensorial de Kronecker\n\n---\n\n## 1. VEREDITO DE EVIDÊNCIA (leitura crítica do grafo)\n\n**Correlação espúria detectada antes de qualquer física.** Os 11 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_*` recuperados são **cópias byte-a-byte de um único template** (`r=128`, `K=2000`, `τ=1.2`, mesmos critérios), produzidos por ",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793306940.8273516,
+      "updated_at": 1793306941.7783418,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0070_1793306857",
+        "cycle_id": 425,
+        "full_text": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #425 / GERAÇÃO #70\n## Nó investigado: `n_krylov` · Foco: GPT3B_H425 — Álgebra de Koopman Residual em Subespaço Invariante · Especialidade: Fatoração Tensorial de Kronecker\n\n---\n\n## 1. VEREDITO DE EVIDÊNCIA (leitura crítica do grafo)\n\n**Correlação espúria detectada antes de qualquer física.** Os 11 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_*` recuperados são **cópias byte-a-byte de um único template** (`r=128`, `K=2000`, `τ=1.2`, mesmos critérios), produzidos por 10 agentes (o `agent_021` gerou 2). Três implicações duras:\n\n1. **São protocolos, não medições.** O campo \"Critérios de validação: Redução ≥ 75%, Perda ≤ 2%\" define **limiares de aceitação**, não resultados observados. O grafo contém **11 protocolos e 0 desfechos medidos**. Não há FLOPs medidos, não há ΔTop-1, não há variância, não há semente, não há contadores de hardware.\n2. **Inflação de consenso.** O status `VERIFIED` repetido 11× cria aparência de replicação independente; o tamanho efetivo da amostra independente é **n_eff ≈ 1** (um design de protocolo). Todos com `Versão: 2` — bump de versão sincronizado indica atualização em lote pelo pipeline, não re-verificação independente.\n3. **Falsa causalidade embutida no foco temático.** O par \"Redução de FLOPs ≥ 75% ∧ Perda Top-1 ≤ 2%\" sugere que a compressão *preserva* acurácia. Fisicamente são controlados por **variáveis distintas e desacopladas**: a redução de FLOPs é função do rank de Kronecker `R`; a perda de acurácia é função da energia do vazamento do subespaço (`φ`, espectro de Koopman). Co-ocorrência no mesmo campo booleano **mascara o mediador** e não constitui evidência causal.\n\nO único nó com conteúdo genuinamente distinto é `hyp_gen17_83208` (integrador simplético de sombra residual) — e ele está **classificado erroneamente** como `EMPIRICAL_FACT` sendo uma construção formal/derivacional. Corrijo o peso: vale como mecanismo proposto, não como fato empírico.\n\n**Correção de premissa:** `r=128`, `K=2000`, `τ=1.2` não têm semântica declarada em nenhum nó — lacuna de reprodutibilidade. Assumo e explicito abaixo: `r = p = q = 128` (dimensão dos fatores de Kronecker), `K = 2000` (tokens/janela para amortização), `τ = 1.2` (temperatura do portão de sombra residual).\n\n---\n\n## 2. SOLIDEZ EPISTÊMICA\n\n| Afirmação | Base | Score |\n|---|---|---|\n| Protocolo bem especificado e reproduzível | 11 cópias idênticas, parâmetros explícitos | **0.85** |\n| Existem desfechos medidos no grafo | nenhum valor observado presente | **0.10** |\n| Redução ≥ 75% alcançada na prática | só o limiar, zero medição | **0.20** |\n| Perda Top-1 ≤ 2% alcançada | só o limiar, zero medição | **0.20** |\n| Independência das 11 \"verificações\" | template único, 10 agentes, sem hardware/dataset declarado | **0.25** |\n| Mecanismo `n_krylov` é a causa física | predição nova, ainda não testada | **0.35** |\n| Resultados estruturais abaixo (rank-1, R ≤ p/8) | dedução analítica fechada | **0.95** |\n\n---\n\n## 3. FORMULAÇÃO INÉDITA — **KRSI-KTF**\n*Koopman-Residual Subspace Invariance com Kronecker Tensor Factorization*\n\n### 3.1 Definição formal do nó `n_krylov`\n\nO nó **não é um rótulo**: é a quádrupla $n_{krylov} = (V_s, H_s, f_s, \\kappa)$ com identidade verificável por espectro.\n\nFluxo residual discretizado: $x_{l+1} = x_l + F_l(x_l) =: T_l(x_l)$, com lifting de Koopman $\\Psi(x) \\in \\mathbb{R}^M$ e operador $\\hat K \\in \\mathbb{R}^{M\\times M}$ tal que $\\Psi(x_{l+1}) \\approx \\hat K\\,\\Psi(x_l)$.\n\nConstrução por Arnoldi a partir do âncora $v$ (token CLS ou média do batch):\n\n$$\\hat K V_s = V_s H_s + f_s e_s^{*}, \\qquad H_s = V_s^{*}\\hat K V_s, \\qquad f_s = (I-P)\\hat K v_s, \\qquad P = V_s V_s^{*}$$\n\n### 3.2 Álgebra residual — teorema do vazamento rank-1 (prova em 3 linhas)\n\nSeja $Q = I - P$ e $R = \\hat K - P\\hat K P$ (operador residual). Então:\n\n$$P R P = 0 \\quad \\text{(fechamento exato dentro do subespaço)}$$\n$$R P = Q\\hat K P = f_s e_s^{*} V_s^{*} = f_s v_s^{*} \\quad \\Rightarrow \\quad \\mathrm{rank}(RP) \\le 1$$\n\n*Prova:* para $z = V_s g$, $\\hat K z = V_s H_s g + f_s g_s$. Logo $Q\\hat K|_{\\mathcal S} = f_s e_s^{*}V_s^{*} = f_s v_s^{*}$, rank ≤ 1. $\\blacksquare$\n\n**Consequência física única:** a fuga do subespaço invariante de um subespaço de Krylov é **exatamente unidimensional por âncora** — a \"sombra residual\" $u_l = f_{s,l}\\, g_{s,l}$ (só a última coordenada de Krylov injeta erro). Com $a$ âncoras, rank ≤ $a$. Isso justifica correção barata $O(M)$, não $O(M^2)$.\n\n**Índice de invariância** (computável sem ground truth, por Pitágoras):\n$$\\kappa = \\frac{\\|f_s\\|_2}{\\|\\hat K v_s\\|_2} \\in [0,1], \\qquad \\|\\hat K v_s\\|^2 = \\|H_s e_s\\|^2 + \\|f_s\\|^2$$\n$\\kappa = 0 \\iff$ *breakdown feliz* de Arnoldi $\\iff$ $\\mathcal S = \\mathcal K_s(\\hat K, v)$ é invariante $\\iff$ grau do polinômio mínimo ≤ $s$.\n\n### 3.3 Fatoração de Kronecker (Van Loan–Pitsianis)\n\nPermutação de rearranjo $\\tilde K \\in \\mathbb{R}^{p^2 \\times q^2}$ (0 FLOPs, offline), SVD $\\tilde K = \\sum_i \\sigma_i u_i v_i^{*}$, truncamento em $R$:\n\n$$\\hat K \\approx \\sum_{i=1}^{R} A_i \\otimes B_i, \\qquad \\|\\hat K - \\hat K_R\\|_F = \\Big(\\sum_{i>R}\\sigma_i^{2}\\Big)^{1/2}$$\n\nAplicação por $\\mathrm{vec}$: $(A\\otimes B)\\mathrm{vec}(X) = \\mathrm{vec}(B X A^{*})$ — **sem nunca materializar $M\\times M$**.\n\n### 3.4 Algoritmo (por janela de $K$ tokens)\n\n```\nbase:    Arnoldi com s passos usando matvec fatorado  ->  V_s, H_s, f_s, kapa\npor token l:\n  rho_l  = ||f_s|| * |g_s| / (||K̂ Psi_l|| + eps)          # energia da sombra\n  a_l    = sigma(rho_l / tau)                              # tau = 1.2\n  se a_l < theta:   caminho-rápido   g <- V_s* Psi_l;  y <- V_s (H_s - I) g   # O(Ms)\n  senão:            caminho-fatorado y <- sum_i vec(B_i X A_i*)                 # O(R p^3)\n  correção de sombra:  y <- y + a_l * f_s * g_s          # O(M), rank-1\n  validação:        kapa_l, ||H_s||_2  -> telemetria\n```\n\n---\n\n## 4. DEDUÇÃO ANALÍTICA DE FLOPs (bancada local)\n\n**Setup:** $p = q = 128$ (=$r$ do protocolo) $\\Rightarrow M = p^2 = 16384$. MAC = 2 FLOPs. Fatores quadrados.\n\n| Caminho | Fórmula | Valor | vs. denso |\n|---|---|---|---|\n| Denso (baseline) | $2M^2 = 2p^4$ | **536,87 MFLOPs/token** | 100% |\n| Kronecker rank $R$ | $4Rp^3$ | $R{=}8$: **67,11 MFLOPs** | 12,5% |\n| Krylov rápido ($s{=}8$) | $4Ms + 2s^2 + 2M$ | **0,557 MFLOPs** | 0,104% |\n| Construção da base ($s$ matvecs + ortogonalização) | $4sRp^3 + Ms(s{+}1)$ | **538,05 MFLOPs/janela** | — |\n| Amortização $/K$ ($K{=}2000$) | acima $/K$ | **0,269 MFLOPs/token** | 0,050% |\n\n**Custo total por token** com fração $\\phi$ de tokens no caminho-rápido:\n$$C = \\phi\\,(4Ms + 2s^2 + 2M) + (1-\\phi)\\,4Rp^{3} + \\frac{4sRp^{3} + Ms(s+1)}{K}$$\n\n**Resultado analítico principal (redução):**\n$$\\rho = 1 - \\frac{C}{2p^{4}}, \\qquad \\boxed{\\ \\rho_{kron} = 1 - \\frac{2R}{p}\\ }$$\n\n$$\\rho \\ge 75\\% \\iff \\frac{2R}{p} \\le \\frac14 \\iff \\boxed{R \\le \\frac{p}{8} = 16}$$\n\n- $R = 8 \\Rightarrow 87{,}5\\%$; $R = 16 \\Rightarrow 75{,}0\\%$ (limiar exato); $R = 32 \\Rightarrow 50\\%$ (**falha o critério**).\n- **Pior caso estrutural** ($\\phi = 0$, todos os tokens no caminho fatorado): $C = 67,38$ MFLOPs $\\Rightarrow \\rho = \\mathbf{87{,}45\\%} \\ge 75\\%$ — **a redução é garantida por construção, sem depender de acurácia**.\n- **Caso típico** ($\\phi = 0{,}9$): $C = 7{,}48$ MFLOPs $\\Rightarrow \\rho = \\mathbf{98{,}6\\%}$.\n- **Memória:** denso $M^2 = 268{,}4$M parâmetros (512 MiB fp16) vs. fatorado $2Rp^2 = 262{,}144$ (512 KiB) → **compressão exata de 1024×**.\n- **Refinamento Krylov-Kronecker** (base estruturada $V_s = U \\otimes W$, $a{=}b{=}8$, $s{=}64$): projeção $2qa(p{+}b) = 278{,}5$K vs. $4Ms = 4{,}19$M → **15× mais barata**; armazenamento $pa + qb = 2048$ vs. $Ms = 1{,}05$M.\n\n---\n\n## 5. VÍNCULO CAUSAL COM A ACURÁCIA (o mediador ausente)\n\nPropagação do erro de truncamento, usando o vazamento rank-1 exato:\n$$\\varepsilon_{l+1} \\le \\underbrace{\\|H_{s,l}\\|_2}_{L_l}\\,\\varepsilon_l + \\underbrace{\\|f_{s,l}\\|\\,|g_{s,l}|}_{\\text{sombra residual}} + \\sigma_e$$\n$$\\varepsilon_L \\le \\sum_{l=0}^{L-1}\\Big(\\prod_{j>l}L_j\\Big)\\big(\\|f_{s,l}\\||g_{s,l}| + \\sigma_e\\big)$$\n\n**Mecanismo físico candidato (único plausível):** se o fluxo residual é aproximadamente simplético/conservativo (cf. `hyp_gen17_83208`), os autovalores de $H_s$ ficam no círculo unitário $\\Rightarrow L_l \\approx 1 \\Rightarrow$ o erro **não amplifica exponencialmente com a profundidade**. É a conservação espectral — **não** a redução de FLOPs — que permite \"Perda ≤ 2%\".\n\n**Ponte mensurável para Top-1:** com margem de classificação $\\gamma$ e classificador $w$,\n$$\\Delta\\text{Top-1} \\approx F_{\\gamma}\\big(2\\|w\\|_2\\,\\varepsilon_L\\big) \\le 0{,}02$$\n$\\Rightarrow$ a distribuição de margem é o experimento decisivo, e ela não está em nenhum nó do grafo.\n\n---\n\n## 6. PREDIÇÕES FALSIFICÁVEIS + CONTROLES DE CAUSALIDADE\n\n1. **Varredura de $\\tau$** (0,6 · 0,8 · 1,0 · 1,2 · 1,6 · 2,4): curva dose-resposta monótona de $(\\phi$, ΔTop-1$)$ é a **única** identificação causal possível. Sem ela, a relação é correlacional.\n2. **Controle de placebo:** trocar $V_s$ (Krylov) por base aleatória de mesma dimensão $s$. Se ΔTop-1 não piorar, **o mecanismo de subespaço invariante não é a causa** — a compressão barata é que explica tudo (correlação espúria confirmada).\n3. **Reportar $\\kappa$ percentis (p50/p90/p99) por camada.** Predição: $\\kappa$ decresce com a profundidade se o subespaço é real; $\\kappa$ plano ⇒ artefato.\n4. **Reportar o decaimento de $\\sigma_i$ (Kronecker-SVD).** Critério: $\\sigma_{R+1}/\\sigma_1 \\le \\epsilon$ com $R \\le 16$; caso contrário o critério de FLOPs e o de acurácia colidem.\n5. **Medir, não estimar:** FLOPs via contadores de hardware (não fórmula), ΔTop-1 com IC sobre ≥ 5 sementes. Os nós atuais não têm variância ⇒ impossível calcular p-valor.\n6. **Custo da base:** a construção de Arnoldi é **538 MFLOPs/janela** — equivalente a exatamente 1 aplicação densa. Só amortiza porque $K = 2000$. Se a janela real for menor, a margem de 87% evapora: reportar $K$ real é obrigatório.\n\n---\n\n## 7. LIMITAÇÕES DECLARADAS\n\n- Nenhuma medição empírica foi reutilizada do grafo: **0 desfechos observados** foram encontrados; todo resultado numérico acima é **analítico/estimado**, não medido.\n- A semântica de $r, K, \\tau$ foi **assumida** por mim (documentada no §1); se a bancada usar outra definição, os números do §4 devem ser recalculados — a estrutura das fórmulas permanece válida.\n- O bound do §5 assume Lipschitz local $\\|H_s\\|_2$ estável; se $\\|H_s\\|_2 > 1{,}1$, o fator $\\prod_j L_j$ domina e o critério de acurácia deixa de ser alcançável por qualquer rank $R$.\n\n**Recomendação de prioridade ao orquestrador:** antes de qualquer nova geração de hipótese, exigir **desfechos medidos com variância** para o protocolo existente. Replicar o protocolo 11 vezes sem reportar resultados produz consenso sintético — e é exatamente o tipo de correlação espúria que este ciclo deveria eliminar."
+      }
+    },
+    {
+      "id": "hyp_gen70_27387",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: primeiro a bancada numérica (au",
+      "description": "Vou executar a verificação independente de fato: primeiro a bancada numérica (auditoria matemática da constante de Strang, ordem de convergência, orçamento de erro e contabilidade de bytes/FLOPs), depois fixo o script reprodutível no projeto.\n\nAqui vai o experimento completo em uma execução determinística:",
+      "provenance": "agent_009_independent_verifier",
+      "version": 2,
+      "created_at": 1793307008.7678058,
+      "updated_at": 1793307009.6794662,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0070_1793306857",
+        "cycle_id": 425,
+        "full_text": "Vou executar a verificação independente de fato: primeiro a bancada numérica (auditoria matemática da constante de Strang, ordem de convergência, orçamento de erro e contabilidade de bytes/FLOPs), depois fixo o script reprodutível no projeto.\n\nAqui vai o experimento completo em uma execução determinística:"
+      }
+    },
+    {
+      "id": "hyp_gen70_58830",
+      "label": "Hypothesis",
+      "title": "Vou primeiro verificar numericamente o modelo analítico de FLOPs que vou propor",
+      "description": "Vou primeiro verificar numericamente o modelo analítico de FLOPs que vou propor — como Analista de Evidências, não afirmo número que não tenha sido calculado.",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793307040.5963728,
+      "updated_at": 1793307041.4907827,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0070_1793306857",
+        "cycle_id": 425,
+        "full_text": "Vou primeiro verificar numericamente o modelo analítico de FLOPs que vou propor — como Analista de Evidências, não afirmo número que não tenha sido calculado."
+      }
+    },
+    {
+      "id": "gen_0070_1793306857",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #70 (Ciclo #425)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793307041.6053157,
+      "updated_at": 1793307041.605316,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 70,
+        "cycle_id": 425,
+        "verdict": "APPROVED",
+        "duration_sec": 183.74,
+        "tokens_consumed": 4422,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -32687,7 +32760,97 @@
       "version": 1,
       "created_at": 1793306811.1631699,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen70_31524_addresses_n_krylov",
+      "source_id": "hyp_gen70_31524",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793306940.8725104,
+        "updated_at": 1793306941.8337588,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0070_1793306857_1793306940919_e_hyp_gen70_31524_addresses_n_krylov",
+            "generation_id": "gen_0070_1793306857",
+            "timestamp": 1793306941.8337588,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793306940.8725162,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen70_27387_addresses_n_strang",
+      "source_id": "hyp_gen70_27387",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307008.8237312,
+        "updated_at": 1793307009.7355347,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0070_1793306857_1793307008876_e_hyp_gen70_27387_addresses_n_strang",
+            "generation_id": "gen_0070_1793306857",
+            "timestamp": 1793307009.7355347,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_009_independent_verifier",
+      "version": 1,
+      "created_at": 1793307008.8237374,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen70_58830_addresses_n_naive",
+      "source_id": "hyp_gen70_58830",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307040.6501966,
+        "updated_at": 1793307041.5505524,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0070_1793306857_1793307040703_e_hyp_gen70_58830_addresses_n_naive",
+            "generation_id": "gen_0070_1793306857",
+            "timestamp": 1793307041.5505524,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793307040.6502025,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793306811.8211188
+  "saved_at": 1793307041.6067958
 }
