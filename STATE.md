@@ -4,9 +4,9 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `90`
+- **Total de Ciclos Científicos Executados:** `347`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 58`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 59`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,53 +24,53 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
-| **#90** | 2026-10-29 01:28:25 | `GPT3B_H88_SALTO_SIMPLETICO_ADAPTATIVO_NO_SUBESPACO_TANGENTE_SAST` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#89** | 2026-10-29 01:18:42 | `GPT3B_H88_SALTO_SIMPLETICO_ADAPTATIVO_NO_SUBESPACO_TANGENTE_SAST` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#88** | 2026-10-29 01:03:20 | `GPT3B_H88_SALTO_SIMPLETICO_ADAPTATIVO_NO_SUBESPACO_TANGENTE_SAST` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#87** | 2026-10-29 00:54:40 | `GPT3B_H87_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#86** | 2026-10-29 00:35:29 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#85** | 2026-10-29 00:27:47 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#84** | 2026-10-29 00:10:59 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#83** | 2026-10-28 23:54:13 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#82** | 2026-10-28 23:41:34 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#81** | 2026-10-28 23:28:24 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#80** | 2026-10-28 23:18:33 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#79** | 2026-10-28 23:08:10 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#78** | 2026-10-28 22:30:38 | `GPT3B_H78_TRANSICAO_SIMPLETICA_BLOCO_CIRCULANTE_KRYLOV` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#77** | 2026-10-28 22:16:49 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#76** | 2026-10-28 22:08:22 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#75** | 2026-10-28 21:55:52 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#74** | 2026-10-28 21:41:18 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#73** | 2026-10-28 21:22:03 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#72** | 2026-10-28 21:11:50 | `GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#71** | 2026-10-28 20:57:58 | `GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#70** | 2026-10-28 20:39:17 | `GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#69** | 2026-10-28 20:20:37 | `GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#68** | 2026-10-28 20:08:54 | `GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#67** | 2026-10-28 20:03:27 | `GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#66** | 2026-10-28 19:56:35 | `GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#65** | 2026-10-28 19:44:48 | `GPT3B_H65_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#64** | 2026-10-28 19:29:45 | `GPT3B_H64_INVARIANT_SYMPLECTIC_MANIFOLD` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#63** | 2026-10-28 19:19:28 | `GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD` | 🔴 REJEITADA | 79.0% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#62** | 2026-10-28 19:14:23 | `GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#61** | 2026-10-28 19:03:40 | `GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#60** | 2026-10-28 18:57:37 | `GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#59** | 2026-10-28 18:47:03 | `GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#58** | 2026-10-28 18:29:14 | `GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#57** | 2026-10-28 18:17:12 | `GPT3B_H_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#56** | 2026-10-28 17:48:22 | `GPT3B_H_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#55** | 2026-10-28 17:41:20 | `GPT3B_H_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#54** | 2026-10-28 17:21:32 | `GPT3B_H_INVARIANT_SYMPLECTIC_MANIFOLD` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#53** | 2026-10-28 17:14:22 | `GPT3B_H52_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.0% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#52** | 2026-10-28 15:39:09 | `GPT3B_H52_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#51** | 2026-10-28 15:34:24 | `GPT3B_H51_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#50** | 2026-10-28 15:29:40 | `GPT3B_H50_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#49** | 2026-10-28 15:24:54 | `GPT3B_H49_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#48** | 2026-10-28 15:20:08 | `GPT3B_H48_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#47** | 2026-10-28 15:15:23 | `GPT3B_H47_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#46** | 2026-10-28 15:10:38 | `GPT3B_H46_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#45** | 2026-10-28 15:05:52 | `GPT3B_H45_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#44** | 2026-10-28 15:01:08 | `GPT3B_H44_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#43** | 2026-10-28 14:56:22 | `GPT3B_H43_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#42** | 2026-10-28 14:51:38 | `GPT3B_H42_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#41** | 2026-10-28 14:46:52 | `GPT3B_H41_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
+| **#347** | 2026-10-29 13:01:05 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
+| **#346** | 2026-10-29 12:58:36 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#345** | 2026-10-29 12:56:05 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#344** | 2026-10-29 12:53:35 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#343** | 2026-10-29 12:51:05 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#342** | 2026-10-29 12:48:34 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#341** | 2026-10-29 12:46:01 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#340** | 2026-10-29 12:43:30 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#339** | 2026-10-29 12:40:59 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#338** | 2026-10-29 12:38:26 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#337** | 2026-10-29 12:35:52 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#336** | 2026-10-29 12:33:16 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#335** | 2026-10-29 12:30:43 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#334** | 2026-10-29 12:28:13 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#333** | 2026-10-29 12:25:39 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#332** | 2026-10-29 12:23:05 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#331** | 2026-10-29 12:20:33 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#330** | 2026-10-29 12:17:57 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#329** | 2026-10-29 12:15:23 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#328** | 2026-10-29 12:12:52 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#327** | 2026-10-29 12:10:21 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#326** | 2026-10-29 12:07:50 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#325** | 2026-10-29 12:05:18 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#324** | 2026-10-29 12:02:46 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#323** | 2026-10-29 12:00:11 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#322** | 2026-10-29 11:57:37 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#321** | 2026-10-29 11:55:05 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#320** | 2026-10-29 11:52:32 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#319** | 2026-10-29 11:49:58 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#318** | 2026-10-29 11:47:28 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#317** | 2026-10-29 11:44:54 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#316** | 2026-10-29 11:42:23 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#315** | 2026-10-29 11:39:53 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#314** | 2026-10-29 11:37:22 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#313** | 2026-10-29 11:34:49 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#312** | 2026-10-29 11:32:18 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#311** | 2026-10-29 11:29:48 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#310** | 2026-10-29 11:27:18 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#309** | 2026-10-29 11:24:38 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#308** | 2026-10-29 11:22:04 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#307** | 2026-10-29 11:19:34 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#306** | 2026-10-29 11:17:01 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#305** | 2026-10-29 11:14:27 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#304** | 2026-10-29 11:11:57 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#303** | 2026-10-29 11:09:26 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#302** | 2026-10-29 11:06:56 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#301** | 2026-10-29 11:04:23 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#300** | 2026-10-29 11:01:52 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#299** | 2026-10-29 10:59:18 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#298** | 2026-10-29 10:56:46 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |

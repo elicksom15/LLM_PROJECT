@@ -1,11 +1,11 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-29 02:02:56",
+  "last_sync": "2026-10-29 13:10:40",
   "stats": {
-    "total_cycles": 90,
+    "total_cycles": 347,
     "approved_count": 7,
-    "rejected_count": 58
+    "rejected_count": 59
   },
   "approved_hypotheses": [
     {
@@ -81,19 +81,19 @@
   ],
   "recent_cycles": [
     {
-      "cycle_id": 90,
-      "timestamp": "2026-10-29 01:28:25",
-      "title": "GPT3B_H88_SALTO_SIMPLETICO_ADAPTATIVO_NO_SUBESPACO_TANGENTE_SAST",
+      "cycle_id": 347,
+      "timestamp": "2026-10-29 13:01:05",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
       "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 9860.03626973006,
+      "tokens_per_sec": 11109.796735343623,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
     },
     {
-      "cycle_id": 89,
-      "timestamp": "2026-10-29 01:18:42",
-      "title": "GPT3B_H88_SALTO_SIMPLETICO_ADAPTATIVO_NO_SUBESPACO_TANGENTE_SAST",
+      "cycle_id": 346,
+      "timestamp": "2026-10-29 12:58:36",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -101,9 +101,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 88,
-      "timestamp": "2026-10-29 01:03:20",
-      "title": "GPT3B_H88_SALTO_SIMPLETICO_ADAPTATIVO_NO_SUBESPACO_TANGENTE_SAST",
+      "cycle_id": 345,
+      "timestamp": "2026-10-29 12:56:05",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -111,29 +111,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 87,
-      "timestamp": "2026-10-29 00:54:40",
-      "title": "GPT3B_H87_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 9541.696124795482,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 86,
-      "timestamp": "2026-10-29 00:35:29",
-      "title": "GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 8316.66678387935,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 85,
-      "timestamp": "2026-10-29 00:27:47",
-      "title": "GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION",
+      "cycle_id": 344,
+      "timestamp": "2026-10-29 12:53:35",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -141,9 +121,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 84,
-      "timestamp": "2026-10-29 00:10:59",
-      "title": "GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION",
+      "cycle_id": 343,
+      "timestamp": "2026-10-29 12:51:05",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -151,9 +131,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 83,
-      "timestamp": "2026-10-28 23:54:13",
-      "title": "GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION",
+      "cycle_id": 342,
+      "timestamp": "2026-10-29 12:48:34",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -161,9 +141,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 82,
-      "timestamp": "2026-10-28 23:41:34",
-      "title": "GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION",
+      "cycle_id": 341,
+      "timestamp": "2026-10-29 12:46:01",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -171,19 +151,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 81,
-      "timestamp": "2026-10-28 23:28:24",
-      "title": "GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 9925.668695064232,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 80,
-      "timestamp": "2026-10-28 23:18:33",
-      "title": "GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB",
+      "cycle_id": 340,
+      "timestamp": "2026-10-29 12:43:30",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -191,9 +161,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 79,
-      "timestamp": "2026-10-28 23:08:10",
-      "title": "GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB",
+      "cycle_id": 339,
+      "timestamp": "2026-10-29 12:40:59",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -201,29 +171,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 78,
-      "timestamp": "2026-10-28 22:30:38",
-      "title": "GPT3B_H78_TRANSICAO_SIMPLETICA_BLOCO_CIRCULANTE_KRYLOV",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 11418.352537281407,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 77,
-      "timestamp": "2026-10-28 22:16:49",
-      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 1621.8129925046906,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 76,
-      "timestamp": "2026-10-28 22:08:22",
-      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "cycle_id": 338,
+      "timestamp": "2026-10-29 12:38:26",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -231,9 +181,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 75,
-      "timestamp": "2026-10-28 21:55:52",
-      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "cycle_id": 337,
+      "timestamp": "2026-10-29 12:35:52",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -241,9 +191,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 74,
-      "timestamp": "2026-10-28 21:41:18",
-      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "cycle_id": 336,
+      "timestamp": "2026-10-29 12:33:16",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -251,9 +201,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 73,
-      "timestamp": "2026-10-28 21:22:03",
-      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "cycle_id": 335,
+      "timestamp": "2026-10-29 12:30:43",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -261,19 +211,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 72,
-      "timestamp": "2026-10-28 21:11:50",
-      "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 379.81800184233947,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 71,
-      "timestamp": "2026-10-28 20:57:58",
-      "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
+      "cycle_id": 334,
+      "timestamp": "2026-10-29 12:28:13",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -281,9 +221,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 70,
-      "timestamp": "2026-10-28 20:39:17",
-      "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
+      "cycle_id": 333,
+      "timestamp": "2026-10-29 12:25:39",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -291,9 +231,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 69,
-      "timestamp": "2026-10-28 20:20:37",
-      "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
+      "cycle_id": 332,
+      "timestamp": "2026-10-29 12:23:05",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -301,19 +241,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 68,
-      "timestamp": "2026-10-28 20:08:54",
-      "title": "GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 487.484705766498,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 67,
-      "timestamp": "2026-10-28 20:03:27",
-      "title": "GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV",
+      "cycle_id": 331,
+      "timestamp": "2026-10-29 12:20:33",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -321,9 +251,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 66,
-      "timestamp": "2026-10-28 19:56:35",
-      "title": "GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV",
+      "cycle_id": 330,
+      "timestamp": "2026-10-29 12:17:57",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -331,39 +261,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 65,
-      "timestamp": "2026-10-28 19:44:48",
-      "title": "GPT3B_H65_ANALYTICAL_TAYLOR_ODE_JUMP",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 467.12527081615445,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 64,
-      "timestamp": "2026-10-28 19:29:45",
-      "title": "GPT3B_H64_INVARIANT_SYMPLECTIC_MANIFOLD",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 458.49977571605274,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 63,
-      "timestamp": "2026-10-28 19:19:28",
-      "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.02115311208433,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 410.74466780547505,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 62,
-      "timestamp": "2026-10-28 19:14:23",
-      "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
+      "cycle_id": 329,
+      "timestamp": "2026-10-29 12:15:23",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -371,9 +271,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 61,
-      "timestamp": "2026-10-28 19:03:40",
-      "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
+      "cycle_id": 328,
+      "timestamp": "2026-10-29 12:12:52",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -381,9 +281,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 60,
-      "timestamp": "2026-10-28 18:57:37",
-      "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
+      "cycle_id": 327,
+      "timestamp": "2026-10-29 12:10:21",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -391,9 +291,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 59,
-      "timestamp": "2026-10-28 18:47:03",
-      "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
+      "cycle_id": 326,
+      "timestamp": "2026-10-29 12:07:50",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -401,9 +301,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 58,
-      "timestamp": "2026-10-28 18:29:14",
-      "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
+      "cycle_id": 325,
+      "timestamp": "2026-10-29 12:05:18",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -411,59 +311,9 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 57,
-      "timestamp": "2026-10-28 18:17:12",
-      "title": "GPT3B_H_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 423.79464982989856,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 56,
-      "timestamp": "2026-10-28 17:48:22",
-      "title": "GPT3B_H_KRONECKER_SPECTRAL_CONTRACTION",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 519.1305783551832,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 55,
-      "timestamp": "2026-10-28 17:41:20",
-      "title": "GPT3B_H_ANALYTICAL_TAYLOR_ODE_JUMP",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 458.70355932239914,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 54,
-      "timestamp": "2026-10-28 17:21:32",
-      "title": "GPT3B_H_INVARIANT_SYMPLECTIC_MANIFOLD",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 313.71368040502875,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 53,
-      "timestamp": "2026-10-28 17:14:22",
-      "title": "GPT3B_H52_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.02115311208433,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 298.24495393273264,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 52,
-      "timestamp": "2026-10-28 15:39:09",
-      "title": "GPT3B_H52_CROSS_LAYER_SPARSITY",
+      "cycle_id": 324,
+      "timestamp": "2026-10-29 12:02:46",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
       "top1_accuracy": 0.0,
@@ -471,114 +321,264 @@
       "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 51,
-      "timestamp": "2026-10-28 15:34:24",
-      "title": "GPT3B_H51_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 499.5044002119001,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 323,
+      "timestamp": "2026-10-29 12:00:11",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 50,
-      "timestamp": "2026-10-28 15:29:40",
-      "title": "GPT3B_H50_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 457.76051440307094,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 322,
+      "timestamp": "2026-10-29 11:57:37",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 49,
-      "timestamp": "2026-10-28 15:24:54",
-      "title": "GPT3B_H49_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 348.79652614201035,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 321,
+      "timestamp": "2026-10-29 11:55:05",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 48,
-      "timestamp": "2026-10-28 15:20:08",
-      "title": "GPT3B_H48_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 497.4990253866901,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 320,
+      "timestamp": "2026-10-29 11:52:32",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 47,
-      "timestamp": "2026-10-28 15:15:23",
-      "title": "GPT3B_H47_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 433.76184874745854,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 319,
+      "timestamp": "2026-10-29 11:49:58",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 46,
-      "timestamp": "2026-10-28 15:10:38",
-      "title": "GPT3B_H46_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 413.2253029993453,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 318,
+      "timestamp": "2026-10-29 11:47:28",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 45,
-      "timestamp": "2026-10-28 15:05:52",
-      "title": "GPT3B_H45_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 325.13761008249077,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 317,
+      "timestamp": "2026-10-29 11:44:54",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 44,
-      "timestamp": "2026-10-28 15:01:08",
-      "title": "GPT3B_H44_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 353.63672316783095,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 316,
+      "timestamp": "2026-10-29 11:42:23",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 43,
-      "timestamp": "2026-10-28 14:56:22",
-      "title": "GPT3B_H43_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 405.5339694660124,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 315,
+      "timestamp": "2026-10-29 11:39:53",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 42,
-      "timestamp": "2026-10-28 14:51:38",
-      "title": "GPT3B_H42_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 290.2282275239765,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 314,
+      "timestamp": "2026-10-29 11:37:22",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     },
     {
-      "cycle_id": 41,
-      "timestamp": "2026-10-28 14:46:52",
-      "title": "GPT3B_H41_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 427.4410237977144,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
+      "cycle_id": 313,
+      "timestamp": "2026-10-29 11:34:49",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 312,
+      "timestamp": "2026-10-29 11:32:18",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 311,
+      "timestamp": "2026-10-29 11:29:48",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 310,
+      "timestamp": "2026-10-29 11:27:18",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 309,
+      "timestamp": "2026-10-29 11:24:38",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 308,
+      "timestamp": "2026-10-29 11:22:04",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 307,
+      "timestamp": "2026-10-29 11:19:34",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 306,
+      "timestamp": "2026-10-29 11:17:01",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 305,
+      "timestamp": "2026-10-29 11:14:27",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 304,
+      "timestamp": "2026-10-29 11:11:57",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 303,
+      "timestamp": "2026-10-29 11:09:26",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 302,
+      "timestamp": "2026-10-29 11:06:56",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 301,
+      "timestamp": "2026-10-29 11:04:23",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 300,
+      "timestamp": "2026-10-29 11:01:52",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 299,
+      "timestamp": "2026-10-29 10:59:18",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 298,
+      "timestamp": "2026-10-29 10:56:46",
+      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
     }
   ]
 }
