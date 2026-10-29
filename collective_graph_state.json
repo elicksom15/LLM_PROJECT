@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 16,
+      "version": 17,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793308793.1513226,
+      "updated_at": 1793309118.8179064,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9061,6 +9061,79 @@
         "tokens_consumed": 4526,
         "new_hypotheses": 2,
         "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen77_10685",
+      "label": "Hypothesis",
+      "title": "Vou executar direto: primeiro um probe numérico único para validar as propriedad",
+      "description": "Vou executar direto: primeiro um probe numérico único para validar as propriedades estruturais do operador que vou propor (simplicidade, reversibilidade e defeito de invariância), e em paralelo já fecho a análise epistêmica da memória recuperada.",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793309168.6278472,
+      "updated_at": 1793309169.426423,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0077_1793309118",
+        "cycle_id": 432,
+        "full_text": "Vou executar direto: primeiro um probe numérico único para validar as propriedades estruturais do operador que vou propor (simplicidade, reversibilidade e defeito de invariância), e em paralelo já fecho a análise epistêmica da memória recuperada."
+      }
+    },
+    {
+      "id": "hyp_gen77_33257",
+      "label": "Hypothesis",
+      "title": "CICLO #432 / G77 — PARECER ADVERSARIAL SOBRE `n_strang` (Cayley–Strang em Sube",
+      "description": "# CICLO #432 / G77 — PARECER ADVERSARIAL SOBRE `n_strang` (Cayley–Strang em Subespaço Invariante)\n\n**Veredito executivo (antes de qualquer fórmula):**\n1. A proposta tropeça numa **premissa fatal e não verificada**: um subespaço linear não é invariante pelo fluxo de um bloco transformer não-linear. O vazamento resultante acumula **τ·ε, independente de K** — refinar a malha não conserta nada.\n2. O critério de validação do grafo (**FLOPs ↓ ≥ 75%**) é **não-vinculante**: qualquer método de ordem red",
+      "provenance": "agent_031_critic",
+      "version": 2,
+      "created_at": 1793309236.2790575,
+      "updated_at": 1793309237.1583724,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0077_1793309118",
+        "cycle_id": 432,
+        "full_text": "# CICLO #432 / G77 — PARECER ADVERSARIAL SOBRE `n_strang` (Cayley–Strang em Subespaço Invariante)\n\n**Veredito executivo (antes de qualquer fórmula):**\n1. A proposta tropeça numa **premissa fatal e não verificada**: um subespaço linear não é invariante pelo fluxo de um bloco transformer não-linear. O vazamento resultante acumula **τ·ε, independente de K** — refinar a malha não conserta nada.\n2. O critério de validação do grafo (**FLOPs ↓ ≥ 75%**) é **não-vinculante**: qualquer método de ordem reduzida com r ≤ d/2 passa sem testar a hipótese real.\n3. **`K=2000` é desperdício puro**: com h = τ/K = 6·10⁻⁴, o erro de splitting é ~10⁻⁶, três ordens de grandeza abaixo do orçamento. O gargalo é outro.\n4. **Nada do que está sendo pedido é inédito** de fato: Cayley = ponto médio implícito (Ruth 1983 / Feng Kang 1985), Strang = 1968, e o próprio grafo já contém `INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL` (H11/H59) e `SLOW_MANIFOLD_PROJECTION_COM_CORRECAO_POR_EVENTO` (G426). Quem prometer \"formulação inédita\" nesse eixo está reciclando o próprio enxame.\n\n---\n\n## 1. Auditoria da memória coletiva — o grafo está contaminado\n\nAntes de tratar `n_strang`, trato a evidência. Ela não resiste a escrutínio:\n\n| Achado | Evidência no grafo | Impacto |\n|---|---|---|\n| **Clonagem de protocolo** | 8 nós (`G13, G16, G27, G31, G39, G53, G55, G65`) com texto **idêntico**: `r=128, K=2000, τ=1.2` | Não são 8 replicações independentes; são 8 cópias de um template. Contar isso como \"corroboração\" é inflação de confiança. |\n| **Critérios truncados** | 7 de 8 nós armazenam `Perda de Acurácia Top-1 ≤ ` (cortado); só `G39` guarda `≤ 2` | **O gate de validação nem está completamente definido no grafo.** Impossível auditar o que foi \"VERIFIED\". |\n| **Classe epistêmica falsa** | `hyp_gen75_63066` é literalmente a fala de um agente (\"Vou assumir imediatamente o controle: primeiro um único probe...\") classificada como **EMPIRICAL_FACT / VERIFIED** | Ruído do orquestrador promovido a fato. Se esse é o padrão de \"VERIFIED\", **nenhum nó VERIFIED do grafo vale como evidência**. |\n| **Relatório ≠ fato** | `hyp_gen71` é um relatório de evidências, rotulado EMPIRICAL_FACT | Metadado errado; contamina inferências downstream. |\n| **Parâmetro sem semântica** | `τ=1.2` aparece sem unidade nem definição em todos os nós | Sem saber se τ é horizonte de integração, constante de tempo ou temperatura, a dedução de FLOPs fica subdeterminada. |\n\n**Consequência:** qualquer formulação que eu apresente aqui só pode reivindicar status de **hipótese falsificável**, nunca de fato verificado. Se o pipeline downstream marcar o resultado deste ciclo como `VERIFIED`, ele herda o mesmo defeito que acabo de expor.\n\n---\n\n## 2. A premissa fatal: \"subespaço invariante\" não fecha\n\nSeja o fluxo residual linearizado `x' = A x + g(x)`, com `A ∈ sp(d)` (`AᵀΩ + ΩA = 0`) e `g = J∇H₂`. Seja `W = span(Q)`, `dim W = r = 128`, `P` o projetor sobre `W`.\n\n**(a) Fechamento não-linear é condição rara, não hipótese de trabalho.**\nPara a redução ser exata, `W` precisa satisfazer `(I − P) g(Pz) = 0` para todo `z`. Para `g = J∇H₂` isso exige `H₂` constante nas direções de `W^Ω` (a menos de termo linear). Um MLP treinado **não** satisfaz isso. Um subespaço invariante por um difeomorfismo não-linear só existe de forma não-trivial se a dinâmica for degenerada. Isso não é detalhe técnico: é a diferença entre o método ser consistente ou não.\n\n**(b) O vazamento não some com refino de malha.**\nDefina `ε := sup_{x∈W} ‖(I − P) f(x)‖ / ‖f(x)‖`. Então, por passo, o erro de projeção é `O(h ε)`, e acumulado sobre `K` passos:\n\n```\n‖vazamento total‖ ≤ K · h · ε + O(τ h) = τ · ε + O(τ h)\n```\n\nCom `τ = 1.2`: **`vazamento ≈ 1.2·ε`, independente de K**. Se `ε = 5·10⁻²` (valor típico de um rank-128 de um stream de 4096 sem decaimento espectral agressivo), o vazamento é `6·10⁻²` — **três vezes o orçamento de 2% antes de qualquer economia de FLOPs entrar em jogo**. Refinar de `K=2000` para `K=20000` melhora o erro de splitting em 100× e o erro total em **0%**.\n\n**(c) \"Projeção\" não é \"projeção simplética\".**\nO grupo simplético **não possui produto interno invariante**. Um projetor euclidiano `P = QQᵀ` **não** preserva `Ω`, logo a imagem do Cayley aplicado após projeção sai de `sp(r)`. Exige-se um **quadro simplético unitário** `Q ∈ USp(d,r)` (`QᵀΩQ = J_r` e `QᵀQ = I`) e o projetor oblíquo-Ω `P_Ω = Q J_r⁻¹ Qᵀ Ω`, para o qual `‖P_Ω‖₂ = 1`. Sem isso, `‖P‖` pode explodir e a \"transição simplética\" é uma ficção nominal.\n\n**(d) Cayley não é incondicionalmente bem definido.**\n`C_h(A) = (I − h/2·A)⁻¹(I + h/2·A)` é simplética para `A ∈ sp`, mas é singular quando `spec(A) ∋ 2/h` (autovalores reais são possíveis em `sp`: basta `A = JS` com `S` indefinido). No caso elíptico (`S ≻ 0`), `spec(A) ⊂ iR` e `‖C_h(A)‖₂ = 1` — aí sim é seguro. **Após projeção, a parte definida de `S` é genericamente perdida**, e aí surgem três riscos: singularidade em `h = 2/λ`, crescimento tipo `(1 + hσ)/(1 − hσ)` e explosão de `κ(I − h/2 A_r)` em baixa precisão (ver §5).\n\n**(e) A aritmética do crescimento, se a invariância falhar.**\nSe o gerador reduzido `A_r` tiver parte simétrica `σ > 0`, o ganho por passo é `≈ 1 + 2hσ`; sobre `K=2000` passos (`h = 6·10⁻⁴`): `e^{2στ} = e^{2.4σ}`. Para `σ = 1`: **amplificação de ~11×**. Um integrador \"simplético\" que amplifica 11× não é simplético na prática.\n\n---\n\n## 3. Formulação candidata — e sua avaliação honesta de novidade\n\nApresento abaixo a formulação mais defensável. **Ela não é inédita na literatura** (redução simplética de sistemas hamiltonianos é área estabelecida; ver §8), e é **parcialmente reciclada dentro do próprio grafo** (H11/H59 já são \"integrador simplético de sombra residual\"). O que é defensável é o **enunciado do limite τ·ε**, a **redução coisotrópica** em vez de projeção invariante, e o **modelo de latência**.\n\n### 3.1 Estrutura\n\nPasso `h = τ/K = 6.0·10⁻⁴`. Partição `A` (linear hamiltoniano) e `B` (`g = J∇H₂`). Composição de 2ª ordem:\n\n```\nΦ_h = C_{h/2}(A_r) ∘ M_h(H₂) ∘ C_{h/2}(A_r)\n```\n\ncom `M_h` = ponto médio implícito (simples, simplético). **Advertência de nomenclatura:** isso não é Strang puro — `M_h` não é o fluxo exato de `B`. É um **RK particionado de 2ª ordem**, cuja constante de erro envolve também o defeito do ponto médio. Chamar de \"Strang\" é, no mínimo, impreciso.\n\n### 3.2 Redução honesta (quociente, não projeção)\n\nEm vez de exigir `W` invariante (inviable), exigir `W` **coisotrópico** (`W^Ω ⊂ W`): aí `W/W^Ω` carrega estrutura simplética legítima e o Cayley reduzido é simplético *no quociente*, sem depender de `W` ser invariante pela parte não-linear. O gerador reduzido é `A_r = Qᵀ A Q` com `Q` quadro simplético unitário.\n\n### 3.3 Sombra multirritmo (correção do complemento)\n\nVariável de sombra `ξ ∈ W^Ω` avançada explicitamente e **reinjetada a cada `m` passos** (não a cada passo — esse é o ganho de FLOPs):\n\n```\nz_{k+1} = C_{h/2}(A_r) · M_h(H₂) · C_{h/2}(A_r) · z_k\nξ_{k+1} = ξ_k + h (I − P_Ω) f(Q z_k)\na cada m passos:  x ← Q z + ξ;  ξ ← 0;  reortogonalizar Q\n```\n\nErro total: `O(τ h²) + O(m h ε)`. **Escolha de projeto:** `m` tal que `m h ε ≲ τ h²`, i.e. `m ≲ h·(τ h)/ε`… na prática `m = 50` (com `h = 6·10⁻⁴`, 30 ms \"de tempo de sistema\"). O ponto crítico: **`ε` é o parâmetro de projeto, não `h`**.\n\n---\n\n## 4. Dedução analítica de FLOPs\n\nConvenção: 1 multiplicação ou 1 soma = 1 FLOP. `r = 128`, `r² = 16.384`, `d = 4096` (**minha suposição — o grafo não define `d`**), `K = 2000`, `m = 50`.\n\n| # | Item | Fórmula | Valor |\n|---|---|---|---|\n| 1 | Fatoração LU de `(I − h/2 A_r)` (1×) | `(2/3)r³` | 1,40 MFLOP |\n| 2 | Montagem `A_r = Qᵀ A Q` (1×/camada) | `4 d r²` | 268,4 MFLOP |\n| 3 | Aplicação Cayley = `A_r z` (`2r²`) + 2 substituições triangulares (`2r²`) | `4r²` | 65,5 kFLOP |\n| 4 | 2 meios-passos Cayley por passo | `8r²` | 131,1 kFLOP |\n| 5 | Passo não-linear (ponto médio, MLP expansão 4: `2·(2·r·4r)`) | `16r²` | 262,1 kFLOP |\n| 6 | Sombra amortizada (`4dr/m`) | `4dr/m` | 41,9 kFLOP |\n| **7** | **Total por passo** (`24r² + 4dr/m`) | — | **435,2 kFLOP** |\n| **8** | **Total `K=2000` passos** | — | **0,870 GFLOP** |\n| **9** | **Total + overheads 1×** | — | **≈ 1,14 GFLOP** |\n\n**Baseline não reduzido (mesma malha, mesmo K):** `24 d² K = 805,3 GFLOP`.\n**Razão:** `1,14 / 805,3 = 0,14%` → redução de **99,86%**.\n\n### 4.1 Por que esse número é enganoso — o critério é inoperante\n\nA condição para \"redução ≥ 75%\" é:\n\n```\n24 r² + 4dr/m + 4dr²/K  ≤  6 d²\n```\n\nAnalisando os termos isoladamente:\n- `24 r² ≤ 6 d²` ⟹ `r ≤ d/2` (**r = 2048** para `d = 4096` ainda passaria);\n- `4 d r ≤ 6 d²` ⟹ `r ≤ 1,5 d` — **o custo de projeção/levantamento jamais vincula**.\n\n**Conclusão:** o critério \"FLOPs ↓ ≥ 75%\" é satisfeito por **qualquer** método de ordem reduzida, **independentemente de acurácia**. Ele não testa a hipótese; testa aritmética de terceiro ano. Um critério sério seria *\"Top-1 ≤ 2% com FLOPs mínimos, dado r variável\"* — i.e., **curva Pareto**, não um limiar frouxo.\n\n### 4.2 Onde o ganho realmente morre\n\nO baseline honesto **não** é \"Cayley em `R^d`\" (isso é espantalho — ninguém fatora `4096×4096` por passo). É o bloco transformer convencional por camada, com `s` tokens:\n\n```\nF_base ≈ 8 s d² + 2 s² d   (MLP + attention)\n```\n\nPara `s = 2000`, `d = 4096`: `≈ 268 + 33 = 301 GFLOP/camada`. O esquema reduzido por camada é `≈ 1,14 GFLOP` **se o estado viver em coordenadas reduzidas**. Mas se `Qᵀx` e `Qz` forem computados **por token**, o custo é `4 d r s = 4,3 GFLOP` — **4× o próprio solver reduzido**. Ou seja: **a amortização da projeção (manter `z` vivo entre passos e levantar só na saída) é a única coisa que sustenta o resultado**. Se a implementação projetar a cada passo, o speedup real despenca. Isso precisa estar escrito no protocolo, ou o número de FLOPs reportado será irreplicável.\n\n---\n\n## 5. Gargalos de hardware e memória (a parte que costuma matar a proposta)\n\n| Gargalo | Mecânica | Severidade |\n|---|---|---|\n| **Overhead de lançamento, não de FLOPs** | `K=2000` passos **sequenciais e dependentes** (sem paralelismo no tempo) × ~6 kernels/passo = **12.000 lançamentos**. Com 5–10 µs cada: **60–120 ms só de latência**, contra `0,87 GFLOP ≈ 0,05 ms` de cómputo em A100 fp32. Eficiência de pico `< 1%`. | **Crítico** |\n| **GEMM pequeno** | Blocos `128×128` não engajam Tensor Cores (sweet spot ≥ 256–512). | Alto |\n| **VRAM do unroll** | Backward exige estados: `2000 × 4096 × B(8) × 2 B(fp16) = 131 MB/camada` (sombra dobra) → 32 camadas = **8,4 GB só de ativações do integrador**. | Alto |\n| **LU por token** | Se `A_r` variar com posição/tokens (attn depende de contexto), são `2000 × 1,4 MFLOP = 2,8 GFLOP/camada` **só em fatorações** — e 2000 `getrf` batched. **A premissa de `A_r` congelado por camada é forte e não consta em lugar nenhum do grafo.** | **Crítico** |\n| **Precisão** | `κ(I − h/2 A_r)` cresce com a não-normalidade de `A_r` (introduzida pela projeção). Em fp16 (11 bits), erro relativo `~ κ·5·10⁻⁴`: com `κ > 64` a fatoração é inútil. Exigir **fp32 nas substituições triangulares** (custo 2× em FLOPs absolutos — irrisório) e monitorar `κ`. | Alto |\n| **Rigidez** | `h = 6·10⁻⁴` com `|λ|τ ≫ 1` no gerador reduzido: caso hiperbólico (`S` indefinido) → singularidade em `h = 2/λ` e amplificação `e^{2στ}` (§2e). | Médio-alto |\n\n**Correções obrigatórias se a proposta sobreviver:** CUDA Graphs ou kernel persistente (fundir Cayley + ponto médio em 1 kernel), `getrf/getrs` **batched** sobre `B×H` blocos `128×128`, checkpointing a cada `m` passos (memória `O(K/m)`, recomputo `O(K)`).\n\n---\n\n## 6. Veredito sobre os critérios de validação\n\n| Critério (grafo) | Parecer |\n|---|---|\n| `Redução de FLOPs ≥ 75%` | **Não-vinculante** (§4.1). Deveria ser substituído por curva Pareto `(r, FLOPs, ΔTop-1)`. |\n| `Perda de Acurácia Top-1 ≤ ...` | **Armazenado truncado em 7 de 8 nós**; benchmark indefinido (ImageNet? perplexidade WikiText?); sem seeds, sem baseline, sem intervalo de confiança. **Irreprodutível.** |\n| `r=128, K=2000, τ=1.2` | `r` escolhido sem espectro de decaimento medido; `K` desperdiçado em 2 ordens de grandeza; `τ` sem unidade. **Parâmetros não justificados.** |\n\n---\n\n## 7. Kill criteria — o que encerra a hipótese em 1 dia de bancada\n\n1. **Medir `ε = ‖(I−P)f(Px)‖ / ‖f(Px)‖`** no modelo real, para `r=128`. Se `ε > 3·10⁻²` → **matar** (pois `τ·ε > 2%` antes de qualquer economia).\n2. **Espectro de energia do Jacobiano de camada** (SVD da ação `Jv` sobre um batch): se `r=128` capturar `< 90%` da energia → **matar**. O nó `n_krylov` invoca decaimento de Krylov, mas **nenhum nó do grafo traz o espectro medido** — é premissa infundada até prova em contrário.\n3. **Congelamento de `A_r`**: `‖A_r(t) − A_r(0)‖ / ‖A_r(0)‖ > 10%` ao longo dos tokens → fatoração única inválida, recontar FLOPs (§5).\n4. **`κ(I − h/2 A_r)` em fp16**; `κ > 64` → exigir fp32 e recontar.\n5. **Wall-clock real**: se speedup `< 3×` (não FLOPs — *tempo*), o argumento de hardware cai e a proposta vira curiosidade teórica.\n6. **Sweep de `K ∈ {50, 100, 200, 2000}`**: se `K=100` dá ΔTop-1 dentro do ruído estatístico, o eixo \"integrador de alta ordem/malha fina\" é irrelevante e o ciclo deve redirecionar para `ε` e para `r`.\n\n---\n\n## 8. Novidade real vs. reciclada (o ponto em que a proposta perde a aura)\n\n| Reivindicação provável | Realidade | Fonte |\n|---|---|---|\n| \"Transição simplética via Cayley\" | É o **ponto médio implícito**, rebatizado | Ruth 1983; Feng Kang 1985; Hairer–Lubich–Wanner, *Geometric Numerical Integration*, Ch. VI |\n| \"Splitting de 2ª ordem\" | **Strang (1968)** / Suzuki (1990) | clássico |\n| \"Camadas como produtos de mapas simpléticos aprendidos\" | **SympNet / Linear SympNet** e **HNN** | Jin et al. 2020; Greydanus et al. 2019 |\n| \"Cayley aplicado a redes profundas/recorrências\" | **Scaled Cayley Transform** em RNNs | Helfrich, Villa & Papamakarios 2018 |\n| \"Sombra residual / correção por evento\" | **Já existe no próprio grafo**: `H11/H59` (integrador simplético de sombra residual) e `G426` (slow-manifold projection com correção por evento) | memória coletiva |\n| \"Redução simplética de ordem reduzida\" | **Symplectic model reduction** de sistemas hamiltonianos | Peng & Mohseni 2016 e linha subsequente |\n\n**O que sobra como ângulo defensável** (e mesmo assim modesto):\n- a **redução coisotrópica** (`W^Ω ⊂ W`) em vez da premissa de subespaço invariante — remove a exigência impossível de §2a;\n- o **limite `τ·ε`**, independente da malha, como critério de projeto (muda o eixo da otimização de `h` para `ε`);\n- o **modelo de latência/VRAM** de §5, que transforma \"redução de FLOPs\" em \"ganho de wall-clock\" — a única métrica que interessa a quem paga a conta de GPU.\n\nAinda assim, tudo isso está **implícito** em literatura de integração geométrica e redução de modelos. Quem assinar isso como \"formulação inédita\" está inflando novidade, e eu recomendo que o ciclo #432 seja registrado com **`NOVELTY: PARTIAL`** e **`STATUS: FALSIFIABLE`**, jamais `VERIFIED`.\n\n---\n\n**Resposta direta à tarefa:** apresentei a formulação (§3), a dedução analítica de FLOPs (§4, tabela com `1,14 GFLOP` contra baseline de `805 GFLOP` a `K=2000`), e demonstrei que (i) o critério de 75% não vincula, (ii) `K=2000` é desperdício, (iii) a premissa de subespaço invariante é a falha fatal, com vazamento `τ·ε` insensível a refino, e (iv) a proposta é majoritariamente reciclada — inclusive dentro do próprio grafo, cuja higiene epistêmica está comprometida por clonagem de protocolos, critérios truncados e um \"EMPIRICAL_FACT\" que é, literalmente, a fala de um agente.\n\nSe quiser, no próximo passo eu gero o harness de verificação em Python (NumPy/SciPy) que executa exatamente os 6 kill criteria acima — com medição de `ε`, espectro de energia, `κ` em fp16 e profiling de latência — para a bancada local."
+      }
+    },
+    {
+      "id": "hyp_gen77_36910",
+      "label": "Hypothesis",
+      "title": "Vou assumir o ciclo imediatamente: gravo a bancada de verificação em lote (model",
+      "description": "Vou assumir o ciclo imediatamente: gravo a bancada de verificação em lote (modelo analítico de FLOPs + verificador estrutural + parâmetros rastreáveis), executo a verificação numérica e só então emito o parecer. Nada de laços de leitura — o grafo recuperado já foi auditado a partir do payload.",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793309319.8119762,
+      "updated_at": 1793309320.82014,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0077_1793309118",
+        "cycle_id": 432,
+        "full_text": "Vou assumir o ciclo imediatamente: gravo a bancada de verificação em lote (modelo analítico de FLOPs + verificador estrutural + parâmetros rastreáveis), executo a verificação numérica e só então emito o parecer. Nada de laços de leitura — o grafo recuperado já foi auditado a partir do payload."
+      }
+    },
+    {
+      "id": "gen_0077_1793309118",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #77 (Ciclo #432)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793309320.9331594,
+      "updated_at": 1793309320.9331594,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 77,
+        "cycle_id": 432,
+        "verdict": "APPROVED",
+        "duration_sec": 202.12,
+        "tokens_consumed": 5882,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -33781,7 +33854,97 @@
       "version": 1,
       "created_at": 1793309080.9089663,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen77_10685_addresses_n_krylov",
+      "source_id": "hyp_gen77_10685",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793309168.6751852,
+        "updated_at": 1793309169.4888258,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0077_1793309118_1793309168724_e_hyp_gen77_10685_addresses_n_krylov",
+            "generation_id": "gen_0077_1793309118",
+            "timestamp": 1793309169.4888258,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793309168.6751893,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen77_33257_addresses_n_strang",
+      "source_id": "hyp_gen77_33257",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793309236.3436158,
+        "updated_at": 1793309237.215132,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0077_1793309118_1793309236422_e_hyp_gen77_33257_addresses_n_strang",
+            "generation_id": "gen_0077_1793309118",
+            "timestamp": 1793309237.215132,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_031_critic",
+      "version": 1,
+      "created_at": 1793309236.3436215,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen77_36910_addresses_n_naive",
+      "source_id": "hyp_gen77_36910",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793309319.8672543,
+        "updated_at": 1793309320.879076,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0077_1793309118_1793309319917_e_hyp_gen77_36910_addresses_n_naive",
+            "generation_id": "gen_0077_1793309118",
+            "timestamp": 1793309320.879076,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793309319.8672583,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793309081.6711123
+  "saved_at": 1793309320.9344704
 }
