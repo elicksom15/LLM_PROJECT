@@ -439,4 +439,65 @@ class DiscordBridge:
         content_msg = f"🧮 **[FASE 0 — CÁLCULO PRIMEIRO]** Ciclo #{cycle_id}: {verdict_str}"
         return self.send_embed(embed, content=content_msg)
 
+
+    def publish_git_sync_card(
+        self,
+        cycle_id: int,
+        commit_info: Dict[str, Any]
+    ) -> bool:
+        """Publica Card Executivo anunciando commit e sincronização contínua com o GitHub."""
+        short_hash = commit_info.get("short_hash", "HEAD")
+        commit_hash = commit_info.get("commit_hash", "")
+        commit_msg = commit_info.get("commit_msg", "Research Sync")
+        repo_url = commit_info.get("repo_url", "https://github.com/elicksom15/LLM_PROJECT.git").rstrip(".git")
+        branch = commit_info.get("branch", "main")
+        total_cycles = commit_info.get("total_cycles", cycle_id)
+        approved_count = commit_info.get("approved_count", 0)
+
+        commit_link = f"[{short_hash}]({repo_url}/commit/{commit_hash})" if commit_hash else f"`{short_hash}`"
+        state_link = f"[STATE.md (Ledger Completo)]({repo_url}/blob/{branch}/STATE.md)"
+        ledger_link = f"[ledger.json (Dados Brutos)]({repo_url}/blob/{branch}/ledger.json)"
+        readme_link = f"[README Executivo]({repo_url}/blob/{branch}/README.md)"
+
+        embed = {
+            "title": f"📦 GITHUB SINCRONIZADO — COMMIT [{short_hash}]",
+            "url": f"{repo_url}/commit/{commit_hash}" if commit_hash else repo_url,
+            "description": (
+                f"**Repositório Oficial:** [`elicksom15/LLM_PROJECT`]({repo_url})\n"
+                f"**Branch Ativa:** `{branch}` • **Sincronização:** Automática e Contínua (24/7)\n"
+                f"Todo o estado dos ensaios, hipóteses e ledger foram enviados para a nuvem."
+            ),
+            "color": 0x24292E,  # GitHub Dark / Octocat
+            "fields": [
+                {
+                    "name": "📌 Commit & Identificação",
+                    "value": f"• **Hash:** {commit_link}\n• **Mensagem:** `{commit_msg}`",
+                    "inline": False
+                },
+                {
+                    "name": "📊 Painel de Ciclos Sincronizados",
+                    "value": (
+                        f"• **Ciclo Concluído:** `#{cycle_id}`\n"
+                        f"• **Total de Ciclos no Ledger:** `{total_cycles}`\n"
+                        f"• **Hipóteses Aprovadas:** `🏆 {approved_count}`"
+                    ),
+                    "inline": True
+                },
+                {
+                    "name": "🌐 Navegação e Documentação",
+                    "value": (
+                        f"• 📜 {state_link}\n"
+                        f"• 🗄️ {ledger_link}\n"
+                        f"• 📘 {readme_link}"
+                    ),
+                    "inline": True
+                }
+            ],
+            "footer": {
+                "text": "Dual MiMo Research Engine • GitHub Continuous Delivery • RTX 3060 12GB"
+            }
+        }
+        content_msg = f"🚀 **[GITHUB SYNC]** Novo commit enviado com sucesso: {commit_link} (`{commit_msg}`)"
+        return self.send_embed(embed, content=content_msg)
+
 discord_bridge = DiscordBridge()

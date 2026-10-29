@@ -1,0 +1,18 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# SQLite databases & temp locks (Windows safe)
+*.db
+*.db-journal
+*.db-wal
+
+# Logs & scratch
+logs/
+scratch/
+*.signal
+
+# OS generated
+.DS_Store
+Thumbs.db

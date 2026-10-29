@@ -10,6 +10,7 @@ from debate_engine import debate_engine
 from experiment_runner import experiment_runner
 from discord_bridge import discord_bridge
 from analytical_engine import analytical_engine
+from git_sync import git_sync
 
 logging.basicConfig(
     level=logging.INFO,
@@ -56,9 +57,11 @@ class ResearchOrchestrator:
         3. Rodada 1: Investigação independente (com Contexto Científico Máximo)
         4. Rodada 2: Confronto e críticas adversariais
         5. Rodada 3: Especificação experimental consensual
-        6. Execução real do benchmark na RTX 3060 12GB
-        7. Rodada 4: Avaliação crítica pós-experimento por ambas as MiMo
-        8. Publicação de Rich Embed no Discord e atualização do Ledger SQLite
+        6. Fase 0: Auditoria matemática prévia (corte >= 75%)
+        7. Execução real do benchmark na RTX 3060 12GB (se aprovado no cálculo)
+        8. Rodada 4: Avaliação crítica pós-experimento por ambas as MiMo
+        9. Sincronização contínua com Git (commit + push imediato)
+        10. Publicação de Rich Embed no Discord com link de commit e ledger
         """
         self.clear_signals()
         cycle_id = persistence.get_latest_cycle_id() + 1
@@ -135,6 +138,12 @@ class ResearchOrchestrator:
                 f"Redução teórica de FLOPs ({math_audit.get('flops_reduction_pct', 0.0):.1f}%) não atingiu o limiar de 75.0%.\n"
                 f"Nenhum ciclo da RTX 3060 foi desperdiçado. Avançando para a próxima formulação inédita."
             )
+
+            # Sincronização contínua com GitHub
+            commit_info = git_sync.commit_and_push(cycle_id, hypothesis["title"], verdict)
+            if commit_info:
+                discord_bridge.publish_git_sync_card(cycle_id, commit_info)
+
             time.sleep(3.0)
             return {
                 "cycle_id": cycle_id,
@@ -169,6 +178,11 @@ class ResearchOrchestrator:
         next_step = "Incorporado ao Ledger Científico. Avançando para próxima fronteira." if verdict == "APPROVED" else "Investigar causa de falsificação no próximo ciclo."
         persistence.finish_cycle(cycle_id, verdict, exp_results, next_step)
 
+        # Sincronização contínua com GitHub
+        commit_info = git_sync.commit_and_push(cycle_id, hypothesis["title"], verdict)
+        if commit_info:
+            discord_bridge.publish_git_sync_card(cycle_id, commit_info)
+
         logger.info(f"=== RESEARCH CYCLE #{cycle_id} CONCLUÍDO COM SUCESSO: VEREDITO = {verdict} ===")
         return {
             "cycle_id": cycle_id,
@@ -180,11 +194,14 @@ class ResearchOrchestrator:
     def start_loop(self, max_cycles: int = 100, interval_sec: float = 20.0):
         """
         Loop contínuo de pesquisa autônoma 24/7.
-        Executa ciclo após ciclo, salvando o progresso no SQLite e enviando telemetria rica ao Discord.
+        Executa ciclo após ciclo, puxando e enviando atualizações ao GitHub e transmitindo ao Discord.
         """
         logger.info(">>> INICIANDO MOTOR DE PESQUISA AUTÔNOMA 24/7 (DUAL MIMO RESEARCH ENGINE) <<<")
         self.clear_signals()
         self.running = True
+
+        # Sincronização inicial com o GitHub para garantir continuidade
+        git_sync.pull_state()
 
         cycle_count = 0
         while self.running and cycle_count < max_cycles:

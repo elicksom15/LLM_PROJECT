@@ -1,7 +1,7 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-28 21:28:42",
+  "last_sync": "2026-10-28 21:35:53",
   "stats": {
     "total_cycles": 73,
     "approved_count": 7,
@@ -82,7 +82,7 @@
   "recent_cycles": [
     {
       "cycle_id": 73,
-      "timestamp": 1793233323.0463276,
+      "timestamp": "2026-10-28 21:22:03",
       "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -92,7 +92,7 @@
     },
     {
       "cycle_id": 72,
-      "timestamp": 1793232710.9214416,
+      "timestamp": "2026-10-28 21:11:50",
       "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -102,7 +102,7 @@
     },
     {
       "cycle_id": 71,
-      "timestamp": 1793231878.3521724,
+      "timestamp": "2026-10-28 20:57:58",
       "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -112,7 +112,7 @@
     },
     {
       "cycle_id": 70,
-      "timestamp": 1793230757.7569127,
+      "timestamp": "2026-10-28 20:39:17",
       "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -122,7 +122,7 @@
     },
     {
       "cycle_id": 69,
-      "timestamp": 1793229637.5270777,
+      "timestamp": "2026-10-28 20:20:37",
       "title": "GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -132,7 +132,7 @@
     },
     {
       "cycle_id": 68,
-      "timestamp": 1793228934.474808,
+      "timestamp": "2026-10-28 20:08:54",
       "title": "GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -142,7 +142,7 @@
     },
     {
       "cycle_id": 67,
-      "timestamp": 1793228607.1131234,
+      "timestamp": "2026-10-28 20:03:27",
       "title": "GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -152,7 +152,7 @@
     },
     {
       "cycle_id": 66,
-      "timestamp": 1793228195.8495073,
+      "timestamp": "2026-10-28 19:56:35",
       "title": "GPT3B_H66_FLUXO_SIMPLETICO_DE_GERADOR_BANDA_KRYLOV",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -162,7 +162,7 @@
     },
     {
       "cycle_id": 65,
-      "timestamp": 1793227488.3304653,
+      "timestamp": "2026-10-28 19:44:48",
       "title": "GPT3B_H65_ANALYTICAL_TAYLOR_ODE_JUMP",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -172,7 +172,7 @@
     },
     {
       "cycle_id": 64,
-      "timestamp": 1793226585.9642017,
+      "timestamp": "2026-10-28 19:29:45",
       "title": "GPT3B_H64_INVARIANT_SYMPLECTIC_MANIFOLD",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -182,7 +182,7 @@
     },
     {
       "cycle_id": 63,
-      "timestamp": 1793225968.5710084,
+      "timestamp": "2026-10-28 19:19:28",
       "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
       "verdict": "REJECTED",
       "flops_reduction": 79.02115311208433,
@@ -192,7 +192,7 @@
     },
     {
       "cycle_id": 62,
-      "timestamp": 1793225663.9516838,
+      "timestamp": "2026-10-28 19:14:23",
       "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -202,7 +202,7 @@
     },
     {
       "cycle_id": 61,
-      "timestamp": 1793225020.968549,
+      "timestamp": "2026-10-28 19:03:40",
       "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -212,7 +212,7 @@
     },
     {
       "cycle_id": 60,
-      "timestamp": 1793224657.224302,
+      "timestamp": "2026-10-28 18:57:37",
       "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -222,7 +222,7 @@
     },
     {
       "cycle_id": 59,
-      "timestamp": 1793224023.3430998,
+      "timestamp": "2026-10-28 18:47:03",
       "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -232,7 +232,7 @@
     },
     {
       "cycle_id": 58,
-      "timestamp": 1793222954.3488376,
+      "timestamp": "2026-10-28 18:29:14",
       "title": "GPT3B_H_DYNAMIC_K_CONFIDENCE_THRESHOLD",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -242,7 +242,7 @@
     },
     {
       "cycle_id": 57,
-      "timestamp": 1793222232.1956272,
+      "timestamp": "2026-10-28 18:17:12",
       "title": "GPT3B_H_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -252,7 +252,7 @@
     },
     {
       "cycle_id": 56,
-      "timestamp": 1793220502.0980892,
+      "timestamp": "2026-10-28 17:48:22",
       "title": "GPT3B_H_KRONECKER_SPECTRAL_CONTRACTION",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -262,7 +262,7 @@
     },
     {
       "cycle_id": 55,
-      "timestamp": 1793220080.2095616,
+      "timestamp": "2026-10-28 17:41:20",
       "title": "GPT3B_H_ANALYTICAL_TAYLOR_ODE_JUMP",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -272,7 +272,7 @@
     },
     {
       "cycle_id": 54,
-      "timestamp": 1793218892.0494797,
+      "timestamp": "2026-10-28 17:21:32",
       "title": "GPT3B_H_INVARIANT_SYMPLECTIC_MANIFOLD",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -282,7 +282,7 @@
     },
     {
       "cycle_id": 53,
-      "timestamp": 1793218462.4267175,
+      "timestamp": "2026-10-28 17:14:22",
       "title": "GPT3B_H52_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.02115311208433,
@@ -292,7 +292,7 @@
     },
     {
       "cycle_id": 52,
-      "timestamp": 1793212749.194125,
+      "timestamp": "2026-10-28 15:39:09",
       "title": "GPT3B_H52_CROSS_LAYER_SPARSITY",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
@@ -302,7 +302,7 @@
     },
     {
       "cycle_id": 51,
-      "timestamp": 1793212464.5561054,
+      "timestamp": "2026-10-28 15:34:24",
       "title": "GPT3B_H51_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -312,7 +312,7 @@
     },
     {
       "cycle_id": 50,
-      "timestamp": 1793212180.0079143,
+      "timestamp": "2026-10-28 15:29:40",
       "title": "GPT3B_H50_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -322,7 +322,7 @@
     },
     {
       "cycle_id": 49,
-      "timestamp": 1793211894.000404,
+      "timestamp": "2026-10-28 15:24:54",
       "title": "GPT3B_H49_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -332,7 +332,7 @@
     },
     {
       "cycle_id": 48,
-      "timestamp": 1793211608.5138426,
+      "timestamp": "2026-10-28 15:20:08",
       "title": "GPT3B_H48_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -342,7 +342,7 @@
     },
     {
       "cycle_id": 47,
-      "timestamp": 1793211323.5315008,
+      "timestamp": "2026-10-28 15:15:23",
       "title": "GPT3B_H47_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -352,7 +352,7 @@
     },
     {
       "cycle_id": 46,
-      "timestamp": 1793211038.6715138,
+      "timestamp": "2026-10-28 15:10:38",
       "title": "GPT3B_H46_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -362,7 +362,7 @@
     },
     {
       "cycle_id": 45,
-      "timestamp": 1793210752.593596,
+      "timestamp": "2026-10-28 15:05:52",
       "title": "GPT3B_H45_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -372,7 +372,7 @@
     },
     {
       "cycle_id": 44,
-      "timestamp": 1793210468.264939,
+      "timestamp": "2026-10-28 15:01:08",
       "title": "GPT3B_H44_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -382,7 +382,7 @@
     },
     {
       "cycle_id": 43,
-      "timestamp": 1793210182.5502675,
+      "timestamp": "2026-10-28 14:56:22",
       "title": "GPT3B_H43_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -392,7 +392,7 @@
     },
     {
       "cycle_id": 42,
-      "timestamp": 1793209898.6573622,
+      "timestamp": "2026-10-28 14:51:38",
       "title": "GPT3B_H42_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -402,7 +402,7 @@
     },
     {
       "cycle_id": 41,
-      "timestamp": 1793209612.6141083,
+      "timestamp": "2026-10-28 14:46:52",
       "title": "GPT3B_H41_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -412,7 +412,7 @@
     },
     {
       "cycle_id": 40,
-      "timestamp": 1793209324.7701359,
+      "timestamp": "2026-10-28 14:42:04",
       "title": "GPT3B_H40_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -422,7 +422,7 @@
     },
     {
       "cycle_id": 39,
-      "timestamp": 1793209040.2362418,
+      "timestamp": "2026-10-28 14:37:20",
       "title": "GPT3B_H39_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -432,7 +432,7 @@
     },
     {
       "cycle_id": 38,
-      "timestamp": 1793208754.4568036,
+      "timestamp": "2026-10-28 14:32:34",
       "title": "GPT3B_H38_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -442,7 +442,7 @@
     },
     {
       "cycle_id": 37,
-      "timestamp": 1793208465.3756852,
+      "timestamp": "2026-10-28 14:27:45",
       "title": "GPT3B_H37_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -452,7 +452,7 @@
     },
     {
       "cycle_id": 36,
-      "timestamp": 1793208181.6421878,
+      "timestamp": "2026-10-28 14:23:01",
       "title": "GPT3B_H36_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -462,7 +462,7 @@
     },
     {
       "cycle_id": 35,
-      "timestamp": 1793207896.3291926,
+      "timestamp": "2026-10-28 14:18:16",
       "title": "GPT3B_H35_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
@@ -472,12 +472,112 @@
     },
     {
       "cycle_id": 34,
-      "timestamp": 1793207611.0426927,
+      "timestamp": "2026-10-28 14:13:31",
       "title": "GPT3B_H34_CROSS_LAYER_SPARSITY",
       "verdict": "REJECTED",
       "flops_reduction": 79.11625051831288,
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 440.2166495100941,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 33,
+      "timestamp": "2026-10-28 14:08:46",
+      "title": "GPT3B_H33_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 312.73965264687433,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 32,
+      "timestamp": "2026-10-28 14:04:00",
+      "title": "GPT3B_H32_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 448.1362887546409,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 31,
+      "timestamp": "2026-10-28 13:59:15",
+      "title": "GPT3B_H31_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 380.18500672679477,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 30,
+      "timestamp": "2026-10-28 13:54:29",
+      "title": "GPT3B_H30_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 438.71935562989114,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 29,
+      "timestamp": "2026-10-28 13:49:42",
+      "title": "GPT3B_H29_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 406.844670149723,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 28,
+      "timestamp": "2026-10-28 13:44:56",
+      "title": "GPT3B_H28_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 460.17318139858656,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 27,
+      "timestamp": "2026-10-28 13:40:12",
+      "title": "GPT3B_H27_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 289.90281978497086,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 26,
+      "timestamp": "2026-10-28 13:35:26",
+      "title": "GPT3B_H26_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 445.6184991790971,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 25,
+      "timestamp": "2026-10-28 13:30:40",
+      "title": "GPT3B_H25_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 383.11746937669886,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 24,
+      "timestamp": "2026-10-28 13:25:55",
+      "title": "GPT3B_H24_CROSS_LAYER_SPARSITY",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 430.4248935999195,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
     }
   ]
