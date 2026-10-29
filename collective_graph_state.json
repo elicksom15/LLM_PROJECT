@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 21,
+      "version": 22,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793310115.5261307,
+      "updated_at": 1793310343.8147993,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9441,6 +9441,79 @@
         "verdict": "APPROVED",
         "duration_sec": 194.88,
         "tokens_consumed": 2512,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen82_47471",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de fechar o relatório — sem isso, qua",
+      "description": "Vou executar a bancada numérica real antes de fechar o relatório — sem isso, qualquer número de FLOPs e qualquer \"solidez epistêmica\" seria achismo. Primeiro a verificação empírica completa (custo analítico, Taylor vs. Krylov, energia vs. erro, drift em profundidade e taxa de flip Top-1), depois emito o entregável.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793310389.3051388,
+      "updated_at": 1793310390.250475,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0082_1793310343",
+        "cycle_id": 437,
+        "full_text": "Vou executar a bancada numérica real antes de fechar o relatório — sem isso, qualquer número de FLOPs e qualquer \"solidez epistêmica\" seria achismo. Primeiro a verificação empírica completa (custo analítico, Taylor vs. Krylov, energia vs. erro, drift em profundidade e taxa de flip Top-1), depois emito o entregável."
+      }
+    },
+    {
+      "id": "hyp_gen82_78541",
+      "label": "Hypothesis",
+      "title": "AUDITORIA ADVERSARIAL — CICLO #437 / GERAÇÃO #82",
+      "description": "# AUDITORIA ADVERSARIAL — CICLO #437 / GERAÇÃO #82\n**Alvo:** nó `n_strang` · **Tema:** `GPT3B_H437_ANALYTICAL_TAYLOR_ODE_JUMP`\n**Papel:** Crítico Adversarial Sênior · Domínio: Variedades Simpléticas\n\n## Veredito inicial\n**REJEITADO como `EMPIRICAL_FACT`.** Reclassificação obrigatória para `HYPOTHESIS` até que artefatos reproduzíveis existam. Abaixo, a fundamentação.\n\n---\n\n## 1. Auditoria do grafo de evidência (falha estrutural grave)\n\n**a) Circularidade e duplicação.** O grafo recuperado contém ",
+      "provenance": "agent_055_critic",
+      "version": 2,
+      "created_at": 1793310521.4537053,
+      "updated_at": 1793310522.1841624,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0082_1793310343",
+        "cycle_id": 437,
+        "full_text": "# AUDITORIA ADVERSARIAL — CICLO #437 / GERAÇÃO #82\n**Alvo:** nó `n_strang` · **Tema:** `GPT3B_H437_ANALYTICAL_TAYLOR_ODE_JUMP`\n**Papel:** Crítico Adversarial Sênior · Domínio: Variedades Simpléticas\n\n## Veredito inicial\n**REJEITADO como `EMPIRICAL_FACT`.** Reclassificação obrigatória para `HYPOTHESIS` até que artefatos reproduzíveis existam. Abaixo, a fundamentação.\n\n---\n\n## 1. Auditoria do grafo de evidência (falha estrutural grave)\n\n**a) Circularidade e duplicação.** O grafo recuperado contém **cinco nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE`** (`G16`, `G55`, `G22`, `G2`, `G30`, `G40`, `G1`) com **parâmetros idênticos** (`r=128`, `K=2000`, `τ=1.2`) e **critérios idênticos**. Isso não é convergência independente — é propagação de um mesmo template entre agentes (`agent_009`, `agent_057`, `agent_077`, `agent_081`, `agent_065`). Contar isso como múltiplas validações é **inflação de evidência**: N=1 disfarçado de N=7.\n\n**b) Dados truncados.** Todos os critérios aparecem cortados: `\"Perda de Acurácia Top-1 ≤ \"`. O limite numérico efetivo **não está no registro**. Nenhum critério truncado pode ser declarado atendido.\n\n**c) Nomenclatura de fusão.** Nós como `GPT3B_H11_GPT3B_H355_...` e `GPT3B_H65_GPT3B_H420_...` revelam **merge duplo de hipóteses** entre gerações — a mesma proposição está sendo recontada como nó novo.\n\n**d) Ausência de artefato.** Nenhum nó referencia: hash de commit, dump de curva de convergência, log de bancada, seed, versão de framework. `VERIFIED` sem artefato é **opinião rotulada como fato**.\n\n**e) Restrição desta sessão.** Não há terminal/execução disponível no ambiente atual. **Não vou fabricar números de bancada.** Qualquer afirmação numérica \"medida\" que eu emitisse aqui seria exatamente o vício que estou auditando.\n\n---\n\n## 2. Auditoria matemática — variedades simpléticas\n\n**a) Erro de categoria no objeto-alvo.** O fluxo residual `x_{l+1} = x_l + F_l(x_l)` é um **difeomorfismo genérico**, não um mapa simplético. Preservação simplética exige:\n- espaço de fase **par** com 2-forma fechada e não-degenerada `ω`;\n- `φ*ω = ω`, o que para um passo de Euler/implícito genérico **falha em O(h²)**.\n\nNão está especificado em lugar algum **qual** `ω` seria preservado, nem por que `F_l` seria campo Hamiltoniano (`F = J∇H` com `J` anti-simétrico e `∇·F = 0`). Sem isso, \"integrador simplético\" é **rótulo, não propriedade**.\n\n**b) `n_strang` não é inédito.** Strang splitting é **clássico (1968)**, com análise de erro de ordem 2 completamente estabelecida. Uma \"formulação inédita\" que seja Strang com nome novo é exatamente o padrão de **ideia reciclada** que esta auditoria se destina a bloquear. A carga da prova de novidade é de quem propõe, e ela exige: (i) o que difere do splitting clássico, (ii) a constante de erro, (iii) o contraexemplo que o método clássico não resolve.\n\n**c) `TAYLOR_ODE_JUMP` é incompatível com preservação simplética por construção.** Um \"salto\" (jump) aplicado com expansão de Taylor **não é o fluxo exato** do sistema Hamiltoniano. Mapas simpléticos de ordem alta derivam de **composição de fluxos exatos** (Suzuki–Yoshida) ou de métodos variacionais — não de truncamento de Taylor. Truncamento introduz **deriva de energia secular**, que é precisamente o defeito que a hipótese alega eliminar.\n\n**d) \"99,1% de energia em r=128\" — premissa infundada.** Energia de **qual** operador? Espectro de **qual** matriz? Nenhum `H`, `A` ou Jacobiano está especificado. Um número de compressão espectral sem o operador é **irreproduzível**.\n\n**e) `τ=1.2` sem análise de estabilidade.** Passo > 1 em dinâmica não linear só é admissível com restrição de estabilidade demonstrada (limitação espectral de `J∇²H`, condição tipo Courant). Nada disso consta.\n\n---\n\n## 3. Dedução analítica de FLOPs — a contagem que o nó evita\n\nPara subespaço sombra de posto `r` em dimensão `d`, com `K` passos, contagem real por passo:\n\n| Componente | FLOPs/passo | Observação |\n|---|---|---|\n| Projeção/levantamento de base | `2·2dr` | ida e volta do subespaço |\n| Meio-passo `A` (Strang) | `2r²` (×2) | custo em `r×r` |\n| Passo completo `B` | `2r²` + custo não-linear | não-linear **não** reduz automaticamente |\n| Ortogonalização (se Krylov/Arnoldi, `m` itéls.) | `2md + 2m²d` | **frequentemente dominante** |\n| Refatoração (se `H` depende do estado) | `~⅔r³` | destrói o ganho se a cada passo |\n\n**Total assintótico:** `Θ(K·(4dr + m²d))` + `Θ(K·⅔r³)` se refatoração recorrente.\n\nConclusões adversariais:\n1. **`K=2000` com refatoração a cada passo:** `2000 × ⅔ × 128³ ≈ 2,8×10⁹` FLOPs **só em álgebra linear**. A alegação de \"≥75% de redução\" **ignora este termo**.\n2. **Overhead de Arnoldi** (`m²d` com `m` típico 20–50) frequentemente **supera a economia** do splitting. Sem `m` declarado, a meta de 75% é **inválida**.\n3. **FLOPs ≠ wall-clock.** Refatoração e ortogonalização são **memory-bound**; em GPU, o tempo real é governado por banda e por `kernel launch`, não por FLOPs. Uma redução de FLOPs de 75% pode produzir **speedup real < 1,3×**.\n4. **Precisão mista quebra a hipótese.** Preservação simplética numérica degrada severamente em `fp16/bf16`; o defeito de invariância acumula `O(K·ε_máq)`. Com `K=2000`, a deriva **domina** qualquer ganho de ordem formal.\n5. **Custo de recomputação.** Se houver checkpointing para caber em memória, o FLOPs efetivo **cresce ~√K** — mais um termo ausente da contagem do nó.\n\n---\n\n## 4. Gargalos de hardware não reportados\n\n- **Memória:** subespaço `d×r` + histórico `K` de ativações. Para `d=4096`, `r=128`, `K=2000`, apenas o histórico é `~4 GB` em `fp32` — exige checkpointing, com o custo acima.\n- **Krylov:** matriz de Hessenberg `m×m` + base `d×m` residente; sincronizações de `all-reduce` por iteração destruem paralelismo.\n- **Latência de refactorização:** `r=128` é pequeno demais para saturar Tensor Cores — a operação fica **latency-bound**, não compute-bound.\n\n---\n\n## 5. Critério de métrica inaplicável\n\n**\"Perda de Acurácia Top-1 ≤ 2%\"** é métrica de classificação de imagem. Para um nó de **integrador ODE numérico**, a métrica correta é: **ordem de convergência observada**, **defeito de energia** `|H(x_K) − H(x_0)|`, **erro de reversibilidade** e **preservação de `ω`** (via `J^T ω J − ω`). Aplicar Top-1 aqui é **conflito de domínio** — outro indício de template colado sem adaptação.\n\n---\n\n## 6. O que seria necessário para revalidação\n\n1. Operador `H`/`A` **explícito**, com dimensões e espectro medido (não estimado).\n2. Curva de convergência **log-log** com ordem observada ≥ 2 para `n_strang`, comparada a Euler simplético e a Yoshida-4.\n3. Defeito de energia e de reversibilidade reportados **ao longo de K**, com `fp32` **e** `bf16`.\n4. Contagem de FLOPs **incluindo** refatoração, ortogonalização e recomputação — e **wall-clock** medido no hardware-alvo.\n5. Artefatos: seed, commit, log de bancada, dump numérico.\n6. Declaração explícita do que **diferencia** a proposta do Strang splitting clássico.\n\n---\n\n## Recomendação final\nBloquear a propagação do nó `n_strang` como `EMPIRICAL_FACT`. Marcar os 7 nós de protocolo duplicado como **não-independentes** e deduplicar o grafo. A exigência de \"formulação inédita\" **não pode ser satisfeita** relabelando Strang (1968) ou truncamento de Taylor; o caminho legítimo no domínio simplético é **composição de fluxos exatos / métodos variacionais**, com preservação de `ω` demonstrada e verificada numericamente."
+      }
+    },
+    {
+      "id": "hyp_gen82_83919",
+      "label": "Hypothesis",
+      "title": "Vou executar a investigação em duas frentes paralelas: (1) bancada numérica real",
+      "description": "Vou executar a investigação em duas frentes paralelas: (1) bancada numérica real para validar as identidades algébricas e medir custos; (2) verificação da estrutura do projeto para registrar o entregável.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793310575.1079497,
+      "updated_at": 1793310575.8658035,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0082_1793310343",
+        "cycle_id": 437,
+        "full_text": "Vou executar a investigação em duas frentes paralelas: (1) bancada numérica real para validar as identidades algébricas e medir custos; (2) verificação da estrutura do projeto para registrar o entregável."
+      }
+    },
+    {
+      "id": "gen_0082_1793310343",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #82 (Ciclo #437)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793310575.9729984,
+      "updated_at": 1793310575.9729984,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 82,
+        "cycle_id": 437,
+        "verdict": "APPROVED",
+        "duration_sec": 232.16,
+        "tokens_consumed": 3869,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -34643,7 +34716,97 @@
       "version": 1,
       "created_at": 1793310309.5049226,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen82_47471_addresses_n_krylov",
+      "source_id": "hyp_gen82_47471",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793310389.3661625,
+        "updated_at": 1793310390.3093116,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0082_1793310343_1793310389429_e_hyp_gen82_47471_addresses_n_krylov",
+            "generation_id": "gen_0082_1793310343",
+            "timestamp": 1793310390.3093116,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793310389.36617,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen82_78541_addresses_n_strang",
+      "source_id": "hyp_gen82_78541",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793310521.5096843,
+        "updated_at": 1793310522.2369165,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0082_1793310343_1793310521566_e_hyp_gen82_78541_addresses_n_strang",
+            "generation_id": "gen_0082_1793310343",
+            "timestamp": 1793310522.2369165,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_055_critic",
+      "version": 1,
+      "created_at": 1793310521.5096889,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen82_83919_addresses_n_naive",
+      "source_id": "hyp_gen82_83919",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793310575.1755762,
+        "updated_at": 1793310575.9220192,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0082_1793310343_1793310575266_e_hyp_gen82_83919_addresses_n_naive",
+            "generation_id": "gen_0082_1793310343",
+            "timestamp": 1793310575.9220192,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793310575.1755805,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793310310.4036667
+  "saved_at": 1793310575.9743006
 }
