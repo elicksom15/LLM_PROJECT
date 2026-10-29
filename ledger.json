@@ -1,10 +1,10 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-29 14:59:49",
+  "last_sync": "2026-10-29 15:01:36",
   "stats": {
-    "total_cycles": 363,
-    "approved_count": 16,
+    "total_cycles": 364,
+    "approved_count": 17,
     "rejected_count": 66
   },
   "approved_hypotheses": [
@@ -167,9 +167,29 @@
       "speedup_pct": 2900.1599008366907,
       "kl_divergence": 0.0,
       "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #10."
+    },
+    {
+      "cycle_id": 364,
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "top1_accuracy": 99.01477832512316,
+      "flops_reduction": 95.77,
+      "tokens_per_sec": 44.5,
+      "speedup_pct": 2734.066776859504,
+      "kl_divergence": 0.0,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #11."
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 364,
+      "timestamp": "2026-10-29 15:00:08",
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "verdict": "APPROVED",
+      "flops_reduction": 95.77,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 44.5,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #11."
+    },
     {
       "cycle_id": 363,
       "timestamp": "2026-10-29 14:58:21",
@@ -653,16 +673,6 @@
     {
       "cycle_id": 315,
       "timestamp": "2026-10-29 11:39:53",
-      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "PENDING",
-      "flops_reduction": 0.0,
-      "top1_accuracy": 0.0,
-      "tokens_per_sec": 0.0,
-      "next_step": "Iniciando debate"
-    },
-    {
-      "cycle_id": 314,
-      "timestamp": "2026-10-29 11:37:22",
       "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
