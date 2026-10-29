@@ -6,9 +6,9 @@
       "title": "Subespaço de Krylov",
       "description": "",
       "provenance": "system",
-      "version": 12,
+      "version": 15,
       "created_at": 1793240928.9200044,
-      "updated_at": 1793242128.996629,
+      "updated_at": 1793295827.556997,
       "validation_status": "PROPOSED",
       "epistemic_class": "HYPOTHESIS",
       "properties": {}
@@ -19,9 +19,9 @@
       "title": "Splitting de Strang",
       "description": "",
       "provenance": "system",
-      "version": 12,
+      "version": 15,
       "created_at": 1793240928.9200113,
-      "updated_at": 1793242128.9978151,
+      "updated_at": 1793295827.5590491,
       "validation_status": "PROPOSED",
       "epistemic_class": "HYPOTHESIS",
       "properties": {}
@@ -32,9 +32,9 @@
       "title": "Truncamento SVD Ingênuo",
       "description": "",
       "provenance": "system",
-      "version": 12,
+      "version": 15,
       "created_at": 1793240928.9200153,
-      "updated_at": 1793242128.9986465,
+      "updated_at": 1793295827.5605364,
       "validation_status": "PROPOSED",
       "epistemic_class": "HYPOTHESIS",
       "properties": {}
@@ -186,71 +186,16 @@
       "weights": {
         "weight_semantic": 0.85,
         "weight_epistemic": 0.7,
-        "weight_operational": 0.8115,
-        "uncertainty": 0.1886,
-        "update_count": 6,
-        "created_at": 1793242128.999376,
-        "updated_at": 1793295699.8022058,
-        "update_history": [
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295625778_rel_krylov_projection",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295626.8224437,
-            "w_prev": 0.5,
-            "reward": 1.0,
-            "w_next": 0.575,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295639671_rel_krylov_projection",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295640.527421,
-            "w_prev": 0.575,
-            "reward": 1.0,
-            "w_next": 0.6387,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295655883_rel_krylov_projection",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295656.6169517,
-            "w_prev": 0.6387,
-            "reward": 1.0,
-            "w_next": 0.6929,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295669530_rel_krylov_projection",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295670.1898263,
-            "w_prev": 0.6929,
-            "reward": 1.0,
-            "w_next": 0.739,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295685553_rel_krylov_projection",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295686.412933,
-            "w_prev": 0.739,
-            "reward": 1.0,
-            "w_next": 0.7782,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295699185_rel_krylov_projection",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295699.8022058,
-            "w_prev": 0.7782,
-            "reward": 1.0,
-            "w_next": 0.8115,
-            "method": "gpu_physical_verification"
-          }
-        ]
+        "weight_operational": 0.5,
+        "uncertainty": 0.5,
+        "update_count": 0,
+        "created_at": 1793295827.561882,
+        "updated_at": 1793295827.5618827,
+        "update_history": []
       },
       "provenance": "system",
       "version": 1,
-      "created_at": 1793242128.9993813,
+      "created_at": 1793295827.5618892,
       "metadata": {}
     },
     {
@@ -261,71 +206,16 @@
       "weights": {
         "weight_semantic": 0.6,
         "weight_epistemic": 0.4,
-        "weight_operational": 0.8115,
-        "uncertainty": 0.1886,
-        "update_count": 6,
-        "created_at": 1793242128.9993834,
-        "updated_at": 1793295699.8037074,
-        "update_history": [
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295625778_rel_naive_svd_truncation",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295626.8236315,
-            "w_prev": 0.5,
-            "reward": 1.0,
-            "w_next": 0.575,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295639671_rel_naive_svd_truncation",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295640.5286002,
-            "w_prev": 0.575,
-            "reward": 1.0,
-            "w_next": 0.6387,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295655883_rel_naive_svd_truncation",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295656.6180203,
-            "w_prev": 0.6387,
-            "reward": 1.0,
-            "w_next": 0.6929,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295669530_rel_naive_svd_truncation",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295670.191184,
-            "w_prev": 0.6929,
-            "reward": 1.0,
-            "w_next": 0.739,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295685553_rel_naive_svd_truncation",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295686.4144273,
-            "w_prev": 0.739,
-            "reward": 1.0,
-            "w_next": 0.7782,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0001_1793295610_1793295699185_rel_naive_svd_truncation",
-            "generation_id": "gen_0001_1793295610",
-            "timestamp": 1793295699.8037074,
-            "w_prev": 0.7782,
-            "reward": 1.0,
-            "w_next": 0.8115,
-            "method": "gpu_physical_verification"
-          }
-        ]
+        "weight_operational": 0.5,
+        "uncertainty": 0.5,
+        "update_count": 0,
+        "created_at": 1793295827.5618916,
+        "updated_at": 1793295827.5618916,
+        "update_history": []
       },
       "provenance": "system",
       "version": 1,
-      "created_at": 1793242128.999385,
+      "created_at": 1793295827.5618932,
       "metadata": {}
     },
     {
@@ -509,5 +399,5 @@
       "metadata": {}
     }
   ],
-  "saved_at": 1793295699.8074214
+  "saved_at": 1793295827.5634096
 }
