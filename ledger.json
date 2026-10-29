@@ -1,11 +1,11 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-28 22:29:30",
+  "last_sync": "2026-10-28 23:03:27",
   "stats": {
-    "total_cycles": 77,
+    "total_cycles": 78,
     "approved_count": 7,
-    "rejected_count": 53
+    "rejected_count": 54
   },
   "approved_hypotheses": [
     {
@@ -80,6 +80,16 @@
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 78,
+      "timestamp": "2026-10-28 22:30:38",
+      "title": "GPT3B_H78_TRANSICAO_SIMPLETICA_BLOCO_CIRCULANTE_KRYLOV",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 11418.352537281407,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
     {
       "cycle_id": 77,
       "timestamp": "2026-10-28 22:16:49",
@@ -568,16 +578,6 @@
       "flops_reduction": 79.11625051831288,
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 406.844670149723,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 28,
-      "timestamp": "2026-10-28 13:44:56",
-      "title": "GPT3B_H28_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 460.17318139858656,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
     }
   ]

@@ -4,9 +4,9 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `77`
+- **Total de Ciclos Científicos Executados:** `78`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 53`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 54`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,6 +24,7 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#78** | 2026-10-28 22:30:38 | `GPT3B_H78_TRANSICAO_SIMPLETICA_BLOCO_CIRCULANTE_KRYLOV` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#77** | 2026-10-28 22:16:49 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#76** | 2026-10-28 22:08:22 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#75** | 2026-10-28 21:55:52 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
@@ -73,4 +74,3 @@
 | **#31** | 2026-10-28 13:59:15 | `GPT3B_H31_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#30** | 2026-10-28 13:54:29 | `GPT3B_H30_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#29** | 2026-10-28 13:49:42 | `GPT3B_H29_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#28** | 2026-10-28 13:44:56 | `GPT3B_H28_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
