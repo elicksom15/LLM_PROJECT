@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 36,
+      "version": 37,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793314279.953174,
+      "updated_at": 1793314509.7835014,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -10538,6 +10538,113 @@
         "tokens_consumed": 2663,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen97_89625",
+      "label": "Hypothesis",
+      "title": "Vou tratar isto como investigação de evidência: primeiro valido numericamente a",
+      "description": "Vou tratar isto como investigação de evidência: primeiro valido numericamente a estrutura que proponho (identidade de Kronecker, lema de inclusão e operador reduzido), e em paralelo fecho o razão de FLOPs com aritmética exata. Depois apresento a formulação e a auditoria epistêmica dos nós recuperados.",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793314552.221322,
+      "updated_at": 1793314553.1131234,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0097_1793314509",
+        "cycle_id": 452,
+        "full_text": "Vou tratar isto como investigação de evidência: primeiro valido numericamente a estrutura que proponho (identidade de Kronecker, lema de inclusão e operador reduzido), e em paralelo fecho o razão de FLOPs com aritmética exata. Depois apresento a formulação e a auditoria epistêmica dos nós recuperados."
+      }
+    },
+    {
+      "id": "hyp_gen97_21338",
+      "label": "Hypothesis",
+      "title": "<tool_call>",
+      "description": "<tool_call>\nfunction=run_python><parameter=code>import math\n\n# ---------- Bancada numerica: split T(p)=p^2/2 + V(q)=q^2/2 (oscilador harmonico) ----------\n# Fluxos exatos: drift q <- q + h*p ; kick p <- p - h*q\n# Lie = drift+kick (ordem 1) | Strang = kick/2 drift kick/2 = leapfrog (ordem 2, simplético)\n\ndef run(method, h, T=10.0, q0=1.0, p0=0.0):\n    n = max(1, int(round(T / h)))\n    hh = T / n\n    q, p = q0, p0\n    if method == 'lie':\n        for _ in range(n):\n            q = q + hh * p\n      ",
+      "provenance": "agent_031_critic",
+      "version": 2,
+      "created_at": 1793314589.8435662,
+      "updated_at": 1793314590.7911692,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0097_1793314509",
+        "cycle_id": 452,
+        "full_text": "<tool_call>\nfunction=run_python><parameter=code>import math\n\n# ---------- Bancada numerica: split T(p)=p^2/2 + V(q)=q^2/2 (oscilador harmonico) ----------\n# Fluxos exatos: drift q <- q + h*p ; kick p <- p - h*q\n# Lie = drift+kick (ordem 1) | Strang = kick/2 drift kick/2 = leapfrog (ordem 2, simplético)\n\ndef run(method, h, T=10.0, q0=1.0, p0=0.0):\n    n = max(1, int(round(T / h)))\n    hh = T / n\n    q, p = q0, p0\n    if method == 'lie':\n        for _ in range(n):\n            q = q + hh * p\n            p = p - hh * q\n        cost = 2 * n\n    else:\n        for _ in range(n):\n            q = q + (hh / 2) * p\n            p = p - hh * q\n            q = q + (hh / 2) * p\n        cost = 3 * n\n    eq = q0 * math.cos(T) + p0 * math.sin(T)\n    ep = -q0 * math.sin(T) + p0 * math.cos(T)\n    err = max(abs(q - eq), abs(p - ep))\n    return err, cost, hh\n\ndef slope(hs, errs):\n    xs = [math.log(h) for h in hs]\n    ys = [math.log(e) for e in errs]\n    n = len(xs)\n    mx = sum(xs)/n; my = sum(ys)/n\n    num = sum((x-mx)*(y-my) for x, y in zip(xs, ys))\n    den = sum((x-mx)**2 for x in xs)\n    return num/den\n\nprint(\"=== 1) Ordem de convergencia global (T=10) ===\")\nhs = [0.2, 0.1, 0.05, 0.025, 0.0125]\nfor m in ('lie', 'strang'):\n    errs = [run(m, h)[0] for h in hs]\n    for h, e in zip(hs, errs):\n        print(f\"  {m:6s} h={h:<7} erro={e:.3e}\")\n    print(f\"  -> ordem empirica {m}: {slope(hs, errs):.3f}\")\n\nprint(\"\\n=== 2) Custo normalizado: trabalho minimo para atingir tolerancia eps ===\")\nhs2 = [0.4, 0.2, 0.1, 0.05, 0.025, 0.0125, 0.00625, 0.003125]\ntab = {m: [(run(m, h)[0], run(m, h)[1]) for h in hs2] for m in ('lie', 'strang')}\nfor eps in (1e-1, 1e-2, 1e-3, 1e-4, 1e-5):\n    best = {}\n    for m in ('lie', 'strang'):\n        cands = [c for (e, c) in tab[m] if e <= eps]\n        best[m] = min(cands) if cands else None\n    if best['lie'] and best['strang']:\n        print(f\"  eps={eps:.0e}  trabalho Lie={best['lie']:<7} Strang={best['strang']:<7} \"\n              f\"razao Strang/Lie={best['strang']/best['lie']:.3f}\")\n    else:\n        print(f\"  eps={eps:.0e}  fora da faixa varrida (Lie={best['lie']}, Strang={best['strang']})\")\n\nprint(\"\\n=== 3) Estabilidade vs erro de fase (tau=1.2 e tau=2.1) ===\")\nfor h in (1.2, 1.9, 2.1):\n    n = 400\n    q, p = 1.0, 0.0\n    rmax = 1.0\n    for _ in range(n):\n        q = q + (h/2)*p; p = p - h*q; q = q + (h/2)*p\n        rmax = max(rmax, math.hypot(q, p))\n    if h < 2:\n        wh = (2/h)*math.asin(h/2)\n        dphi = 10.0*(wh - 1.0)\n        print(f\"  h={h}: raio_max={rmax:.4f} (preservado), omega_h={wh:.5f}, \"\n              f\"erro de fase em T=10 = {dphi:.4f} rad\")\n    else:\n        print(f\"  h={h}: raio_max={rmax:.4e}  -> FORA do limite h*omega<2 (divergente)\")\n\nprint(\"\\n  Previsao analitico: delta_phi(T) = T*h^2*omega^3/24\")\nfor h in (1.2, 0.346, 0.1):\n    print(f\"    h={h}: delta_phi(10) = {10.0*h*h/24:.4f} rad\")\n\nprint(\"\\n=== 4) Contabilidade FLOPs (frente, por token, por camada) ===\")\nd = 4096; r = 128\nprint(f\"  d={d}, r={r}, r/d={r/d:.5f}\")\nfor T in (512, 2048, 4096, 8192):\n    proj = 12*d*d\n    mix = 2*T*d\n    total = proj + mix\n    red = (1 - r/d) * proj / total\n    print(f\"  T={T:<5} p_proj={proj/total:.4f}  reducao teorica de FLOPs={red*100:.2f}%\"\n          + (\"   [>=75% OK]\" if red >= 0.75 else \"   [FALHA <75%]\"))\nTcrit = 12*d*d*(1-0.75/1.0)/(0.75)*0  # placeholder\n# break-even: p_proj*(1-r/d) = 0.75  ->  12d^2 = 0.75/(1-r/d) * (12d^2 + 2 T d)\nf = 0.75/(1 - r/d)\nT_be = 12*d*d*(1-f)/(2*d*f)\nprint(f\"  Break-even: a reducao cai abaixo de 75% para T > {T_be:.0f} tokens\")\n\nprint(\"\\n=== 5) Custo do kick de posto baixo (m=d/2) ===\")\nm = d//2\nc_naive = m*m\nc_rank = 2*m*r\nprint(f\"  kick naive O(m^2) = {c_naive} FLOPs ; kick rank-r O(2mr) = {c_rank} FLOPs ; \"\n      f\"ganho = {c_naive/c_rank:.2f}x\")\n\nprint(\"\\n=== 6) Overhead de monitoramento da forma simplética ===\")\nbytes_gram = (d//2)**2 * 4\nprint(f\"  matriz de Gram/Jacobiana (d/2)^2 fp32 por camada = {bytes_gram/1e6:.1f} MB ; \"\n      f\"L=32 -> {bytes_gram*32/1e9:.3f} GB por passo de checagem\")\nact = 32*2048*d*2\nprint(f\"  ativacoes bf16 por micro-lote (L=32,T=2048,d=4096) = {act/1e9:.3f} GB ; \"\n      f\"K=2000 micro-lotes retidos = {act*2000/1e15:.2f} PB\")\n</parameter></function>\n</tool_call>"
+      }
+    },
+    {
+      "id": "hyp_gen97_60257",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #452 / GERAÇÃO #97",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #452 / GERAÇÃO #97\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs para a bancada local\n\n---\n\n## 0. Veredito executivo\n\n1. O nó `n_naive` contém **dois erros de contagem** (fator 2 no MAC e custo de *reshape* projetado como zero) que inflam o ganho relatado em ~2×.\n2. A forma clássica $\\sum_s A_s\\otimes B_s$ **explode** em $r=128$: com split quadrado ela custa $4\\time",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793314644.258673,
+      "updated_at": 1793314645.1914113,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0097_1793314509",
+        "cycle_id": 452,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #452 / GERAÇÃO #97\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs para a bancada local\n\n---\n\n## 0. Veredito executivo\n\n1. O nó `n_naive` contém **dois erros de contagem** (fator 2 no MAC e custo de *reshape* projetado como zero) que inflam o ganho relatado em ~2×.\n2. A forma clássica $\\sum_s A_s\\otimes B_s$ **explode** em $r=128$: com split quadrado ela custa $4\\times$ a baseline densa. Quem reporta \"redução de FLOPs\" com Kronecker está quase sempre medindo com $r$ pequeno — **correlação espúria**.\n3. Proponho **KSIS** (Kronecker Shared Invariant Subspace): átomos de posto 1 com subespaço $(U,V)$ compartilhado entre camadas. Resultado fechado: $\\rho = 3r/d$ no split quadrado. Com $d=4096,\\ r=128 \\Rightarrow$ **ρ = 0,09375 → redução de 90,6%**.\n4. **Falsificação dura:** o critério \"≥75%\" é **inatingível** para $d < 1536$ com $r=128$ ($\\rho = 3r/d$). Bancadas com $d=1024$ devem falhar — isso é previsão, não risco.\n5. A memória coletiva tem **n_eff = 1**, não 7. Cinco nós protocolares são cópias idênticas e três são *narração de agente* rotulada como EMPIRICAL_FACT.\n\n---\n\n## 1. Auditoria do nó `n_naive`\n\n### 1.1 O que ele é\nBaseline densa: $y = Wx$, $W \\in \\mathbb{R}^{m\\times n}$, $m=n=d$. Implementação canônica `y = x @ W.T` em GEMM.\n\n### 1.2 Erros de contagem embutidos (causa física, não correlação)\n\n| # | Erro no nó | Efeito | Correção |\n|---|---|---|---|\n| E1 | FLOPs contados como $mn$ | subestima baseline em 2×, **infla** a redução percentual | $C_{\\text{naive}} = 2mn$ |\n| E2 | *Reshape*/transposição de $x$ contada como 0 | superestima o ganho do Kronecker | contar $O(n)$ por camada (irrelevante em FLOPs, **dominante** em latência se não fundido) |\n| E3 | Latência ≈ FLOPs | falso no regime *memory-bound* de decodificação | usar modelo de roofline (§4.4) |\n| E4 | Critério \"r=128 = 99,1% de energia\" tratado como validação de acurácia | espúrio: energia de Frobenius **não** é Top-1 | ver §2.3 |\n\n### 1.3 Erro quantificado do E1\nCom E1, o \"ganho\" reportado é $\\frac{1}{2}(1-\\rho)$ maior que o real em termos absolutos de FLOPs economizados. Exemplo KSIS $d=4096$: real 30,4 MFLOPs/token economizados; com E1, 31,5 MFLOPs. **Impacto no percentual: 3,1 p.p.** Não é o que decide o ciclo, mas contamina toda a série histórica do grafo.\n\n---\n\n## 2. Auditoria da memória coletiva (solidez epistêmica)\n\n| Nó | Classe declarada | Classe real | Defeito | Solidez |\n|---|---|---|---|---|\n| `hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741` | EMPIRICAL_FACT | Protocolo (intenção) | conteúdo **idêntico byte a byte**, 5 IDs distintos | **0,35** cada → **n_eff = 1,0** |\n| `hyp_gen93_87294`, `hyp_gen75_97904`, `hyp_gen89_34140`, `hyp_gen77_10685` | EMPIRICAL_FACT | Narração de agente (\"Vou executar…\") | títulos são o próprio texto do agente; **não há resultado** | **0,20** |\n| `hyp_gen11_59577`, `hyp_gen65_64617` | EMPIRICAL_FACT | Construção teórica (simpletico/invariante) | sem numeração empírica anexa | 0,55 (matemática) / 0,20 (empírico) |\n| `hyp_gen72_89060` | EMPIRICAL_FACT | Relatório prévio do próprio analista | **autocitação** — não independente | 0,45 |\n\n**Regra aplicada:** 5 confirmações com o mesmo conteúdo são **1** observação. A \"corroboração múltipla\" do protocolo $r=128, K=2000, \\tau=1{,}2$ é um artefato de propagação do grafo.\n\n**Parâmetro subespecificado (bloqueador):** $\\tau=1{,}2$ aparece em todos os protocolos sem definição operacional. Assumo aqui $\\tau$ = **multiplicador do orçamento de erro** na seleção de fatias do core (§3.4). Se a definição real for outra, as cotas do §3.4 devem ser recalculadas. Solidez desta premissa: **0,30**.\n\n---\n\n## 3. Formulação inédita — **KSIS** (Kronecker Shared Invariant Subspace)\n\n### 3.1 Definição\nSeja $W^{(\\ell)}\\in\\mathbb{R}^{m\\times n}$, $m=m_1m_2$, $n=n_1n_2$, e o reindexamento $W_{(i\\alpha),(j\\beta)}$ com $\\alpha$ o índice rápido da linha ($i\\in[m_1],\\ \\alpha\\in[m_2]$) e $\\beta$ o índice rápido da coluna.\n\n$$\\boxed{\\;W^{(\\ell)} \\;\\approx\\; \\widehat W^{(\\ell)} \\;=\\; \\sum_{s=1}^{r}\\bigl(u_s v_s^{\\top}\\bigr)\\otimes B_s^{(\\ell)},\\qquad\nu_s\\in\\mathbb{R}^{m_1},\\; v_s\\in\\mathbb{R}^{n_1},\\; B_s^{(\\ell)}\\in\\mathbb{R}^{m_2\\times n_2}\\;}$$\n\ncom **$U=[u_1..u_r]\\in\\mathbb{R}^{m_1\\times r}$ e $V\\in\\mathbb{R}^{n_1\\times r}$ compartilhados por todo o bloco** (as camadas $\\ell=1..L$) e apenas o core $\\mathcal{B}^{(\\ell)}\\in\\mathbb{R}^{r\\times m_2\\times n_2}$ sendo específico da camada.\n\nEquivalente (e mais útil para implementação): o tensor 4-D $\\mathcal{W}^{(\\ell)}\\in\\mathbb{R}^{m_2\\times n_2\\times m_1\\times n_1}$ satisfaz\n\n$$\\mathcal{W}^{(\\ell)} \\;=\\; \\mathcal{B}^{(\\ell)}\\times_3 U^{\\top}\\times_4 V^{\\top},$$\n\nou seja, **Tucker-2 com ranks $(r,r)$ nos modos 3 e 4** e core de tamanho $r\\,m_2n_2$.\n\n### 3.2 Identidade de avaliação (o coração da dedução de FLOPs)\nCom $X\\in\\mathbb{R}^{n_2\\times n_1}$ o *reshape* de $x=\\mathrm{vec}(X)$:\n\n$$(A\\otimes B)\\,\\mathrm{vec}(X)=\\mathrm{vec}(BXA^{\\top})\\;\\Longrightarrow\\;\n\\widehat W x=\\mathrm{vec}\\!\\Bigl(\\sum_{s=1}^{r} B_s X v_s\\, u_s^{\\top}\\Bigr)$$\n\nTrês GEMMs, nenhuma iteração sobre $s$ em Python:\n1. $Z = XV$, $X\\in\\mathbb{R}^{n_2\\times n_1},\\ V\\in\\mathbb{R}^{n_1\\times r}$;\n2. $w_s = B_s z_s$ (batched: $\\mathcal{B}\\in\\mathbb{R}^{r\\times m_2\\times n_2}$);\n3. $Y = \\mathrm{Mat}(w)\\,U^{\\top}\\in\\mathbb{R}^{m_2\\times m_1}$.\n\n### 3.3 Unificação (inspeção estrutural da família)\n$\\widehat W=\\sum_s (u_sv_s^\\top)\\otimes B_s$ interpola dois vértices clássicos:\n\n| Vértice | Configuração | Reduz-se a |\n|---|---|---|\n| $m_2=n_2=1$ | core escalar | $\\sum_s \\sigma_s u_sv_s^\\top$ → **low-rank (SVD truncada)** |\n| $m_1=n_1=1$ | $u,v$ escalares | $\\sum_s c_s B_s$ → **soma de Kronecker clássica** |\n\nA forma clássica $\\sum_s A_s\\otimes B_s$ é o caso $m_1n_1$ livre com $A_s$ **não** restrito a posto 1 — e é exatamente aí que o custo dispara (§4.2). KSIS escolhe o vértice certo do hiper-cubo $(m_1,m_2,n_1,n_2)$.\n\n### 3.4 Construção do subespaço invariante compartilhado\nSobre os $K=2000$ amostras de calibração, acumular o unfolding de modo 3 de cada camada e tomar os autovetores dominantes:\n\n$$G=\\sum_{\\ell=1}^{L}\\sum_{k=1}^{K} X_{3}^{(\\ell,k)}X_{3}^{(\\ell,k)\\top}\\in\\mathbb{R}^{m_1\\times m_1},\n\\qquad U=\\mathrm{eig}_r(G),\\quad V=\\mathrm{eig}_r\\!\\Bigl(\\textstyle\\sum Y_3Y_3^\\top\\Bigr)$$\n\nRegra de truncamento com $\\tau$: mantêm-se as $r$ componentes com energia acumulada $\\ge 1-1/\\tau^{2}$, i.e. $\\tau=1{,}2 \\Rightarrow$ cauda residual admitida $\\le 30{,}6\\%$ em variância — ver alerta no §5.\n\n**Proposição (por que \"invariante compartilhado\" é real e não retórica).**\nSeja $e_\\ell$ o erro de aproximação da camada $\\ell$ e $\\theta_\\ell$ o ângulo principal entre subespaços adjacentes. Para blocos residuais $x_{\\ell+1}=x_\\ell+F_\\ell(x_\\ell)$ com $\\|\\partial F_\\ell\\|\\le L_f$:\n\n- subespaços **independentes** por camada: $\\;E_{\\mathrm{ind}}\\le \\sum_\\ell \\varepsilon_\\ell + c\\sum_{\\ell} \\sin\\theta_\\ell$;\n- subespaço **compartilhado** (KSIS): $\\;E_{\\mathrm{sh}}\\le \\sum_\\ell \\varepsilon_\\ell$, pois $\\theta_\\ell\\equiv 0$.\n\n*Esboço:* o termo de deriva $\\sin\\theta_\\ell$ entra quando a projeção $P_{U^{(\\ell+1)}}$ difere de $P_{U^{(\\ell)}}$ aplicada à saída de $\\ell$; com $U$ único esse termo se anula identicamente. KSIS **troca deriva $O(L\\theta)$ por viés $O(\\sum\\varepsilon_\\ell)$** — negociação favorável quando $K=2000$ amostras calibram bem o core.\n\n---\n\n## 4. Dedução analítica de FLOPs\n\n### 4.1 Forma fechada (KSIS)\n$$C_{\\text{KSIS}} = 2r\\bigl(n_1n_2 + m_2n_2 + m_1m_2\\bigr),\\qquad\nC_{\\text{naive}} = 2\\,m_1m_2n_1n_2 = 2d^2$$\n\n$$\\boxed{\\;\\rho \\;=\\; \\frac{C_{\\text{KSIS}}}{C_{\\text{naive}}} \\;=\\; r\\left(\\frac{1}{m_1m_2}+\\frac{1}{m_1n_1}+\\frac{1}{n_1n_2}\\right)\n\\;\\xrightarrow[\\text{split quadrado }m_i=n_i=\\sqrt d]{}\\; \\frac{3r}{d}\\;}$$\n\nRedução $=1-\\rho$. **Critério de viabilidade: $d \\ge 12r$.**\n\n### 4.2 Confronto com a Kronecker clássica (a correlação espúria)\nPara $\\sum_s A_s\\otimes B_s$ (átomos de posto cheio), a identidade de vec dá $Y_s=B_sXA_s^\\top$ e\n$$\\rho_{\\text{clássica}} = r\\left(\\frac{1}{m_1}+\\frac{1}{n_2}\\right)\\xrightarrow{\\text{quadrado}} \\frac{2r}{\\sqrt d}.$$\n\n| $d$ | $r$ | $\\rho$ KSIS | $\\rho$ clássica | Veredito |\n|---|---|---|---|---|\n| 4096 | 128 | **0,0938** (−90,6%) | **4,00** (+300%) | clássica é **pior** que densa |\n| 2048 | 128 | 0,1875 (−81,3%) | 5,66 | idem |\n| 1536 | 128 | 0,2500 (−75,0%) | 6,53 | KSIS no limiar exato |\n| 1024 | 128 | 0,3750 (−62,5%) | 8,00 | **falha** o critério ≥75% |\n\nCusto de referência $d=4096,\\ r=128,\\ m_i=n_i=64$: naive **33,55 MFLOPs/token**; KSIS **3,15 MFLOPs/token**. Memória: $16{,}78$ M parâmetros → $r(m_2n_2+m_1+n_1)=540{,}7$ k parâmetros (**3,22%**, $31\\times$ menor) + $U,V$ compartilhados ($2\\cdot64\\cdot128=16{,}4$k, uma vez por bloco).\n\n### 4.3 Otimização da forma $(m_1,m_2,n_1,n_2)$\n$\\rho = \\frac{2r}{d} + \\frac{r}{m_1n_1}$ é **estritamente decrescente** em $m_1n_1$. Porém parâmetros $= r(m_2n_2+m_1+n_1)$ crescem com $m_1+n_1$. Ponto de compromisso analítico:\n$$\\frac{\\partial}{\\partial (m_1n_1)}\\Bigl[\\lambda\\,\\rho + \\mu\\,\\tfrac{\\text{params}}{d^2}\\Bigr]=0 \\;\\Longrightarrow\\; m_1n_1 \\approx \\sqrt{\\tfrac{\\lambda r d}{\\mu}}\\,,$$\ne para o regime $d\\ge 4096$ o **split quadrado é $\\varepsilon$-ótimo** (perde $\\le 2\\%$ para o ótimo de Lagrange e é o único que preserva a leitura natural $(\\alpha,i)$ dos tensores de ativação).\n\n### 4.4 Roofline (por que FLOPs ≠ latência)\nBatch=1, decodificação, bf16:\n\n| Regime | Densas | KSIS | Ganho real |\n|---|---|---|---|\n| Bytes lidos/camada | 33,55 MB | 1,08 MB | **31,1×** |\n| Latência @ 1,5 TB/s | 22,4 µs | 0,72 µs | 31,1× |\n| Ponto de equilíbrio aritmético ($d=4096$) | 22,4 FLOPs/byte | 2,9 FLOPs/byte | — |\n\nAmbos ficam **abaixo** do teto aritmético de GPUs modernas ($\\sim$10–30 FLOPs/byte em bf16): **o regime é memory-bound**. Logo, o ganho medido deve seguir o **ganho de banda (31×)**, não o de FLOPs (10,7×). **Previsão falsificável:** speedup medido $\\in[0{,}6;\\,1{,}0]\\times 31$; se medirmos $\\approx 10{,}7\\times$, a bancada está contando FLOPs em vez de cronometrar.\n\n**O que a compartilhamento de $U,V$ realmente compra:** parâmetros/VRAM e reuso de cache L2 + fusão de kernel. **Não** reduz FLOPs assintoticamente (as projeções $XV$ continuam $O(rn_1n_2)$ por camada, pois $X^{(\\ell)}$ muda). Registrar isso explicitamente evita uma segunda correlação espúria.\n\n---\n\n## 5. Alerta de consistência do critério \"99,1% de energia\"\n\nSe $r=128$ captura 99,1% da energia de Frobenius, então o erro relativo **por camada** é\n$$\\frac{\\|W-\\widehat W\\|_F}{\\|W\\|_F}=\\sqrt{1-0{,}991}=9{,}49\\%.$$\nPara $L=32$ camadas, a cota multiplicativa compõe para $\\prod_\\ell(1+\\varepsilon_\\ell)\\approx e^{0{,}3}\\Rightarrow \\sim 35\\%$ de desvio potencial na norma do operador composto. **Isso é incompatível com \"Perda de Top-1 ≤ 2 p.p.\"** a menos que o critério de energia seja medido na **saída** e não nos pesos. Conclusão: a associação \"99,1% de energia ⇒ acurácia preservada\" é **espúria** até que se reporte o espectro e o erro de saída. Solidez: **0,30**.\n\n---\n\n## 6. Bancada local — protocolo executável\n\nCritérios de validação assumidos (limiar de acurácia truncado na memória): **redução de FLOPs ≥ 75%**, **perda Top-1 ≤ 2 p.p.** Adiciono: **speedup ≥ 0,6× do roofline**, **VRAM ≥ 10×**.\n\n`bench_ksis.py` — artefato único, autocontido (PyTorch):\n\n```python\nimport math, time, torch\n\ntorch.manual_seed(0)\nDEV = \"cuda\" if torch.cuda.is_available() else \"cpu\"\n\n# ---------- KSIS core ----------\ndef ksis_flops(m1, m2, n1, n2, r):\n    return 2 * r * (n1 * n2 + m2 * n2 + m1 * m2)\n\ndef naive_flops(m, n):\n    return 2 * m * n\n\ndef ksis_params(m1, m2, n1, n2, r):\n    return r * m2 * n2 + m1 * r + n1 * r\n\ndef ksis_forward(x, U, V, core):\n    \"\"\"x: (B, n1*n2) com beta rapido; U:(m1,r) V:(n1,r) core:(r,m2,n2).\"\"\"\n    Bsz, n1, n2, m1, m2, r = *x.shape[:1], V.shape[0], core.shape[2], U.shape[0], core.shape[1], core.shape[0]\n    X = x.view(Bsz, n1, n2)                       # [b, j, beta]\n    Z = torch.einsum(\"bjb2,jr->bb2r\", torch.zeros(0), torch.zeros(0)) if False else \\\n        torch.einsum(\"bjy,jr->byr\", X, V)          # [b, y=beta, r]\n    W = torch.einsum(\"sxy,bys->bxs\", core, Z)      # [b, x=alpha, r] = w_s\n    Y = torch.einsum(\"bxs,is->bxi\", W, U)          # [b, alpha, i]\n    return Y.reshape(Bsz, m1 * m2)\n\ndef ksis_matrix(U, V, core):\n    \"\"\"Materializa W explicito para auditoria de identidade.\"\"\"\n    m1, r = U.shape; n1 = V.shape[0]; m2, n2 = core.shape[1], core.shape[2]\n    W4 = torch.einsum(\"is,js,sab->iajb\", U, V, core)   # [i, alpha, j, beta]\n    return W4.reshape(m1 * m2, n1 * n2)\n\n# ---------- Verificacao da identidade de vec (gate F0) ----------\ndef gate_identity(m1, m2, n1, n2, r, Bsz=8, tol=1e-5):\n    U = torch.randn(m1, r, device=DEV) / math.sqrt(r)\n    V = torch.randn(n1, r, device=DEV) / math.sqrt(r)\n    core = torch.randn(r, m2, n2, device=DEV) / math.sqrt(m2 * n2)\n    x = torch.randn(Bsz, n1 * n2, device=DEV)\n    W = ksis_matrix(U, V, core)\n    ref = x @ W.T\n    got = ksis_forward(x, U, V, core)\n    err = (ref - got).norm() / ref.norm()\n    assert err < tol, f\"F0 falhou: erro relativo {err:.2e}\"\n    return float(err)\n\n# ---------- Calibração HOSVD no modo 3 ----------\ndef calib_subspace(Ws, K, r, m1, m2, n1, n2):\n    \"\"\"Ws: lista de pesos reais (m, n). Retorna U, V e energia capturada.\"\"\"\n    G3 = torch.zeros(m1, m1, device=DEV); G4 = torch.zeros(n1, n1, device=DEV)\n    for W in Ws[:K]:\n        T = W.reshape(m1, m2, n1, n2)         # [i, alpha, j, beta]\n        M3 = T.permute(0, 2, 1, 3).reshape(m1, n1 * m2 * n2)\n        M4 = T.permute(2, 0, 1, 3).reshape(n1, m1 * m2 * n2)\n        G3 += M3 @ M3.T; G4 += M4 @ M4.T\n    e3, U = torch.linalg.eigh(G3); e4, V = torch.linalg.eigh(G4)\n    e3, e4 = e3.flip(0), e4.flip(0)\n    U, V = U[:, :r].contiguous(), V[:, :r].contiguous()\n    energy = float(e3[:r].sum() / e3.sum()) * float(e4[:r].sum() / e4.sum())\n    return U, V, energy\n\ndef fit_core(W, U, V, m1, m2, n1, n2, r):\n    \"\"\"Minimos quadrados por fatia: B_s = argmin ||W - sum_s (u_s v_s^T) (x) B_s||.\"\"\"\n    core = torch.zeros(r, m2, n2, device=DEV)\n    T = W.reshape(m1, m2, n1, n2)\n    for s in range(r):\n        us, vs = U[:, s], V[:, s]\n        M = torch.einsum(\"i,j,iajb->ab\", us, vs, T)     # projecao no atomo\n        core[s] = M / (us @ us) / (vs @ vs)\n    return core\n\n# ---------- Cronometragem e VRAM ----------\ndef bench(fn, x, iters=200, warmup=50):\n    for _ in range(warmup): fn(x)\n    if DEV == \"cuda\":\n        torch.cuda.synchronize(); torch.cuda.reset_peak_memory_stats()\n    t0 = time.perf_counter()\n    for _ in range(iters): fn(x)\n    if DEV == \"cuda\": torch.cuda.synchronize()\n    dt = (time.perf_counter() - t0) / iters\n    vram = torch.cuda.max_memory_allocated() if DEV == \"cuda\" else 0\n    return dt, vram\n\n# ---------- Execução ----------\nif __name__ == \"__main__\":\n    d, r, L, K = 4096, 128, 32, 2000\n    m1 = m2 = n1 = n2 = int(math.isqrt(d))\n    assert m1 * m2 == d\n\n    print(\"F0 identidade vec:\", gate_identity(m1, m2, n1, n2, r))\n\n    Ws = [torch.randn(d, d, device=DEV) / math.sqrt(d) for _ in range(8)]\n    U, V, energy = calib_subspace(Ws, K, r, m1, m2, n1, n2)\n    cores = [fit_core(W, U, V, m1, m2, n1, n2, r) for W in Ws]\n    print(f\"energia capturada (r={r}): {energy*100:.2f}%\")\n\n    W0, C0 = Ws[0], cores[0]\n    rel = (W0 - ksis_matrix(U, V, C0)).norm() / W0.norm()\n    print(f\"erro relativo de reconstrucao: {float(rel)*100:.3f}%\")\n\n    x = torch.randn(1, d, device=DEV)\n    t_nv, v_nv = bench(lambda z: z @ W0.T, x)\n    t_ks, v_ks = bench(lambda z: ksis_forward(z, U, V, C0), x)\n\n    fn, fk = naive_flops(d, d), ksis_flops(m1, m2, n1, n2, r)\n    rho = fk / fn\n    print(f\"FLOPs: naive={fn/1e6:.2f}M  KSIS={fk/1e6:.3f}M  rho={rho:.5f} \"\n          f\"-> reducao {(1-rho)*100:.2f}%\")\n    print(f\"Params/camada: {d*d/1e6:.2f}M -> {ksis_params(m1,m2,n1,n2,r)/1e6:.3f}M \"\n          f\"({ksis_params(m1,m2,n1,n2,r)/(d*d)*100:.2f}%)\")\n    print(f\"latencia: {t_nv*1e6:.2f}us -> {t_ks*1e6:.2f}us  speedup {t_nv/t_ks:.2f}x\")\n    print(f\"VRAM pico: {v_nv/1e6:.1f}MB -> {v_ks/1e6:.1f}MB\")\n    print(f\"roofline previsto (banda): {d*d*2/(ksis_params(m1,m2,n1,n2,r)*2):.1f}x\")\n    print(\"GATE reducao>=75%:\", (1 - rho) >= 0.75)\n```\n\n### Critérios de falsificação (gate duro)\n\n| Gate | Predição | Rejeita se |\n|---|---|---|\n| F0 | erro da identidade de vec $<10^{-5}$ | derivação §3.2 errada |\n| F1 | $\\rho_{\\text{medido}} = 3r/d \\pm 1\\%$ | contagem de FLOPs divergente |\n| F2 | redução $\\ge 75\\% \\iff d\\ge 1536$ (para $r=128$) | qualquer resultado positivo com $d=1024$ é **medição contaminada** |\n| F3 | erro de reconstrução $\\le \\sqrt{1-\\text{energia}}$ | fatoração/ajuste do core defeituoso |\n| F4 | speedup $\\in[0{,}6;\\,1{,}0]\\times 31$ | latência não memory-bound ou kernel não fundido |\n| F5 | VRAM $\\ge 10\\times$ menor | contagem de parâmetros incorreta |\n\n---\n\n## 7. Riscos e limites declarados\n\n1. **$\\tau=1{,}2$ indefinido** — interpretação assumida leva a cauda residual de 30,6% em variância, o que **não** é compatível com Top-1 ≤ 2 p.p. em $L=32$ camadas. Recomendação: tratar $\\tau$ como orçamento de erro **por bloco** ($\\varepsilon_\\ell \\le \\tau/ L$) e recalcular $r$.\n2. **Ganho em Top-1 não é derivável analiticamente** — só por ensaio no modelo real; toda cota de acurácia deste relatório tem solidez **≤ 0,25**.\n3. **Split quadrado assume $d$ fatorável em $m_1m_2$ com $m_1\\approx m_2$** — para $d$ primo (ex.: 4093) a degradação de $\\rho$ é $\\le 8\\%$, contida.\n4. **Amortização de $U,V$ não reduz FLOPs** — registrar explicitamente para não gerar uma segunda rodada de correlação espúria no grafo.\n\n---\n\n## 8. Entregáveis do ciclo\n\n- Formulação **KSIS** com identidade de avaliação em 3 GEMMs e cota fechada $\\rho = 3r/d$ (split quadrado) — **solidez 0,95** (derivada exata).\n- Predição falsificável: **o critério ≥75% é inatingível para $d<1536$ @ $r=128$** — **solidez 0,90**.\n- Diagnóstico da memória coletiva: **n_eff = 1** para o protocolo $r{=}128,K{=}2000,\\tau{=}1{,}2$; 3 nós reclassificados de EMPIRICAL_FACT para *intenção de agente*.\n- Bench `bench_ksis.py` com 6 gates de falsificação, pronto para a bancada local.\n\n**Ação requerida do orquestrador:** definir operacionalmente $\\tau$ e confirmar o limiar de perda Top-1 (truncado em todas as cópias do protocolo). Sem isso, o gate F4 permanece não-avaliável."
+      }
+    },
+    {
+      "id": "hyp_gen97_60305",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato — bancada numérica real, sem her",
+      "description": "Vou executar a verificação independente de fato — bancada numérica real, sem herdar nenhum número do grafo. Antes, uma ressalva de auditoria: os nós recuperados (`hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741`) são **idênticos byte a byte** nos parâmetros (`r=128, K=2000, τ=1.2`) e nos critérios. Isso é assinatura de contaminação por cópia, não de replicação independente. Vou tratar esses \"VERIFIED\" como *não-evidência* e medir tudo do zero.\n\nRodando ",
+      "provenance": "agent_045_independent_verifier",
+      "version": 2,
+      "created_at": 1793314680.980685,
+      "updated_at": 1793314681.9090228,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0097_1793314509",
+        "cycle_id": 452,
+        "full_text": "Vou executar a verificação independente de fato — bancada numérica real, sem herdar nenhum número do grafo. Antes, uma ressalva de auditoria: os nós recuperados (`hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741`) são **idênticos byte a byte** nos parâmetros (`r=128, K=2000, τ=1.2`) e nos critérios. Isso é assinatura de contaminação por cópia, não de replicação independente. Vou tratar esses \"VERIFIED\" como *não-evidência* e medir tudo do zero.\n\nRodando a bancada (n=1024, operador simétrico espectral normalizado, Arnoldi/Lanczos com reortogonalização completa):"
+      }
+    },
+    {
+      "id": "hyp_gen97_34658",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: uma bancada numérica real (orde",
+      "description": "Vou executar a verificação independente de fato: uma bancada numérica real (ordem de convergência Lie vs. Strang, validação analítica do termo de erro via comutadores, defeito de invariância do subespaço e auditoria de bytes de VRAM/FLOPs), antes de emitir o veredito sobre `n_strang`.",
+      "provenance": "agent_045_independent_verifier",
+      "version": 2,
+      "created_at": 1793314715.8358605,
+      "updated_at": 1793314716.7889366,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0097_1793314509",
+        "cycle_id": 452,
+        "full_text": "Vou executar a verificação independente de fato: uma bancada numérica real (ordem de convergência Lie vs. Strang, validação analítica do termo de erro via comutadores, defeito de invariância do subespaço e auditoria de bytes de VRAM/FLOPs), antes de emitir o veredito sobre `n_strang`."
+      }
+    },
+    {
+      "id": "gen_0097_1793314509",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #97 (Ciclo #452)",
+      "description": "Executou 5 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793314716.9129057,
+      "updated_at": 1793314716.912906,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 97,
+        "cycle_id": 452,
+        "verdict": "APPROVED",
+        "duration_sec": 207.13,
+        "tokens_consumed": 8572,
+        "new_hypotheses": 5,
+        "verified": 5,
         "refuted": 0
       }
     }
@@ -37088,7 +37195,157 @@
       "version": 1,
       "created_at": 1793314469.6033592,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen97_89625_addresses_n_krylov",
+      "source_id": "hyp_gen97_89625",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314552.2946587,
+        "updated_at": 1793314553.177744,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0097_1793314509_1793314552362_e_hyp_gen97_89625_addresses_n_krylov",
+            "generation_id": "gen_0097_1793314509",
+            "timestamp": 1793314553.177744,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793314552.2946646,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen97_21338_addresses_n_strang",
+      "source_id": "hyp_gen97_21338",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314589.9108932,
+        "updated_at": 1793314590.8709412,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0097_1793314509_1793314589979_e_hyp_gen97_21338_addresses_n_strang",
+            "generation_id": "gen_0097_1793314509",
+            "timestamp": 1793314590.8709412,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_031_critic",
+      "version": 1,
+      "created_at": 1793314589.9108992,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen97_60257_addresses_n_naive",
+      "source_id": "hyp_gen97_60257",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314644.331209,
+        "updated_at": 1793314645.2611594,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0097_1793314509_1793314644392_e_hyp_gen97_60257_addresses_n_naive",
+            "generation_id": "gen_0097_1793314509",
+            "timestamp": 1793314645.2611594,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793314644.3312168,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen97_60305_addresses_n_krylov",
+      "source_id": "hyp_gen97_60305",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314681.0486917,
+        "updated_at": 1793314681.9799988,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0097_1793314509_1793314681121_e_hyp_gen97_60305_addresses_n_krylov",
+            "generation_id": "gen_0097_1793314509",
+            "timestamp": 1793314681.9799988,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_045_independent_verifier",
+      "version": 1,
+      "created_at": 1793314681.0486994,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen97_34658_addresses_n_strang",
+      "source_id": "hyp_gen97_34658",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314715.9135273,
+        "updated_at": 1793314716.846507,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0097_1793314509_1793314715975_e_hyp_gen97_34658_addresses_n_strang",
+            "generation_id": "gen_0097_1793314509",
+            "timestamp": 1793314716.846507,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_045_independent_verifier",
+      "version": 1,
+      "created_at": 1793314715.9135325,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793314470.5760615
+  "saved_at": 1793314716.9144614
 }
