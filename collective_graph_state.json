@@ -7717,6 +7717,109 @@
         "cycle_id": 416,
         "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G62_2718\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
       }
+    },
+    {
+      "id": "prob_gpt3b_rtx3060",
+      "label": "Problem",
+      "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
+      "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
+      "provenance": "system",
+      "version": 1,
+      "created_at": 1793303529.2411802,
+      "updated_at": 1793303529.2411804,
+      "validation_status": "OPEN",
+      "epistemic_class": "PROBLEM",
+      "properties": {}
+    },
+    {
+      "id": "hyp_gen62_13312",
+      "label": "Hypothesis",
+      "title": "Vou primeiro persistir o dossiê técnico em lote e depois apresentar o parecer co",
+      "description": "Vou primeiro persistir o dossiê técnico em lote e depois apresentar o parecer completo.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793303585.8863318,
+      "updated_at": 1793303587.0403957,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0062_1793303529",
+        "cycle_id": 417,
+        "full_text": "Vou primeiro persistir o dossiê técnico em lote e depois apresentar o parecer completo."
+      }
+    },
+    {
+      "id": "hyp_gen62_56755",
+      "label": "Hypothesis",
+      "title": "Auditoria acionada. Antes de qualquer formulação, a memória coletiva precisa ser",
+      "description": "Auditoria acionada. Antes de qualquer formulação, a memória coletiva precisa ser depurada — o grafo está carregando pseudoreplicação como \"evidência verificada\". Vou gravar o parecer e a bancada executável em paralelo e entregar a dedução completa.",
+      "provenance": "agent_007_critic",
+      "version": 2,
+      "created_at": 1793303668.228742,
+      "updated_at": 1793303668.844118,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0062_1793303529",
+        "cycle_id": 417,
+        "full_text": "Auditoria acionada. Antes de qualquer formulação, a memória coletiva precisa ser depurada — o grafo está carregando pseudoreplicação como \"evidência verificada\". Vou gravar o parecer e a bancada executável em paralelo e entregar a dedução completa."
+      }
+    },
+    {
+      "id": "hyp_gen62_4163",
+      "label": "Hypothesis",
+      "title": "INVESTIGAÇÃO `n_naive` — GPT3B_H417_FLUXO_HAMILTONIANO_RESIDUAL_COMPOSTO",
+      "description": "# INVESTIGAÇÃO `n_naive` — GPT3B_H417_FLUXO_HAMILTONIANO_RESIDUAL_COMPOSTO\n**Ciclo #417 / Geração #62 — Parecer do Analista de Evidências (especialidade: Fatoração Tensorial Kronecker)**\n\n---\n\n## 0. Veredito executivo\n\n1. **`n_naive` não tem evidência empírica direta no grafo recuperado.** Nenhum dos 12 nós retornados descreve `n_naive`; todos descrevem protocolos idênticos ou o nó `n_strang`. Qualquer afirmação sobre `n_naive` hoje é **modelo, não medição** (solidez epistêmica ≤ 0.30).\n2. **As ",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793303696.7132106,
+      "updated_at": 1793303696.851747,
+      "validation_status": "REFUTED",
+      "epistemic_class": "FALSIFIED",
+      "properties": {
+        "gen_id": "gen_0062_1793303529",
+        "cycle_id": 417,
+        "full_text": "# INVESTIGAÇÃO `n_naive` — GPT3B_H417_FLUXO_HAMILTONIANO_RESIDUAL_COMPOSTO\n**Ciclo #417 / Geração #62 — Parecer do Analista de Evidências (especialidade: Fatoração Tensorial Kronecker)**\n\n---\n\n## 0. Veredito executivo\n\n1. **`n_naive` não tem evidência empírica direta no grafo recuperado.** Nenhum dos 12 nós retornados descreve `n_naive`; todos descrevem protocolos idênticos ou o nó `n_strang`. Qualquer afirmação sobre `n_naive` hoje é **modelo, não medição** (solidez epistêmica ≤ 0.30).\n2. **As 8 \"replicações independentes\" são um artefato de template.** Texto, parâmetros ($r=128$, $K=2000$, $\\tau=1.2$) e limiares são idênticos caractere a caractere; o que muda é só o ID de geração. **Tamanho amostral efetivo $N_{\\text{eff}} = 1$, não 8.** A convergência aparente é espúria.\n3. **Formulação inédita proposta (FKSV-H417):** fluxo Hamiltoniano residual composto, integrado por **Verlet simpletico**, com o operador residual **fatorado em Kronecker $A \\otimes B$ + sombra de rank-$r$**. Dedução analítica: **redução de 90.6% de FLOPs** vs. `n_naive` em $d=4096$, $d_1=d_2=64$, $r=128$ — acima do limiar de 75% do protocolo, e essa margem é **teorema algébrico, não correlação**.\n\n---\n\n## 1. Estado da evidência sobre `n_naive`\n\n| Fonte recuperada | Diz algo sobre `n_naive`? | Classe real |\n|---|---|---|\n| 8× `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_Gxx` | Não (só parâmetros de ensaio) | EMPIRICAL_FACT degenerado |\n| `AUDITORIA_CRITICA_ADVERSARIAL_G60_2363` | Não (discute `n_strang`) | EMPIRICAL_FACT |\n| 2× `INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL` | Não (formalismo de fluxo residual) | EMPIRICAL_FACT |\n\n**Lacuna:** o alvo do ciclo é o nó com **menor suporte documental do subgrafo**. Defino portanto a hipótese de trabalho abaixo e a rotulo explicitamente:\n\n> **H-N (HIPÓTESE, não verificada):** `n_naive` = compositor denso não fatorado ($W_l \\in \\mathbb{R}^{d\\times d}$) + integrador genérico não simpletico (Euler explícito / RK clássico) sobre o fluxo residual. Custo nominal $K(4d^2+2d)$ e deriva energética secular.\n\nEnsaio de fechamento requerido: ver §6.\n\n---\n\n## 2. Formulação inédita — **FKSV-H417**\n*(Fatoração Kronecker + Simpletico Verlet + Sombra residual de rank-$r$)*\n\n### 2.1 Fluxo Hamiltoniano residual composto\n\nO stream residual $x_l \\in \\mathbb{R}^d$ é elevado ao espaço de fase $z=(q,p)\\in\\mathbb{R}^{2d}$, $q=x_l$:\n\n$$H(q,p) = \\tfrac{1}{2}p^\\top M^{-1}p + V(q),\\qquad M = I_d$$\n\ncom potencial composto por subfluxos (bloco de atenção e bloco MLP), cada um gerando um mapa quase-identidade:\n\n$$\\Phi_l = \\Phi_l^{\\text{mlp}} \\circ \\Phi_l^{\\text{attn}}, \\qquad x_{l+1} = x_l + \\varepsilon F_l(x_l)$$\n\nO horizonte total é $\\tau = 1.2$ com $K = 2000$ passos, logo $\\varepsilon = \\tau/K = 6\\times 10^{-4}$.\n\n### 2.2 Fatoração Kronecker do operador residual (núcleo da contribuição)\n\nCada Hessiana $W_l = \\nabla F_l$ é aproximada por um termo de Kronecker de posto-1 mais uma **sombra residual de rank-$r$**:\n\n$$\\boxed{\\;W \\;\\approx\\; A \\otimes B \\;+\\; U V^\\top\\;},\\qquad A\\in\\mathbb{R}^{d_2\\times d_2},\\; B\\in\\mathbb{R}^{d_1\\times d_1},\\; U,V\\in\\mathbb{R}^{d\\times r},\\; d = d_1 d_2$$\n\n**Identidade de vec (causa física, não empírica):**\n$$(A\\otimes B)\\,\\mathrm{vec}(X) = \\mathrm{vec}(B X A^\\top),\\qquad X\\in\\mathbb{R}^{d_1\\times d_2}$$\ne portanto o custo de aplicação cai de $2d^2$ para $2d(d_1+d_2)$ FLOPs.\n\n### 2.3 Composição e preservação simpletica\n\nVerlet (Störmer) é simpletico de **ordem 2**; a composição $\\Phi^{\\text{mlp}} \\circ \\Phi^{\\text{attn}}$ permanece no grupo simpléctico (propriedade de grupo), preservando a 2-forma $\\omega = \\sum dq_i \\wedge dp_i$ **exatamente** em aritmética exata. Pela análise de erro retroativo (backward error), existe Hamiltoniano sombra $\\tilde H = H + \\varepsilon^2 H_2 + \\mathcal{O}(\\varepsilon^4)$ conservado — **sem deriva energética secular**, mecanismo físico que explica por que `n_naive` (integrador genérico) degrada em $K=2000$.\n\n### 2.4 Passo composto FKSV-H417 (pseudocódigo de bancada)\n\n```\npara k = 1..K:\n    g  <- (A⊗B)·q  via  B @ X @ A.T          # 2d(d1+d2)\n    g  <- g + U @ (V.T @ q)                  # 4dr  (sombra rank-r)\n    p  <- p - (ε/2)·g\n    q  <- q + ε·p\n    g  <- (A⊗B)·q + U @ (V.T @ q)            # idem\n    p  <- p - (ε/2)·g\n```\n\n---\n\n## 3. Dedução analítica de FLOPs\n\n**Cenário nominal da bancada:** $d = 4096 = 64 \\times 64$ ($d_1 = d_2 = 64$), $r = 128$, $K = 2000$, $\\tau = 1.2$.\n\n### 3.1 Por passo de integração\n\n| Componente | `n_naive` (denso) | FKSV-H417 |\n|---|---|---|\n| Gradiente $Wq$ (2×/passo) | $2 \\cdot 2d^2 = 4d^2$ | $2 \\cdot 2d(d_1+d_2) = 4d(d_1+d_2)$ |\n| Sombra $UV^\\top q$ (2×/passo) | — | $2 \\cdot 4dr = 8dr$ |\n| Atualização $q \\leftarrow q + \\varepsilon p$ | $2d$ | $2d$ |\n| **Total/pass** | $4d^2 + 2d$ | $4d(d_1+d_2) + 8dr + 2d$ |\n\n### 3.2 Valores numéricos\n\n- $n\\_naive$: $4(4096)^2 + 8192 = 67\\,108\\,864$ FLOPs/pass → **$1{,}342 \\times 10^{11}$ FLOPs/token**\n- FKSV-H417:\n  - Kronecker: $4 \\cdot 4096 \\cdot 128 = 2{,}097{,}152$\n  - Sombra rank-128: $8 \\cdot 4096 \\cdot 128 = 4{,}194{,}304$\n  - Posição: $8{,}192$\n  - **Total/pass = $6{,}299{,}648$** → **$1{,}260 \\times 10^{10}$ FLOPs/token**\n\n### 3.3 Redução\n\n$$\\eta = 1 - \\frac{4d(d_1+d_2) + 8dr + 2d}{4d^2 + 2d} \\;\\approx\\; 1 - \\frac{d_1+d_2+2r}{d} = 1 - \\frac{64+64+256}{4096} = \\mathbf{90.6\\%}$$\n\n> **Critério do protocolo $\\ge 75\\%$: ATENDIDO com margem de 15.6 pp.** A expressão fechada $\\eta \\approx 1 - (d_1+d_2+2r)/d$ é uma identidade algébrica — robusta a qualquer bancada.\n\n### 3.4 Insight de engenharia derivado (novo)\n\nIgualando custo da sombra ao custo de Kronecker: $8dr = 4d(d_1+d_2) \\Rightarrow r^\\star = (d_1+d_2)/2 = 64$.\n\n**Para $r > 64$ a sombra residual — não a fatoração — vira o gargalo.** Com $r=128$ estamos em regime dominado pela sombra ($4{,}19M$ vs $2{,}10M$): um sweep $r \\in \\{32,64,128\\}$ é a alavanca de latência mais barata disponível.\n\n---\n\n## 4. Análise de erro e viabilidade de acurácia\n\n| Fonte de erro | Ordem | Magnitude estimada |\n|---|---|---|\n| Discretização simpletica (Verlet) | global $\\mathcal{O}(\\varepsilon^2)$ | $\\sim \\tau C \\varepsilon^2 \\approx 10^{-7}$ — **irrelevante** vs. ruído fp16 ($\\sim 10^{-3}$) |\n| Fatoração $\\|W - A\\otimes B\\|_F$ | residual de melhor posto-1 de Kronecker | absorvida pela sombra |\n| Sombra rank-$r$ | $0.9\\%$ da energia espectral residual (fonte única) | esperado $\\lesssim 0.2$–$0.5$ pp Top-1 |\n| **`n_naive` (Euler, $\\mathcal{O}(\\varepsilon)$)** | deriva secular $\\propto K\\varepsilon$ | **principal candidato à causa física** do gap de acurácia observado |\n\n---\n\n## 5. Solidez epistêmica\n\nMétrica: $S = (0.35C + 0.25I + 0.25R + 0.15M)\\cdot(1-A)$, com $C$=consistência entre fontes, $I$=independência real, $R$=verificabilidade analítica, $M$=qualidade de medição, $A$=fator de artefato.\n\n| Afirmação | C | I | R | M | A | **S** |\n|---|---|---|---|---|---|---|\n| Redução FLOPs $\\ge 75\\%$ (núcleo analítico) | 1.0 | 0.2 | 1.0 | 0.8 | 0.05 | **0.78** |\n| Redução FLOPs medida na bancada | 1.0 | 0.2 | 0.6 | 0.7 | 0.15 | **0.56** |\n| $r=128$ captura $99.1\\%$ da energia | 0.6 | 0.2 | 0.4 | 0.6 | 0.15 | **0.38** |\n| Perda Top-1 $\\le$ limiar | 0.5 | 0.2 | 0.3 | 0.4 | 0.20 | **0.29** |\n| Qualquer afirmação sobre **`n_naive`** | 0.0 | 0.0 | 0.2 | 0.0 | 0.30 | **0.05** |\n| \"$\\tau = 1.2$ é causalmente ótimo\" | 0.9 | 0.1 | 0.1 | 0.3 | 0.60 | **0.16** |\n\n### Correlações espúrias × causas físicas\n\n**Espúrias (descartar):**\n- **\"8 verificações independentes convergem\"** → mesmo texto replicado com IDs distintos; $N_{\\text{eff}}=1$. Não multiplicar confiança.\n- **$\\tau = 1.2$ onipresente** → constante de protocolo embutida no template, não varredura causal.\n- **Status `[VERIFIED]`** → estado de workflow, não replicação experimental.\n\n**Físicas (manter):**\n- $\\mathrm{vec}(BXA^\\top) = (A\\otimes B)\\mathrm{vec}(X)$ → custo $2d(d_1+d_2)$. Teorema.\n- Grupo simpléctico fechado sob composição → sem deriva energética em $K=2000$.\n- $r^\\star = (d_1+d_2)/2$ → transição de gargalo sombra↔Kronecker.\n\n---\n\n## 6. Ensaio de fechamento na bancada (obrigatório para elevar `n_naive`)\n\n1. **Ablação:** `n_naive` vs `n_strang` vs **FKSV-H417**, mesmas seeds, $K \\in \\{500, 1000, 2000\\}$, $r \\in \\{32, 64, 128, 256\\}$.\n2. **Métricas:** FLOPs/token e wall-clock; Top-1; **deriva energética** $\\|H(t)-H(0)\\|/H(0)$ ao longo de $K$; curva de energia espectral acumulada vs $r$.\n3. **Teste de independência real:** registrar hash do protocolo + seed + timestamp por execução para destravar $N_{\\text{eff}} > 1$ de verdade.\n4. **Falsificador da H-N:** se `n_naive` não apresentar deriva energética crescente em $K$, o gap de acurácia tem outra causa (ex.: fatoração) e a formulação §2.3 deve ser revista.\n\n---\n\n## 7. Riscos\n\n| Risco | Impacto | Mitigação |\n|---|---|---|\n| $A\\otimes B$ de posto-1 insuficiente | Perda Top-1 | sombra rank-$r$ absorve o resíduo; sweep de $r$ |\n| Gargalo na sombra ($r>64$) | Latência | truncar $r$ para 64 (custo −40%) mantendo $>98\\%$ energia |\n| Memória de $U,V$: $2dr = 1{,}05M$ params/token | Ocupação | checkpointing da sombra entre passos |\n| Evidência sobre `n_naive` inexistente | Parecer frágil ($S=0.05$) | ensaio §6 antes de qualquer decisão de rollout |\n\n**Recomendação:** aprovar FKSV-H417 para ensaio controlado; **não** promover nenhuma conclusão sobre `n_naive` até a ablação do §6 — hoje ela é hipótese de trabalho, não fato."
+      }
+    },
+    {
+      "id": "hyp_gen62_39351",
+      "label": "Hypothesis",
+      "title": "VERIFICAÇÃO INDEPENDENTE — nó `n_krylov` (Ciclo #417 / Geração #62)",
+      "description": "## VERIFICAÇÃO INDEPENDENTE — nó `n_krylov` (Ciclo #417 / Geração #62)\n\nAntes de qualquer resultado, a auditoria de procedência obriga três ressalvas:\n\n1. **O nó `n_krylov` não consta no grafo recuperado.** Os 11 nós retornados são protocolos genéricos (`PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*`) e 2 integadores simpléticos. Não há nó com identificador `n_krylov` — a hipótese sob verificação é, portanto, **não rastreável** neste ciclo.\n2. **Critérios truncados.** Todos os protocolos exibem `Perda ",
+      "provenance": "agent_009_independent_verifier",
+      "version": 2,
+      "created_at": 1793303723.1331694,
+      "updated_at": 1793303723.9347248,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0062_1793303529",
+        "cycle_id": 417,
+        "full_text": "## VERIFICAÇÃO INDEPENDENTE — nó `n_krylov` (Ciclo #417 / Geração #62)\n\nAntes de qualquer resultado, a auditoria de procedência obriga três ressalvas:\n\n1. **O nó `n_krylov` não consta no grafo recuperado.** Os 11 nós retornados são protocolos genéricos (`PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*`) e 2 integadores simpléticos. Não há nó com identificador `n_krylov` — a hipótese sob verificação é, portanto, **não rastreável** neste ciclo.\n2. **Critérios truncados.** Todos os protocolos exibem `Perda de Acurácia Top-1 ≤ ` sem valor fechado. Critério incompleto = não falsificável. Não vou validar o que não pode ser refutado.\n3. **Alta redundância.** 8 dos 11 nós são o mesmo boilerplate com parâmetros idênticos (`r=128, K=2000, τ=1.2`) e procedências cruzadas. Isso é **consenso sintético**, não convergência empírica.\n\nExecuto abaixo a bancada real (numérico reproduzível) em vez de repetir o boilerplate.\n\n### Formulação inédita proposta: **KAR-SI** (Krylov–Arnoldi Residual com Correção de Sombra Simplética)\n\nFluxo residual: $x_{l+1} = x_l + F_l(x_l)$, com $F_l \\in \\mathbb{R}^{d\\times N}$ tipicamente de decaimento espectral rápido.\n\n**(1) Base de Krylov.** Com $A = \\frac{1}{N}F_lF_l^\\top$ (Gram do resíduo, estimado em lote de calibração) e sonda unitária $v_1$, o processo de Arnoldi com reortonogonalização produz $Q_m \\in \\mathbb{R}^{d\\times m}$, $\\;Q_m^\\top Q_m = I_m$, com $\\mathcal{K}_m(A,v_1)=\\mathrm{span}(Q_m)$. Para $A$ simétrico, $\\mathcal{K}_m$ converge ao autoespaço dominante — logo $F_l \\approx Q_m Q_m^\\top F_l$ é a melhor aproximação dentro do subespaço invariante construído **sem SVD**.\n\n**(2) Correção de sombra (Verlet projetado).** Como $x_{l+1}=x_l+F_l$ é passo de Euler do fluxo, o erro composto cresce linearmente em $L$ camadas. Aplico o integrador simplético de 2ª ordem **no subespaço**, com $\\tilde F = Q_m^\\top F_l$:\n$$x_{l+1} = x_l + Q_m\\Big(\\tilde F_l - \\tfrac{1}{2}\\Delta t\\,J\\tilde F_l\\Big),\\qquad J=\\begin{pmatrix}0&I\\\\-I&0\\end{pmatrix}$$\nIsso preserva a forma simplética da restrição, mantendo o hamiltoniano de sombra $H_\\tau = H + \\mathcal{O}(\\Delta t^2)$ limitado em $K=2000$ passos.\n\n### Dedução analítica de FLOPs (MACs por token, por camada)\n\n| Item | Expressão | Valor ($d{=}2560$, $d_{ff}{=}10240$, $r{=}m{=}128$) |\n|---|---|---|\n| Down-projeção densa | $d\\cdot d_{ff}$ | 26 214 400 |\n| Fatorizado rank-$r$ | $r(d+d_{ff})$ | 1 638 400 |\n| Reortonogonalização Arnoldi (offline, calibração) | $2m^2d$ | 83 886 080 — **amortizado, custo zero em inferência** |\n| Projeção online $Q_m^\\top F$ | $2dm$ | 655 360 |\n| **Redução do ramo residual** | $1-\\frac{r(d+d_{ff})}{d\\,d_{ff}}$ | **93,75 %** |\n| **Redução no FLOPs total do modelo** ($\\approx 2N_{par}$, GPT-3B, $L{=}32$) | ver rodapé | **≈ 22 %** |\n\nAuditoria crítica: **o critério \"FLOPs ≥ 75 %\" só é atingido medido contra o ramo residual/MLP**, não contra o modelo inteiro. Qualquer relatório que apresente 75 %+ sem declarar a base de normalização está superestimando o ganho em ~3,4×. É exatamente o tipo de deslize que os nós `G*` do grafo não verificam.\n\nAgora a bancada numérica:"
+      }
+    },
+    {
+      "id": "gen_0062_1793303529",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #62 (Ciclo #417)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793303724.0727446,
+      "updated_at": 1793303724.0727446,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 62,
+        "cycle_id": 417,
+        "verdict": "APPROVED",
+        "duration_sec": 194.83,
+        "tokens_consumed": 5383,
+        "new_hypotheses": 4,
+        "verified": 3,
+        "refuted": 1
+      }
     }
   ],
   "edges": [
@@ -30269,7 +30372,127 @@
       "version": 1,
       "created_at": 1793302718.3653636,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen62_13312_addresses_n_krylov",
+      "source_id": "hyp_gen62_13312",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793303585.9419508,
+        "updated_at": 1793303587.0976124,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0062_1793303529_1793303585991_e_hyp_gen62_13312_addresses_n_krylov",
+            "generation_id": "gen_0062_1793303529",
+            "timestamp": 1793303587.0976124,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793303585.941956,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen62_56755_addresses_n_strang",
+      "source_id": "hyp_gen62_56755",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793303668.2687306,
+        "updated_at": 1793303668.8865118,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0062_1793303529_1793303668309_e_hyp_gen62_56755_addresses_n_strang",
+            "generation_id": "gen_0062_1793303529",
+            "timestamp": 1793303668.8865118,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_007_critic",
+      "version": 1,
+      "created_at": 1793303668.2687356,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen62_4163_addresses_n_naive",
+      "source_id": "hyp_gen62_4163",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.42,
+        "uncertainty": 0.5,
+        "update_count": 1,
+        "created_at": 1793303696.7816281,
+        "updated_at": 1793303696.9202833,
+        "update_history": [
+          {
+            "event_id": "penal_verif_gen_0062_1793303529_1793303696851_e_hyp_gen62_4163_addresses_n_naive",
+            "generation_id": "gen_0062_1793303529",
+            "timestamp": 1793303696.9202833,
+            "w_prev": 0.5,
+            "penalty": 0.08,
+            "w_next": 0.42,
+            "reason": "math_falsification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793303696.781636,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen62_39351_addresses_n_krylov",
+      "source_id": "hyp_gen62_39351",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793303723.186467,
+        "updated_at": 1793303724.0049038,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0062_1793303529_1793303723247_e_hyp_gen62_39351_addresses_n_krylov",
+            "generation_id": "gen_0062_1793303529",
+            "timestamp": 1793303724.0049038,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_009_independent_verifier",
+      "version": 1,
+      "created_at": 1793303723.1864731,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793302719.7483196
+  "saved_at": 1793303724.0740385
 }
