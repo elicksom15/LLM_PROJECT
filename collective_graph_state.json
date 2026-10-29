@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 8,
+      "version": 9,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793306288.7559197,
+      "updated_at": 1793306591.4589767,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -8494,6 +8494,79 @@
         "tokens_consumed": 283,
         "new_hypotheses": 4,
         "verified": 4,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen69_23655",
+      "label": "Hypothesis",
+      "title": "Vou primeiro travar os números analíticos (FLOPs, restrições de projeto e solide",
+      "description": "Vou primeiro travar os números analíticos (FLOPs, restrições de projeto e solidez epistêmica) num verificador numérico, e só então registrar o relatório e a bancada.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793306651.33633,
+      "updated_at": 1793306652.5766504,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0069_1793306591",
+        "cycle_id": 424,
+        "full_text": "Vou primeiro travar os números analíticos (FLOPs, restrições de projeto e solidez epistêmica) num verificador numérico, e só então registrar o relatório e a bancada."
+      }
+    },
+    {
+      "id": "hyp_gen69_14651",
+      "label": "Hypothesis",
+      "title": "Auditoria Adversarial — Ciclo #424 / `n_strang`",
+      "description": "# Auditoria Adversarial — Ciclo #424 / `n_strang`\n## GPT3B_H424 — \"Colapso Simplético Lie-Trotter no Subespaço Invariante do Fluxo Residual\"\n\n**Veredito executivo: REPROVADO.** A proposta contém três erros categoriais (fluxo vs. mapa, colapso vs. não-degenerescência, protocolo vs. fato empírico), uma inflação estatística de evidência no grafo (N efetivo = 1, apresentado como 12) e um critério de FLOPs que viola a si próprio para contexto acima de ~3k tokens. Abaixo, a destruição ponto a ponto e ",
+      "provenance": "agent_007_critic",
+      "version": 2,
+      "created_at": 1793306684.0357912,
+      "updated_at": 1793306684.8846793,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0069_1793306591",
+        "cycle_id": 424,
+        "full_text": "# Auditoria Adversarial — Ciclo #424 / `n_strang`\n## GPT3B_H424 — \"Colapso Simplético Lie-Trotter no Subespaço Invariante do Fluxo Residual\"\n\n**Veredito executivo: REPROVADO.** A proposta contém três erros categoriais (fluxo vs. mapa, colapso vs. não-degenerescência, protocolo vs. fato empírico), uma inflação estatística de evidência no grafo (N efetivo = 1, apresentado como 12) e um critério de FLOPs que viola a si próprio para contexto acima de ~3k tokens. Abaixo, a destruição ponto a ponto e a formulação que resiste à crítica.\n\n---\n\n## 1. Erros categoriais (premissas sem fundamento)\n\n**1.1 O fluxo residual não é um fluxo.** A arquitetura é um *mapa* discreto, $x_{l+1} = x_l + f_l(x_l)$, entrelaçado com LayerNorm. O splitting de Lie-Trotter/Strang (1878/1959/1968) é um teorema sobre *semigrupos gerados por campos vetoriais* $e^{h(L_A+L_B)}$. Para invocá-lo em transformers é preciso (a) justificar o limite Neural ODE e (b) mostrar que os blocos são campos completos. O LayerNorm quebra (b) de imediato: é uma projeção afim não-injetiva (anula a direção da média e fixa a norma), logo **não existe campo vetorial invertível atravessando a normalização**. Sem fluxo, não há colchete de Lie, não há BCH e a constante de erro do Strang, $\\mathcal{O}(h^3)$ local, não tem objeto ao qual se aplicar.\n\n**1.2 \"Colapso simplético\" é oximoro mal formulado.** Forma simplética é, por definição, fechada e **não-degenerada**. \"Colapso\" implica perda de posto — ou seja, degeneração em estrutura de Poisson. O título confunde os dois regimes. Se a intenção é uma degeneração $\\omega \\to \\omega'$ com posto constante $2r$, o objeto correto é uma **variedade de Poisson com folhas simpléticas** (Weinstein), e o splitting age folha a folha. É uma correção conceitual não cosmética: muda o que se conserva (Liouville na folha, não $\\omega$ global).\n\n**1.3 Passo residual explícito não é simplético.** Mapas simpléticos exigem $(I + J_f)^\\top \\Omega (I + J_f) = \\Omega$, i.e. $J_f^\\top\\Omega + \\Omega J_f + J_f^\\top\\Omega J_f = 0$. O residual stream genérico (Attn + MLP com ativações não-lineares) satisfaz isso apenas em subespaços degenerados ou por construção forçada. O midpoint implícito é simplético; o Euler explícito residual não. A proposta trata \"simplético\" como metáfora, não como identidade verificável.\n\n**1.4 $\\tau = 1.2$ é um parâmetro órfão.** Se é passo temporal do splitting: com $\\|J_f\\|_2 \\sim 3\\text{–}6$ típico de streams residuais, $h\\rho(J) > 2$ ⇒ instabilidade do esquema explícito. Se é temperatura de uma distribuição-sombra, o custo muda de figura. Um parâmetro sem dimensionalidade no protocolo é sintoma de reciclagem de template, não de projeto.\n\n---\n\n## 2. Auditoria do grafo de memória — inflação de evidência\n\nOs 11 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_*` possuem **corpo textual idêntico**: mesmos $r=128$, $K=2000$, $\\tau=1.2$, mesmos critérios 75%/2%, mesma `Versão: 2`. Diferem apenas por ID e pela etiqueta de proveniência (`agent_093`, `agent_053`, `agent_005`, `agent_033`, `agent_021`×2, `agent_089`, `agent_017`, `agent_057`, `agent_065`).\n\n- **N efetivo = 1.** Onze cópias do mesmo plano não são onze verificações independentes. O selo `[VERIFIED]` está sustentado por evidência circular.\n- **Classe `EMPIRICAL_FACT` é falsa.** Um protocolo é um *design*, não uma medição: não há hardware declarado, não há seed, não há barra de erro, não há tabela de resultado. Reclassificar para `PROTOCOL/DESIGN` imediatamente.\n- **Risco de recauchutagem.** `hyp_gen17_83208` (\"Integrador Simplético de Sombra Residual\") já contém o núcleo técnico deste ciclo. \"Colapso Lie-Trotter no subespaço invariante\" é, até prova em contrário, o mesmo nó com nomenclatura nova. Exijo delta explícito: o que H424 faz que H17 não faz?\n\n---\n\n## 3. Dedução analítica de FLOPs — feita corretamente pela primeira vez\n\nConvenção: 1 MAC = 2 FLOPs; contagem **por token, por camada**. Assumindo proxy de arquitetura $d=2560$, $d_{ff}=4d$, $L=32$ (o grafo não declara a arquitetura-alvo — e essa omissão, sozinha, invalida qualquer número de FLOPs).\n\n| Componente | MACs baseline | MACs com sombra rank-$r$ |\n|---|---|---|\n| Projeções QKVO | $4d^2$ | $8dr$ |\n| MLP | $8d^2$ | $16dr$ |\n| Atenção (contexto $s$) | $2sd$ | $2sd$ (intocada) |\n| **Total** | $12d^2 + 2sd$ | $24dr + 2sd$ |\n\nCom $r=128$, $d=2560$, $s=2048$: baseline $= 89{,}1$M MACs; sombra $= 18{,}4$M MACs ⇒ **redução de 79,4%**. Parece validar o critério $\\ge 75\\%$? Não.\n\n- **Condição de contorno oculta:** a redução é $\\frac{12d^2(1-2r/d)}{12d^2+2sd} \\ge 0.75 \\iff s \\le 1.2d \\approx 3072$ tokens. Para contexto 8k a redução cai para ~63%; para 16k, ~50%. O critério do protocolo **depende do comprimento de contexto** e isso não está declarado em nenhum dos 11 nós duplicados.\n- **Splitting por forward é DOA.** Strang = 3 avaliações de subfluxo ($A/2, B, A/2$). Se $K$ ou as 3 avaliações acontecem por forward: $3 \\times 18{,}4$M $= 55{,}2$M MACs ⇒ redução de apenas **38%**, abaixo do próprio limiar. A única leitura sobrevivente é $K=2000$ como iterações de ajuste *offline* da sombra — e isso precisa ser escrito no protocolo, não inferido.\n\n## 4. Gargalos de hardware e memória\n\n- **Estados-sombra.** $K \\times d \\times 2$B $= 2000 \\times 2560 \\times 2 \\approx 10{,}2$ MB — trivial *por sequência*. Mas por token em $s=2048$: **~20,5 GB**. Se a sombra for por-token-por-passo, a bancada local morre antes do primeiro passo. O protocolo não especifica a granularidade: é erro fatal de dimensionamento.\n- **Verificação da invariância simplética** exige $(I+J_f)^\\top\\Omega(I+J_f)=\\Omega$: são $d$ JVPs por camada ⇒ 81.920 passes forward-mode para $L=32$. Proibitivo. Exijo estimador de Hutchinson + estrutura de $\\Omega$, com intervalo de confiança.\n- **FLOPs ≠ latência.** GEMMs magras $(2560\\times128)$ são memory-bound: intensidade aritmética cai pela metade, overhead de kernel duplicado. Ganho realista de wall-clock em GPU local: **30–50%**, nunca 75%. O critério mede FLOPs e vende velocidade — marketing, não engenharia.\n- **Bancada não declarada.** Sem modelo de GPU, precisão (fp16/bf16) e tamanho de lote, todo o orçamento é ficção.\n\n---\n\n## 5. Formulação corrigida (a única que sobrevive)\n\nTratar o stream residual como **variedade de Poisson** com tensor $\\pi = PJP^\\top$ de posto $2r$ ($r=128$), folhas simpléticas $\\mathcal{L}_\\alpha$ de dimensão $2r$, e decompor $f_l = f_l^{H} + f_l^{D}$ (hamiltoniano + dissipativo) folha a folha. Splitting simétrico: $e^{h(L_H + L_D)} \\approx e^{\\frac{h}{2}L_H} e^{hL_D} e^{\\frac{h}{2}L_H}$, com erro global $\\mathcal{O}(h^2)$ e constante $\\propto \\|[L_H, L_D]\\|$. **Neste quadro, \"colapso simplético\" tem definição precisa:** a parte $D$ contrai o volume de Liouville da folha, e o invariante correto é a medida temperada, não $\\omega$. O passo $H$ preserva $\\omega|_{\\mathcal{L}}$ exatamente; o $D$ é contrativo por desenho.\n\nIsso é o delta em relação a `hyp_gen17_83208`: folhas de Poisson + componente dissipativo explícito + constante de Strang mensurável via comutador.\n\n---\n\n## 6. Condições de aprovação (checklist obrigatório)\n\n1. Justificar o limite contínuo (fluxo vs. mapa) ou abandonar o arcabouço Lie-Trotter.\n2. Redefinir \"colapso\" como degeneração de posto constante (Poisson/folhas) e corrigir o título.\n3. Medir $\\|[L_H,L_D]P\\|_F$ por estimador estocástico, com IC 95% — não afirmar.\n4. Declarar granularidade dos estados-sombra (por sequência, não por token) e o hardware da bancada.\n5. Reescrever o critério FLOPs como função de $s$: $\\ge 75\\%$ vale apenas para $s \\le 3072$; adotar $s$ de referência explícito.\n6. Reclassificar os 11 nós duplicados como `PROTOCOL` e registrar N efetivo = 1; exigir 3 seeds com variância antes de qualquer selo `VERIFIED`.\n7. Reportar $\\rho(J_f)$ medido para validar $\\tau = 1.2$, ou renomear o parâmetro com sua dimensão física.\n\n**Falsificabilidade:** se a verificação do comutador mostrar $\\|[L_H,L_D]\\| \\not\\ll \\|L_H\\|\\|L_D\\|$, o splitting não colapsa e a proposta morre. Se o ganho de wall-clock ficar abaixo de 30% com $s=2048$, o critério de eficiência morre. Ambos os testes custam menos de um dia de bancada — e é por isso que ainda não foram feitos."
+      }
+    },
+    {
+      "id": "hyp_gen69_16996",
+      "label": "Hypothesis",
+      "title": "Vou primeiro rodar a verificação numérica local (identidade de Kronecker, deriva",
+      "description": "Vou primeiro rodar a verificação numérica local (identidade de Kronecker, deriva de energia do splitting, escala do erro e auditoria de FLOPs) para que a formulação venha com números empíricos e não apenas com retórica.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793306811.1218634,
+      "updated_at": 1793306811.7284904,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0069_1793306591",
+        "cycle_id": 424,
+        "full_text": "Vou primeiro rodar a verificação numérica local (identidade de Kronecker, deriva de energia do splitting, escala do erro e auditoria de FLOPs) para que a formulação venha com números empíricos e não apenas com retórica."
+      }
+    },
+    {
+      "id": "gen_0069_1793306591",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #69 (Ciclo #424)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793306811.8200119,
+      "updated_at": 1793306811.8200119,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 69,
+        "cycle_id": 424,
+        "verdict": "APPROVED",
+        "duration_sec": 220.36,
+        "tokens_consumed": 3860,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -32524,7 +32597,97 @@
       "version": 1,
       "created_at": 1793306505.4564788,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen69_23655_addresses_n_krylov",
+      "source_id": "hyp_gen69_23655",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793306651.3811884,
+        "updated_at": 1793306652.6233704,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0069_1793306591_1793306651425_e_hyp_gen69_23655_addresses_n_krylov",
+            "generation_id": "gen_0069_1793306591",
+            "timestamp": 1793306652.6233704,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793306651.381195,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen69_14651_addresses_n_strang",
+      "source_id": "hyp_gen69_14651",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793306684.0820725,
+        "updated_at": 1793306684.930779,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0069_1793306591_1793306684127_e_hyp_gen69_14651_addresses_n_strang",
+            "generation_id": "gen_0069_1793306591",
+            "timestamp": 1793306684.930779,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_007_critic",
+      "version": 1,
+      "created_at": 1793306684.0820794,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen69_16996_addresses_n_naive",
+      "source_id": "hyp_gen69_16996",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793306811.1631658,
+        "updated_at": 1793306811.7755954,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0069_1793306591_1793306811207_e_hyp_gen69_16996_addresses_n_naive",
+            "generation_id": "gen_0069_1793306591",
+            "timestamp": 1793306811.7755954,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793306811.1631699,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793306506.438336
+  "saved_at": 1793306811.8211188
 }
