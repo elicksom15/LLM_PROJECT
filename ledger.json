@@ -1,11 +1,11 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-29 13:10:40",
+  "last_sync": "2026-10-29 13:20:31",
   "stats": {
-    "total_cycles": 347,
+    "total_cycles": 348,
     "approved_count": 7,
-    "rejected_count": 59
+    "rejected_count": 60
   },
   "approved_hypotheses": [
     {
@@ -80,6 +80,16 @@
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 348,
+      "timestamp": "2026-10-29 13:11:29",
+      "title": "GPT3B_H348_TRANSICAO_SIMPLETICA_RESIDUAL_TSR_CSI",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 12384.455673372024,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
     {
       "cycle_id": 347,
       "timestamp": "2026-10-29 13:01:05",
@@ -563,16 +573,6 @@
     {
       "cycle_id": 299,
       "timestamp": "2026-10-29 10:59:18",
-      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "PENDING",
-      "flops_reduction": 0.0,
-      "top1_accuracy": 0.0,
-      "tokens_per_sec": 0.0,
-      "next_step": "Iniciando debate"
-    },
-    {
-      "cycle_id": 298,
-      "timestamp": "2026-10-29 10:56:46",
       "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,
