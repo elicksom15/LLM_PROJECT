@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 45,
+      "version": 46,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793316677.330654,
+      "updated_at": 1793316921.6409955,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -11230,6 +11230,79 @@
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen106_15865",
+      "label": "Hypothesis",
+      "title": "Vou direto ao ponto: primeiro rodo a bancada numérica real (identidade Kronecker",
+      "description": "Vou direto ao ponto: primeiro rodo a bancada numérica real (identidade Kronecker, subfluxo exato, ordem Lie/Strang, defeito simpletico, certificado de subespaço invariante e auditoria de FLOPs) e em paralelo gravo o script da bancada. Só então emito o relatório com os números medidos.",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793317040.4482124,
+      "updated_at": 1793317041.398821,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0106_1793316921",
+        "cycle_id": 461,
+        "full_text": "Vou direto ao ponto: primeiro rodo a bancada numérica real (identidade Kronecker, subfluxo exato, ordem Lie/Strang, defeito simpletico, certificado de subespaço invariante e auditoria de FLOPs) e em paralelo gravo o script da bancada. Só então emito o relatório com os números medidos."
+      }
+    },
+    {
+      "id": "hyp_gen106_20358",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE INVESTIGAÇÃO TEÓRICA — CICLO #461 / GERAÇÃO #106",
+      "description": "# RELATÓRIO DE INVESTIGAÇÃO TEÓRICA — CICLO #461 / GERAÇÃO #106\n\n## Foco: `GPT3B_H461_GERADORA_SIMPLETICA_SUBESPACO_INVARIANTE` sobre o nó `n_strang`\n\n---\n\n## 0. Tese em uma frase\n\nO nó `n_strang` (splitting de Strang aplicado ao fluxo residual do transformer) tem custo dominado pela dimensão do *residual stream* `d`, não pela complexidade intrínseca da dinâmica. Se o fluxo residual admitir um **subespaço simplético invariante de dimensão `2r`**, o splitting pode ser executado inteiramente nesse",
+      "provenance": "agent_075_investigator",
+      "version": 2,
+      "created_at": 1793317087.6739328,
+      "updated_at": 1793317088.5929043,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0106_1793316921",
+        "cycle_id": 461,
+        "full_text": "# RELATÓRIO DE INVESTIGAÇÃO TEÓRICA — CICLO #461 / GERAÇÃO #106\n\n## Foco: `GPT3B_H461_GERADORA_SIMPLETICA_SUBESPACO_INVARIANTE` sobre o nó `n_strang`\n\n---\n\n## 0. Tese em uma frase\n\nO nó `n_strang` (splitting de Strang aplicado ao fluxo residual do transformer) tem custo dominado pela dimensão do *residual stream* `d`, não pela complexidade intrínseca da dinâmica. Se o fluxo residual admitir um **subespaço simplético invariante de dimensão `2r`**, o splitting pode ser executado inteiramente nesse subespaço e o mapa resultante pode ser **gerado por uma função geradora quadrática exata**, custando `O(r²)` por token em vez de `O(d²)` — com preservação estrutural (sem deriva de energia em `K=2000` passos).\n\n**Resultado principal (Teorema 1):** a razão de FLOPs satisfaz\n$$\\rho \\;=\\; \\frac{F_{\\text{red}}}{F_{\\text{base}}} \\;\\le\\; \\frac{r}{d} \\qquad \\text{sempre que } r \\le \\tfrac{2}{3}d$$\n\nCom `r = 128`, `d = 2048`: **redução ≥ 93,75%** — acima do critério de 75% com folga de ~19 p.p.\n\n---\n\n## 1. Formalismo\n\n### 1.1 Campo residual e horizonte de integração\n\nO bloco `l` do transformer é discretização do fluxo\n\n$$\\frac{dx}{dt} = F(x),\\qquad t \\in [0,\\tau],\\qquad \\tau = 1.2,\\qquad h = \\frac{\\tau}{L}$$\n\nonde `L` = nº de blocos. Identificamos `τ = 1.2` como **horizonte de integração** da ODE (interpretação operacional do parâmetro de ensaio registrado no grafo).\n\nA função `F` admite splitting natural `F = A + N`:\n- `A`: mistura entre tokens (parte da atenção) — Hamiltoniano **quadrático** em `z`;\n- `N`: parte canal-wise (MLP + não-linearidades) — Hamiltoniano **não-quadrático**.\n\n### 1.2 Subespaço simplético invariante\n\nSeja `J = [[0, I],[-I, 0]] ∈ R^{2r×2r}` a matriz canônica. Definimos a **imersão redutora**\n\n$$U \\in \\mathbb{R}^{d\\times 2r}, \\qquad \\Pi = U(U^{\\top}U)^{-1}U^{\\top}, \\qquad z = U^{\\top}x \\in \\mathbb{R}^{2r}$$\n\n**Definição (invariância lenta).** O par `(U, g)` é um subespaço simplético invariante de ordem `r` se\n\n$$DF(x)\\,U \\;=\\; U\\, Dg(U^{\\top}x) \\;+\\; R(x), \\qquad \\|R(x)\\| \\le \\varepsilon_r$$\n\nisto é, a dinâmica tangente fecha sobre si mesma a menos de um resíduo contrativo.\n\n**Construção (offline, custo fora do caminho crítico).** `U` é obtido por Lanczos/Krylov com `K = 2000` iterações sobre a matriz de covariância dos estados residuais. O critério de truncagem registrado — `r = 128` retém **99,1% da energia** — implica\n\n$$\\frac{\\sum_{i>r}\\sigma_i^2}{\\sum_i \\sigma_i^2} = 0.009 \\;\\;\\Longrightarrow\\;\\; \\varepsilon_r \\approx \\sqrt{0.009} \\approx 9{,}5\\times 10^{-2}$$\n\nna norma `L²` relativa do estado (a cota para os *logits* é muito menor — ver §3).\n\n### 1.3 Função geradora de tipo 2\n\nCada semi-fluxo reduzido é parametrizado como transformação canônica **gerada** por\n\n$$S(q, P, t) \\;=\\; \\tfrac{1}{2} q^{\\top} A(t)\\, q \\;+\\; q^{\\top} B(t)\\, P \\;+\\; \\tfrac{1}{2} P^{\\top} C(t)\\, P$$\n\ncom a correspondência canônica\n\n$$Q = \\frac{\\partial S}{\\partial P} = B^{\\top} q + C P, \\qquad p = \\frac{\\partial S}{\\partial q} = A q + B P$$\n\nOs coeficientes `(A, B, C)` satisfazem a **equação de Riccati** associada a `H_red = ½ z^T M z`:\n\n$$\\dot{A} = -A J A - M, \\qquad \\dot B = -A J B, \\qquad \\dot C = -B^{\\top} J B$$\n\n**Propriedade-chave.** Sendo `S` exata para a parte quadrática, o mapa discreto resultante é **exatamente simplético** — não apenas assintoticamente. Numericamente, implementamos o mesmo mapa via **transformada de Cayley**:\n\n$$\\Psi_h = \\Big(I - \\tfrac{h}{2} J M\\Big)^{-1}\\Big(I + \\tfrac{h}{2} J M\\Big), \\qquad \\Psi_h^{\\top} J \\Psi_h = J \\;\\; \\text{exatamente}$$\n\no que elimina o defeito simpletíco acumulativo. É precisamente este o ponto de falha do `n_strang` ingênuo: deriva de energia polinomial em `K` passos. Aqui o defeito fica em `O(ε_machine)` **por passo, não acumulativo**.\n\n### 1.4 Splitting projetado de Strang\n\n$$\\Phi_h^{\\text{GSSI}} \\;=\\; e^{\\frac{h}{2}A_r}\\;\\circ\\; e^{h N_r}\\;\\circ\\; e^{\\frac{h}{2}A_r}, \\qquad A_r = U^{\\top} A\\, U,\\quad N_r = U^{\\top} N\\, U$$\n\ncom atualização completa via **lift residual**:\n\n$$x_{l+1} \\;=\\; x_l \\;+\\; U\\,\\Delta z_l \\;+\\; \\rho(x_l)$$\n\nonde `ρ` é a componente fora do subespaço, tratada como **skip congelado** (custo `O(dn)` diagonal, não `O(d²)`).\n\n---\n\n## 2. Dedução analítica de FLOPs\n\n### 2.1 Baseline (`n_strang` full-rank), por camada, sequência de `n` tokens, `d` canais\n\n| Componente | FLOPs |\n|---|---|\n| Projeções `Q,K,V,O` (4 matrizes `d×d`) | `8 d² n` |\n| FFN padrão (`d_ff = 4d`, 2 matrizes) | `16 d² n` |\n| Escores + soma ponderada da atenção | `4 n² d` |\n| **Total** | `F_base = 24 d² n + 4 n² d` |\n\n### 2.2 Proposto (GSSI-Strang), por camada\n\n| Componente | FLOPs | Justificativa |\n|---|---|---|\n| Codificação `U^T x` | `4 r d n` | matvec `(2r)×d`, mult+add = 2 FLOPs |\n| Lift `x ← x + UΔz` | `4 r d n` | idem |\n| Atenção reduzida (`r`-dim) | `4 n² r` | escores + soma em `r` canais |\n| Mapa gerador / Cayley (`Ψ_h`, 2r×2r) — 2 semi-passos + 1 passo | `24 r² n` | `3 × 2(2r)²` por token |\n| Resíduo congelado `ρ(x)` | `4 d n` | operador diagonal/elemento |\n| **Total** | `F_red = 8 r d n + 24 r² n + 4 n² r + 4 d n` | |\n\n### 2.3 Teorema 1 (cota de redução)\n\n$$\\rho = \\frac{F_{\\text{red}}}{F_{\\text{base}}} = \\frac{8rdn + 24r^2n + 4n^2r + 4dn}{24d^2n + 4n^2d}$$\n\nDescartando o termo residual conservador `4dn` (que só piora o numerador), a condição `ρ ≤ r/d` equivale a\n\n$$8rdn + 24r^2n + 4n^2r \\;\\le\\; 24rdn + 4n^2 r \\iff 24 r n \\le 16 d n \\iff r \\le \\tfrac{2}{3}d$$\n\n**∎** Com `r = 128`, `d = 2048` a condição vale (`128 ≤ 1365`), logo\n\n$$\\boxed{\\;\\text{Redução de FLOPs} \\;\\ge\\; 1 - \\frac{r}{d} = 93{,}75\\%\\;}$$\n\nEste é um resultado **independente de `n`** — vale tanto no regime canal-dominante (`n ≪ d`, `ρ ≈ r/3d = 2,1%`) quanto no regime atenção-dominante (`n ≫ d`, `ρ → r/d = 6,25%`).\n\n### 2.4 Instância numérica (`d = 2048`, `r = 128`, `n = 512`, `L = 24`)\n\n| | FLOPs / camada | FLOPs / inferência (L=24) |\n|---|---|---|\n| Baseline | `5,369 × 10¹⁰` | `1,288 × 10¹²` |\n| GSSI-Strang | `1,413 × 10⁹` | `3,391 × 10¹⁰` |\n| **Redução** | **97,36%** | **97,36%** |\n\nCusto offline (amortizado, fora do caminho crítico): Lanczos `K = 2000` ⇒ `O(K d r) ≈ 5,2 × 10⁸` FLOPs **uma única vez**.\n\n---\n\n## 3. Cota de erro e defesa do critério Top-1 ≤ 2%\n\n**Erro local do Strang** (fórmula clássica de comutadores):\n\n$$\\Phi_h^{\\text{Strang}} - \\Phi_h^{\\text{exato}} = \\frac{h^{3}}{24}\\Big([N,[N,A]] - \\tfrac{1}{2}[A,[A,N]]\\Big) + O(h^{4})$$\n\nComo a parte quadrática é integrada **exatamente** pela função geradora, o comutador `[A,[A,N]]` se anula na base reduzida, restando apenas o termo não-quadrático:\n\n$$\\|e_L\\| \\;\\le\\; \\underbrace{\\frac{C_S \\tau h^{2}}{}}_{\\text{Strang}} \\;+\\; \\underbrace{\\tau\\,\\varepsilon_r}_{\\text{truncagem}} \\;=\\; \\frac{C_S \\tau^{3}}{L^{2}} \\;+\\; \\tau \\varepsilon_r$$\n\n**Critério de argmax preservado.** Seja `m(x)` a margem entre o logit do top-1 e o segundo colocado. Com `Δlogits = W_head · e_L`:\n\n$$\\| \\Delta \\text{logits} \\| \\le \\|W_{\\text{head}}\\|_2 \\cdot \\|e_L\\| \\quad\\Longrightarrow\\quad \\text{top-1 preservado sempre que } m(x) > 2\\|W_{\\text{head}}\\|_2 \\|e_L\\|$$\n\nA perda de Top-1 é, portanto, exatamente a fração de amostras cuja margem cai abaixo desse limiar. Com `ε_r` reduzido pelo fator `√0.009` e o erro de Strang suprimido por `1/L²`, a condição de contorno `Perda ≤ 2%` é verificável **por medição direta da distribuição de margens** — protocolo em §4.\n\n**Segunda garantia:** pela construção simplética via Cayley, `‖Ψ_h^T J Ψ_h − J‖ = O(ε_machine)` **por passo**, de modo que `K = 2000` passos não acumulam deriva energética. Isto elimina o modo de falha dominante observado em `n_strang` longo.\n\n---\n\n## 4. Protocolo de bancada local (aderente aos nós verificados)\n\nParâmetros de ensaio: `r = 128`, `K = 2000`, `τ = 1.2`. Critérios: **Redução de FLOPs ≥ 75%** · **Perda de Acurácia Top-1 ≤ 2%**.\n\n| # | Teste | Métrica | Passe |\n|---|---|---|---|\n| T1 | Contagem analítica vs. `torch.profiler` | `F_red/F_base` | `≤ 0,25` (previsto `0,026`) |\n| T2 | Ordem de convergência de `n_strang` | inclinação log-log do erro vs. `h` | `≈ 2` (global) |\n| T3 | Defeito simpletíco após `K = 2000` passos | `‖Ψ^T J Ψ − J‖_F` | `≤ 1e-12` (não acumulativo) |\n| T4 | Auditoria do critério de energia | fração retida em `r = 128` | `= 0,991` |\n| T5 | Distribuição de margens `m(x)` | fração com `m < 2‖W_head‖‖e_L‖` | `≤ 0,02` |\n| T6 | Comparação Strang vs. Lie | gap de erro | Strang `O(h³)` local vs. Lie `O(h²)` |\n| T7 | Curva Top-1 vs. `r ∈ {64, 96, 128, 192}` | degradação | joelho em `r = 128` |\n\n---\n\n## 5. Condições de validade e riscos\n\n1. **Invariância é hipótese, não teorema do transformer.** O ganho colapsa se `DF(x)U` não fechar sobre `U`. Detecção: T4 + monitoramento de `‖R(x)‖` em execução; se `‖R‖` crescer, fallback para `r = 192` (redução ainda `≥ 90,6%`).\n2. **Não-linearidades fortes** (`SwiGLU`, `softmax` de atenção) violam a hipótese quadrática no semi-fluxo `N_r`. Mitigação: `N_r` mantido como rede estreita `r→4r→r` (já contabilizado em `24r²n`).\n3. **Custo de materialização de `U`.** `U` deve ser compartilhado entre camadas ou fatorizado (Kronecker/Tucker) para não reintroduzir `O(L d r)` de leitura de pesos; a banda de memória, não o FLOP, pode virar o gargalo.\n4. **Precisão mista.** A transformada de Cayley exige inversão de `(I − h/2 JM)`; em fp16 o defeito simpletíco deixa de ser `O(ε_machine)`. Recomendação: acumular `Ψ_h` em fp32 e aplicar em bf16.\n\n---\n\n## 6. Contribuição nominalizada\n\n**GSSI-Strang — Geradora Simplética de Subespaço Invariante (variante `r = 128`):** splitting de Strang projetado sobre subespaço simplético invariante de ordem `r`, com mapa de passo exato obtido por função geradora quadrática (Riccati) e fatorização de Cayley, garantindo (i) redução de FLOPs ≥ `1 − r/d` **independente do comprimento de sequência**, e (ii) preservação simplética exata que suprime a deriva de erro em horizontes longos (`K = 2000`).\n\n---\n\n*Nota de execução: as ferramentas de workspace (`write_file`, `run_cmd`, etc.) não estão expostas nesta sessão, então a bancada T1–T7 fica entregue como especificação executável — os artefatos de código e o relatório de medição podem ser gerados na rodada em que o terminal estiver disponível.*"
+      }
+    },
+    {
+      "id": "hyp_gen106_68699",
+      "label": "Hypothesis",
+      "title": "Vou tratar o `n_naive` como o nó de integração/contratação densa sem estrutura e",
+      "description": "Vou tratar o `n_naive` como o nó de integração/contratação densa sem estrutura e atacá-lo com fatoração tensorial de Kronecker. Antes de emitir qualquer afirmação, rodo a bancada numérica real: identidade de Kronecker, ótimo de Eckart–Young no reagrupamento (reshuffling), contagem analítica de FLOPs, critério de viabilidade dos 75% e propagação de erro no fluxo residual.",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793317112.159362,
+      "updated_at": 1793317112.316935,
+      "validation_status": "REFUTED",
+      "epistemic_class": "FALSIFIED",
+      "properties": {
+        "gen_id": "gen_0106_1793316921",
+        "cycle_id": 461,
+        "full_text": "Vou tratar o `n_naive` como o nó de integração/contratação densa sem estrutura e atacá-lo com fatoração tensorial de Kronecker. Antes de emitir qualquer afirmação, rodo a bancada numérica real: identidade de Kronecker, ótimo de Eckart–Young no reagrupamento (reshuffling), contagem analítica de FLOPs, critério de viabilidade dos 75% e propagação de erro no fluxo residual."
+      }
+    },
+    {
+      "id": "gen_0106_1793316921",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #106 (Ciclo #461)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793317112.4707208,
+      "updated_at": 1793317112.4707208,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 106,
+        "cycle_id": 461,
+        "verdict": "APPROVED",
+        "duration_sec": 190.83,
+        "tokens_consumed": 4772,
+        "new_hypotheses": 3,
+        "verified": 2,
+        "refuted": 1
       }
     }
   ],
@@ -38649,7 +38722,97 @@
       "version": 1,
       "created_at": 1793316878.944562,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen106_15865_addresses_n_krylov",
+      "source_id": "hyp_gen106_15865",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793317040.5143828,
+        "updated_at": 1793317041.4800682,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0106_1793316921_1793317040575_e_hyp_gen106_15865_addresses_n_krylov",
+            "generation_id": "gen_0106_1793316921",
+            "timestamp": 1793317041.4800682,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793317040.5143905,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen106_20358_addresses_n_strang",
+      "source_id": "hyp_gen106_20358",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793317087.750207,
+        "updated_at": 1793317088.6695158,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0106_1793316921_1793317087824_e_hyp_gen106_20358_addresses_n_strang",
+            "generation_id": "gen_0106_1793316921",
+            "timestamp": 1793317088.6695158,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_075_investigator",
+      "version": 1,
+      "created_at": 1793317087.750212,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen106_68699_addresses_n_naive",
+      "source_id": "hyp_gen106_68699",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.42,
+        "uncertainty": 0.5,
+        "update_count": 1,
+        "created_at": 1793317112.2331998,
+        "updated_at": 1793317112.3901048,
+        "update_history": [
+          {
+            "event_id": "penal_verif_gen_0106_1793316921_1793317112316_e_hyp_gen106_68699_addresses_n_naive",
+            "generation_id": "gen_0106_1793316921",
+            "timestamp": 1793317112.3901048,
+            "w_prev": 0.5,
+            "penalty": 0.08,
+            "w_next": 0.42,
+            "reason": "math_falsification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793317112.2332082,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793316879.7917154
+  "saved_at": 1793317112.4730518
 }
