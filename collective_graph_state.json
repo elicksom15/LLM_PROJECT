@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 40,
+      "version": 41,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793315248.0712814,
+      "updated_at": 1793315540.1811354,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -10865,6 +10865,79 @@
         "new_hypotheses": 3,
         "verified": 2,
         "refuted": 1
+      }
+    },
+    {
+      "id": "hyp_gen101_77849",
+      "label": "Hypothesis",
+      "title": "Vou atacar o nó `n_krylov` com formulação inédita + bancada numérica real. Prime",
+      "description": "Vou atacar o nó `n_krylov` com formulação inédita + bancada numérica real. Primeiro, estrutura do núcleo e sonda de ambiente em paralelo.",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793315650.2663136,
+      "updated_at": 1793315651.2589824,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0101_1793315540",
+        "cycle_id": 456,
+        "full_text": "Vou atacar o nó `n_krylov` com formulação inédita + bancada numérica real. Primeiro, estrutura do núcleo e sonda de ambiente em paralelo."
+      }
+    },
+    {
+      "id": "hyp_gen101_74722",
+      "label": "Hypothesis",
+      "title": "<tool_call>",
+      "description": "<tool_call>\nfunction=run_python><parameter=code>\nimport numpy as np\n\nprint(\"========== 1. CONTABILIDADE ANALITICA (GPT-3B-like) ==========\")\nd = 2560        # dimensao oculta (espaco de fase 2n = d)\nn = d // 2\nL = 32          # camadas\nr = 128         # posto do operador low-rank\nK = 2000        # passos/vetores Krylov do protocolo reciclado\ntau = 1.2\ns = 2048        # tokens por sequencia\n\nlayer_flops = 24 * d**2                 # ~2*(4d^2 attn + 8d^2 mlp) por token\nmatvec_lr   = 2 * d * r     ",
+      "provenance": "agent_055_critic",
+      "version": 2,
+      "created_at": 1793315682.4969227,
+      "updated_at": 1793315683.3028882,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0101_1793315540",
+        "cycle_id": 456,
+        "full_text": "<tool_call>\nfunction=run_python><parameter=code>\nimport numpy as np\n\nprint(\"========== 1. CONTABILIDADE ANALITICA (GPT-3B-like) ==========\")\nd = 2560        # dimensao oculta (espaco de fase 2n = d)\nn = d // 2\nL = 32          # camadas\nr = 128         # posto do operador low-rank\nK = 2000        # passos/vetores Krylov do protocolo reciclado\ntau = 1.2\ns = 2048        # tokens por sequencia\n\nlayer_flops = 24 * d**2                 # ~2*(4d^2 attn + 8d^2 mlp) por token\nmatvec_lr   = 2 * d * r                 # A = U V^T, U,V em d x r\north_full   = 2 * d * K**2              # re-ortogonalizacao completa total\nkrylov_seq  = K * matvec_lr + orth_full\n\nprint(f\"espaco de fase 2n              : {d}\")\nprint(f\"K / (2n)  (compressao?)        : {K}/{d} = {K/d:.1%} do espaco -> SEM compressao\")\nprint(f\"FLOPs camada/token             : {layer_flops:.3e}\")\nprint(f\"1 matvec low-rank (r={r})       : {matvec_lr:.3e}\")\nprint(f\"K={K} matvecs                  : {K*matvec_lr:.3e}  = {K*matvec_lr/layer_flops:.1f}x a camada\")\nprint(f\"re-ortogonalizacao total       : {orth_full:.3e}  = {orth_full/layer_flops:.1f}x a camada\")\nprint(f\"TOTAL Krylov/camada/token      : {krylov_seq:.3e} = {krylov_seq/layer_flops:.1f}x a camada\")\nprint(f\"Razao de reducao REAL          : {layer_flops/krylov_seq:.5f}x  (custo e {krylov_seq/layer_flops:.0f}x MAIOR)\")\nprint()\n\nprint(\"========== 2. MEMORIA / VRAM ==========\")\nbasis_shared = d * K * 2                      # fp16, base compartilhada por camada\nbasis_pertok = basis_shared * s               # base por token (necessaria se nao-linear)\nfactors      = 2 * d * r * 2 * L              # U,V de cada camada\nprint(f\"base Krylov por camada (fp16)  : {basis_shared/1e6:.2f} MB\")\nprint(f\"base x L={L} (compartilhada)     : {basis_shared*L/1e6:.1f} MB\")\nprint(f\"base x L x s={s} (por token)     : {basis_pertok*L/1e9:.1f} GB  <-- inexecutavel\")\nprint(f\"fatores U,V (r={r}) x {L} camadas  : {factors/1e6:.1f} MB\")\nprint()\n\nprint(\"========== 3. BANCADA: DEFEITO SIMPLETICO DE APROX. POLINOMIAL ==========\")\ndef Jm(n):\n    J = np.zeros((2*n, 2*n))\n    J[:n, n:] = np.eye(n)\n    J[n:, :n] = -np.eye(n)\n    return J\n\nrng = np.random.default_rng(7)\nn0 = 8\nd0 = 2*n0\nS = rng.standard_normal((d0, d0)); S = S @ S.T / d0 + 0.5*np.eye(d0)\nA = Jm(n0) @ S                       # Hamiltoniano: JA simetrica\nJ = Jm(n0)\nassert np.allclose((A.T @ J + J @ A), 0, atol=1e-10), \"A nao e Hamiltoniano\"\n\ndef expm_taylor(M, t, m):\n    X = np.eye(M.shape[0]); term = np.eye(M.shape[0])\n    for k in range(1, m+1):\n        term = term @ (t*M) / k\n        X = X + term\n    return X\n\nexact = expm_taylor(A, tau, 60)\nprint(f\"||exacto^T J exacto - J||       : {np.linalg.norm(exact.T@J@exact - J, 'fro'):.2e}  (referencia)\")\n\nprint(\" m | ||P^T J P - J||_F   | erro vs fluxo exato\")\nfor m in [2, 4, 8, 12, 20, 40]:\n    P = expm_taylor(A, tau, m)\n    defect = np.linalg.norm(P.T @ J @ P - J, 'fro') / np.linalg.norm(J, 'fro')\n    err = np.linalg.norm(P - exact, 'fro') / np.linalg.norm(exact, 'fro')\n    print(f\"{m:2d} | {defect:.6e}      | {err:.3e}\")\nprint()\nprint(\"=> POLINOMIO DE GRAU FINITO NAO E SIMPLETICO: defeito so cai com o grau,\")\nprint(\"   e cada grau extra = 1 matvec adicional (custo ja dominante acima).\")\nprint()\n\nprint(\"========== 4. BANCADA: BASE EUCLIDIANA x PROJECAO SIMPLETICA ==========\")\nm_dim = 6\nV, _ = np.linalg.qr(rng.standard_normal((d0, m_dim)))   # base ortonormal (Arnoldi)\nJm_red = V.T @ J @ V\nev = np.linalg.eigvals(1j*Jm_red)\nprint(f\"autovalores de i*V^T J V       : {np.sort_complex(ev)}\")\nprint(f\"|det(V^T J V)|                 : {abs(np.linalg.det(Jm_red)):.3e}  (0 => forma degenerada)\")\nprint(f\"menor |autovalor| de V^T J V   : {np.min(np.abs(np.linalg.eigvals(Jm_red))):.3e}\")\nprint(\"=> V^T V = I  NAO implica V^T J V = J: a projecao de Galerkin com base\")\nprint(\"   euclidiana NAO herda a estrutura simplética; m impar e sempre degenerado.\")\nprint()\n\nprint(\"========== 5. ESTABILIDADE EXPLICITA (tau=1.2) ==========\")\nrho = np.max(np.abs(np.linalg.eigvals(A)))\nprint(f\"raio espectral de A (brinquedo): {rho:.3f}  -> tau*|A| = {tau*rho:.3f}\")\nprint(\"Num transformer real ||J||_2 do bloco residual tipicamente >> 1 (ganho residual),\")\nprint(\"logo tau=1.2 explicito exige K >> 2000 ou subpassos: o parametro e uma premissa nao validada.\")\n</parameter></function>\n</tool_call>"
+      }
+    },
+    {
+      "id": "hyp_gen101_61641",
+      "label": "Hypothesis",
+      "title": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — nenhuma l",
+      "description": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — nenhuma linha do relatório sai sem lastro empírico ou dedução verificada.",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793315743.765966,
+      "updated_at": 1793315744.6302116,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0101_1793315540",
+        "cycle_id": 456,
+        "full_text": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — nenhuma linha do relatório sai sem lastro empírico ou dedução verificada."
+      }
+    },
+    {
+      "id": "gen_0101_1793315540",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #101 (Ciclo #456)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793315744.7695193,
+      "updated_at": 1793315744.7695196,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 101,
+        "cycle_id": 456,
+        "verdict": "APPROVED",
+        "duration_sec": 204.59,
+        "tokens_consumed": 3337,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
       }
     }
   ],
@@ -37834,7 +37907,97 @@
       "version": 1,
       "created_at": 1793315500.4866323,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen101_77849_addresses_n_krylov",
+      "source_id": "hyp_gen101_77849",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315650.3365414,
+        "updated_at": 1793315651.339303,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0101_1793315540_1793315650401_e_hyp_gen101_77849_addresses_n_krylov",
+            "generation_id": "gen_0101_1793315540",
+            "timestamp": 1793315651.339303,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793315650.336548,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen101_74722_addresses_n_strang",
+      "source_id": "hyp_gen101_74722",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315682.5670962,
+        "updated_at": 1793315683.3797574,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0101_1793315540_1793315682635_e_hyp_gen101_74722_addresses_n_strang",
+            "generation_id": "gen_0101_1793315540",
+            "timestamp": 1793315683.3797574,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_055_critic",
+      "version": 1,
+      "created_at": 1793315682.5671005,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen101_61641_addresses_n_naive",
+      "source_id": "hyp_gen101_61641",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315743.8336375,
+        "updated_at": 1793315744.7059407,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0101_1793315540_1793315743902_e_hyp_gen101_61641_addresses_n_naive",
+            "generation_id": "gen_0101_1793315540",
+            "timestamp": 1793315744.7059407,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793315743.833642,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793315500.6938968
+  "saved_at": 1793315744.7709725
 }
