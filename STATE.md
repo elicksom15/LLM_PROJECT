@@ -4,8 +4,8 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `461`
-- **Hipóteses Aprovadas (Incorporadas):** `🏆 114`
+- **Total de Ciclos Científicos Executados:** `462`
+- **Hipóteses Aprovadas (Incorporadas):** `🏆 115`
 - **Hipóteses Falsificadas / Rejeitadas:** `❌ 66`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
@@ -126,11 +126,13 @@
 | **#459** | `GPT3B_H459_TRANSICAO_SIMPLETICA_CAYLEY_SHEAR` | **99.0%** | **95.8%** | `10144.2 tok/s` | `0.0000` |
 | **#460** | `GPT3B_H460_INVARIANT_SYMPLECTIC_MANIFOLD` | **99.0%** | **95.8%** | `10340.5 tok/s` | `0.0000` |
 | **#461** | `GPT3B_H461_GERADORA_SIMPLETICA_SUBESPACO_INVARIANTE` | **99.0%** | **12.0%** | `8837.3 tok/s` | `0.0000` |
+| **#462** | `GPT3B_H462_FLUXO_LIE_SIMPLETICO_REDUZIDO` | **99.0%** | **95.8%** | `9809.0 tok/s` | `0.0000` |
 
 
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#462** | 2026-10-29 20:39:13 | `GPT3B_H462_FLUXO_LIE_SIMPLETICO_REDUZIDO` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#461** | 2026-10-29 20:35:21 | `GPT3B_H461_GERADORA_SIMPLETICA_SUBESPACO_INVARIANTE` | 🟢 APROVADA | 12.0% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#460** | 2026-10-29 20:31:17 | `GPT3B_H460_INVARIANT_SYMPLECTIC_MANIFOLD` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#459** | 2026-10-29 20:26:26 | `GPT3B_H459_TRANSICAO_SIMPLETICA_CAYLEY_SHEAR` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
@@ -180,4 +182,3 @@
 | **#415** | 2026-10-29 16:36:17 | `GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#414** | 2026-10-29 16:32:14 | `GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#413** | 2026-10-29 16:30:26 | `GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
-| **#412** | 2026-10-29 16:28:26 | `GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
