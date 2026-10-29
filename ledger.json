@@ -1,11 +1,11 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-28 23:40:40",
+  "last_sync": "2026-10-28 23:40:43",
   "stats": {
     "total_cycles": 81,
     "approved_count": 7,
-    "rejected_count": 54
+    "rejected_count": 55
   },
   "approved_hypotheses": [
     {
@@ -84,11 +84,11 @@
       "cycle_id": 81,
       "timestamp": "2026-10-28 23:28:24",
       "title": "GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "PENDING",
-      "flops_reduction": 0.0,
-      "top1_accuracy": 0.0,
-      "tokens_per_sec": 0.0,
-      "next_step": "Iniciando debate"
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 9925.668695064232,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
     },
     {
       "cycle_id": 80,

@@ -6,7 +6,7 @@
 ## 📊 Painel Geral de Execução
 - **Total de Ciclos Científicos Executados:** `81`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 54`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 55`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,7 +24,7 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
-| **#81** | 2026-10-28 23:28:24 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#81** | 2026-10-28 23:28:24 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#80** | 2026-10-28 23:18:33 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#79** | 2026-10-28 23:08:10 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#78** | 2026-10-28 22:30:38 | `GPT3B_H78_TRANSICAO_SIMPLETICA_BLOCO_CIRCULANTE_KRYLOV` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
