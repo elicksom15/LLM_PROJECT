@@ -4,9 +4,9 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `73`
+- **Total de Ciclos Científicos Executados:** `77`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 52`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 53`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,6 +24,10 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#77** | 2026-10-28 22:16:49 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
+| **#76** | 2026-10-28 22:08:22 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#75** | 2026-10-28 21:55:52 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#74** | 2026-10-28 21:41:18 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#73** | 2026-10-28 21:22:03 | `GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#72** | 2026-10-28 21:11:50 | `GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#71** | 2026-10-28 20:57:58 | `GPT3B_H69_TRANSPORTE_PARALELO_SUBESPACO_INVARIANTE` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
@@ -70,7 +74,3 @@
 | **#30** | 2026-10-28 13:54:29 | `GPT3B_H30_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#29** | 2026-10-28 13:49:42 | `GPT3B_H29_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#28** | 2026-10-28 13:44:56 | `GPT3B_H28_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#27** | 2026-10-28 13:40:12 | `GPT3B_H27_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#26** | 2026-10-28 13:35:26 | `GPT3B_H26_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#25** | 2026-10-28 13:30:40 | `GPT3B_H25_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#24** | 2026-10-28 13:25:55 | `GPT3B_H24_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |

@@ -1,11 +1,11 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-28 21:40:50",
+  "last_sync": "2026-10-28 22:29:30",
   "stats": {
-    "total_cycles": 73,
+    "total_cycles": 77,
     "approved_count": 7,
-    "rejected_count": 52
+    "rejected_count": 53
   },
   "approved_hypotheses": [
     {
@@ -80,6 +80,46 @@
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 77,
+      "timestamp": "2026-10-28 22:16:49",
+      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 1621.8129925046906,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
+    {
+      "cycle_id": 76,
+      "timestamp": "2026-10-28 22:08:22",
+      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 75,
+      "timestamp": "2026-10-28 21:55:52",
+      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 74,
+      "timestamp": "2026-10-28 21:41:18",
+      "title": "GPT3B_H73_ANALYTICAL_TAYLOR_ODE_JUMP",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
     {
       "cycle_id": 73,
       "timestamp": "2026-10-28 21:22:03",
@@ -538,46 +578,6 @@
       "flops_reduction": 79.11625051831288,
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 460.17318139858656,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 27,
-      "timestamp": "2026-10-28 13:40:12",
-      "title": "GPT3B_H27_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 289.90281978497086,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 26,
-      "timestamp": "2026-10-28 13:35:26",
-      "title": "GPT3B_H26_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 445.6184991790971,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 25,
-      "timestamp": "2026-10-28 13:30:40",
-      "title": "GPT3B_H25_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 383.11746937669886,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 24,
-      "timestamp": "2026-10-28 13:25:55",
-      "title": "GPT3B_H24_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 430.4248935999195,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
     }
   ]
