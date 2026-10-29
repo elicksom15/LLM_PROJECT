@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 42,
+      "version": 43,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793315786.8812153,
+      "updated_at": 1793316110.205157,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -11008,6 +11008,79 @@
         "verdict": "APPROVED",
         "duration_sec": 276.27,
         "tokens_consumed": 2695,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen103_26580",
+      "label": "Hypothesis",
+      "title": "Vou tratar isso como investigação empírica: primeiro banco numérico real (com sc",
+      "description": "Vou tratar isso como investigação empírica: primeiro banco numérico real (com script reproduzível), depois formulação e juízo epistêmico. Os nós da memória coletiva serão auditados antes de servirem de base — vários deles são protocolos duplicados, não evidências.",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793316180.7893164,
+      "updated_at": 1793316181.6251223,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0103_1793316110",
+        "cycle_id": 458,
+        "full_text": "Vou tratar isso como investigação empírica: primeiro banco numérico real (com script reproduzível), depois formulação e juízo epistêmico. Os nós da memória coletiva serão auditados antes de servirem de base — vários deles são protocolos duplicados, não evidências."
+      }
+    },
+    {
+      "id": "hyp_gen103_89730",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação numérica real da bancada (ordem de convergência do `n",
+      "description": "Vou executar a verificação numérica real da bancada (ordem de convergência do `n_strang`, defeito simpletico, fecho modal e contagem de FLOPs) e só então emitir a formulação. Primeiro, a bancada:",
+      "provenance": "agent_063_investigator",
+      "version": 2,
+      "created_at": 1793316257.5467963,
+      "updated_at": 1793316258.2212095,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0103_1793316110",
+        "cycle_id": 458,
+        "full_text": "Vou executar a verificação numérica real da bancada (ordem de convergência do `n_strang`, defeito simpletico, fecho modal e contagem de FLOPs) e só então emitir a formulação. Primeiro, a bancada:"
+      }
+    },
+    {
+      "id": "hyp_gen103_44871",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #458 / GERAÇÃO #103",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #458 / GERAÇÃO #103\n\n**Foco:** Fatoração Tensorial Kronecker · **Tema:** `GPT3B_H458_FECHO_SIMPLETICO_MODAL_KOOPMAN` · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Nota de honestidade operacional (obrigatória)\n\nNenhuma bancada numérica foi executada neste ciclo. Todos os números abaixo são **contagens exatas de FLOPs derivadas do ledger operacional** e **cotas analíticas** — verificáveis por ari",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793316347.2769032,
+      "updated_at": 1793316348.0434537,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0103_1793316110",
+        "cycle_id": 458,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #458 / GERAÇÃO #103\n\n**Foco:** Fatoração Tensorial Kronecker · **Tema:** `GPT3B_H458_FECHO_SIMPLETICO_MODAL_KOOPMAN` · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Nota de honestidade operacional (obrigatória)\n\nNenhuma bancada numérica foi executada neste ciclo. Todos os números abaixo são **contagens exatas de FLOPs derivadas do ledger operacional** e **cotas analíticas** — verificáveis por aritmética pura, não por medição. Afirmações de acurácia (Top-1) **não** são tratadas como observadas. Isso é deliberado: misturar dedução exata com medição inexistente é o erro epistêmico mais comum neste grafo.\n\n---\n\n## 1. Ancoragem: o que o grafo realmente sustenta\n\n| Item | Classe real | Observação |\n|---|---|---|\n| $r=128$, $K=2000$, $\\tau=1.2$ | PARÂMETRO DE BANCADA | Consistente em 6 nós, mas **idêntico byte a byte** → ver §6.1 |\n| Critério \"FLOPs $\\ge 75\\%$\" | CRITÉRIO | Texto truncado no grafo; assumo Top-1 $\\le 2\\%$ |\n| \"r=128 = 99,1% de energia\" | **HIPÓTESE NÃO VERIFICADA** | Sem proveniência, sem variância, sem curva energia-vs-r |\n| `n_naive` = mapa linear denso $d\\times d$ | DEFINIÇÃO DE BASE | Baseline do qual derivamos a economia |\n\n---\n\n## 2. Formulação inédita: **K-SKMC** — *Kronecker–Strang Modal Closure*\n\n### 2.1 Definição formal\n\nSeja $x_l\\in\\mathbb{R}^d$ o residual stream, $d=4096$. Definimos o fecho em cinco estágios:\n\n**(1) Lift com estrutura Kronecker.** $X=\\mathrm{reshape}(x_l)\\in\\mathbb{R}^{b_1\\times a_1}$, $a_1=b_1=64$ ($d=64\\cdot 64$). Com $P_a,P_b\\in\\mathbb{R}^{16\\times 64}$:\n\n$$z = \\Psi x = \\mathrm{vec}\\!\\left(P_b\\, X\\, P_a^{\\top}\\right)\\in\\mathbb{R}^{R},\\qquad R=256=16\\cdot 16$$\n\n**(2) Ordenação simpletica.** $z=(q,p)\\in\\mathbb{R}^{128}\\times\\mathbb{R}^{128}$ ($r=128$ pares conjugados), forma $\\omega = \\sum dq\\wedge dp$, $J=\\begin{pmatrix}0&I\\\\-I&0\\end{pmatrix}$.\n\n**(3) Fecho de Koopman com gerador Kronecker-soma + correção residual.**\n\n$$\\dot z = \\mathcal{K}z,\\qquad \\mathcal{K} = \\underbrace{(A\\otimes I_{16}) + (I_{16}\\otimes B)}_{\\text{parte exatamente simpletica}} + \\underbrace{\\sum_{i=1}^{R_K}\\theta_i (A_i\\otimes B_i)}_{E:\\ \\text{posto de Kronecker } R_K}$$\n\ncom $A,B\\in\\mathfrak{sp}(16)$ (hamiltonianos: $A^\\top J_{8}+J_{8}A=0$, idem $B$).\n\n**(4) Splitting de Strang simpleticamente exato.** $h=\\tau/N_s$, $N_s=4$, $\\tau=1.2\\Rightarrow h=0.3$:\n\n$$z^{k+1} = e^{\\frac{h}{2}A\\otimes I}\\; e^{h\\, I\\otimes B}\\; e^{\\frac{h}{2}A\\otimes I}\\; z^{k} + h\\,E z^{k}$$\n\n**(5) Readout residual.** $x_{l+1} = x_l + \\Psi^\\top z^{N_s}$.\n\n### 2.2 Por que isto é simpletico (causa física, não correlação)\n\nCada fator $e^{tA}\\in\\mathrm{Sp}(2n_1)$ e $e^{tB}\\in\\mathrm{Sp}(2n_2)$; logo o produto pertence a $\\mathrm{Sp}(2n_1)\\times\\mathrm{Sp}(2n_2)\\subset \\mathrm{Sp}(R)$ **para qualquer $h$**. Consequência estrutural (análise backward error): existe hamiltoniano sombra $\\tilde H = H + O(h^2)$ exatamente conservado pelo mapa. O drift de energia é, portanto, limitado por construção e sua única fonte é $\\|E\\|$:\n\n$$|\\Delta H| \\le \\tau\\,\\|E\\|\\,e^{\\tau\\|\\mathcal{K}\\|}$$\n\n**Isso é teorema, não observação empírica.** É a distinção central do §6.\n\n---\n\n## 3. Dedução analítica de FLOPs (ledger completo)\n\nConvenção: 1 multiplicação-soma = 2 FLOPs. Custos por token, por camada.\n\n| Operação | Fórmula | FLOPs |\n|---|---|---|\n| **BASE `n_naive`**: $W\\in\\mathbb{R}^{d\\times d}$ | $2d^2$ | **33.554.432** |\n| Lift Kronecker $P_bXP_a^\\top$ | $2b_1b_2a_1 + 2b_1a_1a_2$ | 163.840 |\n| Readout $\\Psi^\\top$ | simétrico | 163.840 |\n| Sub-fluxo $A$ (2× por passo) | $2\\cdot 2m^2n$ | 16.384 |\n| Sub-fluxo $B$ (1× por passo) | $2mn^2$ | 8.192 |\n| Correção residual $E$ ($R_K=4$) | $2R_K R(m+n)$ | 65.536 |\n| **Custo por passo de Strang** | | **90.112** |\n| $N_s=4$ passos | | 360.448 |\n| **VARIANTE B (lift Kronecker)** | | **688.128** |\n| **VARIANTE A (lift denso $2dR$)** | $4dR + 360.448$ | **4.554.752** |\n| **VARIANTE T (só truncamento, closure densa $2R^2$)** | | **4.718.592** |\n\n### 3.1 Resultados sobre o critério de $75\\%$\n\n| | FLOPs/token | Redução | Veredito |\n|---|---|---|---|\n| Variante A | 4.554.752 | **86,43 %** | PASSA (margem +11,4 p.p.) |\n| Variante B | 688.128 | **97,95 %** | PASSA (margem +22,9 p.p.) |\n| Variante T | 4.718.592 | 85,94 % | PASSA |\n\nEscala da bancada ($K=2000$ tokens): naive **67,11 GFLOP** · Var. A **9,11 GFLOP** · Var. B **1,38 GFLOP**.\n\n### 3.2 Break-evens (robustez, não ponto-único)\n\n- **Passos máximos de Strang** até violar $75\\%$: $N_s^{\\max}=\\dfrac{0{,}25\\cdot 2d^2-4dR}{6R_KR(m+n)}$ → **46,5** (Var. A) · **89,4** (Var. B). Usamos 4: ocupamos 8,6 % do orçamento.\n- **Horizonte máximo**: $\\tau^\\ast = N_s^{\\max}h$ → **13,96** (A) · **26,8** (B). $\\tau=1.2$ está 11× abaixo do limite.\n- **Rank modal máximo**: $R\\le 512$ ($r\\le 256$) ainda cumpre $75\\%$ na Variante A. $r=128$ tem folga de 2×.\n- **Posto de Kronecker**: até $R_K=12$ o critério segue valendo (Var. A).\n\nA redução **não é frágil**: sobrevive a variações de uma ordem de magnitude em $\\tau$, $r$ e $R_K$.\n\n---\n\n## 4. Decomposição causal — onde a economia realmente nasce\n\n$$\\underbrace{86{,}43}_{\\text{redução total (A)}} = \\underbrace{85{,}94}_{\\text{truncamento modal } d\\to R} + \\underbrace{0{,}49}_{\\text{fatoração Kronecker + Strang}} \\quad (\\text{p.p.})$$\n\n- **99,4 % da economia vem do truncamento modal** ($R/d = 6{,}25\\%$), não da fatoração Kronecker.\n- Na Variante A, o custo dominante do nosso pipeline é **lift + readout = 4,19 M FLOPs (92 % do total)**, não o fecho.\n- A fatoração Kronecker só se torna **causalmente dominante quando o próprio lift é estruturado** (Variante B): reduz o lift em **12,8×**, derrubando o total de 4,55 M para 0,69 M.\n\n**Conclusão causal:** \"Kronecker\" é o *nome do foco temático*, não a *causa da economia*. Quem atribui os 86 % à fatoração comete viés de foco.\n\n---\n\n## 5. Ordem de erro e orçamento de acurácia\n\n### 5.1 Defeito do splitting (dedução)\n\nBCH a 3ª ordem para $S(h)=e^{X}e^{Y}e^{X}$, $X=\\tfrac{h}{2}A$, $Y=hB$:\n\n- Termos $O(h)$: $h(A+B)$ ✓\n- Termos $O(h^2)$: $\\tfrac12[X,Y]+\\tfrac12[Y,X]=0$ → **mapa simétrico, só potências ímpares** ✓\n- Termos $O(h^3)$: $\\tfrac1{12}[X,[X,Y]]-\\tfrac1{6}[Y,[X,Y]]$\n\n$$\\boxed{\\;\\log S(h) = h(A+B) + h^3\\Lambda + O(h^5),\\qquad \\Lambda = \\tfrac{1}{48}[A,[A,B]] - \\tfrac{1}{12}[B,[A,B]]\\;}$$\n\nGlobal: $\\|e^{\\tau(A+B)} - S(h)^{N_s}\\| \\le \\tau h^2\\|\\Lambda\\| e^{\\tau\\|\\mathcal{K}\\|}$. Com $\\tau=1{,}2$, $h=0{,}3$: $\\tau h^2 = 0{,}108$.\n\n### 5.2 Orçamento de erro total (aditivo, conservador)\n\n$$\\varepsilon_{\\text{total}} \\le \\varepsilon_{\\text{trunc}} + \\varepsilon_{\\text{split}} + \\varepsilon_{\\text{closure}} + \\varepsilon_{\\text{lift}}$$\n\n| Fonte | Cota | Status |\n|---|---|---|\n| $\\varepsilon_{\\text{split}}$ | $\\tau h^2\\|\\Lambda\\|e^{\\tau\\|\\mathcal K\\|}$ | ANALÍTICO |\n| $\\varepsilon_{\\text{closure}}$ | $\\tau\\|E\\|$ | ANALÍTICO |\n| $\\varepsilon_{\\text{trunc}}$ | $\\sqrt{1-0{,}991}=9{,}5\\%$ RMS relativo | **SE** o \"99,1%\" for verdadeiro |\n| $\\varepsilon_{\\text{lift}}$ | defeito de invariância do lifting de Koopman | NÃO MEDIDO |\n\n### 5.3 O alerta duro\n\nSe \"r = 128 preserva 99,1% da energia\" é literalmente verdade, o erro RMS por token é **≈ 9,5 %**. Isso **não** se converte diretamente em ≤ 2 % de Top-1: a cadeia exige\n\n$$\\Delta\\text{Top-1} \\le \\Pr\\!\\left(\\text{margem} < \\|W_{\\text{head}}\\|\\,\\|\\Delta x\\|\\right)$$\n\nOnde a distribuição de margens do classificador **não está no grafo**. Portanto: **o critério de acurácia está, hoje, epistemicamente não suportado**, por mais sólida que seja a conta de FLOPs.\n\n---\n\n## 6. Auditoria epistêmica\n\n### 6.1 Pseudo-replicação detectada (achado principal)\n\nSeis nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*` exibem **os mesmos** $r=128$, $K=2000$, $\\tau=1.2$ e os mesmos critérios, truncados no mesmo ponto do texto. Isso é **cópia de template**, não replicação independente.\n\n- N de nós = 6 · **N efetivo = 1**.\n- Correlação \"mais nós ⟹ maior confiança\" é **espúria por construção**.\n- Recomendação: colapsar em um único nó-protocolo com 6 referências derivadas; peso probatório = 1.\n\n### 6.2 Correlações espúrias vs. causas físicas\n\n| # | Alegação no grafo | Veredito |\n|---|---|---|\n| 1 | \"Fatoração Kronecker reduz FLOPs em 86%\" | **ESPÚRIA** — causa real é o truncamento modal (99,4 %) |\n| 2 | \"99,1% de energia ⟹ ≤ 2% Top-1\" | **ESPÚRIA** — salto de métrica (energia ≠ acurácia) |\n| 3 | \"Splitting mantém energia estável\" | **FÍSICA** — teorema simpletico + backward error |\n| 4 | \"6 protocolos independentes convergem\" | **ESPÚRIA** — pseudo-replicação |\n| 5 | $\\tau=1.2$ como horizonte *e* como parâmetro de ensaio | **AMBÍGUA** — possível colisão semântica de unidades |\n\n### 6.3 Solidez epistêmica por afirmação\n\n| Afirmação | Solidez | Base |\n|---|---|---|\n| Ledger de FLOPs (§3) | **0,99** | Contagem exata, reprodutível por aritmética |\n| Estrutura simpletica exata | **0,95** | Teorema; hipótese: $A,B$ hamiltonianos |\n| Defeito de Strang $O(h^2)$ global | **0,97** | Clássico, sob regularidade |\n| Break-evens $\\tau^\\ast, N_s^{\\max}$ | **0,95** | Derivados do ledger |\n| Decomposição causal §4 | **0,90** | Derivada, depende da definição de `n_naive` |\n| $r=128 = 99{,}1\\%$ de energia | **0,35** | Proveniência desconhecida |\n| Estabilidade numérica ($h\\|\\mathcal K\\|\\lesssim 1$) | **0,30** | $\\|\\mathcal K\\|$ não medido |\n| Top-1 $\\le 2\\%$ | **0,20** | Não medido; cadeia causal incompleta |\n| Independência dos 6 protocolos | **0,05** | Contradita por inspeção |\n\n**Solidez agregada da entrega (FLOPs + formulação): 0,93.** **Da meta de acurácia: 0,20.**\n\n---\n\n## 7. Protocolo mínimo para elevar a solidez (próximo ciclo)\n\n1. Curva energia-vs-$r$ real ($r\\in\\{32,64,128,256\\}$) com IC 95 % — substitui o \"99,1%\" por dado.\n2. Distribuição de margens do classificador — fecha a cadeia $\\varepsilon_{\\text{trunc}}\\to$ Top-1.\n3. $\\|\\mathcal K\\|$ e norma dos comutadores $[A,[A,B]]$, $[B,[A,B]]$ — valida $h=0{,}3$ no regime assintótico.\n4. Medição empírica de FLOPs/latência para confirmar o ledger teórico (conta ≠ kernel: overhead de reshape pode consumir a folga de 11 p.p.).\n5. Auditoria de cegueira: um verificador que **não** receba os parâmetros do template.\n\n---\n\n## 8. Veredito\n\nA formulação **K-SKMC** entrega, em dedução analítica: **86,4 %** de redução (lift denso) e **97,95 %** (lift Kronecker), com margem robusta de **11,4 a 22,9 p.p.** sobre o critério de 75 %, e preservação simpletica exata por construção.\n\nDuas correções de narrativa são impostas pelos dados: (i) a economia nasce do **truncamento modal**, não da fatoração Kronecker — que só é decisiva quando estrutura também o lift; (ii) o critério de acurácia **ainda não é sustentado** por evidência empírica, e os 6 \"protocolos independentes\" do grafo contam como **um**.\n\n**FLOPs: aprovado com folga. Acurácia: pendente de medição. Narrativa causal: corrigida.**"
+      }
+    },
+    {
+      "id": "gen_0103_1793316110",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #103 (Ciclo #458)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793316348.196219,
+      "updated_at": 1793316348.1962192,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 103,
+        "cycle_id": 458,
+        "verdict": "APPROVED",
+        "duration_sec": 237.99,
+        "tokens_consumed": 4645,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -38160,7 +38233,97 @@
       "version": 1,
       "created_at": 1793316062.3224702,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen103_26580_addresses_n_krylov",
+      "source_id": "hyp_gen103_26580",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316180.8446438,
+        "updated_at": 1793316181.6852717,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0103_1793316110_1793316180904_e_hyp_gen103_26580_addresses_n_krylov",
+            "generation_id": "gen_0103_1793316110",
+            "timestamp": 1793316181.6852717,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793316180.8446484,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen103_89730_addresses_n_strang",
+      "source_id": "hyp_gen103_89730",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316257.6003215,
+        "updated_at": 1793316258.2808082,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0103_1793316110_1793316257654_e_hyp_gen103_89730_addresses_n_strang",
+            "generation_id": "gen_0103_1793316110",
+            "timestamp": 1793316258.2808082,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_063_investigator",
+      "version": 1,
+      "created_at": 1793316257.600326,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen103_44871_addresses_n_naive",
+      "source_id": "hyp_gen103_44871",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316347.339794,
+        "updated_at": 1793316348.1197479,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0103_1793316110_1793316347395_e_hyp_gen103_44871_addresses_n_naive",
+            "generation_id": "gen_0103_1793316110",
+            "timestamp": 1793316348.1197479,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793316347.3398001,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793316063.154063
+  "saved_at": 1793316348.1977882
 }

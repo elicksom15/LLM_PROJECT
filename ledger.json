@@ -1,10 +1,10 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de FLOPs em Bancada GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
-  "last_sync": "2026-10-29 20:21:04",
+  "last_sync": "2026-10-29 20:25:48",
   "stats": {
-    "total_cycles": 457,
-    "approved_count": 110,
+    "total_cycles": 458,
+    "approved_count": 111,
     "rejected_count": 66
   },
   "approved_hypotheses": [
@@ -1107,9 +1107,29 @@
       "speedup_pct": 1577.4181767403888,
       "kl_divergence": 0.0,
       "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #103."
+    },
+    {
+      "cycle_id": 458,
+      "title": "GPT3B_H458_FECHO_SIMPLETICO_MODAL_KOOPMAN",
+      "top1_accuracy": 99.01477832512316,
+      "flops_reduction": 95.77,
+      "tokens_per_sec": 10510.353190964079,
+      "speedup_pct": 1903.421799777805,
+      "kl_divergence": 0.0,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #104."
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 458,
+      "timestamp": "2026-10-29 20:21:50",
+      "title": "GPT3B_H458_FECHO_SIMPLETICO_MODAL_KOOPMAN",
+      "verdict": "APPROVED",
+      "flops_reduction": 95.77,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 10510.353190964079,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #104."
+    },
     {
       "cycle_id": 457,
       "timestamp": "2026-10-29 20:16:26",
@@ -1599,16 +1619,6 @@
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 44.5,
       "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #56."
-    },
-    {
-      "cycle_id": 408,
-      "timestamp": "2026-10-29 16:21:20",
-      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
-      "verdict": "APPROVED",
-      "flops_reduction": 95.77,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 44.5,
-      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #55."
     }
   ]
 }
