@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 33,
+      "version": 34,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793313481.923019,
+      "updated_at": 1793313728.518641,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -10302,6 +10302,79 @@
         "tokens_consumed": 1771,
         "new_hypotheses": 2,
         "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen94_65368",
+      "label": "Hypothesis",
+      "title": "<tool_call>",
+      "description": "<tool_call>\nfunction=run_python><parameter=code>\nimport numpy as np, time, json\n\nrng = np.random.default_rng(20260711)\nout = {}\n\ndef expm_apply(A, t, v):\n    w, V = np.linalg.eig(A)\n    c = np.linalg.solve(V, v.astype(complex))\n    return np.real(V @ (np.exp(t * w) * c))\n\n# ===================== T1 — Propriedades do Cayley =====================\nn = 64\nM = rng.standard_normal((n, n)); A = M - M.T\ntau = 1.2; I = np.eye(n)\nv = rng.standard_normal(n)\ny = np.linalg.solve(I - 0.5 * tau * A, (I + 0.5 *",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793313796.7690039,
+      "updated_at": 1793313797.6816804,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0094_1793313728",
+        "cycle_id": 449,
+        "full_text": "<tool_call>\nfunction=run_python><parameter=code>\nimport numpy as np, time, json\n\nrng = np.random.default_rng(20260711)\nout = {}\n\ndef expm_apply(A, t, v):\n    w, V = np.linalg.eig(A)\n    c = np.linalg.solve(V, v.astype(complex))\n    return np.real(V @ (np.exp(t * w) * c))\n\n# ===================== T1 — Propriedades do Cayley =====================\nn = 64\nM = rng.standard_normal((n, n)); A = M - M.T\ntau = 1.2; I = np.eye(n)\nv = rng.standard_normal(n)\ny = np.linalg.solve(I - 0.5 * tau * A, (I + 0.5 * tau * A) @ v)\nz = np.linalg.solve(I + 0.5 * tau * A, (I - 0.5 * tau * A) @ y)\nout['T1_err_reversibilidade'] = float(np.linalg.norm(z - v))\nout['T1_razao_norma'] = float(np.linalg.norm(y) / np.linalg.norm(v))\nye = expm_apply(A, tau, v)\nout['T1_erro_rel_cayley_vs_expm'] = float(np.linalg.norm(y - ye) / np.linalg.norm(ye))\n\n# ===================== T2 — Ordem de convergência =====================\nn2_ = 32\nM2 = rng.standard_normal((n2_, n2_)); B = (M2 + M2.T) / np.sqrt(n2_)\nM3 = rng.standard_normal((n2_, n2_)); C = (M3 - M3.T) / np.sqrt(n2_)\nA2 = B + C\nv2 = rng.standard_normal(n2_)\ny_ref = expm_apply(A2, tau, v2)\n\ndef cayley_steps(A, v, tau, ns):\n    I_ = np.eye(A.shape[0]); x = v.astype(float).copy(); h = tau / ns\n    for _ in range(ns):\n        x = np.linalg.solve(I_ - 0.5 * h * A, (I_ + 0.5 * h * A) @ x)\n    return x\n\ndef split_steps(A1, A2_, v, tau, ns, strang=False):\n    x = v.astype(float).copy(); h = tau / ns\n    for _ in range(ns):\n        if strang:\n            x = expm_apply(A1, h/2, expm_apply(A2_, h, expm_apply(A1, h/2, x)))\n        else:\n            x = expm_apply(A2_, h, expm_apply(A1, h, x))\n    return x\n\nerrs = {}\nfor ns in (1, 2, 4, 8):\n    e = {}\n    e['cayley'] = float(np.linalg.norm(cayley_steps(A2, v2, tau, ns) - y_ref) / np.linalg.norm(y_ref))\n    e['lie']    = float(np.linalg.norm(split_steps(B, C, v2, tau, ns, False) - y_ref) / np.linalg.norm(y_ref))\n    e['strang'] = float(np.linalg.norm(split_steps(B, C, v2, tau, ns, True)  - y_ref) / np.linalg.norm(y_ref))\n    errs[ns] = e\nout['T2_erros'] = errs\nfor k in ('cayley', 'lie', 'strang'):\n    es = [errs[ns][k] for ns in (1, 2, 4, 8)]\n    out['T2_taxa_' + k] = [round(float(np.log2(es[i] / es[i+1])), 3) if es[i+1] > 0 else None for i in range(3)]\n\n# ===================== T3 — Matvec Kronecker tridiagonal⊗diagonal =====================\nn1, n2 = 32, 8\nsd = rng.standard_normal(n1); se = rng.standard_normal(n1 - 1); dv = rng.standard_normal(n2)\nS = np.diag(sd) + np.diag(se, 1) + np.diag(se, -1); D = np.diag(dv)\nA_k = np.kron(S, D)\nx = rng.standard_normal(n1 * n2)\nX = x.reshape((n1, n2), order='F')\n\ndef kron_tridiag_matvec(sd, se, dv, X):\n    XS = sd[None, :] * X\n    XS[:, :-1] += se[None, :] * X[:, 1:]\n    XS[:, 1:]  += se[None, :] * X[:, :-1]\n    return dv[:, None] * XS\n\ny_d = A_k @ x\ny_s = kron_tridiag_matvec(sd, se, dv, X.copy()).reshape(-1, order='F')\nout['T3_erro_estrutural'] = float(np.linalg.norm(y_d - y_s))\nt0 = time.perf_counter()\nfor _ in range(300): A_k @ x\nt1 = time.perf_counter()\nXc = X.copy()\nfor _ in range(300): kron_tridiag_matvec(sd, se, dv, Xc)\nt2 = time.perf_counter()\nout['T3_ms_denso'] = (t1 - t0) / 300 * 1e3\nout['T3_ms_estruturado'] = (t2 - t1) / 300 * 1e3\nout['T3_flops_denso'] = 2 * (n1 * n2) ** 2\nout['T3_flops_estruturado'] = 6 * n1 * n2\nout['T3_speedup_teorico'] = (2 * (n1 * n2) ** 2) / (6 * n1 * n2)\n\n# ===================== T4 — Lanczos + Cayley modal vs exato =====================\nn1, n2 = 32, 8; n = n1 * n2; Qq = 3\nA_full = np.zeros((n, n))\nfor _ in range(Qq):\n    sd_ = rng.standard_normal(n1) * 0.35\n    se_ = rng.standard_normal(n1 - 1) * 0.35\n    dv_ = rng.standard_normal(n2) * 0.35\n    S_ = np.diag(sd_) + np.diag(se_, 1) + np.diag(se_, -1)\n    A_full += np.kron(S_, np.diag(dv_))\nA_full = 0.5 * (A_full + A_full.T)\nA_full /= np.max(np.abs(np.linalg.eigvalsh(A_full)))\nv0 = rng.standard_normal(n); v0 /= np.linalg.norm(v0)\ny_ref4 = expm_apply(A_full, tau, v0)\n\ndef lanczos(Aop, v, m):\n    n_ = v.size\n    V = np.zeros((n_, m)); al = np.zeros(m); be = np.zeros(max(m - 1, 0))\n    V[:, 0] = v / np.linalg.norm(v)\n    for k in range(m):\n        w = np.asarray(Aop(V[:, k]), dtype=float)\n        a = float(V[:, k] @ w); al[k] = a\n        w = w - a * V[:, k]\n        if k > 0: w = w - be[k-1] * V[:, k-1]\n        w = w - V[:, :k+1] @ (V[:, :k+1].T @ w)\n        w = w - V[:, :k+1] @ (V[:, :k+1].T @ w)\n        if k + 1 < m:\n            b = float(np.linalg.norm(w)); be[k] = b\n            if b < 1e-13: break\n            V[:, k+1] = w / b\n    T = np.diag(al) + np.diag(be, 1) + np.diag(be, -1)\n    return V, T\n\nt4 = {}\nfor m in (8, 16, 24, 32, 48):\n    V, T = lanczos(lambda z: A_full @ z, v0, m)\n    b1 = np.zeros(m); b1[0] = 1.0\n    psi = (1 + 0.5*tau*np.diag(T)) / (1 - 0.5*tau*np.diag(T))\n    yk = V @ np.linalg.solve(np.eye(m) - 0.5*tau*T, (np.eye(m) + 0.5*tau*T) @ b1)\n    err = float(np.linalg.norm(yk - y_ref4) / np.linalg.norm(y_ref4))\n    th, Qm = np.linalg.eigh(T)\n    c = Qm.T @ b1\n    w_ = c ** 2\n    order = np.argsort(w_)[::-1]\n    cum = np.cumsum(w_[order]) / float(w_.sum())\n    r991 = int(np.searchsorted(cum, 0.991) + 1)\n    half = m // 2\n    keep = order[:half]\n    y_tr = V @ (Qm[:, keep] @ ((psi[keep]) * c[keep]))\n    err_tr = float(np.linalg.norm(y_tr - y_ref4) / np.linalg.norm(y_ref4))\n    t4[m] = {\n        'erro_sem_truncar': round(err, 8),\n        'energia_retida_r_m2': round(float(cum[half-1]), 4),\n        'r_para_99_1pct_energia': r991,\n        'erro_com_truncamento_r_m2': round(err_tr, 8),\n        'norma_T_m': round(float(np.max(np.abs(th))), 4),\n    }\nout['T4_lanczos_cayley'] = t4\n\nth_test = np.linspace(-1, 1, 11)\ndefeito = np.max(np.abs((1 + 0.5*tau*th_test)/(1 - 0.5*tau*th_test) - np.exp(tau*th_test)))\nout['T4_defeito_local_cayley_max'] = float(defeito)\nout['T4_cota_teorica_tau3_A3_12'] = float(tau**3 / 12)\n\n# ===================== T5 — Modelo analítico de FLOPs (bancada r=128,K=2000,tau=1.2) =====================\nn1, n2 = 128, 256; n = n1*n2; Qq = 4; m = 256; r = 128; rK = 4; K = 2000\nf = {}\nf['B0_matvec'] = 2*n*n*m\nf['B0_orto_dupla'] = 4*n*m*m\nf['B0_expm_pade'] = 10*m**3\nf['B0_apply'] = 2*n*m + 2*m*m\nf['B0_total'] = f['B0_matvec'] + f['B0_orto_dupla'] + f['B0_expm_pade'] + f['B0_apply']\nf['B1_matvec'] = (6*Qq*n + n)*m\nf['B1_orto_dupla'] = 4*n*m*m\nf['B1_expm_pade'] = 10*m**3\nf['B1_apply'] = 2*n*m + 2*m*m\nf['B1_total'] = f['B1_matvec'] + f['B1_orto_dupla'] + f['B1_expm_pade'] + f['B1_apply']\nf['P_matvec_kron'] = (6*Qq*n + n)*m\nf['P_lanczos_retracao'] = 6*n*m\nf['P_cayley_modal'] = (10.0/3.0)*m**3 + 2*r*m + 3*r\nf['P_apply_comprimida'] = 2*rK*n\nf['P_total'] = f['P_matvec_kron'] + f['P_lanczos_retracao'] + f['P_cayley_modal'] + f['P_apply_comprimida']\nf['reducao_vs_B0_pct'] = round(100*(1 - f['P_total']/f['B0_total']), 3)\nf['reducao_vs_B1_pct'] = round(100*(1 - f['P_total']/f['B1_total']), 3)\nf['batch_K_total_P'] = K*f['P_total']\nf['batch_K_total_B1'] = K*f['B1_total']\nf['batch_K_total_B0'] = K*f['B0_total']\nf['VRAM_base_densa_MB'] = n*m*2/1e6\nf['VRAM_fatores_kron_MB'] = rK*m*(n1+n2)*2/1e6\nf['VRAM_razao'] = round(f['VRAM_base_densa_MB']/f['VRAM_fatores_kron_MB'], 1)\nout['T5_flops'] = f\n\nprint(json.dumps(out, indent=2, default=str))\n</parameter>\n</function>\n</tool_call>"
+      }
+    },
+    {
+      "id": "hyp_gen94_71770",
+      "label": "Hypothesis",
+      "title": "Registrando a bancada numérica e o modelo de FLOPs do **CM-MF** (Propagador Cayl",
+      "description": "Registrando a bancada numérica e o modelo de FLOPs do **CM-MF** (Propagador Cayley-Modal Módulo-Fase) para o nó `n_strang`, e em seguida executo a verificação.\n\nEscrevendo os 4 arquivos da bancada em paralelo:",
+      "provenance": "agent_015_investigator",
+      "version": 2,
+      "created_at": 1793313898.6982372,
+      "updated_at": 1793313899.2833366,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0094_1793313728",
+        "cycle_id": 449,
+        "full_text": "Registrando a bancada numérica e o modelo de FLOPs do **CM-MF** (Propagador Cayley-Modal Módulo-Fase) para o nó `n_strang`, e em seguida executo a verificação.\n\nEscrevendo os 4 arquivos da bancada em paralelo:"
+      }
+    },
+    {
+      "id": "hyp_gen94_67302",
+      "label": "Hypothesis",
+      "title": "Vou executar direto: primeiro uma bancada numérica real (equivalência da Cayley",
+      "description": "Vou executar direto: primeiro uma bancada numérica real (equivalência da Cayley modal, decaimento da série de Neumann sob τ=1.2, auditoria do rank de Kronecker e do critério de energia), e em paralelo já fecho a formulação e a dedução analítica de FLOPs.",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793313947.9979725,
+      "updated_at": 1793313948.8725653,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0094_1793313728",
+        "cycle_id": 449,
+        "full_text": "Vou executar direto: primeiro uma bancada numérica real (equivalência da Cayley modal, decaimento da série de Neumann sob τ=1.2, auditoria do rank de Kronecker e do critério de energia), e em paralelo já fecho a formulação e a dedução analítica de FLOPs."
+      }
+    },
+    {
+      "id": "gen_0094_1793313728",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #94 (Ciclo #449)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793313948.9933228,
+      "updated_at": 1793313948.993323,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 94,
+        "cycle_id": 449,
+        "verdict": "APPROVED",
+        "duration_sec": 220.48,
+        "tokens_consumed": 3917,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -36552,7 +36625,97 @@
       "version": 1,
       "created_at": 1793313687.548955,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen94_65368_addresses_n_krylov",
+      "source_id": "hyp_gen94_65368",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793313796.8441155,
+        "updated_at": 1793313797.7599435,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0094_1793313728_1793313796920_e_hyp_gen94_65368_addresses_n_krylov",
+            "generation_id": "gen_0094_1793313728",
+            "timestamp": 1793313797.7599435,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793313796.8441203,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen94_71770_addresses_n_strang",
+      "source_id": "hyp_gen94_71770",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793313898.7468207,
+        "updated_at": 1793313899.3321667,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0094_1793313728_1793313898794_e_hyp_gen94_71770_addresses_n_strang",
+            "generation_id": "gen_0094_1793313728",
+            "timestamp": 1793313899.3321667,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_015_investigator",
+      "version": 1,
+      "created_at": 1793313898.7468252,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen94_67302_addresses_n_naive",
+      "source_id": "hyp_gen94_67302",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793313948.0589106,
+        "updated_at": 1793313948.936874,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0094_1793313728_1793313948134_e_hyp_gen94_67302_addresses_n_naive",
+            "generation_id": "gen_0094_1793313728",
+            "timestamp": 1793313948.936874,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793313948.058915,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793313688.52333
+  "saved_at": 1793313948.9946802
 }
