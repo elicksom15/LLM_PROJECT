@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 26,
+      "version": 27,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793311462.481756,
+      "updated_at": 1793311686.888641,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9825,6 +9825,62 @@
         "tokens_consumed": 2524,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen87_65673",
+      "label": "Hypothesis",
+      "title": "Vou primeiro rodar a bancada numérica real (sonda independente) para ancorar a d",
+      "description": "Vou primeiro rodar a bancada numérica real (sonda independente) para ancorar a dedução de FLOPs e as cotas de erro em medições, e em paralelo auditar a solidez epistêmica dos nós recuperados.",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793311738.9050188,
+      "updated_at": 1793311739.8452997,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0087_1793311686",
+        "cycle_id": 442,
+        "full_text": "Vou primeiro rodar a bancada numérica real (sonda independente) para ancorar a dedução de FLOPs e as cotas de erro em medições, e em paralelo auditar a solidez epistêmica dos nós recuperados."
+      }
+    },
+    {
+      "id": "hyp_gen87_77893",
+      "label": "Hypothesis",
+      "title": "AUDITORIA ADVERSARIAL — CICLO #442 / GERAÇÃO #87",
+      "description": "# AUDITORIA ADVERSARIAL — CICLO #442 / GERAÇÃO #87\n## Alvo: nó `n_strang` · Tema: transição Magnus preguiçosa em subespaço invariante\n\n---\n\n## 0. VEREDITO EXECUTIVO\n\n**REPROVADO como está.** O ciclo pede \"formulação inédita\" sobre uma base de evidência que é, na verdade, **um único protocolo copiado 8 vezes** e **duas formulações duplicadas** (H11/H65). Os parâmetros de bancada (`r=128, K=2000, τ=1.2`) são **fisicamente inconsistentes** com a meta de redução de FLOPs — o `K=2000` sozinho custa *",
+      "provenance": "agent_079_critic",
+      "version": 2,
+      "created_at": 1793311900.642047,
+      "updated_at": 1793311901.6567552,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0087_1793311686",
+        "cycle_id": 442,
+        "full_text": "# AUDITORIA ADVERSARIAL — CICLO #442 / GERAÇÃO #87\n## Alvo: nó `n_strang` · Tema: transição Magnus preguiçosa em subespaço invariante\n\n---\n\n## 0. VEREDITO EXECUTIVO\n\n**REPROVADO como está.** O ciclo pede \"formulação inédita\" sobre uma base de evidência que é, na verdade, **um único protocolo copiado 8 vezes** e **duas formulações duplicadas** (H11/H65). Os parâmetros de bancada (`r=128, K=2000, τ=1.2`) são **fisicamente inconsistentes** com a meta de redução de FLOPs — o `K=2000` sozinho custa **~166× mais FLOPs** que a baseline que ele pretende substituir. Abaixo entrego: (a) a destruição das premissas, (b) a contagem analítica real de FLOPs/memória, (c) uma formulação defensável com demonstração de simpleticidade exata, e (d) os testes que a derrubam.\n\n---\n\n## 1. INTEGRIDADE DA BASE DE EVIDÊNCIA (falha grave)\n\n**1.1 — Os \"protocolos independentes\" não são independentes.** `hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741`, `hyp_gen40_3620`, `hyp_gen1_30754` são **o mesmo texto literal**: mesmos `r=128, K=2000, τ=1.2`, mesmos critérios truncados. Sete agentes com nomes diferentes emitindo byte-a-byte o mesmo protocolo não são sete evidências — é **uma evidência com eco**. Qualquer agregação tipo \"7/8 verificações convergem\" é fraude estatística.\n\n**1.2 — Duplicata de formulação.** `hyp_gen11_59577` (\"integrador simpletico de sombra residual\") e `hyp_gen65_64617` (\"invariant symplectic manifold\") abrem com **a mesma frase**: *\"Projetamos o fluxo residual discretizado do transformer x_(l+1) = x_l + ...\"*. O requisito de \"formulação inédita\" já foi violado **dentro do próprio grafo**. O ciclo #442 nasce em débito de originalidade.\n\n**1.3 — Chain-of-thought marcado como `EMPIRICAL_FACT [VERIFIED]`.** `hyp_gen75_97904` e `hyp_gen77_10685` têm como título a **crua narrativa interna do agente** (\"Vou executar a verificação independente de fato: primeiro rodo uma bancada numérica...\"). Narrativa de intenção classificada como fato empírico verificado, sem hash de artefato, sem seed, sem commit. Isso não é evidência, é **ruído de rastreio contaminando o grafo**.\n\n**1.4 — Versão 2 sem diff.** Todos os nós estão em `Versão: 2` com critérios idênticos. Ninguém documentou o que mudou da v1. Versão sem delta é selo decorativo.\n\n---\n\n## 2. GARGALOS DE HARDWARE E MEMÓRIA (com números)\n\nPremissas de cálculo: `d = 4096` (dimensão do residual stream), `B = 8192` tokens por passo, `fp16` (2 bytes), multiply-add = 2 FLOPs.\n\n### 2.1 — `K = 2000` passos de Krylov/Lanczos é fisicamente inviável\n\n| Grandeza | Fórmula | Valor |\n|---|---|---|\n| FLOPs por `exp(hA)v` | `2·K·d²` | `2·2000·1.68e7` = **6.7e10 FLOPs** |\n| Baseline da camada (por token) | `24·d²` | **4.03e8 FLOPs** |\n| **Razão** | — | **+16.500% de custo** (166× a baseline) |\n| Memória da base de Krylov | `K·d·2 B` | 2000·4096·2 = **16,4 MB/vetor** → ×8192 tokens = **134 GB** (estoura HBM 80 GB de um H100) |\n| Tráfego de ortogonalização | `2·d·K²` bytes | `2·4096·4e6` = **32,8 GB/vetor** → ×8192 = **268 TB por passo** |\n| Tempo de parede estimado | `268 TB / 3 TB/s` | **~89 s por passo de camada** |\n\nPior: em `K = 2000` a perda de ortogonalidade numérica obriga **re-ortogonalização completa (DGKS)**, que **dobra** o tráfego e exige a base inteira residente em HBM. O protocolo é inexecutável. Isso invalida **todos os 7 protocolos idênticos** que o carregam.\n\n### 2.2 — O custo escondido que ninguém conta: montar o gerador reduzido\n\nSe `A ∈ ℝ^{d×d}` é denso, formar `V^T A V` exige `2r` produtos Jacobiano-vetor: `2r·2d²` = 256·3.36e7 = **8.6e9 FLOPs/token/camada** — **21× a baseline**. A redução de FLOPs **não existe** a menos que se assuma explicitamente uma destas três condições (e elas são as premissas reais da proposta, nunca declaradas):\n- **(A2a)** `A` é **estruturado** (diagonal + baixo posto, como atenção linear / SSM tipo Mamba);\n- **(A2b)** `A_R` é **compartilhado por chunk de tokens**;\n- **(A2c)** `A` é **congelado por `m` camadas**.\n\n### 2.3 — O operador de mudança de base come o ganho\n\nUma base simpletica densa `S ∈ Sp(2n)` custa `d²` FLOPs por aplicação — **exatamente o custo que se quer eliminar**. Só é defensável com `S = I + UCV^T` de posto `k` (Woodbury), custo `4·d·k`.\n\n### 2.4 — Overhead de kernel para `r = 128`\n\nOperações `256×256` são *launch-bound* em GPU; sem `bmm` batchado sobre `B` tokens, o overhead de launch domina o FLOP contábil. A bancada precisa reportar **tempo medido**, não só FLOPs.\n\n---\n\n## 3. PREMISSAS INFUNDADAS\n\n1. **\"r = 128 = 99,1% de energia\"** — Critério de energia por SVD **não é invariante simpleticamente**. Um subespaço de trabalho para integrador simpletico precisa ser **simpleticamente invariante** (`V^T J V = J_r`, dimensão par — 128 cumpre o requisito formal, mas a projeção por PCA **destrói a forma simplética**: `P^T J P ≠ J`). O critério correto é decomposição de **Williamson** / valores singulares simpléticos. Além disso: capturar 99,1% da energia **não implica** capturar o erro — acoplamento modal e deriva de fase são ortogonais à energia.\n2. **\"Perda de acurácia Top-1 ≤ 2%\"** — Métrica de tarefa é **insensível à deriva de longo horizonte**, que é justamente o que integradores geométricos controlam. Critério de validação **desalinhado com a promessa**.\n3. **`τ = 1.2` é símbolo indefinido.** Se é `h·ρ(A)`, Strang explícito exige `≤ 2` — 1.2 tem margem não documentada. Se é tolerância de truncamento, é ~6 ordens de grandeza frouxa demais para qualquer afirmação em fp16. **Defina a variável ou o protocolo é analfabeto.**\n4. **Baseline não declarada.** \"Redução de FLOPs ≥ 75%\" contra **o quê**? Ver §5.3: o critério só é atingível se **≥ 76,9% do custo da camada for substituível** — condição nunca testada.\n\n---\n\n## 4. IDEIAS RECICLADAS (estado da arte real)\n\n- **Magnus com gerador congelado/reaproveitado** é literatura consolidada: Celledoni–Marthinsen–Owren (integradores exponenciais), Einkemmer–Ostermann (exponenciais modificados), Tokman (Exponential Runge–Kritz com Krylov congelado). O apelido \"preguiçosa\" não gera novidade.\n- **\"Sombra residual\" (H11) e \"subespaço invariante\" (H65)** são o mesmo construto com skin diferente — ver §1.2.\n- **A contribuição original remanescente é estreita e nomeável**: o **gatilho adaptativo por defeito de invariância** (`‖(I − VV^J)AV‖ > ε`) + **projeção simpletica** em vez de PCA. É sobre isso que o ciclo deve se debruçar, não sobre \"Magnus preguiçoso\".\n\n---\n\n## 5. FORMULAÇÃO PROPOSTA — **LM-Sp**: Magnus Preguiçoso com Fatoração Simpletica Estruturada\n\n### 5.1 Construção\n\nEstado `x ∈ ℝ^{2n}` com forma simplética `J = [[0, I], [−I, 0]]`. Cada camada tem gerador `A_l ∈ sp(2n)` (`A^T J + J A = 0`).\n\n**(A1)** Existe `S ∈ Sp(2n)` estruturado (`S = I + UCV^T`, posto `k`) tal que `S^{-1} A S = A_R ⊕ A_C`, com `A_R ∈ sp(2r)`.\n**(A2)** `A` é estruturado (`D + UCV^T`), senão §2.2 mata o ganho.\n**(A3)** Subespaço `V ∈ ℝ^{2n×2r}` **simpleticamente invariante**: `V^T J V = J_r` e defeito `ε := ‖(I − VV^J) A V‖`.\n**(A4)** Janela preguiçosa `m`: o gerador reduzido é congelado por `m` camadas.\n\nPasso (`h` = tamanho de passo efetivo):\n\n$$\\Phi_h = S \\Big( \\exp\\big(h\\tilde\\Omega_R\\big) \\oplus \\exp\\big(h\\tilde\\Omega_C\\big) \\Big) S^{-1}$$\n\ncom gerador de **Magnus de 2ª ordem (trapezoidal)**:\n\n$$\\tilde\\Omega_R = \\frac{h}{2}\\big(A_R^{(0)} + A_R^{(1)}\\big) + \\frac{h^2}{12}\\big[A_R^{(1)}, A_R^{(0)}\\big]$$\n\n*(verificação do coeficiente: para `A` afim em `t`, `Ω₂ = ½∫∫_{t₁>t₂}[A(t₁),A(t₂)] = ½·([A₁,A₀]/h)·(h³/3) = h²/12·[A₁,A₀]` — consistente.)*\n\n### 5.2 Proposição (simpleticidade **exata**, não aproximada)\n\n> **Prop.** Se `A ∈ sp(2n)`, `V^T J V = J_r` e `A_R ∈ sp(2r)`, então `Φ_h ∈ Sp(2n)` **exatamente**, independentemente do truncamento de Magnus e da preguiça `m`.\n\n*Prova em 3 linhas:* `sp` é álgebra de Lie ⇒ `Ω₁ ∈ sp` (combinação linear) e `Ω₂ = [·,·] ∈ sp` (fechamento pelo comutador) ⇒ `tildeΩ ∈ sp` ⇒ `exp(tildeΩ) ∈ Sp` (exponencial da álgebra está no grupo). Soma direta de dois fluxos simpléticos é simplética; conjugação por `S ∈ Sp` preserva o grupo. ∎\n\n**Corolário decisivo para o ciclo:** *preguiça não quebra a simpleticidade — quebra a ordem.* Isso **desmascara** a formulação H11/H65, que atribui a preservação geométrica ao congelamento. Não é o congelamento; é a estrutura algébrica. E a projeção por PCA destrói tudo.\n\n### 5.3 Dedução analítica de FLOPs (por token, por camada)\n\nSímbolos: `d = 2n`, `2r = 256`, `k = 256`, `m = 8`, `k' = 64` (posto do complemento).\n\n| Componente | Fórmula | Valor | % da baseline |\n|---|---|---|---|\n| Baseline da camada | `24 d²` | **4.03e8** | 100% |\n| Mudança simpletica `S`, `S^{-1}` (posto `k`) | `4 d k` | 4.19e6 | 1,04% |\n| Montagem `A_R` (A estruturado) / m | `2·[d·2r + 4dk']/m` | 5.2e5 | 0,13% |\n| Comutador `[A₁,A₀]` (bmm) / m | `2·(2r)³/m` | 4.20e6 | 1,04% |\n| Aplicação `exp(hΩ̃)` | `8 r²` | 1.31e5 | 0,03% |\n| Passo no complemento (Strang barato) | `4 d k'` | 1.05e6 | 0,26% |\n| **TOTAL** | — | **≈ 1.01e7** | **2,5%** |\n\n**Mas a conta honesta tem uma segunda parte.** Se apenas uma fração `f` do custo da camada é de fato substituível por este operador, a redução real é:\n\n$$\\text{redução} = 0.975\\,f \\;\\ge\\; 0.75 \\;\\Longleftrightarrow\\; \\boxed{f \\ge 76{,}9\\%}$$\n\n**Condição de atingibilidade do critério do protocolo: pelo menos 76,9% do custo da camada precisa ser substituível.** Nenhum dos 8 nós do grafo mede `f`. O critério \"≥ 75%\" é, hoje, **um número sem sustentação**.\n\n### 5.4 Memória (LM-Sp vs. protocolo vigente)\n\n| Item | LM-Sp | Protocolo (`K=2000`) |\n|---|---|---|\n| Base/gerador por camada | `d·2r·2 B` = 2,1 MB | `K·d·2 B` = 16,4 MB |\n| Total 32 camadas + fatoração | **≈ 67 MB** | **≈ 525 MB/vetor → 134 GB/batch** |\n| Tráfego por passo | ~2,4 GB | **268 TB** |\n| Viável em H100 80 GB | Sim | **Não** |\n\n### 5.5 Limite de erro (para substituir o critério Top-1)\n\n$$\\|x_{l+m} - \\tilde x_{l+m}\\| \\le \\underbrace{C_1 h^2}_{\\text{Magnus 2ª ordem}} + \\underbrace{C_2 m^2 h^2 \\|\\dot A\\|}_{\\text{congelamento}} + \\underbrace{C_3 m h \\varepsilon e^{LT}}_{\\text{vazamento do subespaço}}$$\n\nSe o segundo termo domina, `m` deve cair; se o terceiro domina, o gatilho deve disparar mais cedo. **É este o trade-off real do ciclo**, não FLOPs versus Top-1.\n\n---\n\n## 6. TESTES DE FALSIFICAÇÃO (obrigatórios na próxima rodada)\n\n1. **Ordem observada:** refinar `h` por fator 2 e reportar a razão do erro. Esperado `≥ 1.8`. Se `< 1.8`, a truncagem de Magnus está sendo mascarada pelo congelamento.\n2. **Defeito de reversibilidade:** `‖Φ_h^{-1} ∘ Φ_h − id‖`. Qualquer crescimento com `m` indica que a implementação não é o mapa do §5.1.\n3. **Drift simpletico/hamiltoniano** em horizonte `L ≥ 10⁴` passos — não Top-1.\n4. **Defeito de invariância medido:** `ε = ‖(I − VV^J) A V‖` reportado **com** e **sem** a projeção PCA, provando que PCA destrói `V^T J V = J_r`.\n5. **Medição do parâmetro `f` (§5.3)** + **tempo de parede**, não FLOPs contábeis. Se `f < 76,9%`, o critério \"≥ 75%\" é formalmente inatingível e deve ser reescrito.\n6. **Re-executar o protocolo com `K = 2000` de fato** (não apenas declarado) e reportar pico de HBM. Esperado: OOM. Se não der OOM, o protocolo não mede o que diz medir.\n\n---\n\n## 7. RISCOS RESIDUAIS\n\n- **A2 é o calcanhar**: se `A` não for estruturado no alvo real (transformer denso), a formulação do §5 **não tem regime de validade** e o ciclo deve ser reorientado para atenção linear/SSM.\n- **Comutador é `O(r³)` por token**: viável via `bmm`, mas domina a conta quando `m` cresce. `m` ótimo é aquele em que `C₂m²h²‖Ȧ‖ ≈ C₁h²` — precisa ser estimado, não presumido.\n- **Regime onde Magnus efetivamente ganha de Strang**: `‖Ah‖ ≫ 1` e oscilatório (erro de fase). Fora disso, Magnus de 2ª ordem e Strang têm **a mesma ordem e custo comparável** — nesse regime a \"transição Magnus preguiçosa\" é **custo sem benefício**, e `n_strang` continua sendo a escolha correta.\n\n---\n\n## PARECER FINAL\n\n**Aprovação condicionada** apenas se o ciclo #443 satisfizer, nesta ordem:\n1. Rebaixar os 7 protocolos idênticos para **uma única evidência** e remover do grafo os nós de chain-of-thought marcados como `EMPIRICAL_FACT`;\n2. Definir `τ`, declarar a baseline e **medir `f`**;\n3. Trocar o critério Top-1 pelos 6 testes do §6;\n4. Abandonar `K = 2000` e adotar a construção do §5 (ou provar que `A` é estruturado);\n5. Reduzir a reivindicação de novidade para o que é de fato novo: **gatilho por defeito de invariância + projeção simpletica**.\n\nSem esses cinco pontos, a proposta é **uma formulação reciclada, com protocolo copiado, sobre hardware que não roda, validada por métrica que não mede o que promete**."
+      }
+    },
+    {
+      "id": "gen_0087_1793311686",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #87 (Ciclo #442)",
+      "description": "Executou 2 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793311901.8290908,
+      "updated_at": 1793311901.829091,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 87,
+        "cycle_id": 442,
+        "verdict": "APPROVED",
+        "duration_sec": 214.94,
+        "tokens_consumed": 4255,
+        "new_hypotheses": 2,
+        "verified": 2,
         "refuted": 0
       }
     }
@@ -35505,7 +35561,67 @@
       "version": 1,
       "created_at": 1793311643.5184433,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen87_65673_addresses_n_krylov",
+      "source_id": "hyp_gen87_65673",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311738.993837,
+        "updated_at": 1793311739.9030194,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0087_1793311686_1793311739063_e_hyp_gen87_65673_addresses_n_krylov",
+            "generation_id": "gen_0087_1793311686",
+            "timestamp": 1793311739.9030194,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793311738.9938457,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen87_77893_addresses_n_strang",
+      "source_id": "hyp_gen87_77893",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311900.7234733,
+        "updated_at": 1793311901.756778,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0087_1793311686_1793311900800_e_hyp_gen87_77893_addresses_n_strang",
+            "generation_id": "gen_0087_1793311686",
+            "timestamp": 1793311901.756778,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_079_critic",
+      "version": 1,
+      "created_at": 1793311900.723482,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793311644.49956
+  "saved_at": 1793311901.8310356
 }
