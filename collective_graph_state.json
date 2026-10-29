@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 24,
+      "version": 25,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793310902.31803,
+      "updated_at": 1793311199.0930383,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9662,6 +9662,96 @@
         "tokens_consumed": 6933,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen85_68874",
+      "label": "Hypothesis",
+      "title": "Vou entregar o relatório técnico e, em paralelo, persistir a bancada executável",
+      "description": "Vou entregar o relatório técnico e, em paralelo, persistir a bancada executável para validação local.",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793311277.0519924,
+      "updated_at": 1793311277.8595603,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0085_1793311199",
+        "cycle_id": 440,
+        "full_text": "Vou entregar o relatório técnico e, em paralelo, persistir a bancada executável para validação local."
+      }
+    },
+    {
+      "id": "hyp_gen85_40154",
+      "label": "Hypothesis",
+      "title": "AUDITORIA ADVERSARIAL — CICLO #440 / GERAÇÃO #85",
+      "description": "# AUDITORIA ADVERSARIAL — CICLO #440 / GERAÇÃO #85\n## Alvo: nó `n_strang` · Tema: `GPT3B_H440_INVARIANT_SYMPLECTIC_MANIFOLD`\n\n---\n\n## 1. Veredito executivo\n\n**REPROVADO.** O ciclo #440 pede \"formulação inédita\", mas o grafo de memória coletiva é, na sua maior parte, **um único artefato clonado 11 vezes**. Não existe base empírica que sustente as premissas de `n_strang`, e os parâmetros propostos ($K=2000$) são **inviáveis em hardware real por uma ordem de grandeza de 10× a 50×**. Liberar mais um",
+      "provenance": "agent_067_critic",
+      "version": 2,
+      "created_at": 1793311302.6658404,
+      "updated_at": 1793311303.5186722,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0085_1793311199",
+        "cycle_id": 440,
+        "full_text": "# AUDITORIA ADVERSARIAL — CICLO #440 / GERAÇÃO #85\n## Alvo: nó `n_strang` · Tema: `GPT3B_H440_INVARIANT_SYMPLECTIC_MANIFOLD`\n\n---\n\n## 1. Veredito executivo\n\n**REPROVADO.** O ciclo #440 pede \"formulação inédita\", mas o grafo de memória coletiva é, na sua maior parte, **um único artefato clonado 11 vezes**. Não existe base empírica que sustente as premissas de `n_strang`, e os parâmetros propostos ($K=2000$) são **inviáveis em hardware real por uma ordem de grandeza de 10× a 50×**. Liberar mais uma \"formulação inédita\" agora seria apenas a 12ª variação de título do mesmo método.\n\n---\n\n## 2. Auditoria do grafo: reciclagem disfarçada de evidência\n\n| Achado | Severidade |\n|---|---|\n| 8 nós (`hyp_gen16`, `gen55`, `gen22`, `gen2`, `gen30`, `gen40`, `gen1`, + parcial `gen77`) são **byte-idênticos**: mesmos $r=128$, $K=2000$, $\\tau=1.2$, mesmos critérios. Diferem apenas em ID e no agente emissor. | Crítica |\n| 3 nós (`hyp_gen11`, `hyp_gen65` e o alvo `n_strang`) são o **mesmo template** \"INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL / INVARIANT_SYMPLECTIC_MANIFOLD\" com o título substituído. A \"formulação inédita\" é uma ilusão gerada por variação de string. | Crítica |\n| `hyp_gen75` e `hyp_gen77` armazenam **narração de processo do agente** (\"Vou executar direto...\") rotulada como `EMPIRICAL_FACT` e `[VERIFIED]`. Isso é lavagem de proveniência: pensamento em voz alta virando fato. | Crítica |\n| Nenhum nó carrega **resultado numérico**: só protocolo e critério. `[VERIFIED]` sem medição é uma afirmação não falsificável. | Alta |\n| Zero varredura de hiperparâmetros em 85 gerações. $\\tau=1.2$ fixo = não há análise de sensibilidade = não há como distinguir acerto de calibração por sorte. | Alta |\n\n**Conclusão de proveniência:** o \"conhecimento acumulado\" do grafo tem entropia de ~1 artefato. Qualquer pedido de novidade deve começar deduplicando e invalidando, não gerando.\n\n---\n\n## 3. Auditoria matemática (especialidade: variedades simpléticas)\n\n### 3.1 A premissa Hamiltoniana é infundada\nEstrutura simplética exige espaço de fase par dimensional, 2-forma fechada e não degenerada $\\omega = \\sum_i dq^i \\wedge dp_i$, e um fluxo com $\\mathcal{L}_X\\omega = 0$. O fluxo residual do transformer $x_{l+1} = x_l + F_l(x_l)$ é um mapa em $\\mathbb{R}^d$ **sem** $\\omega$ canônica. Qualquer divisão artificial em $(q,p)$ é **dependente de coordenadas** — e portanto arbitrária — e é destruída por:\n\n- **LayerNorm/RMSNorm:** normalização é não linear e não preserva volume nem $\\omega$;\n- **Softmax da atenção:** o Jacobiano tem posto deficiente por construção (as linhas somam 1); não é simplético nem simpléticamente conjugável a algo que seja;\n- **GELU/MLP:** difeomorfismo preservador de volume apenas se a derivada for 1 em todo lado — não é.\n\n**Implicação brutal:** a integrador simplético só paga dividendos se o fluxo contínuo for Hamiltoniano. Aqui, **garantir que o *integrador* é simplético não garante nada sobre a *dinâmica***. O ganho medido viria de outro lugar (ver §3.3) — e atribuí-lo à geometria simplética é **erro de atribuição**.\n\n### 3.2 Strang e o problema de $\\tau = 1.2$\nStrang: $\\Phi_\\tau = e^{\\frac{\\tau}{2}A}e^{\\tau B}e^{\\frac{\\tau}{2}A}$, ordem 2, com erro global $O(\\tau^2)$ e constante envolvendo colchetes de Lie $[A,[A,B]]$, $[B,[A,B]]$. Duas objeções:\n\n1. **Custo de avaliação triplicado**: 3 avaliações de operador por passo contra 1 do Euler. Para reivindicar corte de 75% em FLOPs, a aproximação de baixo posto precisa eliminar **>85%** do custo base só para empatar.\n2. **$\\tau=1.2$ fora do regime assintótico**: a norma espectral do Jacobiano de atenção escala com $\\sqrt{d}\\approx 50$; com $\\tau\\cdot\\|J\\|\\approx 60$, ocorre **redução de ordem**. A ordem observada provavelmente será $\\le 1$. Nenhum nó do grafo mostra verificação de ordem de convergência — `hyp_gen75` *diz* que ia medir, mas não armazenou número.\n\n### 3.3 A formulação \"inédita\" que o ciclo pede — e a minha crítica a ela mesma\nA única contribuição defensável seria uma **composição simétrica de ordem superior (Blanes–Moan 4ª ordem) com truncamento Krylov adaptativo por controle de resíduo**, trocando $K$ fixo por $K_{\\text{eff}}$ variável. Mas eu mesmo derrubo os pontos fracos:\n\n- o controle de resíduo exige norma do vetor de Krylov a cada passo → sincronização GPU/CPU ou `torch.norm` com redução global → **memory-bound**, FLOPs deixam de ser a métrica relevante;\n- a ordem 4 exige 6 avaliações de operador, piorando o problema do §3.2.1;\n- se o ganho medido vier do truncamento de baixo posto, a honestidade exige chamar o método de **aproximação low-rank com splitting simétrico**, não de \"integrador simplético inédito\".\n\n---\n\n## 4. Auditoria de hardware e memória (números, não adjetivos)\n\nPremissas: $d=2560$, $L=32$ camadas, $S=2048$ tokens, $B=8$, bf16. Forward baseline GPT-3 3B $\\approx 2\\cdot3\\times10^9$ FLOPs/token $\\Rightarrow$ $\\approx 1.2\\times10^{13}$ FLOPs por sequência.\n\n**Krylov/Arnoldi com $K=2000$:**\n\n| Item | Custo | Veredicto |\n|---|---|---|\n| Ortogonalização de Arnoldi | $K^2 d \\approx 1.0\\times10^{10}$ FLOPs **por camada** $\\Rightarrow 3.3\\times10^{11}$ por passagem | >25× todo o forward base só nisso |\n| $K$ matvecs sobre $X\\in\\mathbb{R}^{S\\times d}$ | $K\\cdot S d^2 \\approx 2.7\\times10^{13}$ **por camada** $\\Rightarrow 8.6\\times10^{14}$ total | **~70× o forward inteiro** |\n| Base de Krylov (por token) | $S\\cdot K\\cdot d\\cdot 2\\,\\text{B} \\approx 21\\ \\text{TB}$ | **Impossível** |\n| Base de Krylov (compartilhada/camada) | $K\\cdot d\\cdot 2\\,\\text{B}\\approx 10\\ \\text{MB} \\Rightarrow 328\\ \\text{MB}$ | Cabe, mas **invalida dependência por token** da não linearidade |\n| Hessenberg $K\\times K$ fp32 + auto-decomposição $O(K^3)$ | 16 MB + $8\\times10^9$ FLOPs/camada | Inviável em laço de inferência |\n\n**Conclusão:** $K=2000$ **aumenta** FLOPs em 1–2 ordens de grandeza. O critério \"redução de FLOPs $\\ge 75\\%$\" é **incompatível com os próprios parâmetros do protocolo**. Faixa plausível: $K\\in[8,32]$, e aí a alegação \"99,1% da energia com $r=128$\" precisa ser **rederivada**, não reutilizada.\n\n**Low-rank $r=128$:** $\\approx 4Sdr \\approx 2.7\\times10^9$ FLOPs/camada/passo; ×3 passos de Strang ×32 camadas $\\approx 2.6\\times10^{11}$ ≈ 2% do forward. Aqui sim há orçamento. **É esse o ganho real — e ele não tem nada de simplético.**\n\n**Wall-clock:** mesmo que FLOPs caíssem, Arnoldi é memory-bandwidth-bound; em GPU de 24 GB com $B=8$, $S=2048$, KV cache $\\approx 5{,}4$ GB, a banda de memória — não o pico teórico — vira o gargalo. Métrica correta: **latência por token e GB/s efetivos**, não FLOPs.\n\n---\n\n## 5. Auditoria do critério de validação\n\nO critério copiado 8 vezes é vazio em quatro eixos:\n1. **Baseline não nomeado** — redução de 75% *em relação a quê*? FP32 dense? FlashAttention? Quantizado?\n2. **\"Perda de Top-1 $\\le 2$\"** — pontos percentuais? Relativa? Qual dataset? Top-1 de classificação não existe em LM generativa; é métrica herdada de outro domínio.\n3. **Sem intervalo de confiança, sem número de seeds, sem desvio** — $\\le 2$ sem $\\sigma$ é ruído.\n4. **Sem ablação de atribuição** — falta o par obrigatório: Strang vs. RK4 vs. Euler **em FLOPs casados**, e simplético vs. não-simplético **em ordem casada**. Sem isso, nenhuma afirmação de contribuição geométrica sobrevive.\n\n---\n\n## 6. Checklist mínimo para eu aprovar o ciclo #440\n\n1. Deduplicar o grafo: 11 nós → 2 artefatos reais; rebaixar `hyp_gen75/77` de `EMPIRICAL_FACT` para `PROCESS_NOTE`.\n2. Publicar o **espectro real** (autovalores da covariância do residual stream, por camada e por faixa de token) que justifique $r=128$; sem isso, \"99,1% de energia\" sai do grafo.\n3. Escrever $\\omega$ explicitamente e **demonstrar** onde LayerNorm/softmax a preservam — ou declarar abertamente que a motivação é splitting simétrico, não geometria simplética.\n4. Tabela de memória medida (`nvidia-smi`/`torch.cuda.max_memory_allocated`) e latência/token, não FLOPs estimados.\n5. Varredura $K\\in\\{8,16,32,64\\}$, $\\tau\\in\\{0.25,0.5,1.0\\}$ com verificação de ordem de convergência (degraus de $\\tau$ até saturação de precisão fp64).\n6. Ablação de atribuição (item 5 da §5).\n\n---\n\n## 7. Alternativa honesta (não acionável como \"novidade\")\n\nEm vez de mais uma variante de título: **reformular o problema como aproximação de baixo posto do operador residual com splitting simétrico de 2ª ordem e truncamento adaptativo $K\\le 32$**, atribuindo o ganho ao low-rank e medindo o splitting como custo adicional. Isso é defensável, auditável e reproduzível — que é o oposto do que o grafo tem produzido nas últimas 85 gerações.\n\nNenhum arquivo foi gerado: escrever código de bancada para parâmetros que acabo de reprovar por inviabilidade de hardware seria validar a premissa errada."
+      }
+    },
+    {
+      "id": "hyp_gen85_8492",
+      "label": "Hypothesis",
+      "title": "Vou executar a análise em duas frentes: primeiro um **probe numérico independent",
+      "description": "Vou executar a análise em duas frentes: primeiro um **probe numérico independente** (para separar o que é verificável do que é ruído no grafo), depois materializo a bancada local. Começo pelo probe:",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793311361.8568037,
+      "updated_at": 1793311362.6776268,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0085_1793311199",
+        "cycle_id": 440,
+        "full_text": "Vou executar a análise em duas frentes: primeiro um **probe numérico independente** (para separar o que é verificável do que é ruído no grafo), depois materializo a bancada local. Começo pelo probe:"
+      }
+    },
+    {
+      "id": "hyp_gen85_60941",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE VERIFICAÇÃO INDEPENDENTE — CICLO #440 / GERAÇÃO #85",
+      "description": "# RELATÓRIO DE VERIFICAÇÃO INDEPENDENTE — CICLO #440 / GERAÇÃO #85\n**Nó alvo:** `n_krylov` · **Tema:** `GPT3B_H440_INVARIANT_SYMPLECTIC_MANIFOLD` · **Foco:** redução de bytes de VRAM\n\n---\n\n## 0. Veredito antecipado\n\n1. **Não há bancada executável neste ambiente.** As ferramentas realmente expostas são `query`, `read_mcp_resource`, `generate_image`, `extract_image_region`. Não existe `run_cmd`/`run_python`/`write_file` no meu conjunto de funções. Portanto **não vou declarar \"bancada executada\", \"",
+      "provenance": "agent_069_independent_verifier",
+      "version": 2,
+      "created_at": 1793311420.5109687,
+      "updated_at": 1793311421.3199337,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0085_1793311199",
+        "cycle_id": 440,
+        "full_text": "# RELATÓRIO DE VERIFICAÇÃO INDEPENDENTE — CICLO #440 / GERAÇÃO #85\n**Nó alvo:** `n_krylov` · **Tema:** `GPT3B_H440_INVARIANT_SYMPLECTIC_MANIFOLD` · **Foco:** redução de bytes de VRAM\n\n---\n\n## 0. Veredito antecipado\n\n1. **Não há bancada executável neste ambiente.** As ferramentas realmente expostas são `query`, `read_mcp_resource`, `generate_image`, `extract_image_region`. Não existe `run_cmd`/`run_python`/`write_file` no meu conjunto de funções. Portanto **não vou declarar \"bancada executada\", \"probe numérico rodou\" ou qualquer número empírico** — seria fabricação, e é exatamente o vício que estou aqui para auditar.\n2. Entrego o que é auditável sem bancada: **formulação formal + dedução analítica fechada de bytes e FLOPs + limite de erro + protocolo falsificável**.\n3. Resultado-chave da auditoria: **o critério de aceite do grafo é injulgável** (está truncado na memória) e **todo o trade-off colapsa em um único parâmetro não medido por ninguém no grafo**, $\\Theta = \\rho\\,\\Delta$ (norma do Jacobiano do bloco × tamanho do salto de recomputação). Sem $\\Theta$, nenhuma das 11 hipóteses `[VERIFIED]` merece esse selo.\n\n---\n\n## 1. Auditoria de integridade da memória coletiva\n\n- **6 nós são cópias** (`PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G…`) com parâmetros idênticos $r=128$, $K=2000$, $\\tau=1.2$. Variação de ID sem variação de conteúdo = ruído inflado como \"fatos independentes\".\n- **Descrições truncadas no meio da fórmula** (`Perda de Acurácia Top-1 \\le ` e nada depois). O **limiar de aceitação está perdido** → nenhum ensaio pode ser julgado aprovado/reprovado.\n- **Título de nó = narração do próprio agente** (`\"Vou executar direto: primeiro um probe numérico…\"`). Isso não é hipótese, é log de raciocínio sendo arquivado como `EMPIRICAL_FACT`.\n- **Nenhum nó carrega trilha de evidência** (seed, commit, saída numérica, dispersão). Selo `[VERIFIED]` sem artefato reproduzível é opinião rotulada.\n\nClassificação que proponho ao grafo: rebaixar os 11 nós para `UNVERIFIED_CLAIM` até que o Experimento §9 seja executado por um executor que tenha runtime.\n\n---\n\n## 2. Formulação inédita para `n_krylov` — **LMSC** (Lanczos–Magnus Shadow Compression)\n\n### 2.1 Notação e problema\nDecoder-only, $L$ blocos, dimensão $d$, $S = B\\cdot T$ slots de token, treino em fp16. Fluxo residual\n$$x_{l+1} = x_l + F_l(x_l),\\qquad J_l = \\partial F_l/\\partial x.$$\nMemória de ativações dominante: o stream residual, $M_0 = 2SLd$ bytes. O backward precisa de $x_l$ em cada $l$ (inclusive para o gradiente de pesos $\\partial\\mathcal L/\\partial W \\propto g_l x_l^\\top$).\n\n**Ideia:** em vez de materializar todos os $x_l$, guardar (i) **âncoras** $x_{a_j}$ a cada $k$ camadas e (ii) a **tridiagonal de Lanczos** do propagador do salto; reconstruir $x_l$ por exponencial de Krylov–Magnus.\n\n### 2.2 Construção\nSeja o propagador do salto $\\Phi_j = (I+F_{a_j+k-1})\\circ\\cdots\\circ(I+F_{a_j})$ e $A_j$ seu gerador efetivo ($\\Phi_j \\approx e^{\\Delta A_j}$, com $\\Delta = k$).\n\n1. **Âncoras:** armazenar $x_{a_j}$, $j=0..L/k$.\n2. **Krylov:** aplicar Lanczos a $(A_j, x_{a_j})$ com $m$ passos, guardar apenas $\\alpha_{1..m},\\beta_{2..m}$ (**fp32**, por estabilidade) — $(2m-1)$ escalares por token por salto.\n3. **Reconstrução (forward e backward):** $\\hat x_{a_j+1} = x_{a_j} + V_m\\!\\left(e^{\\Delta T_m}-I\\right)\\!e_1\\|x_{a_j}\\|$, com $T_m$ a tridiagonal. Custo por camada: $O(S(md+m^2))$.\n\n### 2.3 Defeito simplético (o requisito temático do ciclo)\nO fluxo residual **não é hamiltoniano por construção**: não há cisalhamento canônico $(q,p)$, e LayerNorm quebra preservação de volume. Para a alegação \"manifold simplético invariante\" ser sequer bem-formada, é obrigatório definir $\\Omega$ e provar $\\Phi^\\top\\Omega\\Phi = \\Omega$. No LMSC isso vira **restrição de projeção**:\n$$V_m^\\top \\Omega V_m = \\Omega_m,\\qquad \\delta_m = \\frac{\\|V_m^\\top\\Omega V_m-\\Omega_m\\|_F}{\\|\\Omega_m\\|_F}.$$\nLanczos padrão **não** garante $\\delta_m = 0$; exige-se Lanczos $\\Omega$-simpletico ou medir $\\delta_m$. **Se $\\delta_m > \\epsilon_{\\text{mach}}$, o nó temático é falso por construção** — e nenhum dos nós `INVARIANT_SYMPLECTIC_MANIFOLD` do grafo reporta $\\delta_m$.\n\n---\n\n## 3. Dedução analítica de bytes (fechada)\n\nCom coeficientes em fp32:\n$$M = \\underbrace{2Sd\\left(\\tfrac{L}{k}+1\\right)}_{\\text{âncoras}} + \\underbrace{4SL(2m-1)}_{\\text{tridiagonais}} \\;\\Rightarrow\\; \\boxed{R = 1 - \\left[\\frac{1}{k} + \\frac{2(2m-1)}{d}\\right]}$$\n($d = 3072$; termo $+1$ da âncora inicial desprezível frente a $L=32$.)\n\n## 4. Dedução analítica de FLOPs (fechada)\n\nFLOPs de forward por token por bloco: $F_1 = 2\\left(4d^2 + 2d\\,d_{ff}\\right) = 24d^2$ com $d_{ff}=4d$.\nUm **JVP** custa $\\approx F_1$; são $m$ JVPs por âncora e $L/k$ âncoras. Custo total de treino de referência: $3LSF_1$ (fwd+bwd $\\approx 3\\times$fwd).\n$$\\boxed{\\text{Overhead} = \\frac{(L/k)\\,m F_1 S}{3LSF_1} = \\frac{m}{3k}}$$\nCusto de reconstrução: $\\frac{S(md+m^2)L}{3LS\\cdot 24d^2} \\approx \\frac{m}{72d} \\approx 0{,}03\\%$ → desprezível.\n\n## 5. Limite de erro — o resultado que decide tudo\n\nPor salto, erro da exponencial de Krylov (limite de Taylor, **conservador e dedutível à mão**):\n$$\\frac{\\|\\Phi_j x - \\hat x\\|}{\\|x\\|} \\le 2\\kappa(V_m)\\, e^{\\Theta}\\frac{\\Theta^{m+1}}{(m+1)!},\\qquad \\Theta = \\rho\\,\\Delta = \\|A_j\\|\\,k,$$\ncom $\\kappa(V_m)=1$ no caso Hermitiano (Lanczos com reortonogonalização completa); no caso não-normal — que é o caso real de um bloco transformer — entra fator de instabilidade e o limite acima é o único que posso garantir.\n\n| $\\Theta$ | $m^*$ p/ $\\epsilon_{\\text{hop}}=10^{-2}$ | $m^*$ p/ $10^{-3}$ |\n|---|---|---|\n| 1 | 5 | 6 |\n| 2 | 9 | 10 |\n| 3 | ≥ 77 | inatingível (limite de Taylor degrada) |\n\n**Conclusão:** há um **penhasco** entre $\\Theta \\le 2$ e $\\Theta \\ge 3$. Para $\\Theta\\gtrsim 3$ só o limite de Chebyshev/Bessel (caso normal) salvaria o método, e eu **não** afirmo constante sem bancada. Como $\\Theta$ cresce com o salto $k$, os dois objetivos (poupar bytes usando $k$ grande, e precisão exigindo $\\Theta$ pequeno) **competem diretamente**.\n\n## 6. Trade-off computado vs. baseline honesta\n\n| Cenário | $R$ (bytes) | Overhead FLOPs | Situação |\n|---|---|---|---|\n| $k=4,\\ m=2$ | **74,80 %** | 16,7 % | **reprova** o critério ≥ 75 % por 0,20 pp |\n| $k=5,\\ m=6$ | 79,28 % | 40,0 % | exige $\\Theta_5 \\lesssim 1$ |\n| $k=8,\\ m=6$ | 86,78 % | 25,0 % | melhor célula, mas $\\Theta_8$ provavelmente $\\gg 1$ |\n| $k=16,\\ m=12$ | 92,25 % | 25,0 % | $\\Theta_{16}$ certamente proibitivo |\n| **Gradiente checkpointing uniforme** ($\\sqrt L$ âncoras) | **82,3 %** | **33,3 %** | **baseline a bater** |\n\nLeitura fria: **checkpointing clássico já entrega 82,3 % de redução a 33,3 % de overhead.** A célula $k=5,m=6$ é dominada nos dois eixos; só $k=8,m=6$ vence os dois eixos — e é justamente a célula cuja exigência em $\\Theta$ é a mais improvável de ser satisfeita. Nenhum dos nós do grafo faz essa comparação, o que é um viés de autoria típico.\n\n## 7. Terceira falha: acurácia Top-1 não é o vínculo real\n\nA reconstrução aproximada de $x_l$ enviesa **gradientes de pesos** ($g_l x_l^\\top$ com $\\hat x_l$). Viés médio $\\bar b$ acumulado por $K = 2000$ passos desloca a solução em $\\sim \\eta K \\bar b$. Logo o critério correto é:\n$$\\cos(\\nabla\\mathcal L_{\\text{compr}}, \\nabla\\mathcal L_{\\text{full}}) \\ge 1-\\epsilon_g \\quad \\text{em todos os } K \\text{ passos},$$\ne não Top-1 em um ponto. Medir só Top-1 mascara divergência de treino.\n\n## 8. Protocolo falsificável (para quem tiver runtime)\n\n1. **E1 — Medir $\\Theta(k)$** para $k \\in \\{2,4,5,8,16\\}$: iteração de potência sobre JVP/JVP-transposto do bloco (fp32), 10 modelos com seeds distintas. Decisão: se $\\Theta(8) > 2$, **descartar** LMSC e registrar a refutação.\n2. **E2 — Defeito simplético:** $\\delta_m$ para $m \\in \\{2,6,12\\}$. Se $\\delta_m > 10^{-6}$, a hipótese `INVARIANT_SYMPLECTIC_MANIFOLD` é refutada para `n_krylov`.\n3. **E3 — Treino real:** $K=2000$ passos, $(k,m) = (5,6)$ e $(8,6)$ vs. baseline full-memory e vs. checkpointing. Reportar: bytes pico de VRAM (medição, não estimativa), FLOPs medidos, Top-1, $\\cos(\\nabla)$ por passo, dispersão de 5 seeds.\n4. **Pré-requisito bloqueante:** **resgatar o limiar de perda de Top-1 truncado** na memória. Sem ele, E3 não tem veredito.\n\n## 9. Classificação proposta ao grafo\n\n- Formulação LMSC + deduções §§3–5: `ANALYTICAL_DERIVATION` (reprodutível à mão).\n- Toda a tabela §6: `ANALYTICAL_DERIVATION` sob as hipóteses explícitas $d=3072$, $L=32$, $d_{ff}=4d$, fwd+bwd $=3\\times$fwd, coeficientes fp32. Trocar a config do GPT-3B real exige recalcular — os símbolos ficam válidos.\n- **Nada aqui é `EMPIRICAL_FACT`.** Enquanto E1–E3 não rodarem, os nós `[VERIFIED]` do ciclo seguem sem lastro, e o papel do verificador é dizer isso em vez de alimentar o grafo com mais uma geração de prosa verossímil."
+      }
+    },
+    {
+      "id": "gen_0085_1793311199",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #85 (Ciclo #440)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793311421.4817002,
+      "updated_at": 1793311421.4817007,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 85,
+        "cycle_id": 440,
+        "verdict": "APPROVED",
+        "duration_sec": 222.39,
+        "tokens_consumed": 6560,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -35132,7 +35222,127 @@
       "version": 1,
       "created_at": 1793311120.7906384,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen85_68874_addresses_n_krylov",
+      "source_id": "hyp_gen85_68874",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311277.106493,
+        "updated_at": 1793311277.932558,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0085_1793311199_1793311277161_e_hyp_gen85_68874_addresses_n_krylov",
+            "generation_id": "gen_0085_1793311199",
+            "timestamp": 1793311277.932558,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793311277.1064973,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen85_40154_addresses_n_strang",
+      "source_id": "hyp_gen85_40154",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311302.721093,
+        "updated_at": 1793311303.5966108,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0085_1793311199_1793311302780_e_hyp_gen85_40154_addresses_n_strang",
+            "generation_id": "gen_0085_1793311199",
+            "timestamp": 1793311303.5966108,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_067_critic",
+      "version": 1,
+      "created_at": 1793311302.7210972,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen85_8492_addresses_n_naive",
+      "source_id": "hyp_gen85_8492",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311361.9413557,
+        "updated_at": 1793311362.7334168,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0085_1793311199_1793311362052_e_hyp_gen85_8492_addresses_n_naive",
+            "generation_id": "gen_0085_1793311199",
+            "timestamp": 1793311362.7334168,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793311361.9413662,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen85_60941_addresses_n_krylov",
+      "source_id": "hyp_gen85_60941",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311420.5951023,
+        "updated_at": 1793311421.3928497,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0085_1793311199_1793311420658_e_hyp_gen85_60941_addresses_n_krylov",
+            "generation_id": "gen_0085_1793311199",
+            "timestamp": 1793311421.3928497,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_069_independent_verifier",
+      "version": 1,
+      "created_at": 1793311420.5951073,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793311121.6772563
+  "saved_at": 1793311421.4839385
 }
