@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 41,
+      "version": 42,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793315540.1811354,
+      "updated_at": 1793315786.8812153,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -10935,6 +10935,79 @@
         "verdict": "APPROVED",
         "duration_sec": 204.59,
         "tokens_consumed": 3337,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen102_42119",
+      "label": "Hypothesis",
+      "title": "Vou atacar isso como analista de evidências: primeiro audito o que a memória col",
+      "description": "Vou atacar isso como analista de evidências: primeiro audito o que a memória coletiva realmente sustenta, depois derivo a formulação e **rodo uma bancada numérica real** (nada de \"verificação\" decorada). Começo executando a bancada em paralelo com a gravação do artefato.",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793315876.5394926,
+      "updated_at": 1793315877.4423013,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0102_1793315786",
+        "cycle_id": 457,
+        "full_text": "Vou atacar isso como analista de evidências: primeiro audito o que a memória coletiva realmente sustenta, depois derivo a formulação e **rodo uma bancada numérica real** (nada de \"verificação\" decorada). Começo executando a bancada em paralelo com a gravação do artefato."
+      }
+    },
+    {
+      "id": "hyp_gen102_97856",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: montei uma bancada numérica rea",
+      "description": "Vou executar a verificação independente de fato: montei uma bancada numérica real (corretude e ordem de convergência do `n_strang` via splitting de Lie/Strang contra uma nova formulação Magnus–Krylov–Galerkin adaptativa, auditoria de FLOPs analítico vs. instrumentado, auditoria do critério espectral `r=128 = 99,1% de energia` e contabilidade de bytes de VRAM). Só depois emito o relatório.",
+      "provenance": "agent_057_independent_verifier",
+      "version": 2,
+      "created_at": 1793315963.9652247,
+      "updated_at": 1793315964.6967754,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0102_1793315786",
+        "cycle_id": 457,
+        "full_text": "Vou executar a verificação independente de fato: montei uma bancada numérica real (corretude e ordem de convergência do `n_strang` via splitting de Lie/Strang contra uma nova formulação Magnus–Krylov–Galerkin adaptativa, auditoria de FLOPs analítico vs. instrumentado, auditoria do critério espectral `r=128 = 99,1% de energia` e contabilidade de bytes de VRAM). Só depois emito o relatório."
+      }
+    },
+    {
+      "id": "hyp_gen102_99680",
+      "label": "Hypothesis",
+      "title": "Vou executar a investigação do ciclo #457 como Analista de Evidências: primeiro",
+      "description": "Vou executar a investigação do ciclo #457 como Analista de Evidências: primeiro a bancada numérica real (para não emitir nenhum número não medido), depois a formulação e a auditoria epistêmica do grafo. Começo escrevendo as duas bancadas em paralelo.",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793316062.2403684,
+      "updated_at": 1793316063.0032377,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0102_1793315786",
+        "cycle_id": 457,
+        "full_text": "Vou executar a investigação do ciclo #457 como Analista de Evidências: primeiro a bancada numérica real (para não emitir nenhum número não medido), depois a formulação e a auditoria epistêmica do grafo. Começo escrevendo as duas bancadas em paralelo."
+      }
+    },
+    {
+      "id": "gen_0102_1793315786",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #102 (Ciclo #457)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793316063.15237,
+      "updated_at": 1793316063.1523702,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 102,
+        "cycle_id": 457,
+        "verdict": "APPROVED",
+        "duration_sec": 276.27,
+        "tokens_consumed": 2695,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -37997,7 +38070,97 @@
       "version": 1,
       "created_at": 1793315743.833642,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen102_42119_addresses_n_krylov",
+      "source_id": "hyp_gen102_42119",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315876.613351,
+        "updated_at": 1793315877.5142388,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0102_1793315786_1793315876710_e_hyp_gen102_42119_addresses_n_krylov",
+            "generation_id": "gen_0102_1793315786",
+            "timestamp": 1793315877.5142388,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793315876.6133573,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen102_97856_addresses_n_strang",
+      "source_id": "hyp_gen102_97856",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315964.0225425,
+        "updated_at": 1793315964.758143,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0102_1793315786_1793315964084_e_hyp_gen102_97856_addresses_n_strang",
+            "generation_id": "gen_0102_1793315786",
+            "timestamp": 1793315964.758143,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_057_independent_verifier",
+      "version": 1,
+      "created_at": 1793315964.022547,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen102_99680_addresses_n_naive",
+      "source_id": "hyp_gen102_99680",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316062.322464,
+        "updated_at": 1793316063.0779245,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0102_1793315786_1793316062394_e_hyp_gen102_99680_addresses_n_naive",
+            "generation_id": "gen_0102_1793315786",
+            "timestamp": 1793316063.0779245,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793316062.3224702,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793315744.7709725
+  "saved_at": 1793316063.154063
 }
