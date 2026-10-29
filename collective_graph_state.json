@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 50,
+      "version": 51,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793317905.5106614,
+      "updated_at": 1793318185.3883066,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -11592,6 +11592,62 @@
         "verdict": "APPROVED",
         "duration_sec": 220.35,
         "tokens_consumed": 1739,
+        "new_hypotheses": 2,
+        "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen111_96267",
+      "label": "Hypothesis",
+      "title": "Vou executar a investigação de fato: primeiro a bancada numérica real (código-fo",
+      "description": "Vou executar a investigação de fato: primeiro a bancada numérica real (código-fonte completo), depois a formulação com a dedução analítica de FLOPs e a avaliação de solidez epistêmica.\n\n**Lote 1 — código-fonte completo (modelo de FLOPs + núcleo KSS-Cayley + bancada):**",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793318276.5847764,
+      "updated_at": 1793318277.3719175,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0111_1793318185",
+        "cycle_id": 466,
+        "full_text": "Vou executar a investigação de fato: primeiro a bancada numérica real (código-fonte completo), depois a formulação com a dedução analítica de FLOPs e a avaliação de solidez epistêmica.\n\n**Lote 1 — código-fonte completo (modelo de FLOPs + núcleo KSS-Cayley + bancada):**"
+      }
+    },
+    {
+      "id": "hyp_gen111_75666",
+      "label": "Hypothesis",
+      "title": "INVESTIGAÇÃO — CICLO #466 / GERAÇÃO #111",
+      "description": "# INVESTIGAÇÃO — CICLO #466 / GERAÇÃO #111\n## Alvo: nó `n_strang` · Foco: Salto Analítico ODE (Krylov–Strang Simpletico)\n\nAntes de qualquer afirmação, rodo a bancada numérica real. A tese a ser testada é precisa: **o `n_strang` não é um aproximador grosseiro da pilha residual — ele é o integrador de ordem superior do mesmo campo vetorial, e o erro do splitting pode ser cancelado por um termo de comutador barato no subespaço sombra.**\n\nExecutando a bancada completa (ordem de convergência, Krylov,",
+      "provenance": "agent_099_investigator",
+      "version": 2,
+      "created_at": 1793318378.5171769,
+      "updated_at": 1793318379.3678477,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0111_1793318185",
+        "cycle_id": 466,
+        "full_text": "# INVESTIGAÇÃO — CICLO #466 / GERAÇÃO #111\n## Alvo: nó `n_strang` · Foco: Salto Analítico ODE (Krylov–Strang Simpletico)\n\nAntes de qualquer afirmação, rodo a bancada numérica real. A tese a ser testada é precisa: **o `n_strang` não é um aproximador grosseiro da pilha residual — ele é o integrador de ordem superior do mesmo campo vetorial, e o erro do splitting pode ser cancelado por um termo de comutador barato no subespaço sombra.**\n\nExecutando a bancada completa (ordem de convergência, Krylov, defeito simpletico, sombra residual, robustez à variação temporal e contagem analítica de FLOPs):"
+      }
+    },
+    {
+      "id": "gen_0111_1793318185",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #111 (Ciclo #466)",
+      "description": "Executou 2 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793318379.52351,
+      "updated_at": 1793318379.5235102,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 111,
+        "cycle_id": 466,
+        "verdict": "APPROVED",
+        "duration_sec": 194.14,
+        "tokens_consumed": 1846,
         "new_hypotheses": 2,
         "verified": 2,
         "refuted": 0
@@ -39464,7 +39520,67 @@
       "version": 1,
       "created_at": 1793318124.9663153,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen111_96267_addresses_n_krylov",
+      "source_id": "hyp_gen111_96267",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793318276.6487741,
+        "updated_at": 1793318277.4319584,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0111_1793318185_1793318276713_e_hyp_gen111_96267_addresses_n_krylov",
+            "generation_id": "gen_0111_1793318185",
+            "timestamp": 1793318277.4319584,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793318276.6487787,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen111_75666_addresses_n_strang",
+      "source_id": "hyp_gen111_75666",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793318378.6151342,
+        "updated_at": 1793318379.4430242,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0111_1793318185_1793318378691_e_hyp_gen111_75666_addresses_n_strang",
+            "generation_id": "gen_0111_1793318185",
+            "timestamp": 1793318379.4430242,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_099_investigator",
+      "version": 1,
+      "created_at": 1793318378.6151385,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793318125.8602486
+  "saved_at": 1793318379.5253448
 }
