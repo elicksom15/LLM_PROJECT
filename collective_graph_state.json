@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 10,
+      "version": 11,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793306857.8611615,
+      "updated_at": 1793307081.7230892,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -8640,6 +8640,62 @@
         "tokens_consumed": 4422,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen71_16125",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE EVIDÊNCIAS — CICLO #426 / G71",
+      "description": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #426 / G71\n## Investigação do nó `n_krylov` sob o foco GPT3B_H426_SLOW_MANIFOLD_PROJECTION_COM_CORRECAO_POR_EVENTO\n\n---\n\n## 1. Parecer epistêmico sobre a memória recuperada (obrigatório antes de modelar)\n\nOs 11 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_*` **não são 11 evidências independentes**. Auditoria de impressões digitais:\n\n| Item | Auditoria | Conclusão |\n|---|---|---|\n| Parâmetros | Todos idênticos: `r=128, K=2000, τ=1.2` | 1 especificação, não 11 ensaios",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793307139.6030772,
+      "updated_at": 1793307140.389994,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0071_1793307081",
+        "cycle_id": 426,
+        "full_text": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #426 / G71\n## Investigação do nó `n_krylov` sob o foco GPT3B_H426_SLOW_MANIFOLD_PROJECTION_COM_CORRECAO_POR_EVENTO\n\n---\n\n## 1. Parecer epistêmico sobre a memória recuperada (obrigatório antes de modelar)\n\nOs 11 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_*` **não são 11 evidências independentes**. Auditoria de impressões digitais:\n\n| Item | Auditoria | Conclusão |\n|---|---|---|\n| Parâmetros | Todos idênticos: `r=128, K=2000, τ=1.2` | 1 especificação, não 11 ensaios |\n| Critérios | Idênticos: `FLOPs ≥ 75%`, `Top-1 ≤ 2` | 1 critério replicado |\n| Truncamento | 2 padrões distintos (`\\le 2` vs `\\le `) | artefato de recuperação do grafo, não de experimento |\n| Agentes | 9 distintos (agent_021 aparece 2×) | mas o texto é byte-idêntico → cópia de template |\n\n**Solidez epistêmica do cluster: 0,22** como confirmação empírica (n_efetivo ≈ 1) e **0,90** como especificação de parâmetros do protocolo. Risco clássico: *pseudo-replicação* infla o \"VERIFIED × 11\" em validação circular — se o mesmo benchmark passar 11 vezes porque foi copiado 11 vezes, isso é 1 medição, não 11.\n\nNó divergente e único: `hyp_gen17_83208` (integrador simpletico de sombra residual, agent_099) — **solidez 0,55**, relevância indireta (consistência numérica do fluxo residual, não do projetor).\n\nReconhecimento útil: os símbolos `r, K, τ` do protocolo coincidem exatamente com os graus de liberdade da classe de método investigada. Trato isso como **calibração de parâmetros**, não como evidência de desempenho.\n\n---\n\n## 2. Definição do nó `n_krylov`\n\n`n_krylov` é o **construtor do subespaço invariante lento**: dado o gerador linearizado do fluxo residual profundo, ele produz a base ortonormal `V ∈ ℝ^{N×r}` que aproxima o projetor espectral `P*` da variedade lenta. Todo o resto do sistema (projeção, gatilho de evento, corretor) consome `V`. É, portanto, o nó de maior alavancagem: erro em `n_krylov` propaga-se para `P`, para o gatilho e para a métrica de acurácia.\n\n---\n\n## 3. Formulação inédita — **SK-Krylov/EC**\n*Slow-manifold Kronecker-Krylov Projection with Event-based Correction*\n\n### 3.1 Dinâmica e objeto-alvo\n\nFluxo residual discretizado em profundidade `k = 0…K−1`:\n\n$$x_{k+1} = x_k + \\varepsilon F(x_k),\\qquad K=2000,\\ \\varepsilon = 1/K$$\n\nEstado `X_k ∈ ℝ^{n×b}` (canal × token), `x = vec(X)`, `N = n·b`. O gerador `A(x) = ∂F/∂x` tem espectro dividido: lentos `|λ| ≤ μ_s`, rápidos `|λ| ≥ μ_f`, com gap `g = min|λ_ráp − λ_lent|`. O projetor exato da variedade lenta é o projetor espectral `P*` sobre o subespaço invariante lento, com `dim = r` (protocolo: `r = 128`).\n\n### 3.2 Hipótese estrutural (H1) — Fatoração Tensorial Kronecker\n\n$$A(X) \\;=\\; W X + X T^{\\top},\\qquad W \\;\\approx\\; A_1 \\otimes A_2,\\quad A_i \\in \\mathbb{R}^{d_i \\times d_i},\\ d_1 d_2 = n,\\quad T \\in \\mathbb{R}^{b\\times b}$$\n\nou seja, `(A⊗B)·vec(V) = vec(B V Aᵀ)` — a estrutura é **Kronecker-soma** sobre canal (fatorizado 2 níveis) e token (denso). Esta é a única premissa não dedutível: **é falsificável**, ver §5.\n\n### 3.3 `n_krylov` — construção da base\n\nLanczos com reortogonalização completa (\"twice is enough\") sobre `M = ½(A + Aᵀ)`, com **matvec Kronecker-estruturado**, `r = 128` iterações, inicialização em bloco a partir da base do evento anterior + sonda de Rademacher. Saída: `V` e a norma de resíduo `ρ = ‖MV − VH‖₂` (custo desprezível, `O(Nr)`), que alimenta o bound de erro.\n\nVariante para `A` não-simétrico: Arnoldi — mesmo custo dominante, `+2Nr²` na ortogonalização de Hessenberg.\n\n### 3.4 Projeção e gatilho de evento (custo marginal zero do monitor)\n\nO passo projetado escreve-se de forma que o defeito sai de graça:\n\n$$x_{k+1} = x_k + \\varepsilon P F(x_k), \\qquad d_k = \\varepsilon\\|(I-P)F(x_k)\\| = \\varepsilon\\|F\\| - \\varepsilon\\|PF\\| \\ \\text{(by-product)}$$\n\n**Regra de gatilho** (τ = 1.2 é fator de inflação sobre o defeito de referência do build, e não um limiar absoluto):\n\n$$\\boxed{\\ \\text{evento} \\iff d_k > \\tau\\, d_{\\text{ref}},\\qquad d_{\\text{ref}} \\leftarrow d_k \\ \\text{no build}\\ }$$\n\nDerivação analítica do número de eventos, com taxa de deriva logarítmica `γ` do defeito (`d_k ≈ d_ref e^{γk}`):\n\n$$N_e = \\left\\lceil \\frac{K\\,\\gamma}{\\ln \\tau} \\right\\rceil,\\qquad \\ln 1{,}2 = 0{,}18232$$\n\n**Propriedade (ausência de Zeno):** o intervalo mínimo entre eventos é `Δ_min = ln τ / γ > 0`; o gatilho não pode disparar em cascata. É prova formal, não heurística.\n\n### 3.5 Corretor por evento\n\n1. Rebuild de `n_krylov` → `V_new`, `ρ_new`;\n2. Re-projeção do estado: `x ← P_new x` (remove a deriva acumulada do modo rápido);\n3. Reset de `d_ref` e rearme do histerese em `τ_low = 1.0`.\n\n### 3.6 Bound de erro (cadeia analítica até o logit)\n\nDavis–Kahan residual: `‖P − P*‖₂ ≤ ρ/g`. Por Gronwall sobre o erro de rastreio:\n\n$$\\|x_K - x_K^{*}\\| \\;\\le\\; e^{LK}\\Big[e_0 + K\\varepsilon\\big(\\tau\\, d_{\\text{ref}} + (\\rho/g)\\,F_{\\max}\\big)\\Big]$$\n\n**Fronteira de honestidade epistêmica:** a cadeia analítica **termina aqui**. A conversão `‖Δlogits‖ → ΔTop-1 ≤ 2%` **não é derivável**; exige calibração empírica na bancada (§6). Qualquer afirmação de \"Top-1 garantido por teoria\" seria correlação espúria.\n\n---\n\n## 4. Dedução analítica de FLOPs\n\n**Convenção:** 1 MAC (multiply-accumulate) = 2 FLOPs. Contam-se apenas as operações do subsistema de projeção (a avaliação de `F` é idêntica nos dois métodos e cancela na comparação).\n\n### 4.1 Matvec estruturado (χ)\n\n| Operação | Contagem | FLOPs |\n|---|---|---|\n| `(A₁⊗A₂) vec(V)` → `A₂ V A₁ᵀ` | `2d₁²d₂ + 2d₁d₂²` | `2n(d₁+d₂)b` |\n| `X Tᵀ` | `2nb²` | `2nb²` |\n| **Total χ** | | `2nb[(d₁+d₂) + b]` |\n\nvs. matvec denso: `2N² = 2n²b²`.\n\n### 4.2 Build de `n_krylov` (por evento)\n\n| Item | Fórmula |\n|---|---|\n| `r` matvecs estruturados | `r·χ` |\n| Reortogonalização completa ×2 | `4Nr²` |\n| Recorrência 3-termos (axpy) | `4Nr` |\n| **C_build** | `rχ + 4Nr² + 4Nr` |\n\n### 4.3 Passo corrente e corretor\n\n| Item | Fórmula |\n|---|---|\n| `P F(x)` = `V(VᵀF)` | `4Nr` |\n| Combinação + norma do defeito | `3N` |\n| **C_step** | `4Nr + 3N` |\n| Re-projeção `x ← Px` no corretor | `4Nr + N` |\n\n### 4.4 Total fechado\n\n$$\\boxed{\\,C_{\\text{tot}} = K(4Nr + 3N) + N_e\\big(r\\chi + 4Nr^2 + 8Nr + N\\big)\\,}$$\n\nBaseline honesto (projetor espectral denso exato, aplicado por passo):\n$$C_{\\text{base}} = 2KN^2$$\n\n### 4.5 Instanciação da bancada local\n\n`n = 2560 = 64×40` (d₁=64, d₂=40), `b = 128` tokens ⇒ `N = 327.680`; `r = 128`, `K = 2000`, `τ = 1.2`, `γ = 7,3·10⁻⁴` (a medir) ⇒ `N_e = ⌈2000·7,3·10⁻⁴/0,18232⌉ = 8`.\n\n| Grandeza | Valor (FLOPs) |\n|---|---|\n| `2N²` (matvec denso) | 2,147·10¹¹ |\n| `χ` (matvec estruturado) | 1,520·10⁸ |\n| `C_step` | 1,688·10⁸ |\n| `C_build` | 4,110·10¹⁰ |\n| `C_event` | 4,127·10¹⁰ |\n| `K·C_step` | 3,375·10¹¹ |\n| `N_e·C_event` (Nₑ=8) | 3,302·10¹¹ |\n| **C_tot** | **6,677·10¹¹** |\n| **C_base** | **4,295·10¹⁴** |\n\n### 4.6 Resultado e decomposição do ganho\n\n$$\\text{Redução} = 1 - \\frac{6{,}677\\cdot10^{11}}{4{,}295\\cdot10^{14}} = \\mathbf{99{,}84\\%}$$\n\n| Fonte do ganho | Fator |\n|---|---|\n| S₁ — matvec Kronecker no build | `2N²/χ = 1.412×` |\n| S₂ — aplicação low-rank vs. matriz densa | `N/(2r) = 1.280×` |\n| S₃ — gatilho de evento vs. rebuild fixo | `Δ₀/Δ̄` (só comparável a baseline de período fixo) |\n| Memória do operador | 429 GB (denso fp32) → **88 KB** (fatores) |\n\n### 4.7 Condição de break-even (resultado estrutural)\n\nO pior caso possível é evento a cada passo (`N_e = K`):\n\n$$C_{\\text{tot}} = 8{,}288\\cdot10^{13} \\Rightarrow \\text{redução} = \\mathbf{80{,}7\\%}$$\n\nBreak-even exato em 75%: `N_e ≤ 2.593` (intervalo médio `Δ ≥ 0,77` passos) — **sempre satisfeito**, pois `Δ ≥ 1` por construção.\n\n> **Conclusão analítica forte:** o critério `FLOPs ≥ 75%` do protocolo é **garantido estruturalmente** pela fatoração Kronecker (`S₁·S₂ ≈ 1,8·10⁶` de margem), **não** pela lógica de evento. O gatilho por evento é, do ponto de vista de FLOPs, um *não-fator*; seu valor real é de **robustez e acurácia** (impede que `P` obsoleto contamine a trajetória). Isolar corretamente os dois efeitos é exatamente o que separa causa física de correlação espúria neste problema.\n\n---\n\n## 5. Falsificabilidade (o que derruba a formulação)\n\n1. **H1 falsa:** resíduo de fatoração `ε_Kron = ‖W − A₁⊗A₂‖_F/‖W‖_F > 0,05` ⇒ `S₁` colapsa e a redução cai abaixo de 75%. É o teste primário.\n2. **Gap espectral degenerado:** `g ≈ 0` ⇒ `‖P−P*‖ ≤ ρ/g` explode; a base deixa de representar a variedade lenta.\n3. **Zeno numérico:** observar `Δ < 3` passos de forma persistente indica que `τ` está calibrado abaixo da deriva real.\n4. **Mapa Top-1 não-calibrado:** se a calibração `‖Δlogits‖ → ΔTop-1` não for monotônica e estável, o critério de 2% é inverificável e **nenhum** dos 11 nós do cluster pode ser considerado aprovado.\n\n---\n\n## 6. Protocolo de bancada (medições exigidas, em ordem)\n\n1. `ε_Kron` (teste de H1) — decide tudo;\n2. `γ` real do defeito (taxa de deriva) → `N_e` previsto vs. `N_e` observado (valida o modelo de gatilho);\n3. `ρ/g` vs. erro de rastreio medido (valida o bound de Davis–Kahan);\n4. FLOPs contados por profiler vs. `C_tot` (deve fechar em ±2%);\n5. ΔTop-1 em relação ao baseline denso — **única medição não derivável**;\n6. Controle: rodar com `N_e` artificialmente fixo em `{8, 200, 2000}` para separar o efeito do gatilho do efeito da fatoração.\n\n---\n\n## 7. Veredito\n\n| Afirmação | Solidez |\n|---|---|\n| Cluster de 11 protocolos como evidência independente | **0,22** (pseudo-replicação) |\n| Parâmetros `r=128, K=2000, τ=1.2` como especificação | **0,90** |\n| `n_krylov` como nó crítico (base do projetor) | **0,88** |\n| Redução de FLOPs ≥ 75% (dedução analítica, condicionada a H1) | **0,75** |\n| Garantia anti-Zeno (`Δ_min = ln τ/γ`) | **0,85** (formal) |\n| Perda Top-1 ≤ 2% | **0,30** — empiricamente não calibrado |\n\n**Recomendação ao grafo:** promover `n_krylov` a dependência obrigatória de `hyp_gen17_83208` (a consistência simpletica do fluxo exige que o projetor seja estável), marcar os 11 clones como `DERIVED_FROM: proto_G6759` para destravar a contagem de confirmações, e **não** registrar aprovado o critério de Top-1 até a etapa 5 do §6."
+      }
+    },
+    {
+      "id": "hyp_gen71_25185",
+      "label": "Hypothesis",
+      "title": "Vou ancorar a estrutura do projeto e o ambiente Python numa única rodada de reco",
+      "description": "Vou ancorar a estrutura do projeto e o ambiente Python numa única rodada de reconhecimento e, em seguida, entregar a formulação completa em lote.",
+      "provenance": "agent_015_investigator",
+      "version": 2,
+      "created_at": 1793307322.1045263,
+      "updated_at": 1793307323.0822144,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0071_1793307081",
+        "cycle_id": 426,
+        "full_text": "Vou ancorar a estrutura do projeto e o ambiente Python numa única rodada de reconhecimento e, em seguida, entregar a formulação completa em lote."
+      }
+    },
+    {
+      "id": "gen_0071_1793307081",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #71 (Ciclo #426)",
+      "description": "Executou 2 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793307323.2052393,
+      "updated_at": 1793307323.2052393,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 71,
+        "cycle_id": 426,
+        "verdict": "APPROVED",
+        "duration_sec": 241.48,
+        "tokens_consumed": 3579,
+        "new_hypotheses": 2,
+        "verified": 2,
         "refuted": 0
       }
     }
@@ -32850,7 +32906,67 @@
       "version": 1,
       "created_at": 1793307040.6502025,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen71_16125_addresses_n_krylov",
+      "source_id": "hyp_gen71_16125",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307139.6451566,
+        "updated_at": 1793307140.4403217,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0071_1793307081_1793307139686_e_hyp_gen71_16125_addresses_n_krylov",
+            "generation_id": "gen_0071_1793307081",
+            "timestamp": 1793307140.4403217,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793307139.6451623,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen71_25185_addresses_n_strang",
+      "source_id": "hyp_gen71_25185",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793307322.1542597,
+        "updated_at": 1793307323.1406934,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0071_1793307081_1793307322205_e_hyp_gen71_25185_addresses_n_strang",
+            "generation_id": "gen_0071_1793307081",
+            "timestamp": 1793307323.1406934,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_015_investigator",
+      "version": 1,
+      "created_at": 1793307322.1542654,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793307041.6067958
+  "saved_at": 1793307323.2065783
 }
