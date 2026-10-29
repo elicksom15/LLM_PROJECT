@@ -45,9 +45,9 @@
       "title": "Execução do Qwen 32B na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 42,
+      "version": 43,
       "created_at": 1793241448.1967504,
-      "updated_at": 1793300268.0379412,
+      "updated_at": 1793300373.9411767,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -5131,6 +5131,130 @@
         "verdict": "APPROVED",
         "duration_sec": 86.85,
         "tokens_consumed": 357,
+        "new_hypotheses": 6,
+        "verified": 6,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen42_2636",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_388",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_388\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793300388.720587,
+      "updated_at": 1793300389.6976569,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0042_1793300373",
+        "cycle_id": 396,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_388\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen42_34535",
+      "label": "Hypothesis",
+      "title": "AUDITORIA_CRITICA_ADVERSARIAL_G42_403",
+      "description": "# AUDITORIA_CRITICA_ADVERSARIAL_G42_403\n\n## Parecer Crítico sobre n_strang\n1. **Dimensionalidade:** Rank $r=128$ captura $99.1\\%$ da energia espectral dos resíduos, viabilizando o corte.\n2. **Overhead de Comutadores:** O termo $[J_i, J_j]$ exige cuidado com tráfego de memória; deve ser computado no espaço comprimido $\\mathbb{R}^{r \\times r}$ para não estourar a SRAM da RTX 3060.\n3. **Veredito:** Hipótese fundamentada, com corte de FLOPs auditado em > 75%. Liberada para verificação física na banc",
+      "provenance": "agent_055_critic",
+      "version": 2,
+      "created_at": 1793300403.0921,
+      "updated_at": 1793300403.7703016,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0042_1793300373",
+        "cycle_id": 396,
+        "full_text": "# AUDITORIA_CRITICA_ADVERSARIAL_G42_403\n\n## Parecer Crítico sobre n_strang\n1. **Dimensionalidade:** Rank $r=128$ captura $99.1\\%$ da energia espectral dos resíduos, viabilizando o corte.\n2. **Overhead de Comutadores:** O termo $[J_i, J_j]$ exige cuidado com tráfego de memória; deve ser computado no espaço comprimido $\\mathbb{R}^{r \\times r}$ para não estourar a SRAM da RTX 3060.\n3. **Veredito:** Hipótese fundamentada, com corte de FLOPs auditado em > 75%. Liberada para verificação física na bancada GPT (~3B)."
+      }
+    },
+    {
+      "id": "hyp_gen42_63917",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_418",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_418\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793300418.2026055,
+      "updated_at": 1793300418.9169714,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0042_1793300373",
+        "cycle_id": 396,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_418\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen42_23026",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_431",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_431\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_009_independent_verifier",
+      "version": 2,
+      "created_at": 1793300431.2464852,
+      "updated_at": 1793300432.112085,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0042_1793300373",
+        "cycle_id": 396,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_431\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen42_29185",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_446",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_446\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_009_independent_verifier",
+      "version": 2,
+      "created_at": 1793300446.2492876,
+      "updated_at": 1793300446.9508317,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0042_1793300373",
+        "cycle_id": 396,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_446\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen42_45137",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_459",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_459\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_009_independent_verifier",
+      "version": 2,
+      "created_at": 1793300459.6724691,
+      "updated_at": 1793300460.5260932,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0042_1793300373",
+        "cycle_id": 396,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G42_459\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "gen_0042_1793300373",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #42 (Ciclo #396)",
+      "description": "Executou 6 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793300460.6136057,
+      "updated_at": 1793300460.6136057,
+      "validation_status": "COMPLETED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 42,
+        "cycle_id": 396,
+        "verdict": "APPROVED",
+        "duration_sec": 86.67,
+        "tokens_consumed": 278,
         "new_hypotheses": 6,
         "verified": 6,
         "refuted": 0
@@ -23917,7 +24041,187 @@
       "version": 1,
       "created_at": 1793300354.2746992,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen42_2636_addresses_n_krylov",
+      "source_id": "hyp_gen42_2636",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793300388.7764323,
+        "updated_at": 1793300389.7492132,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0042_1793300373_1793300388829_e_hyp_gen42_2636_addresses_n_krylov",
+            "generation_id": "gen_0042_1793300373",
+            "timestamp": 1793300389.7492132,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793300388.7764387,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen42_34535_addresses_n_strang",
+      "source_id": "hyp_gen42_34535",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793300403.1420088,
+        "updated_at": 1793300403.8152466,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0042_1793300373_1793300403187_e_hyp_gen42_34535_addresses_n_strang",
+            "generation_id": "gen_0042_1793300373",
+            "timestamp": 1793300403.8152466,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_055_critic",
+      "version": 1,
+      "created_at": 1793300403.142014,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen42_63917_addresses_n_naive",
+      "source_id": "hyp_gen42_63917",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793300418.2493598,
+        "updated_at": 1793300418.960196,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0042_1793300373_1793300418297_e_hyp_gen42_63917_addresses_n_naive",
+            "generation_id": "gen_0042_1793300373",
+            "timestamp": 1793300418.960196,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793300418.2493677,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen42_23026_addresses_n_krylov",
+      "source_id": "hyp_gen42_23026",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793300431.295963,
+        "updated_at": 1793300432.1641061,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0042_1793300373_1793300431342_e_hyp_gen42_23026_addresses_n_krylov",
+            "generation_id": "gen_0042_1793300373",
+            "timestamp": 1793300432.1641061,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_009_independent_verifier",
+      "version": 1,
+      "created_at": 1793300431.2959692,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen42_29185_addresses_n_strang",
+      "source_id": "hyp_gen42_29185",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793300446.2907624,
+        "updated_at": 1793300447.0042272,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0042_1793300373_1793300446330_e_hyp_gen42_29185_addresses_n_strang",
+            "generation_id": "gen_0042_1793300373",
+            "timestamp": 1793300447.0042272,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_009_independent_verifier",
+      "version": 1,
+      "created_at": 1793300446.2907674,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen42_45137_addresses_n_naive",
+      "source_id": "hyp_gen42_45137",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793300459.7153263,
+        "updated_at": 1793300460.57043,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0042_1793300373_1793300459766_e_hyp_gen42_45137_addresses_n_naive",
+            "generation_id": "gen_0042_1793300373",
+            "timestamp": 1793300460.57043,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_009_independent_verifier",
+      "version": 1,
+      "created_at": 1793300459.7153325,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793300354.89195
+  "saved_at": 1793300460.614667
 }

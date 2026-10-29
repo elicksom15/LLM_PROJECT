@@ -1,10 +1,10 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-29 15:59:15",
+  "last_sync": "2026-10-29 16:01:01",
   "stats": {
-    "total_cycles": 395,
-    "approved_count": 48,
+    "total_cycles": 396,
+    "approved_count": 49,
     "rejected_count": 66
   },
   "approved_hypotheses": [
@@ -487,9 +487,29 @@
       "speedup_pct": 1534.7431086533309,
       "kl_divergence": 0.0,
       "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #42."
+    },
+    {
+      "cycle_id": 396,
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "top1_accuracy": 99.01477832512316,
+      "flops_reduction": 95.77,
+      "tokens_per_sec": 44.5,
+      "speedup_pct": 2523.3384893689536,
+      "kl_divergence": 0.0,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #43."
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 396,
+      "timestamp": "2026-10-29 15:59:33",
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "verdict": "APPROVED",
+      "flops_reduction": 95.77,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 44.5,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #43."
+    },
     {
       "cycle_id": 395,
       "timestamp": "2026-10-29 15:57:48",
@@ -979,16 +999,6 @@
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 11109.796735343623,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 346,
-      "timestamp": "2026-10-29 12:58:36",
-      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "PENDING",
-      "flops_reduction": 0.0,
-      "top1_accuracy": 0.0,
-      "tokens_per_sec": 0.0,
-      "next_step": "Iniciando debate"
     }
   ]
 }
