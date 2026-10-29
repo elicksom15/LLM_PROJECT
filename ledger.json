@@ -1,11 +1,11 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-29 00:53:53",
+  "last_sync": "2026-10-29 01:02:29",
   "stats": {
-    "total_cycles": 86,
+    "total_cycles": 87,
     "approved_count": 7,
-    "rejected_count": 56
+    "rejected_count": 57
   },
   "approved_hypotheses": [
     {
@@ -80,6 +80,16 @@
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 87,
+      "timestamp": "2026-10-29 00:54:40",
+      "title": "GPT3B_H87_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "REJECTED",
+      "flops_reduction": 79.11625051831288,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 9541.696124795482,
+      "next_step": "Investigar causa de falsificação no próximo ciclo."
+    },
     {
       "cycle_id": 86,
       "timestamp": "2026-10-29 00:35:29",
@@ -568,16 +578,6 @@
       "flops_reduction": 79.11625051831288,
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 413.1681547850122,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 37,
-      "timestamp": "2026-10-28 14:27:45",
-      "title": "GPT3B_H37_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 387.00984201772957,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
     }
   ]

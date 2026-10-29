@@ -4,9 +4,9 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `86`
+- **Total de Ciclos Científicos Executados:** `87`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 56`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 57`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,6 +24,7 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#87** | 2026-10-29 00:54:40 | `GPT3B_H87_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#86** | 2026-10-29 00:35:29 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#85** | 2026-10-29 00:27:47 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#84** | 2026-10-29 00:10:59 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
@@ -73,4 +74,3 @@
 | **#40** | 2026-10-28 14:42:04 | `GPT3B_H40_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#39** | 2026-10-28 14:37:20 | `GPT3B_H39_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#38** | 2026-10-28 14:32:34 | `GPT3B_H38_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#37** | 2026-10-28 14:27:45 | `GPT3B_H37_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
