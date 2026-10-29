@@ -1,7 +1,7 @@
 # ⚡ Dual MiMo Autonomous Research Engine & Sistema Cognitivo Multiagente (LLM_PROJECT)
 
-[![Research Cycles](https://img.shields.io/badge/Cycles-374-blue.svg)](#)
-[![Approved Hypotheses](https://img.shields.io/badge/Approved-27-success.svg)](#)
+[![Research Cycles](https://img.shields.io/badge/Cycles-375-blue.svg)](#)
+[![Approved Hypotheses](https://img.shields.io/badge/Approved-28-success.svg)](#)
 [![Hardware](https://img.shields.io/badge/GPU-RTX%203060%2012GB-76B900.svg)](#)
 [![Methodology](https://img.shields.io/badge/Method-Cálculo%20Primeiro%20(Fase%200)-orange.svg)](#)
 [![Architecture](https://img.shields.io/badge/Architecture-Graph--Oriented%20Multi--Agent-purple.svg)](#)
