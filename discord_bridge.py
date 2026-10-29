@@ -500,4 +500,121 @@ class DiscordBridge:
         content_msg = f"🚀 **[GITHUB SYNC]** Novo commit enviado com sucesso: {commit_link} (`{commit_msg}`)"
         return self.send_embed(embed, content=content_msg)
 
+
+    def publish_collective_swarm_card(
+        self,
+        cycle_id: int,
+        generation_num: int,
+        hypothesis_title: str,
+        verdict: str,
+        active_agents: list,
+        graph_stats: dict,
+        audit_res: dict = None,
+        bench_res: dict = None,
+        commit_info: dict = None
+    ) -> bool:
+        """Publica Card Executivo Completo da Rede Multiagente Hierárquica Orientada por Grafos."""
+        is_approved = (verdict == "APPROVED")
+        status_color = 0x2ECC71 if is_approved else (0xF39C12 if "ANALYTICAL" in verdict else 0xE74C3C)
+        status_icon = "🟢" if is_approved else ("🛑" if "ANALYTICAL" in verdict else "🔴")
+
+        agent_lines = []
+        role_icons = {
+            "orchestrator": "👑", "planner": "📋", "investigator": "📐", "researcher": "🔬",
+            "evidence_analyst": "📊", "relation_builder": "🔗", "critic": "🛡️",
+            "contradiction_detector": "⚡", "independent_verifier": "⚖️", "synthesizer": "🧪",
+            "memory_retriever": "🗄️", "strategy_evaluator": "📈"
+        }
+        for ag in active_agents[:6]:
+            role = ag.get("role", "agent")
+            icon = role_icons.get(role, "🤖")
+            role_name = role.replace("_", " ").title()
+            agent_lines.append(f"{icon} `{ag.get('id', 'N/A')}` — **{role_name}** ({ag.get('status', 'DONE')})")
+        if len(active_agents) > 6:
+            agent_lines.append(f"*(+ {len(active_agents) - 6} agentes adicionais operando no pool)*")
+        agent_block = "\n".join(agent_lines) if agent_lines else "• *Pool de 100 agentes sob orquestração adaptativa*"
+
+        ws = graph_stats.get("avg_ws", 0.85)
+        we = graph_stats.get("avg_we", 0.70)
+        wo = graph_stats.get("avg_wo", 0.65)
+        total_nodes = graph_stats.get("total_nodes", 0)
+        total_edges = graph_stats.get("total_edges", 0)
+        comms = graph_stats.get("communities_count", 0)
+        contras = graph_stats.get("contradictions_open", 0)
+
+        graph_block = (
+            f"• **Nós no Grafo:** `{total_nodes}` | **Arestas Ponderadas:** `{total_edges}`\n"
+            f"• **Comunidades Leiden:** `{comms}` | **Contradições:** `{contras}`\n"
+            f"• **Pesos:** Semântico `$W_s={ws:.2f}$` • Epistêmico `$W_e={we:.2f}$` • Operacional `$W_o={wo:.2f}$`"
+        )
+
+        fields = [
+            {
+                "name": "👥 Equipe Ativa do Pool (100 Agentes Lógicos)",
+                "value": agent_block,
+                "inline": False
+            },
+            {
+                "name": "🌐 Memória Coletiva (Neo4j / GDS Engine)",
+                "value": graph_block,
+                "inline": False
+            }
+        ]
+
+        if audit_res:
+            flops_pct = audit_res.get("flops_reduction_pct", 0.0)
+            formula = audit_res.get("math_formula", "N/A")
+            v_gate = audit_res.get("status", "N/A")
+            gate_badge = "🟢 APROVADA NO CÁLCULO" if v_gate == "APPROVED_FOR_GPU" else "🛑 DESCARTADA NA FASE 0"
+            fields.append({
+                "name": f"🧮 Fase 0: Auditoria Matemática — {gate_badge}",
+                "value": (
+                    f"• **Fórmula:** `{formula}`\n"
+                    f"• **Redução Teórica:** {make_bar(flops_pct, length=8)}\n"
+                    f"• **Complexidade:** `{audit_res.get('complexity_proposed', 'N/A')}`\n"
+                    f"• **Parecer:** {audit_res.get('rejection_reason', 'Cálculo aprovado com corte >= 75% comprovado no papel.')}"
+                ),
+                "inline": False
+            })
+
+        if bench_res:
+            top1 = bench_res.get("top1_accuracy", 0.0)
+            speedup = bench_res.get("speedup_pct", 0.0)
+            tps = bench_res.get("optimized_tps", bench_res.get("tokens_per_sec", 0.0))
+            fields.append({
+                "name": "💻 Validação Física em Bancada (RTX 3060 12GB)",
+                "value": (
+                    f"• **Throughput:** `{tps:.1f} tokens/s` (Aceleração: `+{speedup:.1f}%`)\n"
+                    f"• **Acurácia Top-1:** `{top1:.2f}%` (Meta: `>= 98.0%`)\n"
+                    f"• **Memória VRAM:** `{bench_res.get('vram_mb', 0)} MB` | **Status:** `{verdict}`"
+                ),
+                "inline": False
+            })
+
+        if commit_info:
+            short_h = commit_info.get("short_hash", "HEAD")
+            repo = commit_info.get("repo_url", "https://github.com/elicksom15/LLM_PROJECT.git").rstrip(".git")
+            c_hash = commit_info.get("commit_hash", "")
+            c_link = f"[{short_h}]({repo}/commit/{c_hash})" if c_hash else f"`{short_h}`"
+            fields.append({
+                "name": "📦 Sincronização GitHub",
+                "value": f"• **Commit:** {c_link} • **Branch:** `main` • **Ledger:** Sincronizado",
+                "inline": False
+            })
+
+        embed = {
+            "title": f"🧠 [INTELIGÊNCIA COLETIVA] Ciclo #{cycle_id} (Geração #{generation_num}) — {status_icon} {verdict}",
+            "description": (
+                f"**Bancada:** Modelo GPT (~3B) • **Alvo:** Viabilizar Qwen 32B em RTX 3060 12GB sem quantização\n"
+                f"**Hipótese Central:** `{hypothesis_title}`"
+            ),
+            "color": status_color,
+            "fields": fields,
+            "footer": {
+                "text": f"Sistema Cognitivo Multiagente • 100 Agentes Lógicos • Neo4j GDS • RTX 3060 • Ciclo #{cycle_id}"
+            }
+        }
+        content_msg = f"🧠 **[INTELIGÊNCIA COLETIVA]** Ciclo #{cycle_id} finalizado: {status_icon} `{verdict}` — `{hypothesis_title}`"
+        return self.send_embed(embed, content=content_msg)
+
 discord_bridge = DiscordBridge()

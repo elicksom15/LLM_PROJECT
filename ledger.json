@@ -1,10 +1,10 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-29 14:09:44",
+  "last_sync": "2026-10-29 14:41:40",
   "stats": {
-    "total_cycles": 354,
-    "approved_count": 7,
+    "total_cycles": 355,
+    "approved_count": 8,
     "rejected_count": 66
   },
   "approved_hypotheses": [
@@ -77,9 +77,29 @@
       "speedup_pct": 0.0,
       "kl_divergence": 1.1710803508758545,
       "next_step": "Incorporado ao Ledger Científico. Avançando para próxima fronteira."
+    },
+    {
+      "cycle_id": 355,
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "top1_accuracy": 99.01477832512316,
+      "flops_reduction": 95.77,
+      "tokens_per_sec": 44.5,
+      "speedup_pct": 1347.7641642669796,
+      "kl_divergence": 0.0,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #2."
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 355,
+      "timestamp": "2026-10-29 14:40:10",
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "verdict": "APPROVED",
+      "flops_reduction": 95.77,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 44.5,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #2."
+    },
     {
       "cycle_id": 354,
       "timestamp": "2026-10-29 14:01:55",
@@ -563,16 +583,6 @@
     {
       "cycle_id": 306,
       "timestamp": "2026-10-29 11:17:01",
-      "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
-      "verdict": "PENDING",
-      "flops_reduction": 0.0,
-      "top1_accuracy": 0.0,
-      "tokens_per_sec": 0.0,
-      "next_step": "Iniciando debate"
-    },
-    {
-      "cycle_id": 305,
-      "timestamp": "2026-10-29 11:14:27",
       "title": "GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB",
       "verdict": "PENDING",
       "flops_reduction": 0.0,

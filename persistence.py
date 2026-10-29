@@ -150,6 +150,28 @@ class ResearchPersistence:
             """, ("COMPLETED", verdict, json.dumps(metrics), next_step, cycle_id))
             conn.commit()
 
+    def get_cycle(self, cycle_id: int):
+        with self._get_conn() as conn:
+            c = conn.cursor()
+            c.execute(
+                "SELECT cycle_id, created_at, status, hypothesis_title, objective, verdict, metrics_json, next_step "
+                "FROM research_cycles WHERE cycle_id = ?",
+                (cycle_id,)
+            )
+            row = c.fetchone()
+            if not row:
+                return None
+            return {
+                "cycle_id": row[0],
+                "created_at": row[1],
+                "status": row[2],
+                "hypothesis_title": row[3],
+                "objective": row[4],
+                "verdict": row[5],
+                "metrics_json": row[6],
+                "next_step": row[7]
+            }
+
     def get_cycle_history(self, cycle_id: int) -> Dict[str, Any]:
         with self._get_conn() as conn:
             c = conn.cursor()
