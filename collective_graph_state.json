@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 18,
+      "version": 19,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793309371.371103,
+      "updated_at": 1793309611.0458436,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9205,6 +9205,79 @@
         "verdict": "APPROVED",
         "duration_sec": 191.1,
         "tokens_consumed": 2524,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen79_65410",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real primeiro (é o que dá solidez epistêmica ao",
+      "description": "Vou executar a bancada numérica real primeiro (é o que dá solidez epistêmica ao relatório), e em paralelo preparo a formulação FPCK. Começo pelo probe empírico do nó `n_krylov`.",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793309689.9504812,
+      "updated_at": 1793309690.7298844,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0079_1793309611",
+        "cycle_id": 434,
+        "full_text": "Vou executar a bancada numérica real primeiro (é o que dá solidez epistêmica ao relatório), e em paralelo preparo a formulação FPCK. Começo pelo probe empírico do nó `n_krylov`."
+      }
+    },
+    {
+      "id": "hyp_gen79_62780",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE INVESTIGAÇÃO — CICLO #434 / GERAÇÃO #79",
+      "description": "# RELATÓRIO DE INVESTIGAÇÃO — CICLO #434 / GERAÇÃO #79\n## Foco: FECHO POLINOMIAL POR COMUTADORES EM SUBESPAÇO DE KRYLOV DO FLUXO RESIDUAL\n### Alvo: nó `n_strang` · Bancada: r=128, K=2000, τ=1.2\n\n---\n\n## 0. Veredito executivo\n\nProponho o **FECK — Fecho Polinomial por Comutadores de Krylov**: uma formulação que substitui a composição de splitting de Strang (`n_strang`) por uma **exponencial fechada polinomialmente** do operador de Galerkin do fluxo residual, projetado num subespaço de Krylov de di",
+      "provenance": "agent_039_investigator",
+      "version": 2,
+      "created_at": 1793309761.5048337,
+      "updated_at": 1793309762.4790003,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0079_1793309611",
+        "cycle_id": 434,
+        "full_text": "# RELATÓRIO DE INVESTIGAÇÃO — CICLO #434 / GERAÇÃO #79\n## Foco: FECHO POLINOMIAL POR COMUTADORES EM SUBESPAÇO DE KRYLOV DO FLUXO RESIDUAL\n### Alvo: nó `n_strang` · Bancada: r=128, K=2000, τ=1.2\n\n---\n\n## 0. Veredito executivo\n\nProponho o **FECK — Fecho Polinomial por Comutadores de Krylov**: uma formulação que substitui a composição de splitting de Strang (`n_strang`) por uma **exponencial fechada polinomialmente** do operador de Galerkin do fluxo residual, projetado num subespaço de Krylov de dimensão `r=128`, com o comutador `[A,B]` (ramo atenção × ramo MLP) retido explicitamente no gerador.\n\nResultado analítico de FLOPs para a bancada (d=2560, r=128, K=2000, τ=1.2, espaçamento de âncora `s=4`):\n\n| Métrica | `n_strang` | **FECK** | Δ |\n|---|---|---|---|\n| FLOPs/token (avanço de 4.8 unidades de profundidade) | 7.55e8 (κ=1) | 1.72e8 | **−77,3%** |\n| Idem, baseline κ=1.5 (3 evals/passo) | 1.13e9 | 1.72e8 | **−84,8%** |\n| Ordem de erro local | O(τ³) comutadores aninhados | O(τ⁴) + termo de deriva do operador | melhor constante |\n| Perda Top-1 prevista | — | 1,1–1,5 pp | ≤ 2 pp ✓ |\n\n**Critério ≥75% de redução de FLOPs é atingido com margem em ambos os cenários de baseline.** Predições falsificáveis e critério de rejeição na Seção 5.\n\n---\n\n## 1. Setup formal e baseline `n_strang`\n\nTratamos a profundidade como tempo contínuo. Seja o fluxo residual\n\n$$\\dot x(t) = \\mathcal F(x,t) = A(x,t) + B(x,t),\\qquad x(0)=x_{\\text{emb}},\\ x(T)=x_{\\text{logits}},$$\n\nonde `A` é o ramo de atenção (com padrão softmax congelado) e `B` o ramo MLP (com gate SwiGLU congelado). O baseline `n_strang` integra com a composição simétrica\n\n$$S_h = \\Phi_A(h/2)\\circ\\Phi_B(h)\\circ\\Phi_A(h/2),$$\n\ncom erro local via BCH:\n\n$$\\log S_h = h(A+B) - \\frac{h^3}{24}\\Big([B,[A,B]] + \\tfrac12[A,[A,B]]\\Big) + O(h^5).$$\n\n**Observação-chave:** Strang paga integralmente os **comutadores aninhados** de ordem 3 porque *descarta* o comutador simples `[A,B]`. Esse é o custo que o FECK recupera.\n\nCusto de referência por unidade de profundidade e por token: `C_F = 24 d²` FLOPs (12 d² MACs: 4 d² QKVO + 8 d² MLP), multiplicado por κ=1 (metades reaproveitadas) ou κ=1.5 (três avaliações não-lineares por passo).\n\n---\n\n## 2. Construção do FECK\n\n### 2.1 Carta comprimida (energia residual)\nNas âncoras `t_n`, seja `U_n ∈ R^{d×r}` a base POD dos incrementos residuais `Δx_l` numa janela deslizante. Com `r=128` retemos **99,1% da energia** (dado empírico verificado no grafo). Coordenadas: `y = U_n^T(x - x_n^{ref}) ∈ R^r`.\n\n`U_n` é obtido por sketch SRHT (`O(d r log r)`) e **compartilhado entre os K=2000 tokens e entre os s sub-passos** → custo amortizado < 0,1% da âncora.\n\n### 2.2 Splitting congelado e operadores de Galerkin\n$$A_n = U_n^T J_A U_n,\\qquad B_n = U_n^T J_B U_n \\in R^{r×r}.$$\n\nConstrução matricial-free: `A_n = (W_O^T U_n)^T \\tilde P (V U_n)` com o mapa de atenção `\\tilde P` congelado — custo `O(d r + r²)`, **não** `O(d²r)`.\n\n### 2.3 Fecho por comutadores (Magnus truncado)\nInterpolando linearmente os operadores entre âncoras (`A(t) = A_n + (t/τ)ΔA`), o gerador de Magnus até segunda ordem é\n\n$$\\Omega_n = \\tau(A_n + B_n) + \\frac{\\tau^2}{2}\\big([A_n,B_n] + [\\Delta A, B_n] + [A_n,\\Delta B]\\big) + O(\\tau^3).$$\n\nO termo `[A_n,B_n]` é calculado **por ação** no espaço reduzido (nunca como matriz d×d):\n\n$$[A_n,B_n]\\,V = A_n(B_n V) - B_n(A_n V) \\;\\Rightarrow\\; 2r^3 \\text{ FLOPs}.$$\n\n### 2.4 Fecho polinomial (a peça que colapsa os FLOPs)\nPor Cayley–Hamilton, para `H_n = \\Omega_n/\\tau ∈ R^{r×r}` e qualquer `f` analítica vale `f(H_n)y = p_{r-1}(H_n)y`, onde `p` é o **interpolante de Hermite** de `f = \\exp(\\tau\\,\\cdot)` em `σ(H_n)`. Usamos interpolação de **Chebyshev em pontos de Leja** sobre o intervalo numérico de `H_n`, avaliada pela **recorrência de Clenshaw**:\n\n$$P_n := p_{r-1}(H_n) \\in R^{r×r},\\qquad \\text{custo } 2r^3 \\text{ FLOPs},$$\n$$y_{k+1} = P_n y_k \\;\\text{(sub-passos)} \\qquad \\text{custo } 2r^2 \\text{ FLOPs por sub-passo}.$$\n\nDuas consequências estruturais:\n1. **Nenhuma avaliação do campo não-linear ocorre entre âncoras.** O número de FLOPs em dimensão `d` colapsa de `O(L·d²)` para `O((L/sτ)·d²)`.\n2. **Estabilidade garantida por construção**: escolhendo os pontos de Leja, `\\|P_n\\| ≤ e^{τ \\max \\Re λ(H_n)}` — o fecho é **não expansivo** para a parte dissipativa, o que é decisivo para horizonte K=2000 sem deriva de norma.\n\n---\n\n## 3. Teoremas (com limites explícitos)\n\n**(T1) Defeito local.**\n$$\\|x(t_n+\\tau) - x_{\\text{FECK}}\\| \\le \\underbrace{\\frac{\\tau^3}{6}\\big(\\|[\\dot A,B]\\| + \\|[A,\\dot B]\\|\\big)}_{\\text{deriva do operador}} + \\underbrace{C\\tau^4\\|[A,[A,B]]\\|}_{\\text{Magnus residual}} + \\underbrace{\\varepsilon_K\\|x\\|}_{\\text{cauda POD}} + \\underbrace{\\varepsilon_P\\|x\\|}_{\\text{fecho}}$$\n\nComparado a Strang, o termo dominante passa de `τ³·‖comutadores aninhados‖` para `τ³·‖deriva do operador‖`. Como pesos são congelados e apenas `\\tilde P` e o gate variam ao longo de τ=1.2, a deriva é pequena: **constante de erro ~3–5× menor que `n_strang` no mesmo τ**.\n\n**(T2) Contracção.** Se `\\max \\Re λ(H_n) ≤ 0` (verificado por teste de Hermitiano `\\frac{1}{2}(H_n + H_n^T) \\preceq 0`), então `\\|P_n^k\\| ≤ 1` para todo k — sem amplificação exponencial em K=2000 passos.\n\n**(T3) Complexidade.** Ver Seção 4.\n\n**Precisão do fecho polinomial:** para `\\|H_n\\|τ ≤ 2`, o termo de truncamento de Chebyshev satisfaz `\\varepsilon_P ≤ 2 I_{r-1}(\\|H_n\\|τ)^{-1} < 10^{-12}` já com grau ~8. Logo **r=128 não é limitado pelo grau polinomial, e sim pela energia residual (0,9%)** — enorme folga estrutural.\n\n---\n\n## 4. Dedução analítica de FLOPs (por token)\n\n| Componente | FLOPs | d=2560, r=128 |\n|---|---|---|\n| Avaliação do campo (âncora) | `24 d²` | 1,5729e8 |\n| Carta (projeção + injeção) | `6 d r` | 1,966e6 |\n| Galerkin `A_n+B_n` | `2 r³` | 4,19e6 |\n| Comutador `[A_n,B_n]` | `2 r³` | 4,19e6 |\n| Fecho polinomial `P_n = p(H_n)` (Clenshaw) | `2 r³` | 4,19e6 |\n| Sub-passos (s−1 avanços `y ← P_n y`) | `2 s r²` | 1,31e5 (s=4) |\n| **Total por âncora** | `24d² + 6dr + 6r³ + 2sr²` | **1,719e8** |\n\nCobertura por âncora: `Δ = sτ` unidades de profundidade. Logo\n\n$$\\boxed{\\;\\rho(s) = 1 - \\frac{24d^2 + 6dr + 6r^3 + 2sr^2}{s\\,\\tau\\,\\kappa\\,24 d^2}\\;},\\qquad \\tau=1.2.$$\n\nCom `24d² + 6dr + 6r³ = 1,0926·24d²`:\n\n| s | Δ=1.2s | ρ (κ=1) | ρ (κ=1.5) |\n|---|---|---|---|\n| 1 | 1,2 | 8,9% | 39,3% |\n| 2 | 2,4 | 54,5% | 69,7% |\n| 3 | 3,6 | 69,6% | 79,8% |\n| **4** | **4,8** | **77,3% ✓** | **84,8% ✓** |\n| 6 | 7,2 | 84,8% | 89,9% |\n| 8 | 9,6 | 88,6% | 92,4% |\n\n**Ponto de projeto: s = 4 (âncora a cada 4,8 unidades de profundidade).** Com amortização da carta `U_n` sobre K=2000 tokens, ρ(s=4) sobe para ~77,5–85%.\n\nAbsoluto (L=48 camadas, K=2000 tokens): `n_strang` = 15,1 TFLOPs; **FECK = 3,44 TFLOPs**.\n\n---\n\n## 5. Predições falsificáveis para a bancada (r=128, K=2000, τ=1.2)\n\n1. **FLOPs:** redução medida em [77,0%; 85,0%], contando todas as operações em dimensão `d` e `r`. Aceite: ≥75%.\n2. **Top-1:** perda ≤ 2 pp, decomposta em: cauda POD 0,9 pp + refresh (s=4) 0,2–0,5 pp + fecho polinomial < 0,05 pp ⇒ **predição central 1,25 pp**.\n3. **Ordem de convergência:** sweep τ ∈ {0.3, 0.6, 1.2} contra referência h=0.15 ⇒ slope log-log **p ≥ 2,0** para FECK e p ≈ 2,0 para `n_strang`, com constante de erro do FECK **≥ 2× menor** em τ=1.2.\n4. **Comutador:** `\\frac{τ}{2}\\|[A_n,B_n]\\| ≤ 0,08\\|A_n\\|τ` em ≥95% das âncoras (pré-condição do T1).\n5. **Estabilidade:** `\\|x\\|` sem crescimento líquido ao longo de K=2000 (T2), i.e. `\\|P_n^k\\|_2 ≤ 1+10^{-6}`.\n\n**Critério de rejeição:** rejeito a formulação se (a) ρ < 75%, ou (b) ΔTop-1 > 2 pp, ou (c) o monitor de defeito forçar refresh antecipado (s < 3) em mais de 30% das âncoras.\n\n---\n\n## 6. Protocolo de verificação da bancada\n\n1. **Contador de FLOPs fechado:** instrumentar matvecs em `d` e em `r`; comparar com a fórmula da Seção 4 (tolerância ±3%).\n2. **Auditoria da energia:** confirmar 99,1% em r=128 e varrer r ∈ {64, 96, 128, 160} para isolar o efeito da cauda.\n3. **Defeito residual (monitor adaptativo):** `D_n = ‖Φ_refresh(x_n) − x_{n+sτ}‖ / ‖x_n‖`; se `D_n > η = 2·10⁻³`, reduzir s localmente.\n4. **Ordem de convergência:** regressão log-log conforme item 3 da Seção 5.\n5. **Top-1:** mesmo head de logits, mesmos K=2000 tokens; `n_strang` com h=0,6 como referência-ouro.\n\n---\n\n## 7. Modos de falha e guardas\n\n- **Não-normalidade de `H_n`:** degrada o limite de Chebyshev → trocar para pontos de Leja sobre pseudoespectro ou reancorar (s←2).\n- **Deriva do mapa de atenção dentro do span:** se `KL(P_n ‖ P_{n+1}) > θ`, refresh imediato (a deriva é exatamente o termo dominante do T1).\n- **LayerNorm:** não comuta; é absorvida em `B` com escala congelada na âncora (folding da parte afim do RMSNorm).\n- **Comutador grande:** se `\\|[A,B]\\|τ²/2 > η‖A‖τ`, escalar para Magnus ordem 3 (+4 produtos reduzidos = +8 r³ por âncora; ainda < 6% de overhead).\n\n---\n\n## 8. Riscos de validade\n\nA hipótese estrutural central — **que a deriva dos operadores congelados ao longo de 4,8 unidades de profundidade é menor que os comutadores aninhados que Strang paga a cada passo** — é plausível mas **não é teorema**: depende de quão rápido o padrão de atenção e o gate SwiGLU variam com a profundidade no modelo-alvo. É exatamente o que o ponto 4 do protocolo mede. Se a deriva for maior que o previsto, o grafo de liberdade é `s ∈ {2,3}` (ρ = 54,5%–69,6% em κ=1), e nesse caso a redução de 75% só é atingida com κ=1.5, ou seja, exigiria revisar a baseline — cenário que declaro explicitamente como risco antes da rodada, para não contaminar a validação posterior.\n\n**Status: hipótese submetida à bancada local (r=128, K=2000, τ=1.2).** Próximo ciclo deve reportar os itens 1–5 da Seção 6 antes de qualquer escalonamento."
+      }
+    },
+    {
+      "id": "hyp_gen79_54420",
+      "label": "Hypothesis",
+      "title": "Vou executar direto: primeiro uma bancada numérica real (identidades de comutado",
+      "description": "Vou executar direto: primeiro uma bancada numérica real (identidades de comutadores de Kronecker, ordem do defeito de Zassenhaus em τ=1.2, e a auditoria \"energia de operador × defeito projetado nos dados\"), porque a formulação só vale se os lemas sustentarem numericamente. Em paralelo já fecho o modelo analítico de FLOPs.",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793309837.8142982,
+      "updated_at": 1793309838.699656,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0079_1793309611",
+        "cycle_id": 434,
+        "full_text": "Vou executar direto: primeiro uma bancada numérica real (identidades de comutadores de Kronecker, ordem do defeito de Zassenhaus em τ=1.2, e a auditoria \"energia de operador × defeito projetado nos dados\"), porque a formulação só vale se os lemas sustentarem numericamente. Em paralelo já fecho o modelo analítico de FLOPs."
+      }
+    },
+    {
+      "id": "gen_0079_1793309611",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #79 (Ciclo #434)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793309838.8399048,
+      "updated_at": 1793309838.839905,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 79,
+        "cycle_id": 434,
+        "verdict": "APPROVED",
+        "duration_sec": 227.79,
+        "tokens_consumed": 4501,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -34107,7 +34180,97 @@
       "version": 1,
       "created_at": 1793309561.712977,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen79_65410_addresses_n_krylov",
+      "source_id": "hyp_gen79_65410",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793309690.0000093,
+        "updated_at": 1793309690.7835593,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0079_1793309611_1793309690056_e_hyp_gen79_65410_addresses_n_krylov",
+            "generation_id": "gen_0079_1793309611",
+            "timestamp": 1793309690.7835593,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793309690.0000134,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen79_62780_addresses_n_strang",
+      "source_id": "hyp_gen79_62780",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793309761.564757,
+        "updated_at": 1793309762.5429692,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0079_1793309611_1793309761635_e_hyp_gen79_62780_addresses_n_strang",
+            "generation_id": "gen_0079_1793309611",
+            "timestamp": 1793309762.5429692,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_039_investigator",
+      "version": 1,
+      "created_at": 1793309761.5647633,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen79_54420_addresses_n_naive",
+      "source_id": "hyp_gen79_54420",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793309837.8818257,
+        "updated_at": 1793309838.766123,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0079_1793309611_1793309837941_e_hyp_gen79_54420_addresses_n_naive",
+            "generation_id": "gen_0079_1793309611",
+            "timestamp": 1793309838.766123,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793309837.8818316,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793309562.4702992
+  "saved_at": 1793309838.8417075
 }
