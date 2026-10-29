@@ -4,9 +4,9 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `348`
+- **Total de Ciclos Científicos Executados:** `349`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 60`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 61`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,6 +24,7 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#349** | 2026-10-29 13:21:15 | `GPT3B_H349_CAYLEY_SIMPLETICO_EM_SUBESPACO_INVARIANTE_AMORTIZADO` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#348** | 2026-10-29 13:11:29 | `GPT3B_H348_TRANSICAO_SIMPLETICA_RESIDUAL_TSR_CSI` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#347** | 2026-10-29 13:01:05 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#346** | 2026-10-29 12:58:36 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
@@ -73,4 +74,3 @@
 | **#302** | 2026-10-29 11:06:56 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#301** | 2026-10-29 11:04:23 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#300** | 2026-10-29 11:01:52 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#299** | 2026-10-29 10:59:18 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
