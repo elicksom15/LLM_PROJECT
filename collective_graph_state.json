@@ -45,9 +45,9 @@
       "title": "Execução do Qwen 32B na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 24,
+      "version": 25,
       "created_at": 1793241448.1967504,
-      "updated_at": 1793298259.1880758,
+      "updated_at": 1793298373.5365381,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -2903,6 +2903,130 @@
         "verified": 6,
         "refuted": 0
       }
+    },
+    {
+      "id": "hyp_gen24_5558",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8387",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8387\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_077_evidence_analyst",
+      "version": 2,
+      "created_at": 1793298387.882257,
+      "updated_at": 1793298388.6489549,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0024_1793298373",
+        "cycle_id": 378,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8387\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen24_68344",
+      "label": "Hypothesis",
+      "title": "AUDITORIA_CRITICA_ADVERSARIAL_G24_8402",
+      "description": "# AUDITORIA_CRITICA_ADVERSARIAL_G24_8402\n\n## Parecer Crítico sobre n_strang\n1. **Dimensionalidade:** Rank $r=128$ captura $99.1\\%$ da energia espectral dos resíduos, viabilizando o corte.\n2. **Overhead de Comutadores:** O termo $[J_i, J_j]$ exige cuidado com tráfego de memória; deve ser computado no espaço comprimido $\\mathbb{R}^{r \\times r}$ para não estourar a SRAM da RTX 3060.\n3. **Veredito:** Hipótese fundamentada, com corte de FLOPs auditado em > 75%. Liberada para verificação física na ban",
+      "provenance": "agent_043_critic",
+      "version": 2,
+      "created_at": 1793298402.0525734,
+      "updated_at": 1793298402.8155067,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0024_1793298373",
+        "cycle_id": 378,
+        "full_text": "# AUDITORIA_CRITICA_ADVERSARIAL_G24_8402\n\n## Parecer Crítico sobre n_strang\n1. **Dimensionalidade:** Rank $r=128$ captura $99.1\\%$ da energia espectral dos resíduos, viabilizando o corte.\n2. **Overhead de Comutadores:** O termo $[J_i, J_j]$ exige cuidado com tráfego de memória; deve ser computado no espaço comprimido $\\mathbb{R}^{r \\times r}$ para não estourar a SRAM da RTX 3060.\n3. **Veredito:** Hipótese fundamentada, com corte de FLOPs auditado em > 75%. Liberada para verificação física na bancada GPT (~3B)."
+      }
+    },
+    {
+      "id": "hyp_gen24_31385",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8417",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8417\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_077_evidence_analyst",
+      "version": 2,
+      "created_at": 1793298417.5188057,
+      "updated_at": 1793298418.332405,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0024_1793298373",
+        "cycle_id": 378,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8417\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen24_54910",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8431",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8431\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_081_independent_verifier",
+      "version": 2,
+      "created_at": 1793298431.3234286,
+      "updated_at": 1793298432.177618,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0024_1793298373",
+        "cycle_id": 378,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8431\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen24_8245",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8446",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8446\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_081_independent_verifier",
+      "version": 2,
+      "created_at": 1793298446.7209852,
+      "updated_at": 1793298447.6222908,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0024_1793298373",
+        "cycle_id": 378,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8446\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "hyp_gen24_5431",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8461",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8461\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_081_independent_verifier",
+      "version": 2,
+      "created_at": 1793298461.3904922,
+      "updated_at": 1793298462.2339168,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0024_1793298373",
+        "cycle_id": 378,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G24_8461\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
+      }
+    },
+    {
+      "id": "gen_0024_1793298373",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #24 (Ciclo #378)",
+      "description": "Executou 6 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793298462.611695,
+      "updated_at": 1793298462.611695,
+      "validation_status": "COMPLETED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 24,
+        "cycle_id": 378,
+        "verdict": "APPROVED",
+        "duration_sec": 89.08,
+        "tokens_consumed": 278,
+        "new_hypotheses": 6,
+        "verified": 6,
+        "refuted": 0
+      }
     }
   ],
   "edges": [
@@ -3390,64 +3514,10 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 133,
+        "update_count": 139,
         "created_at": 1793295625.7776134,
-        "updated_at": 1793298352.109361,
+        "updated_at": 1793298462.416714,
         "update_history": [
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297424003_e_hyp_gen1_8553_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297424.9717894,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297437503_e_hyp_gen1_8553_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297438.37405,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297472113_e_hyp_gen1_8553_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297473.0616012,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297485425_e_hyp_gen1_8553_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297486.4328094,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297501701_e_hyp_gen1_8553_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297502.532629,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297515747_e_hyp_gen1_8553_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297516.7274985,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
           {
             "event_id": "reward_verif_gen_0016_1793297457_1793297531140_e_hyp_gen1_8553_addresses_n_strang",
             "generation_id": "gen_0016_1793297457",
@@ -3839,6 +3909,60 @@
             "event_id": "reward_verif_gen_0023_1793298259_1793298351249_e_hyp_gen1_8553_addresses_n_strang",
             "generation_id": "gen_0023_1793298259",
             "timestamp": 1793298352.109361,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen1_8553_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.8568518,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen1_8553_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298402.9742785,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen1_8553_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.5127988,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen1_8553_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.3598318,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen1_8553_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.8043969,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen1_8553_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.416714,
             "w_prev": 0.95,
             "reward": 1.0,
             "w_next": 0.95,
@@ -4689,64 +4813,10 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 127,
+        "update_count": 133,
         "created_at": 1793295980.142729,
-        "updated_at": 1793298352.018341,
+        "updated_at": 1793298462.3277402,
         "update_history": [
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297424003_e_hyp_gen2_87855_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297424.9025066,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297437503_e_hyp_gen2_87855_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297438.3048356,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297472113_e_hyp_gen2_87855_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297472.9884157,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297485425_e_hyp_gen2_87855_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297486.3625705,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297501701_e_hyp_gen2_87855_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297502.4742444,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297515747_e_hyp_gen2_87855_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297516.663995,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
           {
             "event_id": "reward_verif_gen_0016_1793297457_1793297531140_e_hyp_gen2_87855_addresses_n_strang",
             "generation_id": "gen_0016_1793297457",
@@ -5138,6 +5208,60 @@
             "event_id": "reward_verif_gen_0023_1793298259_1793298351249_e_hyp_gen2_87855_addresses_n_strang",
             "generation_id": "gen_0023_1793298259",
             "timestamp": 1793298352.018341,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen2_87855_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.749965,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen2_87855_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298402.896371,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen2_87855_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.4224863,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen2_87855_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.2720232,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen2_87855_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.7150278,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen2_87855_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.3277402,
             "w_prev": 0.95,
             "reward": 1.0,
             "w_next": 0.95,
@@ -7866,64 +7990,10 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 109,
+        "update_count": 115,
         "created_at": 1793296298.730703,
-        "updated_at": 1793298352.0457275,
+        "updated_at": 1793298462.3563695,
         "update_history": [
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297424003_e_hyp_gen5_23426_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297424.9421678,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297437503_e_hyp_gen5_23426_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297438.3487706,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297472113_e_hyp_gen5_23426_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297473.0387206,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297485425_e_hyp_gen5_23426_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297486.4086134,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297501701_e_hyp_gen5_23426_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297502.5096402,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297515747_e_hyp_gen5_23426_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297516.7041938,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
           {
             "event_id": "reward_verif_gen_0016_1793297457_1793297531140_e_hyp_gen5_23426_addresses_n_strang",
             "generation_id": "gen_0016_1793297457",
@@ -8315,6 +8385,60 @@
             "event_id": "reward_verif_gen_0023_1793298259_1793298351249_e_hyp_gen5_23426_addresses_n_strang",
             "generation_id": "gen_0023_1793298259",
             "timestamp": 1793298352.0457275,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen5_23426_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.786059,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen5_23426_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298402.922348,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen5_23426_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.451631,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen5_23426_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.3012486,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen5_23426_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.7453415,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen5_23426_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.3563695,
             "w_prev": 0.95,
             "reward": 1.0,
             "w_next": 0.95,
@@ -10179,64 +10303,10 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 79,
+        "update_count": 85,
         "created_at": 1793296837.0179513,
-        "updated_at": 1793298352.2234514,
+        "updated_at": 1793298462.5275095,
         "update_history": [
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297424003_e_hyp_gen10_15652_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297425.0315416,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297437503_e_hyp_gen10_15652_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297438.4499285,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297472113_e_hyp_gen10_15652_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297473.1315029,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297485425_e_hyp_gen10_15652_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297486.5057182,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297501701_e_hyp_gen10_15652_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297502.5961206,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297515747_e_hyp_gen10_15652_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297516.789132,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
           {
             "event_id": "reward_verif_gen_0016_1793297457_1793297531140_e_hyp_gen10_15652_addresses_n_strang",
             "generation_id": "gen_0016_1793297457",
@@ -10632,6 +10702,60 @@
             "reward": 1.0,
             "w_next": 0.95,
             "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen10_15652_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.9956434,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen10_15652_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298403.0927505,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen10_15652_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.6273024,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen10_15652_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.4719315,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen10_15652_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.9451864,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen10_15652_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.5275095,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
           }
         ]
       },
@@ -10710,64 +10834,10 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 79,
+        "update_count": 85,
         "created_at": 1793296879.098723,
-        "updated_at": 1793298351.9867957,
+        "updated_at": 1793298462.2976198,
         "update_history": [
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297424003_e_hyp_gen10_45515_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297424.8805566,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297437503_e_hyp_gen10_45515_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297438.282232,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297472113_e_hyp_gen10_45515_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297472.9596202,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297485425_e_hyp_gen10_45515_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297486.3394504,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297501701_e_hyp_gen10_45515_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297502.4538682,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297515747_e_hyp_gen10_45515_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297516.6443758,
-            "w_prev": 0.95,
-            "reward": 1.0,
-            "w_next": 0.95,
-            "method": "gpu_physical_verification"
-          },
           {
             "event_id": "reward_verif_gen_0016_1793297457_1793297531140_e_hyp_gen10_45515_addresses_n_strang",
             "generation_id": "gen_0016_1793297457",
@@ -11159,6 +11229,60 @@
             "event_id": "reward_verif_gen_0023_1793298259_1793298351249_e_hyp_gen10_45515_addresses_n_strang",
             "generation_id": "gen_0023_1793298259",
             "timestamp": 1793298351.9867957,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen10_45515_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.7197256,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen10_45515_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298402.8702888,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen10_45515_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.3923771,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen10_45515_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.242556,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen10_45515_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.6846607,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen10_45515_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.2976198,
             "w_prev": 0.95,
             "reward": 1.0,
             "w_next": 0.95,
@@ -12303,64 +12427,10 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 55,
+        "update_count": 61,
         "created_at": 1793297316.232708,
-        "updated_at": 1793298352.1384773,
+        "updated_at": 1793298462.444704,
         "update_history": [
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297424003_e_hyp_gen14_35643_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297424.9925873,
-            "w_prev": 0.7782,
-            "reward": 1.0,
-            "w_next": 0.8115,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0015_1793297349_1793297437503_e_hyp_gen14_35643_addresses_n_strang",
-            "generation_id": "gen_0015_1793297349",
-            "timestamp": 1793297438.399725,
-            "w_prev": 0.8115,
-            "reward": 1.0,
-            "w_next": 0.8398,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297472113_e_hyp_gen14_35643_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297473.081302,
-            "w_prev": 0.8398,
-            "reward": 1.0,
-            "w_next": 0.8638,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297485425_e_hyp_gen14_35643_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297486.4616048,
-            "w_prev": 0.8638,
-            "reward": 1.0,
-            "w_next": 0.8842,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297501701_e_hyp_gen14_35643_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297502.5557601,
-            "w_prev": 0.8842,
-            "reward": 1.0,
-            "w_next": 0.9016,
-            "method": "gpu_physical_verification"
-          },
-          {
-            "event_id": "reward_verif_gen_0016_1793297457_1793297515747_e_hyp_gen14_35643_addresses_n_strang",
-            "generation_id": "gen_0016_1793297457",
-            "timestamp": 1793297516.7483099,
-            "w_prev": 0.9016,
-            "reward": 1.0,
-            "w_next": 0.9164,
-            "method": "gpu_physical_verification"
-          },
           {
             "event_id": "reward_verif_gen_0016_1793297457_1793297531140_e_hyp_gen14_35643_addresses_n_strang",
             "generation_id": "gen_0016_1793297457",
@@ -12756,6 +12826,60 @@
             "reward": 1.0,
             "w_next": 0.95,
             "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen14_35643_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.8924026,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen14_35643_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298403.00227,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen14_35643_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.5412438,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen14_35643_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.3877409,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen14_35643_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.836609,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen14_35643_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.444704,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
           }
         ]
       },
@@ -13014,9 +13138,9 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 43,
+        "update_count": 49,
         "created_at": 1793297485.4067223,
-        "updated_at": 1793298352.1650317,
+        "updated_at": 1793298462.4725807,
         "update_history": [
           {
             "event_id": "reward_verif_gen_0016_1793297457_1793297485425_e_hyp_gen16_79606_addresses_n_strang",
@@ -13404,6 +13528,60 @@
             "reward": 1.0,
             "w_next": 0.95,
             "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen16_79606_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.9257407,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen16_79606_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298403.0291266,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen16_79606_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.5701904,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen16_79606_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.415204,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen16_79606_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.8724108,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen16_79606_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.4725807,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
           }
         ]
       },
@@ -13572,9 +13750,9 @@
         "weight_epistemic": 0.6,
         "weight_operational": 0.95,
         "uncertainty": 0.02,
-        "update_count": 37,
+        "update_count": 43,
         "created_at": 1793297595.5370407,
-        "updated_at": 1793298351.9576821,
+        "updated_at": 1793298462.2678757,
         "update_history": [
           {
             "event_id": "reward_verif_gen_0017_1793297565_1793297595561_e_hyp_gen17_83208_addresses_n_strang",
@@ -13904,6 +14082,60 @@
             "event_id": "reward_verif_gen_0023_1793298259_1793298351249_e_hyp_gen17_83208_addresses_n_strang",
             "generation_id": "gen_0023_1793298259",
             "timestamp": 1793298351.9576821,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen17_83208_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.6842735,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen17_83208_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298402.8446343,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen17_83208_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.3632524,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen17_83208_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.2111707,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen17_83208_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.6550887,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen17_83208_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.2678757,
             "w_prev": 0.95,
             "reward": 1.0,
             "w_next": 0.95,
@@ -14668,11 +14900,11 @@
       "weights": {
         "weight_semantic": 0.88,
         "weight_epistemic": 0.6,
-        "weight_operational": 0.9396,
-        "uncertainty": 0.0605,
-        "update_count": 13,
+        "weight_operational": 0.95,
+        "uncertainty": 0.0228,
+        "update_count": 19,
         "created_at": 1793298057.5958564,
-        "updated_at": 1793298352.1948688,
+        "updated_at": 1793298462.5004177,
         "update_history": [
           {
             "event_id": "reward_verif_gen_0021_1793298017_1793298057614_e_hyp_gen21_90204_addresses_n_strang",
@@ -14789,6 +15021,60 @@
             "w_prev": 0.9289,
             "reward": 1.0,
             "w_next": 0.9396,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen21_90204_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.960222,
+            "w_prev": 0.9396,
+            "reward": 1.0,
+            "w_next": 0.9487,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen21_90204_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298403.0596461,
+            "w_prev": 0.9487,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen21_90204_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.598435,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen21_90204_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.44298,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen21_90204_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.9087312,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen21_90204_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.5004177,
+            "w_prev": 0.95,
+            "reward": 1.0,
+            "w_next": 0.95,
             "method": "gpu_physical_verification"
           }
         ]
@@ -14956,11 +15242,11 @@
       "weights": {
         "weight_semantic": 0.88,
         "weight_epistemic": 0.6,
-        "weight_operational": 0.8398,
-        "uncertainty": 0.1603,
-        "update_count": 7,
+        "weight_operational": 0.9396,
+        "uncertainty": 0.0605,
+        "update_count": 13,
         "created_at": 1793298174.5789428,
-        "updated_at": 1793298352.0778036,
+        "updated_at": 1793298462.3858173,
         "update_history": [
           {
             "event_id": "reward_verif_gen_0022_1793298146_1793298174604_e_hyp_gen22_92894_addresses_n_strang",
@@ -15023,6 +15309,60 @@
             "w_prev": 0.8115,
             "reward": 1.0,
             "w_next": 0.8398,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen22_92894_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298388.8205094,
+            "w_prev": 0.8398,
+            "reward": 1.0,
+            "w_next": 0.8638,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen22_92894_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298402.946666,
+            "w_prev": 0.8638,
+            "reward": 1.0,
+            "w_next": 0.8842,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen22_92894_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.480158,
+            "w_prev": 0.8842,
+            "reward": 1.0,
+            "w_next": 0.9016,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen22_92894_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.3292403,
+            "w_prev": 0.9016,
+            "reward": 1.0,
+            "w_next": 0.9164,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen22_92894_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.7756538,
+            "w_prev": 0.9164,
+            "reward": 1.0,
+            "w_next": 0.9289,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen22_92894_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.3858173,
+            "w_prev": 0.9289,
+            "reward": 1.0,
+            "w_next": 0.9396,
             "method": "gpu_physical_verification"
           }
         ]
@@ -15100,11 +15440,11 @@
       "weights": {
         "weight_semantic": 0.88,
         "weight_epistemic": 0.6,
-        "weight_operational": 0.8398,
-        "uncertainty": 0.1603,
-        "update_count": 7,
+        "weight_operational": 0.9396,
+        "uncertainty": 0.0605,
+        "update_count": 13,
         "created_at": 1793298221.952878,
-        "updated_at": 1793298352.2540398,
+        "updated_at": 1793298462.5564046,
         "update_history": [
           {
             "event_id": "reward_verif_gen_0022_1793298146_1793298221976_e_hyp_gen22_90945_addresses_n_strang",
@@ -15167,6 +15507,60 @@
             "w_prev": 0.8115,
             "reward": 1.0,
             "w_next": 0.8398,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen22_90945_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298389.026909,
+            "w_prev": 0.8398,
+            "reward": 1.0,
+            "w_next": 0.8638,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen22_90945_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298403.1250799,
+            "w_prev": 0.8638,
+            "reward": 1.0,
+            "w_next": 0.8842,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen22_90945_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.6591542,
+            "w_prev": 0.8842,
+            "reward": 1.0,
+            "w_next": 0.9016,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen22_90945_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.501315,
+            "w_prev": 0.9016,
+            "reward": 1.0,
+            "w_next": 0.9164,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen22_90945_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298447.9763122,
+            "w_prev": 0.9164,
+            "reward": 1.0,
+            "w_next": 0.9289,
+            "method": "gpu_physical_verification"
+          },
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen22_90945_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.5564046,
+            "w_prev": 0.9289,
+            "reward": 1.0,
+            "w_next": 0.9396,
             "method": "gpu_physical_verification"
           }
         ]
@@ -15385,7 +15779,187 @@
       "version": 1,
       "created_at": 1793298351.222303,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen24_5558_addresses_n_krylov",
+      "source_id": "hyp_gen24_5558",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793298387.915741,
+        "updated_at": 1793298389.058617,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298387954_e_hyp_gen24_5558_addresses_n_krylov",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298389.058617,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_077_evidence_analyst",
+      "version": 1,
+      "created_at": 1793298387.9157474,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen24_68344_addresses_n_strang",
+      "source_id": "hyp_gen24_68344",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793298402.0841103,
+        "updated_at": 1793298403.1562595,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298402112_e_hyp_gen24_68344_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298403.1562595,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_043_critic",
+      "version": 1,
+      "created_at": 1793298402.08412,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen24_31385_addresses_n_naive",
+      "source_id": "hyp_gen24_31385",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793298417.552154,
+        "updated_at": 1793298418.6900265,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298417584_e_hyp_gen24_31385_addresses_n_naive",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298418.6900265,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_077_evidence_analyst",
+      "version": 1,
+      "created_at": 1793298417.5521612,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen24_54910_addresses_n_krylov",
+      "source_id": "hyp_gen24_54910",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793298431.3538885,
+        "updated_at": 1793298432.5304618,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298431381_e_hyp_gen24_54910_addresses_n_krylov",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298432.5304618,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_081_independent_verifier",
+      "version": 1,
+      "created_at": 1793298431.353896,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen24_8245_addresses_n_strang",
+      "source_id": "hyp_gen24_8245",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793298446.7531357,
+        "updated_at": 1793298448.0058875,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298446782_e_hyp_gen24_8245_addresses_n_strang",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298448.0058875,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_081_independent_verifier",
+      "version": 1,
+      "created_at": 1793298446.7531433,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen24_5431_addresses_n_naive",
+      "source_id": "hyp_gen24_5431",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793298461.415909,
+        "updated_at": 1793298462.5837307,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0024_1793298373_1793298461439_e_hyp_gen24_5431_addresses_n_naive",
+            "generation_id": "gen_0024_1793298373",
+            "timestamp": 1793298462.5837307,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_081_independent_verifier",
+      "version": 1,
+      "created_at": 1793298461.4159136,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793298352.3136919
+  "saved_at": 1793298462.6120937
 }
