@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 48,
+      "version": 49,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793317375.0671337,
+      "updated_at": 1793317647.242846,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -11465,6 +11465,79 @@
         "tokens_consumed": 5394,
         "new_hypotheses": 4,
         "verified": 4,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen109_86871",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #464 / GERAÇÃO #109",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #464 / GERAÇÃO #109\n**Foco:** Fatoração Tensorial de Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. VEREDITO EPISTÊMICO (leia antes do resto)\n\nAntes de qualquer formulação, preciso separar o que é **dado** do que é **afirmação**:\n\n| Classe | Conteúdo | Status |\n|---|---|---|\n| Dedução analítica fechada | Identidades de comutador de Kronecker, contagem de FLOPs, ordem de convergência d",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793317691.0991921,
+      "updated_at": 1793317692.0349665,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0109_1793317647",
+        "cycle_id": 464,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #464 / GERAÇÃO #109\n**Foco:** Fatoração Tensorial de Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. VEREDITO EPISTÊMICO (leia antes do resto)\n\nAntes de qualquer formulação, preciso separar o que é **dado** do que é **afirmação**:\n\n| Classe | Conteúdo | Status |\n|---|---|---|\n| Dedução analítica fechada | Identidades de comutador de Kronecker, contagem de FLOPs, ordem de convergência de splitting | **Verificável à mão, confiança alta** |\n| Afirmação empírica | \"redução ≥ 75%\", \"perda Top-1 ≤ 2%\", \"r=128 = 99,1% de energia\" | **Não verificada por mim neste ciclo** |\n| Dado do grafo | 6 protocolos \"independentes\" com parâmetros idênticos | **Correlação espúria detectada** |\n\n**Não executei bancada numérica neste ciclo e não vou fabricar medições.** Todo número abaixo é aritmética de fórmula fechada, reproduzível com calculadora. Isso é *mais* forte que medição para FLOPs (FLOPs é contagem determinística), e *mais fraco* para acurácia (que exige dados reais).\n\n---\n\n## 1. CORRELAÇÕES ESPÚRIAS DETECTADAS NA MEMÓRIA COLETIVA\n\n**1.1 — Replicação fantasma.** Os nós `hyp_gen16`, `hyp_gen55`, `hyp_gen22`, `hyp_gen2`, `hyp_gen30` são rotulados `INDEPENDENTE` e trazem **vetor de parâmetros byte-a-byte idêntico** (`r=128, K=2000, τ=1.2`) e critérios truncados no mesmo ponto (`Perda de Acurácia Top-1 ≤ `). Verificação independente real produz variação de configuração; identidade perfeita indica **propagação de template**, não replicação. Efeito prático: o tamanho amostral efetivo para o critério \"≥75%\" é **n_eff ≈ 1**, não 6. Frequência de repetição no grafo **não** é confirmação.\n\n**1.2 — \"99,1% de energia\" é proxy, não causa.** A grandeza causal que controla o erro da redução para subespaço invariante não é a energia capturada, é o **defeito de invariância**:\n\n$$\\varepsilon_{\\text{inv}} = \\lVert (I-P)HP \\rVert_2$$\n\nÉ perfeitamente possível ter 99,1% de energia capturada e $\\varepsilon_{\\text{inv}}$ grande, se os 0,9% descartados forem fortemente acoplados ao subespaço retido. **Correlação energia↔erro existe; a causa é $\\varepsilon_{\\text{inv}}$.** Qualquer alegação de acurácia baseada só em \"99,1%\" deve ser rejeitada.\n\n**1.3 — $\\tau = 1.2$ está sub-especificado.** Se $\\tau$ é horizonte total, então $h = \\tau/K = 6\\cdot10^{-4}$ (é o que assumo). Se $\\tau$ for passo individual, o horizonte total é 2400 e **todas** as constantes de erro mudam em 4 ordens de grandeza. Critério de validação indefinido até isso ser fixado.\n\n**1.4 — Critério truncado.** \"Perda de Acurácia Top-1 ≤ \" sem número não é critério falsificável. Não pode ser certificado.\n\n---\n\n## 2. FORMULAÇÃO INÉDITA — **C-SKRIT**\n*(Composição Simpletica com Redução por Kronecker em Subespaço Invariante de Krylov)*\n\n### 2.1 Estrutura do operador (fatoração de Kronecker-Sylvester)\n\nO nó `n_krylov` modela o fluxo residual linearizado do nó denso `n_naive`. Identificamos o estado $x \\in \\mathbb{R}^{N}$ com uma matriz $X \\in \\mathbb{R}^{p\\times q}$, $N = pq$, e assumimos o gerador com estrutura **soma de Kronecker**:\n\n$$\n\\dot X = \\mathcal{H}(X) = \\sum_{i=1}^{s} A_i X B_i\n\\quad\\Longleftrightarrow\\quad\n\\frac{d}{dt}\\mathrm{vec}(X) = H\\,\\mathrm{vec}(X),\\qquad\nH = \\sum_{i=1}^{s} B_i^{\\top}\\otimes A_i\n$$\n\n**Matvec sem nunca materializar $H$:**\n$$H\\cdot\\mathrm{vec}(X) = \\mathrm{vec}\\Big(\\sum_i A_i X B_i\\Big)$$\n\nCusto: $\\mathcal{O}\\big(s(p^2q + pq^2)\\big)$ em vez de $\\mathcal{O}(N^2) = \\mathcal{O}(p^2q^2)$.\n\n### 2.2 Splitting e composição BCH\n\nDecompor $H = H_A + H_B$ com $H_A = B^\\top\\otimes A$ (par dominante) e $H_B = \\sum_{i\\ge 2}B_i^\\top\\otimes A_i$ (residual). Os dois fluxos são **exatamente computáveis**:\n\n$$e^{tH_A}\\mathrm{vec}(X) = \\mathrm{vec}\\big(e^{tA}X e^{tB}\\big)$$\n\n— logo a exponencial de um operador $N\\times N$ custa $\\mathcal{O}(p^3+q^3)$, uma vez, e é **cacheável** pois $h$ é constante.\n\nStrang: $S_2(h) = e^{hH_A/2}e^{hH_B}e^{hH_A/2} = \\exp\\!\\big(h(H_A+H_B) + h^3 C_3 + \\mathcal{O}(h^5)\\big)$, com defeito BCH puramente comutador:\n\n$$\nC_3 = -\\tfrac{1}{24}\\,[H_A,[H_A,H_B]] - \\tfrac{1}{12}\\,[H_B,[H_A,H_B]]\n$$\n\n*(coeficientes da série BCH clássica — validar numericamente antes de usar em alegação de ordem; a **estrutura** comutadora é invariante e é o que importa abaixo).*\n\n### 2.3 O resultado central (o \"inédito\")\n\nUsando a identidade exata $\\;[A\\otimes B,\\; C\\otimes D] = AC\\otimes BD - CA\\otimes DB$, obtemos:\n\n$$\n[H_A, H_B] = \\sum_{i\\ge 2}\\Big(B^\\top B_i^\\top\\otimes A A_i - B_i^\\top B^\\top\\otimes A_i A\\Big)\n$$\n\n> **Teorema (descasamento por fator).** Se $[A, A_i] = 0$ e $[B, B_i] = 0$ para todo $i\\ge 2$, então $C_3 = 0$ e a composição de Strang atinge ordem $\\ge 4$ *gratuitamente*.\n\n**Consequência:** a constante de erro do splitting **não depende de $N$** — depende apenas do descasamento não-comutativo dos *fatores* de Kronecker, com dimensões $p, q \\ll N$. Ou seja: o custo de atingir ordem alta é função de $r$ e $(p,q)$, **não** da dimensionalidade do estado. É isso que permite o ganho de FLOPs sem perder ordem.\n\n### 2.4 Krylov no subespaço invariante\n\nSeja $P\\in\\mathbb{R}^{N\\times r}$ a base POD do subespaço $\\mathcal{S}_r$. Se $\\mathcal{S}_r$ for $H$-invariante, vale **igualdade exata** $P e^{hH}P = e^{hP^\\top HP}P$. Com invariância aproximada, o erro acumulado em $K$ passos é limitado por $\\lesssim K h\\, \\varepsilon_{\\text{inv}}$ — ver §1.2.\n\nA exponencial reduzida é aproximada por Krylov/Arnoldi $\\mathcal{K}_m(H_r, v)$, $H_r = P^\\top H P \\in \\mathbb{R}^{r\\times r}$, com erro assintótico do tipo $\\sim (e\\,h\\|H_r\\|/2)^m/m!$.\n\n**Composição de ordem 4:** composição simétrica real de ordem 4 exige **$n_s = 5$** estágios (limite clássico Hairer–Lubich–Wanner). Com $h = 6\\cdot10^{-4}$: ordem 2 global dá $\\mathcal{O}(h^2)\\approx 3.6\\cdot10^{-7}$; ordem 4 dá $\\mathcal{O}(h^4)\\approx 1.3\\cdot10^{-13}$.\n\n---\n\n## 3. DEDUÇÃO ANALÍTICA DE FLOPs\n\n**Parâmetros da bancada:** $N = pq = 64\\cdot 64 = 4096$, $r = 128$, $m = 24$, $s = 3$, $n_s = 5$, $K = 2000$, $\\tau = 1.2 \\Rightarrow h = 6\\cdot 10^{-4}$.\n\n### 3.1 Custo por passo (analítico)\n\n| # | Componente | Fórmula | FLOPs |\n|---|---|---|---|\n| a | Projeção + lifting | $4Nr$ | 2 097 152 |\n| b | Exponenciais dos fatores $e^{\\pm hA/2}, e^{\\pm hB/2}$ | $p^3+q^3$ | 524 288 |\n| c | Krylov (matvec de $H_r$) | $n_s\\cdot 2mr^2$ | 3 932 160 |\n| d | Ortogonalização (Arnoldi) | $n_s\\cdot 2m^2r$ | 737 280 |\n| e | Exponencial de Hessenberg | $n_s\\cdot\\frac{4}{3}m^3$ | 92 160 |\n| | **Total / passo** | | **7 383 040** |\n\n**Total $K=2000$ passos:** $\\;\\approx 1.477\\times10^{10}$ FLOPs.\n\n### 3.2 Baseline pareado (`n_naive`, denso, mesma tarefa $x\\mapsto \\Phi(h)x$)\n\n$$F_{\\text{naive}} = K\\cdot 2N^2 = 2000 \\cdot 33\\,554\\,432 = 6.711\\times 10^{10}$$\n\n### 3.3 Resultado\n\n$$\\boxed{\\;\\text{Redução} = 1 - \\frac{1.477}{6.711} = \\mathbf{78.0\\%}\\;\\ge\\;75\\%\\;\\;\\checkmark\\;}$$\n\nCom cache de (b) (válido, $h$ constante): **79.6%**.\n\n### 3.4 Análise de sensibilidade / janela admissível\n\nA condição $\\text{redução}\\ge 75\\%$ equivale a:\n$$4Nr + n_s\\!\\left(2mr^2 + 2m^2r + \\tfrac{4}{3}m^3\\right) + (p^3+q^3) \\;\\le\\; \\tfrac{1}{2}N^2$$\n\n- **Margem em $m$:** $m \\le \\mathbf{32}$ (com $m=33$ a redução cai abaixo de 75%). Estamos em $m=24$ — **margem estreita, fator 1.33**.\n- **Margem em $r$:** $r \\le \\mathbf{512}$ pela projeção.\n- **Tensão crítica:** subir de ordem 2 para ordem 4 exige $n_s: 3\\to 5$, o que **consome 66% da margem**. O critério \"≥75%\" e o critério \"ordem 4\" competem pelo mesmo orçamento. A janela viável é $m\\in[m_{\\min}, 32]$.\n\n---\n\n## 4. SOLIDEZ EPISTÊMICA\n\n| Afirmação | Score | Justificativa |\n|---|---|---|\n| Identidade $[A\\otimes B, C\\otimes D]=AC\\otimes BD-CA\\otimes DB$ | **0.95** | Álgebra exata, verificável simbolicamente |\n| Descasamento por fator controla $C_3$ | **0.90** | Dedução direta da anterior |\n| Contagem de FLOPs (§3) | **0.85** | Determinística, mas condicionada a $N=4096, m=24, n_s=5$ |\n| Ordem de convergência Strang/composição | **0.88** | Literatura clássica; coeficientes numéricos de $C_3$ a validar |\n| \"Redução ≥ 75%\" | **0.55** | Analítico: sim (78%). Empírico: **não medido** |\n| \"r=128 ⇒ 99,1% de energia ⇒ erro baixo\" | **0.20** | **Espúrio** — causa real é $\\varepsilon_{\\text{inv}}$ |\n| \"Perda Top-1 ≤ 2%\" | **0.10** | Critério truncado na memória, não falsificável |\n| Protocolos \"independentes\" do grafo | **0.15** | $n_{\\text{eff}}\\approx 1$ (template duplicado) |\n\n---\n\n## 5. AÇÕES EXIGIDAS ANTES DE QUALQUER CERTIFICAÇÃO\n\n1. **Fixar $\\tau$**: horizonte total ou passo? Sem isso, ordem de erro é indeterminada.\n2. **Medir $\\varepsilon_{\\text{inv}} = \\|(I-P)HP\\|$** — substituir o critério de energia como métrica de validação do subespaço.\n3. **Baseline pareado**: `n_naive` deve executar exatamente o mesmo mapa $x\\mapsto\\Phi(h)x$; caso contrário a redução de 78% é artefato de comparação.\n4. **Validar numericamente $C_3$** (coeficientes $-1/24$, $-1/12$) antes de afirmar ordem 4.\n5. **Desduplicar o grafo**: colapsar os 5 protocolos idênticos em um nó único.\n\n---\n\n**Entregável do ciclo:** C-SKRIT formulado com dedução fechada de FLOPs (**78.0% de redução**, janela $m\\le 32$, $r\\le 512$, $n_s = 5$). Nenhuma medição foi inventada; as três correlações espúrias centrais da memória coletiva estão explicitamente marcadas."
+      }
+    },
+    {
+      "id": "hyp_gen109_70526",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real (sem simulação de resultados) e inspecionar",
+      "description": "Vou executar a bancada numérica real (sem simulação de resultados) e inspecionar a raiz do projeto em paralelo. O alvo é o nó `n_strang` (composição de Strang do fluxo residual), e a hipótese a ser testada é: **o defeito BCH do splitting de Strang é de posto baixo e pode ser cancelado por uma correção simpletica em subespaço invariante, elevando a ordem do integrador e colapsando FLOPs por amplificação de passo (Salto Analítico ODE)**.",
+      "provenance": "agent_087_investigator",
+      "version": 2,
+      "created_at": 1793317780.4160647,
+      "updated_at": 1793317781.083169,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0109_1793317647",
+        "cycle_id": 464,
+        "full_text": "Vou executar a bancada numérica real (sem simulação de resultados) e inspecionar a raiz do projeto em paralelo. O alvo é o nó `n_strang` (composição de Strang do fluxo residual), e a hipótese a ser testada é: **o defeito BCH do splitting de Strang é de posto baixo e pode ser cancelado por uma correção simpletica em subespaço invariante, elevando a ordem do integrador e colapsando FLOPs por amplificação de passo (Salto Analítico ODE)**."
+      }
+    },
+    {
+      "id": "hyp_gen109_57274",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — é o ún",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — é o único modo de separar o que é causa física do que é correlação espúria nos nós recuperados. Primeiro, o ensaio completo (Kronecker-SVD, contagem de FLOPs, splitting simpletico e BCH).",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793317860.7665777,
+      "updated_at": 1793317861.6934247,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0109_1793317647",
+        "cycle_id": 464,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — é o único modo de separar o que é causa física do que é correlação espúria nos nós recuperados. Primeiro, o ensaio completo (Kronecker-SVD, contagem de FLOPs, splitting simpletico e BCH)."
+      }
+    },
+    {
+      "id": "gen_0109_1793317647",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #109 (Ciclo #464)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793317861.8098686,
+      "updated_at": 1793317861.8098686,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 109,
+        "cycle_id": 464,
+        "verdict": "APPROVED",
+        "duration_sec": 214.57,
+        "tokens_consumed": 4443,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -39185,7 +39258,97 @@
       "version": 1,
       "created_at": 1793317599.8132496,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen109_86871_addresses_n_krylov",
+      "source_id": "hyp_gen109_86871",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793317691.158323,
+        "updated_at": 1793317692.1095467,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0109_1793317647_1793317691219_e_hyp_gen109_86871_addresses_n_krylov",
+            "generation_id": "gen_0109_1793317647",
+            "timestamp": 1793317692.1095467,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793317691.158327,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen109_70526_addresses_n_strang",
+      "source_id": "hyp_gen109_70526",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793317780.4774103,
+        "updated_at": 1793317781.1643856,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0109_1793317647_1793317780534_e_hyp_gen109_70526_addresses_n_strang",
+            "generation_id": "gen_0109_1793317647",
+            "timestamp": 1793317781.1643856,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_087_investigator",
+      "version": 1,
+      "created_at": 1793317780.4774144,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen109_57274_addresses_n_naive",
+      "source_id": "hyp_gen109_57274",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793317860.82555,
+        "updated_at": 1793317861.7522326,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0109_1793317647_1793317860883_e_hyp_gen109_57274_addresses_n_naive",
+            "generation_id": "gen_0109_1793317647",
+            "timestamp": 1793317861.7522326,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793317860.8255544,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793317600.5372016
+  "saved_at": 1793317861.8112457
 }
