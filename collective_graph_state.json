@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 39,
+      "version": 40,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793315018.131296,
+      "updated_at": 1793315248.0712814,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -10792,6 +10792,79 @@
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen100_47853",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE EVIDÊNCIAS — CICLO #455 / GERAÇÃO #100",
+      "description": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #455 / GERAÇÃO #100\n\nReconhecido. Antes de qualquer afirmação, preciso registrar uma **correlação espúria** detectada na memória coletiva (isso muda o peso epistêmico do ciclo inteiro):\n\n> 5 dos 11 nós recuperados (`hyp_gen2_32720`, `hyp_gen16_14850`, `hyp_gen22_90945`, `hyp_gen30_10741`, `hyp_gen55_44699`) são **o mesmo protocolo** com parâmetros idênticos (`r=128, K=2000, τ=1.2`) emitido por agentes distintos. Isso **não** é 5 evidências independentes — é 1 ev",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793315337.252975,
+      "updated_at": 1793315338.20183,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0100_1793315248",
+        "cycle_id": 455,
+        "full_text": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #455 / GERAÇÃO #100\n\nReconhecido. Antes de qualquer afirmação, preciso registrar uma **correlação espúria** detectada na memória coletiva (isso muda o peso epistêmico do ciclo inteiro):\n\n> 5 dos 11 nós recuperados (`hyp_gen2_32720`, `hyp_gen16_14850`, `hyp_gen22_90945`, `hyp_gen30_10741`, `hyp_gen55_44699`) são **o mesmo protocolo** com parâmetros idênticos (`r=128, K=2000, τ=1.2`) emitido por agentes distintos. Isso **não** é 5 evidências independentes — é 1 evidência replicada 5×. Amostra efetiva: ~3 linhagens independentes.\n\nVou agora materializar a formulação **PSR–K²** (Passo Simpletico Residual com Krylov–Kronecker) com dedução analítica de FLOPs e bancada numérica real, executável.\n\n## Lote 1 — Núcleo matemático + bancada + testes"
+      }
+    },
+    {
+      "id": "hyp_gen100_75782",
+      "label": "Hypothesis",
+      "title": "Vou atuar como Investigador Teórico focado no salto analítico ODE. Primeiro, em",
+      "description": "Vou atuar como Investigador Teórico focado no salto analítico ODE. Primeiro, em paralelo: (a) entrego a bancada de código executável que formaliza o salto, e (b) rodo a verificação numérica real para calibrar constantes e ordem de convergência antes de fechar a formulação.\n\n**Direção teórica escolhida:** em vez de aproximar o fluxo residual passo-a-passo (Magnus–Krylov, Yoshida, POD), proponho o **PSR — Ponte Simpléctica Residual**: reduzir o fluxo residual a **forma normal de Birkhoff** (via tr",
+      "provenance": "agent_051_investigator",
+      "version": 2,
+      "created_at": 1793315412.2993753,
+      "updated_at": 1793315413.1458054,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0100_1793315248",
+        "cycle_id": 455,
+        "full_text": "Vou atuar como Investigador Teórico focado no salto analítico ODE. Primeiro, em paralelo: (a) entrego a bancada de código executável que formaliza o salto, e (b) rodo a verificação numérica real para calibrar constantes e ordem de convergência antes de fechar a formulação.\n\n**Direção teórica escolhida:** em vez de aproximar o fluxo residual passo-a-passo (Magnus–Krylov, Yoshida, POD), proponho o **PSR — Ponte Simpléctica Residual**: reduzir o fluxo residual a **forma normal de Birkhoff** (via transformada de Lie) e executar a janela inteira de $K$ micro-passos como **uma transição em fórmula fechada** (rotação de fase com frequência renormalizada + lei de amplitude de Liouville). Ações $I_j$ tornam-se integrais de movimento ⇒ erro de amplitude secular = 0."
+      }
+    },
+    {
+      "id": "hyp_gen100_62040",
+      "label": "Hypothesis",
+      "title": "Vou tratar o ciclo #455 como investigação forense do nó `n_naive`: primeiro a ba",
+      "description": "Vou tratar o ciclo #455 como investigação forense do nó `n_naive`: primeiro a bancada numérica real (identidades Kronecker, fluxo fechado, defeito simpletico, ordem de Strang vs. Lie, auditoria espectral e contagem de FLOPs), e só depois o relatório. Começo pelo artefato de evidência e sua execução.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793315500.4229834,
+      "updated_at": 1793315500.551153,
+      "validation_status": "REFUTED",
+      "epistemic_class": "FALSIFIED",
+      "properties": {
+        "gen_id": "gen_0100_1793315248",
+        "cycle_id": 455,
+        "full_text": "Vou tratar o ciclo #455 como investigação forense do nó `n_naive`: primeiro a bancada numérica real (identidades Kronecker, fluxo fechado, defeito simpletico, ordem de Strang vs. Lie, auditoria espectral e contagem de FLOPs), e só depois o relatório. Começo pelo artefato de evidência e sua execução."
+      }
+    },
+    {
+      "id": "gen_0100_1793315248",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #100 (Ciclo #455)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793315500.6923492,
+      "updated_at": 1793315500.6923492,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 100,
+        "cycle_id": 455,
+        "verdict": "APPROVED",
+        "duration_sec": 252.62,
+        "tokens_consumed": 2859,
+        "new_hypotheses": 3,
+        "verified": 2,
+        "refuted": 1
       }
     }
   ],
@@ -37671,7 +37744,97 @@
       "version": 1,
       "created_at": 1793315208.081692,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen100_47853_addresses_n_krylov",
+      "source_id": "hyp_gen100_47853",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315337.3317184,
+        "updated_at": 1793315338.2824793,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0100_1793315248_1793315337396_e_hyp_gen100_47853_addresses_n_krylov",
+            "generation_id": "gen_0100_1793315248",
+            "timestamp": 1793315338.2824793,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793315337.3317227,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen100_75782_addresses_n_strang",
+      "source_id": "hyp_gen100_75782",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315412.3706236,
+        "updated_at": 1793315413.2061257,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0100_1793315248_1793315412430_e_hyp_gen100_75782_addresses_n_strang",
+            "generation_id": "gen_0100_1793315248",
+            "timestamp": 1793315413.2061257,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_051_investigator",
+      "version": 1,
+      "created_at": 1793315412.3706293,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen100_62040_addresses_n_naive",
+      "source_id": "hyp_gen100_62040",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.42,
+        "uncertainty": 0.5,
+        "update_count": 1,
+        "created_at": 1793315500.4866269,
+        "updated_at": 1793315500.619393,
+        "update_history": [
+          {
+            "event_id": "penal_verif_gen_0100_1793315248_1793315500550_e_hyp_gen100_62040_addresses_n_naive",
+            "generation_id": "gen_0100_1793315248",
+            "timestamp": 1793315500.619393,
+            "w_prev": 0.5,
+            "penalty": 0.08,
+            "w_next": 0.42,
+            "reason": "math_falsification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793315500.4866323,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793315208.8244002
+  "saved_at": 1793315500.6938968
 }
