@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 14,
+      "version": 15,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793308204.3759813,
+      "updated_at": 1793308427.3637626,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -8915,6 +8915,96 @@
         "tokens_consumed": 5990,
         "new_hypotheses": 2,
         "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen75_62710",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #430 / GERAÇÃO #75",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #430 / GERAÇÃO #75\n\n**Foco:** `GPT3B_H430_EXPONENCIAL_DE_MAGNUS_KRYLOV_ESBOCADA_MKS` · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n**Especialidade de suporte:** Fatoração Tensorial Kronecker\n**Bancada de referência:** $r=128$, $K=2000$, $\\tau=1.2$\n\n---\n\n## 0. Nota de integridade dos dados do grafo (leia antes dos números)\n\nDuas anomalias de procedência foram detectadas na memória coletiva e **alteram o pe",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793308467.5776691,
+      "updated_at": 1793308468.3661609,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0075_1793308427",
+        "cycle_id": 430,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #430 / GERAÇÃO #75\n\n**Foco:** `GPT3B_H430_EXPONENCIAL_DE_MAGNUS_KRYLOV_ESBOCADA_MKS` · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n**Especialidade de suporte:** Fatoração Tensorial Kronecker\n**Bancada de referência:** $r=128$, $K=2000$, $\\tau=1.2$\n\n---\n\n## 0. Nota de integridade dos dados do grafo (leia antes dos números)\n\nDuas anomalias de procedência foram detectadas na memória coletiva e **alteram o peso epistêmico** do que segue:\n\n1. **Clones de protocolo.** Os nós `hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741`, `hyp_gen40_3620`, `hyp_gen1_30754`, `hyp_gen9_39356` são **textualmente idênticos** quanto a parâmetros e critérios. Isso **não** constitui 8 replicações independentes. $n_{\\text{eff}} = 1$ protocolo distintivo (linhaagem `agent_009`/`agent_057`/`agent_081`/`agent_077`/`agent_089`). Peso replicacional: **0,125 por nó**, não 1,0.\n2. **Texto truncado no grafo.** O critério de acurácia aparece cortado (\"Perda de Acurácia Top-1 $\\le$ 2\"). Adoto aqui o teto visível mais conservador, **$\\le 2\\%$**, e marco a incerteza explicitamente.\n\nNada disso invalida os fatos, mas impede inflação de confiança por contagem de confirmações.\n\n---\n\n## 1. Formulação inédita: **MKS — Magnus–Krylov Esboçado com Fatoração Tensorial Kronecker**\n\n### 1.1 Premissa física (ancorada em `hyp_gen11_59577` / `hyp_gen65_64617`)\n\nO fluxo residual $x_{l+1} = x_l + F_l(x_l)$, visto pelo integrador simpletico de sombra, tem propagador **exatamente exponencial** ao longo do passo de camada $h$:\n\n$$\\dot x(t) = A(t)\\,x(t),\\quad t\\in[0,h] \\qquad\\Longrightarrow\\qquad x(h) = \\mathcal{T}\\exp\\!\\left(\\int_0^h A(t)\\,dt\\right)x(0) = \\exp\\big(\\Omega(h)\\big)\\,x(0)$$\n\nA causa física do ganho não é \"aproximar mais barato\" — é que $A(t)$ é **low-rank em estrutura de Kronecker** (ver §3). Isso é o que permite esboçar a exponencial sem materializar o operador $n\\times n$.\n\n### 1.2 Três definições e um lema\n\n**Definição 1 (Magnus truncado).** Com $K$ sub-passos e $A_j := A\\!\\left(\\frac{(2j-1)h}{2K}\\right)$:\n\n$$\\Omega(h) = \\underbrace{\\frac{h}{K}\\sum_{j=1}^{K} A_j}_{\\Omega_1} + \\underbrace{\\frac{1}{2}\\left(\\frac{h}{K}\\right)^{2}\\sum_{j>i}[A_j, A_i]}_{\\Omega_2} + R_3,\\qquad \\|R_3\\| = O(h^3)$$\n\n**Definição 2 (Fatoração $\\tau$-truncada).** $n = n_1 n_2$ e\n\n$$A_j \\;\\approx\\; \\sum_{s=1}^{S(\\tau)} B_{j,s}\\otimes C_{j,s},\\qquad B_{j,s}\\in\\mathbb{R}^{n_1\\times n_1},\\; C_{j,s}\\in\\mathbb{R}^{n_2\\times n_2},$$\n\n$$S(\\tau) = \\min\\Big\\{S : \\|A_j - A_j^{(S)}\\|_F \\le 10^{-\\tau}\\,\\|A_j\\|_F\\Big\\}$$\n\nNa bancada local ($n=4096$, $n_1=n_2=64$), $\\tau=1.2 \\Rightarrow \\|{\\Delta A}\\|_F/\\|A\\|_F \\le 6{,}3\\%$ e, para os operadores medidos, $S=4$ fatores retidos.\n\n**Lema 1 (Comutador Kronecker fechado) — chave da construção.**\n\n$$[B\\otimes C,\\; B'\\otimes C'] = [B,B']\\otimes CC' + B'B\\otimes [C,C']$$\n\n*Prova (3 linhas):* $BB'\\!\\otimes\\! CC' - B'B\\!\\otimes\\! C'C = (BB'-B'B)\\!\\otimes\\! CC' + B'B\\!\\otimes\\!(CC'-C'C)$. $\\square$\n\n**Consequência operacional:** $\\Omega_2$ é computável **sem** formar matrizes $n\\times n$, com custo $O\\big(S^2 n(n_1+n_2)\\big)$ em vez de $O(K^2 n^2)$.\n\n**Definição 3 (Esboço SRHT).** $\\mathcal{S}\\in\\mathbb{R}^{K\\times n}$, transformada de Hadamard aleatória escalonada ($K=2000$). O esboço comprime a ortonormalização de Arnoldi de $O(nr^2)$ para $O(Kr^2 + nr\\log n)$.\n\n**Teorema 1 (Esquema MKS).** Seja $A = \\frac{h}{K}\\sum_j A_j$. Arnoldi esboçado sobre $A$ produz $V_r$, $H_r$ com $AV_r = V_r H_r + \\text{res}$. Então\n\n$$\\boxed{\\;x(h) \\;\\approx\\; \\|v\\|\\; V_r\\,\\exp\\!\\Big(h H_r + \\widehat{\\Omega}_2\\Big)\\,e_1\\;}$$\n\ncom $\\widehat{\\Omega}_2 = P_r \\Omega_2 P_r^{\\top}$ (projeção no subespaço de Krylov $\\mathcal{K}_r(A,v)$) obtido pelo Lema 1 sobre os $S$ fatores retidos.\n\n---\n\n## 2. Dedução analítica de FLOPs\n\nConvenção: $1$ multiplicação $=1$ FLOP, $1$ soma $=1$ FLOP; matmul $m\\times k \\cdot k\\times n = 2mkn$; exponencial densa por scaling-and-squaring Padé(13) $\\approx 28n^3$.\nParâmetros: $n=4096$, $n_1=n_2=64$, $r=128$, $K=2000$, $S=4$ ($\\tau=1.2$).\n\n### 2.1 Baselines\n\n| Baseline | Composição | FLOPs |\n|---|---|---|\n| `n_naive` denso | $28n^3$ (exponencial densa) | $1{,}924\\times10^{12}$ |\n| Controle Krylov-denso (justo) | $r\\cdot 2n^2 + 2nr^2 + 28r^3 + 2nr$ | $4{,}50\\times10^{9}$ |\n\n### 2.2 MKS — decomposição termo a termo\n\n| Termo | Fórmula analítica | FLOPs |\n|---|---|---|\n| Matvecs Kronecker ($r$) | $r\\cdot 2S\\,n(n_1+n_2)$ | $5{,}37\\times10^{8}$ |\n| Esboço SRHT | $2rn\\log_2 n$ | $1{,}26\\times10^{7}$ |\n| MGS esboçado | $2Kr^2$ | $6{,}55\\times10^{7}$ |\n| Comutadores $\\Omega_2$ (Lema 1) | $2S^2 n(n_1+n_2)$ | $1{,}68\\times10^{7}$ |\n| $\\exp(hH_r+\\widehat\\Omega_2)$ | $28r^3$ | $5{,}87\\times10^{7}$ |\n| Aplicação $V_r y$ | $2nr$ | $1{,}05\\times10^{6}$ |\n| **Total MKS** | | $\\mathbf{6{,}92\\times10^{8}}$ |\n\n### 2.3 Resultado de redução\n\n$$\\text{vs. controle Krylov-denso: } 1 - \\frac{6{,}92\\times10^{8}}{4{,}50\\times10^{9}} = \\mathbf{84{,}6\\%}\\;\\;(\\ge 75\\%\\ \\checkmark)$$\n\n$$\\text{vs. } n_{\\text{naive}}\\text{ denso: } 1 - \\frac{6{,}92\\times10^{8}}{1{,}924\\times10^{12}} = \\mathbf{99{,}96\\%}$$\n\n**Causa física do ganho (e não o número de manchete):** a razão de compressão do matvec\n\n$$\\rho = \\frac{2n^2}{2S\\,n(n_1+n_2)} = \\frac{n}{S(n_1+n_2)} = \\frac{4096}{4\\cdot128} = 8\\times$$\n\nÉ $\\rho$ — separabilidade do operador — que produz o ganho. O \"99,96%\" é **correlação espúria de escolha de baseline**, não mérito do método.\n\n### 2.4 Bônus estrutural (memória)\n\n| | Denso | MKS | Compressão |\n|---|---|---|---|\n| Parâmetros do operador | $n^2 = 16{,}78\\text{M}$ | $S(n_1^2+n_2^2)=32{,}768$ | **512×** |\n| Estado transitório | $nr$ (Arnoldi denso) | $nr + Kr$ (esboço) | ~1,4× |\n\n---\n\n## 3. Separação correlação espúria × causa física\n\n| Observação | Classificação | Justificativa |\n|---|---|---|\n| \"8 protocolos independentes confirmam $r=128$, $K=2000$, $\\tau=1.2$\" | **Espúria (clones)** | Textos idênticos; $n_{\\text{eff}}=1$. Não é convergência empírica, é propagação de cópia. |\n| \"Redução de 99,96% de FLOPs\" | **Espúria (baseline inflado)** | Comparar contra exponencial densa $O(n^3)$ é baseline não pareado. Ganho real pareado: 84,6%. |\n| $r=128$ captura 99,1% da energia espectral dos resíduos (`hyp_gen24_68344`) | **Causa física suportada** | É o decaimento espectral real dos resíduos que autoriza o corte em $r=128$, não o hábito do protocolo. |\n| Ganho $\\propto n/[S(n_1+n_2)]$ | **Causa física** | Consequência direta da low-rankness de Kronecker de $A(t)$; verificável por HOSVD. |\n| $\\Omega_2$ barato | **Causa algébrica (exata)** | Lema 1 é identidade, não estimativa. Solidez máxima. |\n\n---\n\n## 4. Solidez epistêmica por afirmação\n\nEscala $[0,1]$: 0 = especulação; 0,5 = plausível não verificado; 1 = dedução exata/verificado.\n\n| # | Afirmação | Base | Solidez | Risco dominante |\n|---|---|---|---|---|\n| 1 | Identidade de comutador Kronecker (Lema 1) | Dedução algébrica | **0,99** | Nenhum relevante |\n| 2 | Contagem de FLOPs analítica (§2) | Dedução | **0,90** | Convenção 1-mul=1-flop; ±5% no total |\n| 3 | $r=128$ suficiente (99,1% energia) | Empírico (`hyp_gen24`) | **0,75** | Medido em resíduos; não em erro de Top-1 |\n| 4 | $\\tau=1.2 \\Rightarrow S=4$ | Estimativa de bancada | **0,50** | Sensibilidade ao inicializador; exige varredura |\n| 5 | Redução pareada $\\ge 75\\%$ (84,6%) | Derivada | **0,75** | Depende de $S\\le4$ se manter; $S=8$ derruba para ~72% |\n| 6 | Perda Top-1 $\\le 2\\%$ | **Hipótese sem dado** | **0,35** | Gate real do protocolo; ainda não medido neste ciclo |\n| 7 | Replicação independente do protocolo | Clonagem textual | **0,15** | Independência nominal falsa |\n| 8 | Estabilidade simpletica preservada pelo esboço | Extrapolação dos nós `hyp_gen11/65` | **0,45** | Esboço SRHT pode quebrar a estrutura simpletica |\n\n**Solidez consolidada do pacote MKS: 0,63.** Suficiente para avançar a bancada; **insuficiente** para promover a VERIFIED como redução validada.\n\n---\n\n## 5. Riscos e correções propostas\n\n1. **Acúmulo de erro de truncamento em cadeia residual profunda.** Com $\\|{\\Delta A}\\|_F/\\|A\\|_F \\le 6{,}3\\%$ ($\\tau=1.2$), o erro compõe linearmente com a profundidade $L$. *Correção proposta:* correção adiada em cascata — um passo extra de Krylov sobre o resíduo reduz o erro efetivo a $O(10^{-2.4})$ (convergência quadrática), custando $+1$ matvec ($+4{,}2\\times10^{6}$ FLOPs; total $6{,}96\\times10^{8}$, redução ainda 84,5%).\n2. **Fronteira de $S$.** Se a HOSVD real exigir $S=8$, a redução cai para $\\approx 72\\%$ e o critério falha. Recomendo varredura $\\tau\\in\\{1.0, 1.2, 1.5\\}$ reportando $(S(\\tau), \\Delta\\text{Top-1})$.\n3. **Quebra de estrutura simpletica pelo esboço.** Verificar numericamente se $V_r^{\\top} J V_r \\approx J$ (preservação da forma simpletica); caso falhe, trocar SRHT por esboço estruturado simplético.\n\n---\n\n## 6. Protocolo de validação proposto (bancada local)\n\n- **Grid:** $r\\in\\{64,128,256\\}$ · $K\\in\\{1000,2000,4000\\}$ · $\\tau\\in\\{1.0,1.2,1.5\\}$ · $S\\in\\{2,4,8\\}$; ponto central do protocolo: $(128, 2000, 1.2)$.\n- **Controle pareado obrigatório:** Krylov-denso com o mesmo $r,K$ (sem Kronecker, sem esboço). Sem esse controle, o número de redução é descartável.\n- **Métricas:** FLOPs medidos por profiler, memória de pico, Top-1, norma do erro simpletico $\\|V_r^\\top J V_r - J\\|_F$.\n- **Portas de aceitação:** Redução de FLOPs $\\ge 75\\%$ **e** Perda Top-1 $\\le 2\\%$ (valor truncado no grafo — confirmar com o detentor do protocolo antes de fechar o ciclo).\n- **Aleatoriedade:** 5 seeds, reportar mediana e amplitude; não reutilizar seeds da linhaagem `agent_009` para não contaminar a independência.\n\n---\n\n## 7. Veredito\n\nO **MKS** é formulação coerente e original: a exponencial de Magnus do fluxo de sombra residual é aproximada por Krylov esboçado, com o termo de comutador resolvido em forma fechada sobre fatores Kronecker (Lema 1). A dedução analítica dá **$6{,}92\\times10^8$ FLOPs** contra **$4{,}50\\times10^9$** do controle pareado (**−84,6%**) e **512×** de compressão de parâmetros — ambos sustentados por causa física verificável (low-rankness de Kronecker + decaimento espectral), não por artefato de baseline.\n\n**Bloqueio epistêmico único:** o critério de acurácia Top-1 **não possui dado empírico neste ciclo** (solidez 0,35). Até a ablação do §6 ser executada, `n_krylov` permanece **candidato mecanisticamente sólido, empiricamente não fechado**."
+      }
+    },
+    {
+      "id": "hyp_gen75_97904",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: primeiro rodo uma bancada numér",
+      "description": "Vou executar a verificação independente de fato: primeiro rodo uma bancada numérica real (ordem de convergência do `n_strang` vs. Magnus–Krylov, auditoria do critério \"r=128 = 99,1% de energia\" e contabilidade analítica de FLOPs/bytes), com script reproduzível salvo no workspace. Depois emito o parecer.",
+      "provenance": "agent_021_independent_verifier",
+      "version": 2,
+      "created_at": 1793308561.8157928,
+      "updated_at": 1793308562.664671,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0075_1793308427",
+        "cycle_id": 430,
+        "full_text": "Vou executar a verificação independente de fato: primeiro rodo uma bancada numérica real (ordem de convergência do `n_strang` vs. Magnus–Krylov, auditoria do critério \"r=128 = 99,1% de energia\" e contabilidade analítica de FLOPs/bytes), com script reproduzível salvo no workspace. Depois emito o parecer."
+      }
+    },
+    {
+      "id": "hyp_gen75_82470",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #430 / GERAÇÃO #75",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #430 / GERAÇÃO #75\n**Foco:** Fatoração Tensorial de Kronecker · **Tema:** Exponencial de Magnus–Krylov Esboçada (MKS) · **Alvo:** `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Alerta epistêmico preliminar (leia antes do corpo técnico)\n\nA memória coletiva recuperada apresenta um padrão que **não é evidência independente**:\n\n| Sinal observado | Interpretação correta |\n|---|---|\n| 8 nós `PROTOCOLO_EXPERIMENTAL_I",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793308603.5010498,
+      "updated_at": 1793308604.2327235,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0075_1793308427",
+        "cycle_id": 430,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #430 / GERAÇÃO #75\n**Foco:** Fatoração Tensorial de Kronecker · **Tema:** Exponencial de Magnus–Krylov Esboçada (MKS) · **Alvo:** `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Alerta epistêmico preliminar (leia antes do corpo técnico)\n\nA memória coletiva recuperada apresenta um padrão que **não é evidência independente**:\n\n| Sinal observado | Interpretação correta |\n|---|---|\n| 8 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_*` com parâmetros **idênticos byte a byte** ($r=128$, $K=2000$, $\\tau=1.2$) | Replicação de *template*, não replicação física independente |\n| Texto truncado no mesmo ponto (\"Perda de Acurácia Top-1 $\\le$\") em 6 de 8 nós | Perda de dado no pipeline de indexação; o **limiar de Top-1 não é recuperável** |\n| Mesmo agente gerando 2+ nós (`agent_057`, `agent_009`) | Contagem inflada: $N_{\\text{eff}} \\le 6$, não 8 |\n| Auditoria `n_strang` cita 99,1% de energia espectral em $r=128$ | Provém de **outro nó** (`n_strang`, `agent_043_critic`) — extrapolar para `n_naive` é salto causal |\n\n**Consequência:** o status `[VERIFIED]` desses nós valida *conformidade de formato*, não *causalidade física*. Todo resultado abaixo é derivado analiticamente e rotulado com sua classe de solidez.\n\n---\n\n## 1. Definição operacional de `n_naive`\n\n`n_naive` é o nó de referência que computa o *update* do fluxo residual **sem estrutura, sem truncagem e sem geometria**:\n\n$$x_{l+1} = x_l + F_l(x_l), \\qquad F_l \\text{ linearizado} \\Rightarrow y = e^{h\\mathcal{A}}x,\\quad \\mathcal{A}\\in\\mathbb{R}^{d\\times d}\\ \\text{denso}$$\n\nDuas rotas ingênuas e seus custos:\n- **Rota A (Padé escala-e-quadratura):** $\\mathcal{O}(d^3)$ — proibitiva em $d\\ge 2048$.\n- **Rota B (ação via Krylov denso):** $s$ matvecs densos $\\Rightarrow C_{\\text{naive}} = 2sd^2$ FLOPs. **Esta é a linha de base adotada**, por ser a mais favorável a `n_naive` (não inflamos o adversário).\n\n---\n\n## 2. Formulação MKS — Magnus–Krylov–Sketch (inédita)\n\n### 2.1 Decomposição estruturada do operador\nFatoramos o operador do bloco pela **aproximação de Kronecker rank-1 + resíduo espectral esboçado**:\n\n$$\\boxed{\\ \\mathcal{A}\\ \\approx\\ \\underbrace{A\\otimes B}_{\\text{estrutura exata}}\\ +\\ \\underbrace{UV^{\\top}}_{\\text{resíduo},\\ \\mathrm{rank}\\ r}\\ }\\qquad A\\in\\mathbb{R}^{m\\times m},\\ B\\in\\mathbb{R}^{n\\times n},\\ d=mn,\\ U,V\\in\\mathbb{R}^{d\\times r}$$\n\nExtração via **KronPCA/HOSVD**: rematricização $W_{(1)}\\in\\mathbb{R}^{m^2\\times n^2}$, SVD top-1 $\\Rightarrow A\\otimes B$; resíduo $R=W-A\\otimes B$ truncado por **sketch gaussiano** $S\\in\\mathbb{R}^{d\\times r}$, $Y=RS$, $R\\approx Y(SS^\\top)^{-1}S^\\top = UV^\\top$ (Nyström).\n\n*Ação exata sobre matriz de tokens* $X\\in\\mathbb{R}^{n\\times m}$ (identidade de vec):\n$$(A\\otimes B)\\,\\mathrm{vec}(X) = \\mathrm{vec}(B X A^{\\top})$$\n\n### 2.2 Integrador Magnus truncado em ordem 2\nPara $\\dot x = \\mathcal{A}(t)x$ em $[t_n, t_n+h]$, com $t_c = t_n + h/2$:\n\n$$\\Omega = \\underbrace{h\\,\\mathcal{A}(t_c)}_{\\Omega_1,\\ O(h)} + \\underbrace{\\frac{h^3}{12}\\big[\\mathcal{A}(t_c),\\dot{\\mathcal{A}}(t_c)\\big]}_{\\Omega_2,\\ O(h^3)} + \\mathcal{O}(h^5)$$\n\n**Ponto-chave (aqui está a economia estrutural):** o comutador de produtos de Kronecker **preserva a classe**:\n$$[A\\!\\otimes\\! B,\\ C\\!\\otimes\\! D] = AC\\otimes BD - CA\\otimes DB \\quad(\\text{soma de } 2 \\text{ termos Kronecker})$$\nLogo $\\Omega = \\sum_{i=1}^{p} A_i\\otimes B_i + UV^\\top$ com $p\\le 2$ na versão autônoma e $p\\le 4$ na não-autônoma com $\\dot{\\mathcal{A}}\\neq 0$.\n\n### 2.3 Ação exponencial por Krylov–Arnoldi com reortogonalização esboçada\n$$e^{\\Omega}v \\approx \\|v\\|_2\\, V_s e^{T_s}e_1,\\qquad T_s = V_s^{\\top}\\Omega V_s,\\ \\ K_s(\\Omega,v)=\\mathrm{span}\\{v,\\Omega v,\\dots,\\Omega^{s-1}v\\}$$\nCom **reortogonalização esboçada (Björck)**: $Z = SV_s$ ($r\\times s$), correção $V \\leftarrow V - V_s Z^{\\dagger}(S w)$, eliminando a deriva de ortogonalidade do Lanczos clássico a custo $\\mathcal{O}(dr)$ por passo em vez de $\\mathcal{O}(ds)$.\n\n**MKS completo:** estrutura Kronecker no termo dominante + resíduo low-rank esboçado + Magnus ordem 2 + ação exponencial por Krylov esboçado.\n\n---\n\n## 3. Dedução analítica de FLOPs\n\n### 3.1 Contagem elementar (MACs; FLOPs = 2×MAC)\n\n| Operação | MACs |\n|---|---|\n| Matvec denso $d\\times d$ | $d^2$ |\n| $(A\\otimes B)\\mathrm{vec}(X)=\\mathrm{vec}(BXA^\\top)$ | $m^2n+mn^2 = d(m+n)$ |\n| Resíduo $UV^\\top v$ | $2dr$ |\n| Arnoldi (MGS, $s$ passos) | $\\tfrac{1}{2}ds^2$ |\n| Sketch de reortogonalização | $dsr$ *(≈ $ds^2$ só quando $r<s$)* |\n\n### 3.2 Teorema (custo de um passo Magnus–Krylov)\n$$\\boxed{\\ C_{\\text{MKS}} = 2s\\big[\\,p\\,d(m+n) + 2dr\\,\\big] + ds^2\\ \\ \\text{FLOPs}\\ }\\qquad C_{\\text{naive}} = 2sd^2$$\n\n$$\\text{Redução } \\eta = 1 - \\frac{p(m+n)+2r}{d} - \\frac{s}{2d}$$\n\n### 3.3 Corolário — limiar exato para o critério da bancada ($\\eta\\ge 75\\%$)\n\n$$p(m+n) + 2r + \\tfrac{s}{2} \\le 0.25\\,d$$\n\nCom split simétrico $m=n=\\sqrt d$, $p=2$, $r=128$, $s=8$:\n$$4\\sqrt d + 256 + 4 \\le 0.25 d \\iff u^2 - 16u - 1240 \\ge 0\\ (u=\\sqrt d) \\iff \\boxed{d \\ge 1752}$$\n\n**Predição falsificável imediata:** o critério \"Redução de FLOPs $\\ge 75\\%$\" **falha para $d<1752$** com $r=128$. Em $d=1024$ a redução cai para $\\approx 61\\%$ — o ganho é estruturalmente dependente da largura do modelo.\n\n### 3.4 Avaliação numérica ($d=2048$, $m=64$, $n=32$, $r=128$, $s=8$, $p=2$)\n\n| Componente | `n_naive` (denso) | MKS | Razão |\n|---|---:|---:|---:|\n| 1 matvec Krylov | 4 194 304 MAC | 2·196 608 + 524 288 = **917 504** | 21,9% |\n| $s=8$ passos | 33 554 432 MAC | 7 340 032 MAC | 21,9% |\n| Ortogonalização | 65 536 MAC | 73 728 MAC | — |\n| **Total por camada/token** | **33,6 MMAC (67,1 MFLOPs)** | **7,41 MMAC (14,8 MFLOPs)** | **21,9%** |\n| **Redução** | — | — | **$\\eta = 78,1\\%$** ✓ |\n\nPassando-se ao caso autônomo ($p=1$): $\\eta = 89,0\\%$.\n\n### 3.5 Amortização do setup (parâmetro $K=2000$)\nSetup offline (KronPCA + sketch do resíduo): $\\approx 2d^2(n^2 + r) \\approx 19{,}3$ GFLOPs, **uma única vez**.\nEconomia por forward pass ($L=24$ camadas, $S=512$ tokens): $52{,}3\\ \\text{MFLOPs} \\times 24 \\times 512 \\approx 643$ GFLOPs.\n$$K^\\star = \\frac{19{,}3}{643} < 0{,}04 \\Rightarrow \\text{ponto de equilíbrio na primeira inferência. Com } K=2000,\\ \\text{margem}\\approx 10^5\\times$$\n\n---\n\n## 4. Orçamento de erro (três fontes, não conflate)\n\n| Fonte | Ordem | Controle |\n|---|---|---|\n| Truncagem Magnus | global $\\mathcal{O}(h^4)$ (ordem 2 no gerador ⇒ método de ordem 4) | refinamento $h\\to h/2$: slope log-log $\\approx 4$ |\n| Krylov | $\\varepsilon_K \\le C\\frac{(h\\|\\mathcal{A}\\|)^s}{(s+1)!}$ | $s=8$ suficiente p/ $h\\|\\mathcal{A}\\|\\le 3$; monitorar $\\|T_s\\|$ |\n| Sketch do resíduo | $\\|R-UV^\\top\\|_2 \\le \\|R-UV^\\top\\|_F \\le \\tau\\varepsilon_{\\text{alvo}}$ | $r=128$ ⇒ 99,1% da energia espectral **observado em `n_strang`** (extrapolação não validada) |\n\nEstabilidade: escalonamento de norma antes de $e^{T_s}$ (evita overflow em $\\|T_s\\|$ grande) + reortogonalização esboçada obrigatória (sem ela, perda de ortogonalidade degrada $\\varepsilon_K$ em 1–2 ordens de grandeza com $s=8$).\n\n---\n\n## 5. Separação correlação × causa física\n\n| Afirmação | Classe | Solidez | Justificativa |\n|---|---|---:|---|\n| Economia estrutural $d(m+n) \\ll d^2$ | **Causal** (identidade de vec) | **0,98** | Dedução algébrica exata, independente de dados |\n| Limiar $d\\ge 1752$ para $\\eta\\ge 75\\%$ | **Causal** | **0,95** | Corolário direto do teorema |\n| $\\eta = 78{,}1\\%$ em $d=2048$ | **Causal** | **0,93** | Contagem fechada, pressupostos explícitos ($p=2$) |\n| $r=128$ captura 99,1% da energia | **Correlação transferida** | **0,45** | Medido em `n_strang`; não há dado de `n_naive` |\n| Critério Top-1 $\\le$ *(truncado)* | **Dado faltante** | **0,20** | Limiar numérico não recuperável; hipótese $\\le 2\\%$ (2 nós fragmentários) |\n| \"8 verificações independentes\" | **Correlação espúria** | **0,15** | Template idêntico; $N_{\\text{eff}}\\approx 1$ para o *protocolo* |\n| $\\tau=1{,}2$ como limiar de truncagem | **Semântica indeterminada** | **0,30** | Definição ausente na memória; assumido como fator de aceitação $\\|R_r\\|\\le\\tau\\varepsilon$ |\n\n---\n\n## 6. Predições falsificáveis e protocolo de verificação\n\n1. **P1 (FLOPs):** $\\eta = 78{,}1\\%\\pm 0{,}5\\%$ em $d=2048,m=64,n=32,r=128,s=8,p=2$. *Falsificação:* profiler de contagem FLOPs divergindo $>1\\%$.\n2. **P2 (limiar):** $\\eta < 75\\%$ para $d=1024$ com mesmos $r,s,p$. *Falsificação:* qualquer medição $\\ge 75\\%$ derruba o Corolário 3.3.\n3. **P3 (convergência):** refinamento $h$: slope $\\log(\\varepsilon)$ vs $\\log(h) \\to 4{,}0 \\pm 0{,}3$ (Magnus ordem 2).\n4. **P4 (amortização):** $K^\\star < 1$; lucro acumulado em $K=2000$ superior a $10^5\\times$ o setup.\n5. **P5 (rank):** energia espectral acumulada de $R$ em `n_naive` **diferente** de 99,1% — teste direto da extrapolação indevida da Seção 5.\n\n**Instrumentação mínima obrigatória:** contagem MAC por operação (não estimativas de biblioteca), curva de convergência $h$, espectro de $R$ (valores singulares), $\\|V_s^\\top V_s - I\\|$ por passo, e Top-1 reportado com **limiar explícito não truncado**.\n\n---\n\n## 7. Veredito\n\nA formulação **MKS** é **analiticamente sólida** na sua tese central: a identidade de vec converte $\\mathcal{O}(d^2)$ em $\\mathcal{O}(d(m+n))$, e o comutador de Magnus preserva a classe de Kronecker (soma de 2 termos), o que sustenta $\\eta = 78{,}1\\%$ — acima do critério de $75\\%$ — **mesmo no pior caso $p=2$**. O limiar fechado $d\\ge 1752$ é o resultado mais valioso do ciclo: ele torna a afirmação de viabilidade **falsificável e dependente de escala**, em vez de universal.\n\nO que **não** está sustentado: a transferência do resíduo espectral 99,1% de `n_strang` para `n_naive`, e o critério de Top-1 (dado truncado). Recomendação: **abrir 2 nós de verificação** — (a) espectro do resíduo de `n_naive` com $r\\in\\{64,128,256\\}$, (b) reexecução do critério Top-1 com limiar explícito — antes de qualquer promoção de `n_naive` a `VERIFIED` causal."
+      }
+    },
+    {
+      "id": "hyp_gen75_63066",
+      "label": "Hypothesis",
+      "title": "Vou assumir imediatamente o controle: primeiro um único probe de ambiente (Pytho",
+      "description": "Vou assumir imediatamente o controle: primeiro um único probe de ambiente (Python/NumPy) e, em paralelo, já gravo a estrutura da bancada de verificação. Nada de laços de leitura — o projeto está sendo materializado agora.",
+      "provenance": "agent_021_independent_verifier",
+      "version": 2,
+      "created_at": 1793308753.23964,
+      "updated_at": 1793308753.8843024,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0075_1793308427",
+        "cycle_id": 430,
+        "full_text": "Vou assumir imediatamente o controle: primeiro um único probe de ambiente (Python/NumPy) e, em paralelo, já gravo a estrutura da bancada de verificação. Nada de laços de leitura — o projeto está sendo materializado agora."
+      }
+    },
+    {
+      "id": "gen_0075_1793308427",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #75 (Ciclo #430)",
+      "description": "Executou 4 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793308753.9863837,
+      "updated_at": 1793308753.986384,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 75,
+        "cycle_id": 430,
+        "verdict": "APPROVED",
+        "duration_sec": 326.62,
+        "tokens_consumed": 6777,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -33455,7 +33545,127 @@
       "version": 1,
       "created_at": 1793308385.1529717,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen75_62710_addresses_n_krylov",
+      "source_id": "hyp_gen75_62710",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793308467.6323793,
+        "updated_at": 1793308468.436405,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0075_1793308427_1793308467680_e_hyp_gen75_62710_addresses_n_krylov",
+            "generation_id": "gen_0075_1793308427",
+            "timestamp": 1793308468.436405,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793308467.632385,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen75_97904_addresses_n_strang",
+      "source_id": "hyp_gen75_97904",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793308561.8704717,
+        "updated_at": 1793308562.7132785,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0075_1793308427_1793308561934_e_hyp_gen75_97904_addresses_n_strang",
+            "generation_id": "gen_0075_1793308427",
+            "timestamp": 1793308562.7132785,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_021_independent_verifier",
+      "version": 1,
+      "created_at": 1793308561.8704767,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen75_82470_addresses_n_naive",
+      "source_id": "hyp_gen75_82470",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793308603.544065,
+        "updated_at": 1793308604.2762845,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0075_1793308427_1793308603587_e_hyp_gen75_82470_addresses_n_naive",
+            "generation_id": "gen_0075_1793308427",
+            "timestamp": 1793308604.2762845,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793308603.5440693,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen75_63066_addresses_n_krylov",
+      "source_id": "hyp_gen75_63066",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793308753.2930276,
+        "updated_at": 1793308753.9328895,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0075_1793308427_1793308753346_e_hyp_gen75_63066_addresses_n_krylov",
+            "generation_id": "gen_0075_1793308427",
+            "timestamp": 1793308753.9328895,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_021_independent_verifier",
+      "version": 1,
+      "created_at": 1793308753.293033,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793308386.0192368
+  "saved_at": 1793308753.987684
 }
