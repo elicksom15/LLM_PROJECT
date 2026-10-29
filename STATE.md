@@ -4,9 +4,9 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `351`
+- **Total de Ciclos Científicos Executados:** `352`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 63`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 64`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,6 +24,7 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#352** | 2026-10-29 13:42:18 | `GPT3B_H352_INVARIANT_SYMPLECTIC_MANIFOLD` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#351** | 2026-10-29 13:33:52 | `GPT3B_H351_FECHAMENTO_ESPECTRAL_DO_FLUXO_NULO_RESIDUAL` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#350** | 2026-10-29 13:27:16 | `GPT3B_H350_FECHAMENTO_SIMPLETICO_DE_SUBESPACO_INVARIANTE` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#349** | 2026-10-29 13:21:15 | `GPT3B_H349_CAYLEY_SIMPLETICO_EM_SUBESPACO_INVARIANTE_AMORTIZADO` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
@@ -73,4 +74,3 @@
 | **#305** | 2026-10-29 11:14:27 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#304** | 2026-10-29 11:11:57 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#303** | 2026-10-29 11:09:26 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
-| **#302** | 2026-10-29 11:06:56 | `GPT3B_H91_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
