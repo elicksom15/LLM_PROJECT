@@ -16,3 +16,4 @@ scratch/
 # OS generated
 .DS_Store
 Thumbs.db
+*.npy

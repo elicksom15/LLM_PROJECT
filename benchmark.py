@@ -120,32 +120,47 @@ class LocalGPTBenchmark:
         all_h_final = np.concatenate(all_h_final, axis=0)
         N = all_h_final.shape[0]
 
-        # 2. Execução da Otimização de Computação (Redução de FLOPs)
+        # 2. Execução da Otimização de Computação (Redução de FLOPs e Aceleração CUDA)
         r = min(rank_r, self.Vt.shape[0])
-        P = self.Vt[:r].T
-        E_T = self.lm_W.T
-        E_proxy = P.T @ E_T
+        P_t = torch.tensor(self.Vt[:r].T, device=self.device, dtype=torch.float32)
+        W_t = self.model.lm_head.weight.detach().float()
+        E_proxy_t = torch.matmul(P_t.T, W_t.T)
 
+        if torch.cuda.is_available():
+            torch.cuda.synchronize()
         t0_opt = time.time()
-        opt_logits = np.full_like(all_ref_logits, -1e9)
-        k_used_list = []
 
-        h_proj = all_h_final @ P
-        proxy_scores = h_proj @ E_proxy
+        h_cuda = torch.tensor(all_h_final, device=self.device, dtype=torch.float32)
+        h_proj = torch.matmul(h_cuda, P_t)
+        proxy_scores = torch.matmul(h_proj, E_proxy_t)
 
-        for pos in range(N):
-            top2_idx = np.argpartition(proxy_scores[pos], -2)[-2:]
-            top2_vals = proxy_scores[pos, top2_idx]
-            margin = float(abs(top2_vals[0] - top2_vals[1]))
+        # Top-2 na GPU para cálculo da margem de confiança adaptativa
+        top2_vals, _ = torch.topk(proxy_scores, k=2, dim=-1)
+        margins = (top2_vals[:, 0] - top2_vals[:, 1]).abs()
 
-            chosen_k = k_small if margin >= margin_tau else k_large
-            k_used_list.append(chosen_k)
+        mask_fast = (margins >= margin_tau)
+        k_used_list = [k_small if m else k_large for m in mask_fast.cpu().numpy()]
 
-            topk_idx = np.argpartition(proxy_scores[pos], -chosen_k)[-chosen_k:]
-            opt_logits[pos, topk_idx] = all_h_final[pos] @ E_T[:, topk_idx]
+        opt_logits_t = torch.full((N, self.vocab_size), -1e9, device=self.device, dtype=torch.float32)
 
+        # Execução paralela em batch na GPU (CUDA Tensor Cores)
+        for chosen_k, idx_sub in [(k_small, torch.where(mask_fast)[0]), (k_large, torch.where(~mask_fast)[0])]:
+            if len(idx_sub) == 0:
+                continue
+            sub_scores = proxy_scores[idx_sub]
+            _, sub_topk_idx = torch.topk(sub_scores, k=chosen_k, dim=-1)
+
+            sub_h = h_cuda[idx_sub]
+            sub_weights = W_t[sub_topk_idx]  # [M, chosen_k, hidden]
+            sub_logits = torch.bmm(sub_weights, sub_h.unsqueeze(-1)).squeeze(-1)
+            opt_logits_t[idx_sub.unsqueeze(-1), sub_topk_idx] = sub_logits
+
+        if torch.cuda.is_available():
+            torch.cuda.synchronize()
         t_opt_elapsed = time.time() - t0_opt
         opt_tokens_per_sec = total_tokens / max(t_opt_elapsed, 1e-4)
+
+        opt_logits = opt_logits_t.cpu().numpy()
 
         cos, top1, kl = calculate_metrics(all_ref_logits, opt_logits)
 
