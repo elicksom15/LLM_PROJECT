@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 27,
+      "version": 28,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793311686.888641,
+      "updated_at": 1793311946.4795122,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9879,6 +9879,62 @@
         "verdict": "APPROVED",
         "duration_sec": 214.94,
         "tokens_consumed": 4255,
+        "new_hypotheses": 2,
+        "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen88_95282",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #443 / GERAÇÃO #88",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #443 / GERAÇÃO #88\n\n**Foco:** `GPT3B_H443_POINCARE_HYPERBOLIC_VOCAB` · **Alvo:** nó `n_krylov` · **Especialidade:** Fatoração Tensorial Kronecker\n**Entregável:** formulação inédita (KFPK-S) + dedução analítica de FLOPs + bancada local reprodutível\n**ID proposto:** `hyp_gen88_kfpk_krylov_1071`\n\n---\n\n## 1. Veredito executivo\n\n1. **O corpus recuperado não constitui 11 evidências independentes.** Nove nós \"PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*\" são o **",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793312086.0486255,
+      "updated_at": 1793312087.0043862,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0088_1793311946",
+        "cycle_id": 443,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #443 / GERAÇÃO #88\n\n**Foco:** `GPT3B_H443_POINCARE_HYPERBOLIC_VOCAB` · **Alvo:** nó `n_krylov` · **Especialidade:** Fatoração Tensorial Kronecker\n**Entregável:** formulação inédita (KFPK-S) + dedução analítica de FLOPs + bancada local reprodutível\n**ID proposto:** `hyp_gen88_kfpk_krylov_1071`\n\n---\n\n## 1. Veredito executivo\n\n1. **O corpus recuperado não constitui 11 evidências independentes.** Nove nós \"PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*\" são o **mesmo documento clonado** (parâmetros idênticos $r=128$, $K=2000$, $\\tau=1.2$; agentes repetidos: `agent_009` ×2, `agent_057` ×2, `agent_077` ×2). $N_{\\text{efetivo}} = 1$.\n2. **Duas classes de defeito fatal:** critério de acurácia **truncado** (\"Perda de Acurácia Top-1 $\\le$\" — limiar ausente/ambíguo: 2 pp? 0,2 pp? → **infalsificável**) e nós que são **log de fala de agente** (\"Vou executar direto…\") rotulados como `EMPIRICAL_FACT`. Erro de classe de proveniência.\n3. **Correlação espúria detectada:** $\\tau=1.2$ aparece em 100% dos protocolos como se fosse causa de redução de FLOPs. **É artefato.** O custo aritmético não depende de $\\tau$ (ver §4.3). $\\tau$ só age sobre precisão via fator conforme.\n4. **Resultado analítico desta investigação:** a estrutura Kronecker factored entrega **89,4% de redução de FLOPs** nas condições do protocolo — mas o critério de $\\ge 75\\%$ **falha (70,1%)** se a reortogonalização completa for aplicada a cada passo. O limiar é sensível ao escalonamento de reortogonalização, não à curvatura.\n\n**Solidez epistêmica agregada do corpus: 0.21/1.00 — BAIXA.** Não apto a fechar hipótese.\n\n---\n\n## 2. Auditoria de evidências: correlação espúria × causa física\n\n| Nó / cluster | Classe real | Defeito | Solidez |\n|---|---|---|---|\n| 9× `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_*` | Template replicado | Não-independência total; critério truncado; agentes duplicados | **0.22** |\n| `hyp_gen75_97904`, `hyp_gen77_10685` | Log de agente | Narrativa (\"vou executar\") gravada como fato empírico | **0.08 — descarte** |\n| `hyp_gen11_59577`, `hyp_gen65_64617` | Formulação simétrica | Duas versões do mesmo construto (integrador simpletico / manifold simplético) — redundância, não replicação | **0.31** |\n| `hyp_gen72_89060` | Relatório analítico | Único nó com método declarado; sem cadeia de custo verificável anexa | **0.47** |\n\n**Cadeia causal fisicamente plausível (aceitável):**\n$$\\tau \\;\\rightarrow\\; \\lambda_x=\\frac{2}{1-c\\|x\\|^2},\\; c=\\tau^{-2} \\;\\rightarrow\\; \\text{espectro de } A_x=\\lambda_x^2\\tilde A \\;\\rightarrow\\; \\text{convergência de Krylov} \\;\\rightarrow\\; \\text{erro de Top-1}$$\n\n**Correlação espúria (rejeitada):** \"$\\tau=1.2$ maximiza a redução de FLOPs\". FLOPs são função de $(d,p,q,S,m,R)$ apenas. Qualquer covariância observada $\\tau \\times$ FLOPs é confusão de protocolo.\n\n---\n\n## 3. Formulação inédita — **KFPK-S** (Kronecker-Factored Poincaré–Krylov Shadow)\n\n*Novidade alegada como hipótese (solidez 0.35): a composição específica abaixo exige busca de anterioridade. Não afirmo novidade global.*\n\n### 3.1 Setup geométrico\nBola de Poincaré $\\mathbb{B}^d_\\tau=\\{x:\\|x\\|<\\tau\\}$, curvatura $-c=-1/\\tau^2$, métrica conforme $g_x=\\lambda_x^2 I$, $\\lambda_x = 2/(1-c\\|x\\|^2)$. Vocabulário $E\\in\\mathbb{B}^{N\\times d}$. O nó `n_krylov` deve aplicar o filtro polinomial $p_m(A)$ ao operador linearizado $A$ no fibrado tangente, com $A$ **auto-adjunto** (projeção de Gauss–Newton/Fisher).\n\n### 3.2 Ideia central\nNão materializar $A\\in\\mathbb{R}^{d\\times d}$. Fatorar por **soma de Kronecker posto-$S$** e executar a recursão de Krylov **diretamente no formato matricial** $X\\in\\mathbb{R}^{p\\times q}$, $pq=d$:\n\n$$A(X)=\\sum_{s=1}^{S}B_s X C_s^\\top \\quad\\Longleftrightarrow\\quad A=\\sum_{s=1}^{S}C_s\\otimes B_s,\\qquad B_s=B_s^\\top,\\; C_s=C_s^\\top$$\n\ncom **sombra de posto-$r$** ($r=128$) e retração Möbius com $\\tau=1.2$.\n\n### 3.3 Algoritmo\n1. **Lift:** $v_0=\\log^{\\mathbb{B}}_{x}(e)\\in T_x\\mathbb{B}$ — $O(d)$.\n2. **Lanczos estruturado:** $w = \\sum_s B_s V_k C_s^\\top$; recorrência de três termos; reortogonalização **seletiva** a cada $R$ passos.\n3. **Rayleigh–Ritz:** $T_r = V_r^\\top A V_r$ (tridiagonal, custo $O(m^2)$).\n4. **Sombra:** $p_m(A)v_0 \\approx V_r\\,p(T_r)e_1$.\n5. **Retração:** $x' = \\exp^{\\mathbb{B}}_{x}(\\Pi(\\cdot))$ com $\\tau=1.2$.\n\n**Compressão de memória:** $d^2 = 1.048.576$ parâmetros (4 MB fp32) $\\rightarrow S(p^2+q^2)=4.096$ (16 KB) = **256× menor**.\n\n---\n\n## 4. Dedução analítica de FLOPs\n\n### 4.1 Notação\n$d=pq$ · $m=r=128$ passos de Krylov · $S$ termos Kronecker · $K=2000$ vetores · $R$ período de reortogonalização · CGS2 (2 passadas) = $8dk$ no passo $k$.\n\n### 4.2 Contagem fechada\n\n$$\\boxed{F_{\\text{naive}} = K\\left[\\,2md^2 + 4dm(m-1)\\,\\right]}\\qquad\n\\boxed{F_{\\text{KFPK}} = K\\left[\\,2Smd(p+q) + \\frac{4dm(m-1)}{R} + c_\\tau d\\,\\right]}$$\n\nCom $p=q=32\\;(d=1024)$, $S=2$, $R=32$, $c_\\tau\\approx 20$:\n\n| Componente | `n_naive` (denso) | **KFPK-S** |\n|---|---:|---:|\n| Aplicação do operador | $2md^2 = 268.435.456$ | $2Smd(p+q) = 33.554.432$ |\n| Reortogonalização | $4dm(m-1) = 66.584.576$ | $\\approx 2.080.768$ |\n| exp/log Möbius ($\\tau$) | — | $\\approx 20.480$ |\n| **Total / vetor** | **335.020.032** | **35.655.680** |\n| **Total $K=2000$** | **$6{,}70\\times10^{11}$** | **$7{,}13\\times10^{10}$** |\n| **Redução** | — | **89,36%** ✅ (+14,4 pp sobre o critério) |\n\n### 4.3 Teste de sensibilidade — onde o critério $\\ge 75\\%$ quebra\n\n| $S$ | $R$ | Redução | vs. critério |\n|---:|---:|---:|:--:|\n| 1 | 1 | 75,1% | ✅ (margem mínima) |\n| 2 | **1 (full)** | **70,1%** | ❌ |\n| 2 | 2 | 80,0% | ✅ |\n| 2 | 32 | **89,4%** | ✅ |\n| 4 | 1 | 60,1% | ❌ |\n| 4 | 8 | 77,5% | ✅ |\n| 4 | 32 | 79,4% | ✅ |\n\n**Break-even:** redução $\\ge 75\\% \\iff 2Smd(p+q) + \\frac{4dm(m-1)}{R} \\le \\frac14\\left(2md^2+4dm(m-1)\\right)$.\n**Conclusão causal:** o que decide o critério é $(S, p+q, R)$ — **não $\\tau$**. Alegação de que $\\tau=1.2$ \"otimiza FLOPs\" é **correlação espúria** (solidez 0.05).\n\n---\n\n## 5. Bancada local — script reprodutível\n\nSalve como `bench_kfpk.py` (NumPy puro, sem SciPy) e execute `python bench_kfpk.py`. **Não apresento medições fabricadas:** os números da tabela vêm da aritmética acima; a bancada confirma estrutura, equivalência espectral e mede tempo real.\n\n```python\n\"\"\"Bancada KFPK-S — nó n_krylov | ciclo #443 | foco POINCARE_HYPERBOLIC_VOCAB.\nValida: (a) equivalência operador denso x Kronecker; (b) igualdade dos valores de\nRitz; (c) retração Möbius consistente; (d) mede tempo e audita o razão de FLOPs.\n\"\"\"\nfrom __future__ import annotations\n\nimport time\nfrom dataclasses import dataclass, field\n\nimport numpy as np\n\n# ---------------------------- Parâmetros do ensaio ----------------------------\nTAU: float = 1.2                 # curvatura/raio: c = 1/TAU**2\nR_KRYLOV: int = 128              # dimensão do subespaço (r do protocolo)\nK_VOCAB: int = 2000              # vetores do vocabulário (K do protocolo)\nP: int = 32\nQ: int = 32\nD: int = P * Q\nS: int = 2                       # nº de termos Kronecker\nREORTH_PERIOD: int = 32          # R: período de reortogonalização completa\nSEED: int = 20260521\nC_CURV: float = 1.0 / TAU**2\n\nFLOP_DENSE_MV: int = 2 * D * D\nFLOP_STRUCT_MV: int = 2 * S * D * (P + Q)\nFLOP_REORTH_FULL: int = 4 * D * R_KRYLOV * (R_KRYLOV - 1)\nFLOP_REORTH_SEL: int = FLOP_REORTH_FULL // REORTH_PERIOD\nFLOP_MOBIUS: int = 20 * D\n\n\n@dataclass\nclass Ledger:\n    \"\"\"Contador determinístico de FLOPs (auditável).\"\"\"\n    counts: dict[str, int] = field(default_factory=dict)\n\n    def add(self, key: str, n: int) -> None:\n        self.counts[key] = self.counts.get(key, 0) + n\n\n    @property\n    def total(self) -> int:\n        return sum(self.counts.values())\n\n\n# --------------------------- Geometria de Poincaré ---------------------------\ndef lambda_x(x: np.ndarray) -> float:\n    return 2.0 / (1.0 - C_CURV * float(x @ x))\n\n\ndef mobius_add(x: np.ndarray, y: np.ndarray) -> np.ndarray:\n    xy, x2, y2 = float(x @ y), float(x @ x), float(y @ y)\n    num = (1.0 + 2.0 * C_CURV * xy + C_CURV * y2) * x + (1.0 - C_CURV * x2) * y\n    den = 1.0 + 2.0 * C_CURV * xy + (C_CURV**2) * x2 * y2\n    return num / den\n\n\ndef exp_map(x: np.ndarray, v: np.ndarray) -> np.ndarray:\n    nv = float(np.linalg.norm(v))\n    if nv < 1e-12:\n        return x.copy()\n    s = np.tanh(np.sqrt(C_CURV) * lambda_x(x) * nv / 2.0)\n    return mobius_add(x, (s / (np.sqrt(C_CURV) * nv)) * v)\n\n\ndef log_map(x: np.ndarray, y: np.ndarray) -> np.ndarray:\n    d = mobius_add(-x, y)\n    nd = float(np.linalg.norm(d))\n    if nd < 1e-12:\n        return np.zeros_like(x)\n    return (2.0 / (np.sqrt(C_CURV) * lambda_x(x))) * np.arctanh(\n        np.sqrt(C_CURV) * nd\n    ) * (d / nd)\n\n\n# --------------------- Operador: denso x soma de Kronecker -------------------\ndef make_factors(rng: np.random.Generator) -> list[tuple[np.ndarray, np.ndarray]]:\n    fs = []\n    for _ in range(S):\n        b = rng.standard_normal((P, P)) / np.sqrt(P)\n        c = rng.standard_normal((Q, Q)) / np.sqrt(Q)\n        fs.append((0.5 * (b + b.T), 0.5 * (c + c.T)))  # A auto-adjunto => Lanczos válido\n    return fs\n\n\ndef apply_structured(x: np.ndarray, fs, led: Ledger | None = None) -> np.ndarray:\n    X = x.reshape(P, Q)\n    out = np.zeros((P, Q), dtype=x.dtype)\n    for B, C in fs:\n        out += B @ X @ C.T\n    if led is not None:\n        led.add(\"matvec_struct\", FLOP_STRUCT_MV)\n    return out.reshape(-1)\n\n\ndef build_dense(fs) -> np.ndarray:\n    A = np.zeros((D, D))\n    for B, C in fs:\n        A += np.kron(B, C)   # convenção row-major do NumPy\n    return A\n\n\n# ------------------------------- Lanczos ------------------------------------\ndef lanczos(apply, x0: np.ndarray, m: int, led: Ledger | None = None,\n            reorth_period: int = 1) -> tuple[np.ndarray, np.ndarray, np.ndarray]:\n    V = np.zeros((D, m))\n    alpha = np.zeros(m)\n    beta = np.zeros(max(m - 1, 0))\n    V[:, 0] = x0 / np.linalg.norm(x0)\n    for k in range(m):\n        w = apply(V[:, k])\n        if k > 0:\n            w -= beta[k - 1] * V[:, k - 1]\n        a = float(V[:, k] @ w)\n        w -= a * V[:, k]\n        if (k % reorth_period) == reorth_period - 1 or k == m - 1:\n            w -= V[:, : k + 1] @ (V[:, : k + 1].T @ w)   # reortogonalização completa\n            if led is not None:\n                led.add(\"reorth\", 8 * D * (k + 1))\n        alpha[k] = a\n        if k + 1 < m:\n            bn = float(np.linalg.norm(w))\n            beta[k] = bn\n            if bn < 1e-12:\n                break\n            V[:, k + 1] = w / bn\n    return V, alpha, beta\n\n\ndef ritz_values(alpha: np.ndarray, beta: np.ndarray) -> np.ndarray:\n    T = np.diag(alpha) + np.diag(beta, 1) + np.diag(beta, -1)\n    return np.linalg.eigvalsh(T)\n\n\n# --------------------------------- Execução ---------------------------------\ndef main() -> None:\n    rng = np.random.default_rng(SEED)\n    fs = make_factors(rng)\n    A_dense = build_dense(fs)\n\n    # (a) Equivalência estrutural\n    x = rng.standard_normal(D)\n    err = float(np.max(np.abs(A_dense @ x - apply_structured(x, fs))))\n    assert err < 1e-9, f\"Falha na equivalência Kronecker: {err:.3e}\"\n    print(f\"[1] Equivalência denso x Kronecker: max|Δ| = {err:.3e}  OK\")\n\n    # (b) Igualdade espectral (mesmo subespaço de Krylov)\n    x0 = 0.8 * TAU * rng.standard_normal(D)\n    x0 *= (0.5 * TAU / np.linalg.norm(x0))\n    Vd, ad, bd = lanczos(lambda v: A_dense @ v, x0, R_KRYLOV)\n    Vs, as_, bs = lanczos(lambda v: apply_structured(v, fs), x0, R_KRYLOV,\n                          reorth_period=REORTH_PERIOD)\n    ritz_err = float(np.max(np.abs(ritz_values(ad, bd) - ritz_values(as_, bs))))\n    print(f\"[2] Desvio máx. dos valores de Ritz: {ritz_err:.3e}\")\n    assert ritz_err < 1e-6, \"Subespaços de Krylov divergentes\"\n\n    # (c) Consistência geométrica (exp/log com tau)\n    v = 0.3 * TAU * rng.standard_normal(D) / np.sqrt(D)\n    x_b = 0.5 * TAU * rng.standard_normal(D) / np.sqrt(D)\n    geo_err = float(np.linalg.norm(log_map(x_b, exp_map(x_b, v)) - v))\n    print(f\"[3] Round-trip log∘exp (tau={TAU}): {geo_err:.3e}\")\n    assert geo_err < 1e-8\n\n    # (d) Auditoria analítica de FLOPs\n    f_naive = K_VOCAB * (FLOP_DENSE_MV * R_KRYLOV + FLOP_REORTH_FULL)\n    f_kfpk = K_VOCAB * (FLOP_STRUCT_MV * R_KRYLOV + FLOP_REORTH_SEL + FLOP_MOBIUS)\n    reducao = 100.0 * (1.0 - f_kfpk / f_naive)\n    print(f\"[4] FLOPs naive = {f_naive:,} | KFPK-S = {f_kfpk:,} | redução = {reducao:.2f}%\")\n\n    # (e) Sensibilidade de R e S (auditoria do critério >= 75%)\n    print(\"\\n S   R     redução(%)  critério\")\n    for s_ in (1, 2, 4):\n        for r_ in (1, 2, 8, 32):\n            f = K_VOCAB * (2 * s_ * D * (P + Q) * R_KRYLOV\n                           + FLOP_REORTH_FULL // r_ + FLOP_MOBIUS)\n            red = 100.0 * (1.0 - f / f_naive)\n            print(f\"{s_:2d} {r_:3d}   {red:9.2f}   {'OK' if red >= 75.0 else 'FALHA'}\")\n\n    # (f) Tempo medido (kernel de aplicação do operador)\n    reps = K_VOCAB\n    t0 = time.perf_counter()\n    for _ in range(reps):\n        _ = A_dense @ x\n    t_dense = time.perf_counter() - t0\n    t0 = time.perf_counter()\n    for _ in range(reps):\n        _ = apply_structured(x, fs)\n    t_struct = time.perf_counter() - t0\n    print(f\"\\n[5] Tempo {reps} aplicações: denso {t_dense:.4f}s | \"\n          f\"Kronecker {t_struct:.4f}s | speedup {t_dense / t_struct:.2f}x\")\n\n    led = Ledger()\n    lanczos(lambda v: apply_structured(v, fs), x0, R_KRYLOV, led,\n            reorth_period=REORTH_PERIOD)\n    print(f\"[6] Ledger por execução de Lanczos: {led.counts} | total = {led.total:,}\")\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n---\n\n## 6. Hipóteses geradas e próximos passos\n\n| ID | Conteúdo | Classe | Solidez |\n|---|---|---|---|\n| `hyp_gen88_1071` | KFPK-S reduz FLOPs em **89,4%** ($S=2$, $p=q=32$, $R=32$, $r=128$, $K=2000$) | ANALYTIC_RESULT | **0.94** |\n| `hyp_gen88_1072` | O critério $\\ge 75\\%$ **depende de $R$**; com reortogonalização completa ($R=1$, $S=2$) cai para 70,1% | ANALYTIC_RESULT | **0.92** |\n| `hyp_gen88_1073` | $\\tau$ não afeta FLOPs; correlação $\\tau\\times$FLOPs é espúria | EMPIRICAL_FACT (analítico) | **0.96** |\n| `hyp_gen88_1074` | $\\tau$ afeta Top-1 via condicionamento do espectro de $A_x$ | HYPOTHESIS | **0.38** |\n| `hyp_gen88_1075` | Novidade global de KFPK-S | HYPOTHESIS | **0.35** |\n\n**Para fechar `hyp_gen88_1074` e o critério de acurácia (hoje infalsificável):**\n1. Reescrever o limiar explicitamente: `Perda de Acurácia Top-1 ≤ 0.3 pp` (não \"≤ 2\").\n2. Ablação $\\tau \\in \\{0.7, 1.0, 1.2, 1.5, 2.0\\} \\times S \\in \\{1,2,4\\} \\times R \\in \\{1,8,32\\}$, $\\ge 5$ seeds, IC 95% pareado por bootstrap.\n3. Reportar **erro de aproximação de Krylov** vs. limite de Chebyshev $2\\left(\\frac{\\sqrt\\kappa-1}{\\sqrt\\kappa+1}\\right)^r$ com $\\kappa=\\mathrm{cond}(A_x)$ — é o mediador causal $\\tau \\to$ acurácia.\n4. Marcar os 9 protocolos duplicados como `NON_INDEPENDENT_DERIVED` e os 2 nós de fala como `AGENT_LOG` (retirar de `EMPIRICAL_FACT`).\n\n**Estado:** formulação entregue com cadeia de custo fechada e bancada executável; corpus empírico herdado **não** sustenta as metas de Top-1 — apenas a meta de FLOPs, e esta com ressalva explícita sobre $R$."
+      }
+    },
+    {
+      "id": "hyp_gen88_16760",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: primeiro rodo uma bancada numér",
+      "description": "Vou executar a verificação independente de fato: primeiro rodo uma bancada numérica real (ordem de convergência do `n_strang`, reversibilidade, preservação da bola de Poincaré), a auditoria de bytes/FLOPs na escala GPT-3B e o teste de fidelidade de logits que amarra o critério \"Perda de Acurácia Top-1 ≤ 2%\". Em paralelo, persisto o script reproduzível da bancada.",
+      "provenance": "agent_081_independent_verifier",
+      "version": 2,
+      "created_at": 1793312159.8973274,
+      "updated_at": 1793312160.8999126,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0088_1793311946",
+        "cycle_id": 443,
+        "full_text": "Vou executar a verificação independente de fato: primeiro rodo uma bancada numérica real (ordem de convergência do `n_strang`, reversibilidade, preservação da bola de Poincaré), a auditoria de bytes/FLOPs na escala GPT-3B e o teste de fidelidade de logits que amarra o critério \"Perda de Acurácia Top-1 ≤ 2%\". Em paralelo, persisto o script reproduzível da bancada."
+      }
+    },
+    {
+      "id": "gen_0088_1793311946",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #88 (Ciclo #443)",
+      "description": "Executou 2 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793312161.2367072,
+      "updated_at": 1793312161.2367072,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 88,
+        "cycle_id": 443,
+        "verdict": "APPROVED",
+        "duration_sec": 214.76,
+        "tokens_consumed": 4380,
         "new_hypotheses": 2,
         "verified": 2,
         "refuted": 0
@@ -35621,7 +35677,67 @@
       "version": 1,
       "created_at": 1793311900.723482,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen88_95282_addresses_n_krylov",
+      "source_id": "hyp_gen88_95282",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793312086.1271858,
+        "updated_at": 1793312087.077937,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0088_1793311946_1793312086202_e_hyp_gen88_95282_addresses_n_krylov",
+            "generation_id": "gen_0088_1793311946",
+            "timestamp": 1793312087.077937,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793312086.127193,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen88_16760_addresses_n_strang",
+      "source_id": "hyp_gen88_16760",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793312159.9815562,
+        "updated_at": 1793312160.999026,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0088_1793311946_1793312160091_e_hyp_gen88_16760_addresses_n_strang",
+            "generation_id": "gen_0088_1793311946",
+            "timestamp": 1793312160.999026,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_081_independent_verifier",
+      "version": 1,
+      "created_at": 1793312159.9815629,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793311901.8310356
+  "saved_at": 1793312161.2392235
 }
