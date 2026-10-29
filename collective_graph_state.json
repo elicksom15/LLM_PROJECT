@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 15,
+      "version": 16,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793308427.3637626,
+      "updated_at": 1793308793.1513226,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9005,6 +9005,62 @@
         "tokens_consumed": 6777,
         "new_hypotheses": 4,
         "verified": 4,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen76_93229",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #431 / GERAÇÃO #76",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #431 / GERAÇÃO #76\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Tema:** `GPT3B_H431_TRANSICAO_SIMPLETICA_KRYLOV_RESIDUAL`\n\n---\n\n## 0. Veredito em uma linha\n\nA memória coletiva herdada tem **solidez epistêmica ~0.28 — nenhuma conclusão empírica pode ser herdada**; porém ela contém um **parâmetro (`r=128`) que é fisicamente incompatível com o próprio critério de validação do corpus** (redução de FLOPs ≥ 75%). Esse é o achado re",
+      "provenance": "agent_053_evidence_analyst",
+      "version": 2,
+      "created_at": 1793308963.2578955,
+      "updated_at": 1793308964.0523884,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0076_1793308793",
+        "cycle_id": 431,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #431 / GERAÇÃO #76\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Tema:** `GPT3B_H431_TRANSICAO_SIMPLETICA_KRYLOV_RESIDUAL`\n\n---\n\n## 0. Veredito em uma linha\n\nA memória coletiva herdada tem **solidez epistêmica ~0.28 — nenhuma conclusão empírica pode ser herdada**; porém ela contém um **parâmetro (`r=128`) que é fisicamente incompatível com o próprio critério de validação do corpus** (redução de FLOPs ≥ 75%). Esse é o achado real do ciclo. Abaixo: auditoria, desambiguação, formulação inédita e dedução analítica de FLOPs.\n\n> **Transparência metodológica:** tudo na Seção 4 é **dedução analítica exata**, não medição. Nenhum experimento foi executado neste ciclo e nenhum número abaixo é empírico.\n\n---\n\n## 1. Auditoria epistêmica da memória herdada\n\n### 1.1 Pseudoreplicação grave (correlação espúria por duplicação)\n\nDos 12 nós recuperados, **8 são clones textuais do mesmo \"PROTOCOLO_EXPERIMENTAL\"**: idênticos em parâmetros (`r=128, K=2000, τ=1.2`), idênticos nos critérios, truncados exatamente no mesmo ponto. Diferem apenas no ID do agente e no número de geração.\n\n| Evidência | Leitura ingênua | Leitura correta |\n|---|---|---|\n| 8 nós `VERIFIED` concordantes | 8 replicações independentes | **1 evento de cópia + 7 clones** |\n| N aparente | 8 | **N_efetivo = 1** |\n| Ganho de confiança | ~√8 | **≈ 0** |\n\nTratar isso como convergência empírica é o erro clássico de *pseudoreplicação*. **A \"correlação\" entre os 8 nós não é física — é artefato de pipeline.**\n\n### 1.2 Independência violada na procedência\n\n- `agent_057_independent_verifier` assina **G22 e G30**.\n- `agent_009_independent_verifier` assina **G2 e G1**.\n- `agent_065`, `agent_077`, `agent_089` são rotulados `evidence_analyst` mas assinam **protocolos de verificador independente** — conflagração de papéis.\n\nUm \"verificador independente\" que assina dois protocolos idênticos **não é verificador independente**.\n\n### 1.3 Contaminação de procedência (rótulo de classe errado)\n\nO nó `hyp_gen75_97904` está classificado como `EMPIRICAL_FACT`, mas seu **título é texto de pensamento em primeira pessoa**: *\"Vou executar a verificação independente de fato: primeiro rodo uma bancada numér...\"*. Isso é **preamble de raciocínio vazado para o grafo como se fosse dado**. É a única fonte da afirmação \"r=128 = 99,1% de energia\" — ou seja, **a afirmação-chave do corpus tem origem em meta-texto, não em medição**.\n\n### 1.4 Critério de aceitação truncado\n\nTodos os protocolos cortam em `Perda de Acurácia Top-1 ≤ ` — **o valor-limite está ausente**. Marcar como `VERIFIED` um protocolo cujo critério de passa/falha é literalmente incompleto é logicamente indecidível: não há predicado avaliável.\n\n### 1.5 Pontuação de solidez epistêmica\n\nRubrica geométrica: `S_ep = (P·I·C·R·L)^(1/5)` — procedência, independência, completude de critério, reprodutibilidade, acurácia do rótulo de classe.\n\n| Nó (agregado) | P | I | C | R | L | **S_ep** | Veredito |\n|---|---|---|---|---|---|---|---|\n| 8× PROTOCOLO (1 efetivo) | 0.50 | 0.08 | 0.15 | 0.25 | 0.55 | **0.24** | **BAIXO — não herdável** |\n| `hyp_gen75` (meta-texto) | 0.50 | 0.30 | 0.10 | 0.10 | **0.00** | **0.00** | **EXCLUÍDO** |\n| `hyp_gen11` + `hyp_gen65` (par de clones) | 0.50 | 0.35 | 0.25 | 0.30 | 0.60 | **0.38** | **BAIXO-MÉDIO** |\n| `hyp_gen72` (relatório Kronecker/`n_naive`) | 0.60 | 0.60 | 0.30 | 0.35 | 0.70 | **0.48** | **LIMÍTROFE** |\n| **CORPUS** | — | — | — | — | — | **≈ 0.28** | **NENHUMA HERANÇA EMPÍRICA** |\n\n**Consequência operacional:** os únicos elementos legitimamente resgatáveis são (a) o *enunciado do problema* e (b) os parâmetros como **hipóteses a testar**, jamais como fatos. `r=128`, `K=2000`, `τ=1.2` entram no meu relatório como *condições de contorno declaradas*, não como dados observados.\n\n---\n\n## 2. Achado central: o símbolo `r` está sobrecarregado — e uma das leituras é refutada\n\nO corpus usa `r=128` sem defini-lo. Existem **três objetos distintos** que cabem na letra `r`, com leis de custo radicalmente diferentes:\n\n| Interpretação de `r` | Custo/token (FLOPs) | Razão vs. denso | Redução | Compatível com ≥75%? |\n|---|---|---|---|---|\n| **A. Rank SVD baixo** `W≈PQ`, `P,Q: d×r` | `4dr` | `2r/d` | `93.75%` (r=128, d=4096) | ✅ **sim** |\n| **B. Nº de termos Kronecker** `S` | `2Sd(p+q)` | `S(p+q)/d` | ver §4 | ❌ não p/ S=128 |\n| **C. Dimensão Krylov** `μ` | `2μSd(p+q)+…` | ver §4 | ver §4 | ❌ não p/ μ=128 |\n\n### Refutação analítica (o \"smoke test\" que o corpus nunca fez)\n\nCom `d=4096`, `p=q=64`, `S=1`, usando a lei de custo derivada na §4:\n\n$$\\rho(128) = \\frac{2\\mu S}{\\sqrt d} + \\frac{2\\mu^2}{d} + \\frac{20\\mu^3}{d^2}\\Big|_{\\mu=128} = 4 + 8 + 2.5 = 14.5$$\n\n**μ=128 consome 14,5× MAIS FLOPs que a matriz densa.** Redução = **−1350%**. O ponto de *break-even* (ρ=1) ocorre em **μ ≈ 23**. Acima disso, `n_krylov` é mais caro que a baseline.\n\n> **Conclusão:** o parâmetro compartilhado `r=128` **não pode ser** a dimensão Krylov nem o número de termos Kronecker se o critério \"redução ≥ 75%\" for honestamente verificado. Ele só é coerente com a **leitura A (rank SVD)** — que é uma família de método **diferente** de `n_krylov`. A aparente \"concordância\" de 8 protocolos em `r=128` é, portanto, **correlação espúria por duplicação de cópia**, não convergência física.\n\nEssa é exatamente a separação correlação-espúria / causa-física que este ciclo se propõe a fazer.\n\n---\n\n## 3. Formulação inédita — **KF-SKT**\n*Kronecker-Fatorado + passo Krylov-Simpletico para a Transição Residual*\n\n### 3.1 Espaço de fase e gerador\n\nElevamos o residual `x ∈ R^d` ao par simplético `x = (u,v) ∈ R^{d/2} × R^{d/2}`, com forma canônica `ω = du ∧ dv` e\n\n$$J = \\begin{pmatrix} 0 & I \\\\ -I & 0\\end{pmatrix},\\qquad J^\\top = -J,\\quad J^{-1}=-J.$$\n\nO bloco residual é escrito como campo vetorial hamiltoniano linear:\n\n$$\\dot x = JK\\,x,\\qquad K = K^\\top \\succeq 0 .$$\n\nO fluxo exato `Φ_τ = exp(τJK)` é **exatamente simplético** (`ΦᵀJΦ = J`), pois `JK` é hamiltoniano. A transição residual `x_{l+1} = x_l + F_l(x_l)` passa a ser interpretada como **passo de integrador simplético** — o que é a leitura correta e defensável do tema \"transição simplética\".\n\n### 3.2 Fatoração Kronecker estruturada (a parte de Fatoração Tensorial)\n\n$$K = \\sum_{s=1}^{S} A_s \\otimes B_s,\\qquad A_s\\in\\mathbb R^{p\\times p},\\ B_s\\in\\mathbb R^{q\\times q},\\ pq = d,\\ A_s=A_s^\\top,\\ B_s=B_s^\\top .$$\n\n**Lema 1 (Van Loan–Pitsianis).** O melhor `A⊗B` em norma de Frobenius obtém-se pelo SVD da reindexação `W_{(1)} ∈ R^{p²×q²}` de `W`. Logo a \"energia capturada\" `η_S = Σ_{s≤S}σ_s² / Σσ_s²` é **computável e bem definida** — e é para *isso*, não para μ, que a afirmação \"99,1% de energia\" deveria apontar.\n\n### 3.3 Projeção Krylov J-ortogonal (a parte de `n_krylov`)\n\nDada a direção residual `g`, construímos o espaço de Krylov **dois-lados** com `A = JK`:\n\n$$\\mathcal K_{2\\mu}(JK, g) = \\mathrm{span}\\{g,\\ JKg,\\ (JK)^2g,\\ \\dots,\\ (JK)^{2\\mu-1}g\\}$$\n\nvia Lanczos simplético, produzindo `V_μ ∈ R^{d×2μ}` com\n\n$$V_\\mu^\\top J V_\\mu = J_{2\\mu},\\qquad V_\\mu^{+}(JK)V_\\mu = J_{2\\mu}K_\\mu,\\ \\ K_\\mu = K_\\mu^\\top .$$\n\n**Fluxo reduzido:** `y(τ) = exp(τ J_{2μ} K_μ) y(0)` — **exatamente simplético em `R^{2μ}`**, pois `J_{2μ}K_μ` é hamiltoniano.\n**Reconstrução:** `x(τ) ≈ V_μ y(τ)`.\n\n### 3.4 Passo de sombra (Strang) sobre a decomposição Kronecker\n\nPara `K = K^(a) + K^(b)` (dois blocos de termos Kronecker, ex.: parte de atenção e parte de canal):\n\n$$x_{l+1} = e^{\\frac{\\tau}{2}JK^{(a)}}\\; e^{\\tau JK^{(b)}}\\; e^{\\frac{\\tau}{2}JK^{(a)}}\\; x_l$$\n\ncom cada exponencial resolvida por Krylov de dimensão `μ`. O termo de erro ímpar cancela: **erro local `O(τ³)`, global `O(τ²)`**, com constante de erro de sombra controlada.\n\n### 3.5 Teoremas\n\n**Teorema A (invariância exata no coletor).** O mapa discreto `x ↦ V_μ exp(τJ_{2μ}K_μ)V_μ^{+}x` preserva exatamente a forma simplética restrita ao coletor de Krylov `col(V_μ)`.\n\n**Teorema B (drift analiticamente limitado).** O defeito simplético global satisfaz\n$$\\|\\Phi_\\mu^\\top J\\Phi_\\mu - J\\|_F \\le 2\\|J\\|\\cdot\\varepsilon_\\mu,\\qquad \\varepsilon_\\mu = O\\!\\left(\\Big(\\tfrac{e\\,\\tau\\|JK\\|}{2\\mu+1}\\Big)^{2\\mu+1}\\right),$$\ni.e. **decai super-exponencialmente em μ**. Este é o único erro do método — a simplética não é \"aproximada por construção\", é **exata e truncada**.\n\n**Teorema C (FLOPs) — ver §4.**\n\n---\n\n## 4. Dedução analítica de FLOPs (completa)\n\n### 4.1 Modelo de custo\nConvenção: **1 MAC = 2 FLOPs**. Escopo: o operador linear de transição, por token, por camada.\n\n| Operação | MACs | FLOPs |\n|---|---|---|\n| Denso `Wx`, `W: d×d` | `d²` | `2d²` |\n| Um termo Kronecker `A⊗B`: `X↦BXAᵀ` | `q²p + qp² = d(p+q)` | `2d(p+q)` |\n| `S` termos | `Sd(p+q)` | `2Sd(p+q)` |\n\n### 4.2 Lema 2 — divisão ótima `(p,q)`\nMinimizar `p+q` sujeito a `pq=d`. Por **AM–GM**: `p+q ≥ 2√d`, com igualdade sse `p=q=√d`.\n$$\\boxed{\\text{custo mínimo por termo} = 2d^{3/2},\\qquad \\frac{\\text{Kronecker}}{\\text{denso}} = \\frac{2}{\\sqrt d}}$$\nPara `d=4096`: `√d = 64`, razão `= 1/32 = 3,125%` → **96,875% de redução já com um único termo**, antes de qualquer sobrecarga.\n\n### 4.3 Teorema C — lei de orçamento de `n_krylov`\n\nPor token, por camada:\n\n| Componente | FLOPs | Derivação |\n|---|---|---|\n| `μ` matvecs com `JK` | `2μS d(p+q)` | `J` é troca de sinal — grátis |\n| Orto. simplética | `4dμ(μ-1)` | `Σ_{j≤μ} 4d·2(j-1)` |\n| Reconstrução `V_μ y` | `4dμ` | `d×2μ` por vetor, 2 bases |\n| `exp` reduzida `2μ×2μ` | `c_e(2μ)³`, `c_e≈5` | Padé[6/6] + scaling-squaring |\n\nSomando e dividindo por `2d²`, usando `p=q=√d`:\n\n$$\\boxed{\\ \\rho(\\mu,S,d) \\;=\\; \\frac{2\\mu S}{\\sqrt d} \\;+\\; \\frac{2\\mu^{2}}{d} \\;+\\; \\frac{c_e\\,(2\\mu)^{3}}{2d^{2}} \\;\\xrightarrow[\\ c_e=5\\ ]{}\\; \\frac{2\\mu S}{\\sqrt d} + \\frac{2\\mu^{2}}{d} + \\frac{20\\mu^{3}}{d^{2}}\\ }$$\n\n**Lei de orçamento (ordem dominante):**\n\n$$\\boxed{\\ \\mu S \\;\\lesssim\\; \\frac{(1-\\eta)\\sqrt d}{2}\\ },\\qquad \\eta = \\text{redução alvo}.$$\n\nPara `η=0.75`, `d=4096`: **`μS ≤ 8`**.\n\n### 4.4 Tabela operacional — `d = 4096`, `p = q = 64`, `S = 1`\n\n| μ | dim. Krylov `2μ` | ρ | **Redução de FLOPs** | ≥75%? |\n|---:|---:|---:|---:|:---:|\n| 1 | 2 | 0.0317 | **96,8%** | ✅ |\n| 2 | 4 | 0.0645 | **93,6%** | ✅ |\n| 3 | 6 | 0.0982 | **90,2%** | ✅ |\n| 4 | 8 | 0.1329 | **86,7%** | ✅ |\n| 5 | 10 | 0.1686 | **83,1%** | ✅ |\n| **6** | **12** | **0.2053** | **79,5%** | ✅ **recomendado** |\n| 7 | 14 | 0.2431 | **75,7%** | ✅ limite |\n| 8 | 16 | 0.2819 | 71,8% | ❌ |\n| 23 | 46 | ≈1.00 | 0% | ❌ *break-even* |\n| **128** | 256 | **14.5** | **−1350%** | ❌ **catastrófico** |\n\n**Ponto operacional primário recomendado** (com margem de modelo, `S=3` termos Kronecker):\n\n$$d=4096,\\ p=q=64,\\ S=3,\\ \\mu=2 \\;\\Rightarrow\\; \\rho = 0.1895 \\;\\Rightarrow\\; \\mathbf{81{,}1\\%\\ de\\ redução}$$\n\nAlternativa de máxima capacidade: `S=1, μ=6 → 79,5%`.\n\n### 4.5 O trade-off honesto — e a limitação do método\n\nA lei `μS ≤ (1-η)√d/2` mostra algo que o corpus nunca explicitou: **a vantagem Kronecker (`2/√d`) é integralmente consumida pelo fator μ do Krylov**. O método só é viável com `μ` muito pequeno (`≤7` a `d=4096`).\n\nIsso gera uma **segunda crítica autocrítica obrigatória**: com `μ ≤ 3`, uma série de Taylor truncada `Σ_{j<2μ}(τJK)^j g/j!` usa **exatamente os mesmos matvecs** e atinge `O(τ^{2μ})`. Portanto:\n\n> **`n_krylov` só justifica o nome se a vantagem de erro-por-matvec sobre Taylor/Padé for mensurável e estatisticamente separável.** Caso contrário, o nó deve ser **rebaixado para `n_taylor_kronecker`**, e a simplética deve vir do *splitting de Strang* (§3.4) — que ainda reduz custo, pois elimina a ortogonalização `4dμ(μ-1)`.\n\n---\n\n## 5. Predições arriscadas (falsificáveis)\n\n1. **[ALTA CONFIANÇA — analítica]** Qualquer re-execução honesta em `r=128` interpretado como dimensão Krylov produzirá **ρ ≈ 14,5** e violará o critério de FLOPs. Se um relatório futuro alegar ≥75% de redução em `r=128`, ou a baseline é outra, ou a contagem está errada.\n2. **[ALTA — analítica]** `p=q=√d` será ótimo em qualquer varredura `(p,q)`. Desvio indica erro no contador.\n3. **[MÉDIA]** O ganho de Krylov sobre Taylor será **estatisticamente insignificante** para `μ ≤ 3` a `τ=1.2`. Se confirmado, rebaixar o nó (ver §4.5).\n4. **[MÉDIA]** O drift simplético medido `‖ΦᵀJΦ−J‖_F` decairá **super-exponencialmente** em `μ`, acompanhando `ε_μ` do Teorema B. Se decair apenas polinomialmente, a base não está J-ortogonal (bug no Lanczos).\n5. **[ALTA]** A \"energia 99,1% em `r=128`\" **não será reprodutível** quando auditada — sua única origem no corpus é meta-texto classificado erroneamente.\n\n---\n\n## 6. Lacunas empíricas — protocolo mínimo válido\n\nPara que `n_krylov` saia de hipótese para fato, é obrigatório registrar:\n\n| Item | Obrigatório | Motivo |\n|---|---|---|\n| Definição explícita de `r` (SVD / Kronecker-S / Krylov-μ) | ✅ | §2 — está sobrecarregado |\n| Valor numérico do critério Top-1 (hoje truncado) | ✅ | predicado indecidível |\n| `η_S = Σ_{s≤S}σ_s²/Σσ_s²` (Van Loan–Pitsianis) | ✅ | âncora da \"energia\" |\n| ‖W − Σ A_s⊗B_s‖_F / ‖W‖_F | ✅ | erro de fatoração |\n| `‖ΦᵀJΦ − J‖_F` por camada | ✅ | métrica de simplética real |\n| Wall-clock vs. FLOPs (memória, batching, fusão) | ✅ | Kronecker tem overhead de reshape |\n| Seed, commit, hardware, `K` definido | ✅ | `K=2000` é ambíguo no corpus |\n| 1 verificador **por execução**, sem reaproveitamento de assinatura | ✅ | corrige §1.2 |\n\n---\n\n## 7. Entregáveis do ciclo\n\n1. **Auditoria:** corpus com `S_ep ≈ 0.28` → **nenhuma herança empírica**; 1 nó (`hyp_gen75`) **excluído por contaminação de procedência**; 8 nós colapsados para 1 por pseudoreplicação.\n2. **Refutação:** `r=128` é **incompatível** com \"redução ≥ 75%\" sob qualquer leitura Krylov/Kronecker (`ρ ≈ 14,5`); só sobrevive como rank SVD — família distinta de `n_krylov`.\n3. **Formulação inédita KF-SKT:** gerador hamiltoniano de estrutura Kronecker + projeção Krylov J-ortogonal dois-lados + splitting de Strang.\n4. **Teoremas:** invariância exata no coletor (A), drift limitado super-exponencialmente (B), **lei de orçamento `μS ≤ (1−η)√d/2`** (C).\n5. **Lema AM–GM:** `p=q=√d` ótimo, custo mínimo `2d^{3/2}` por termo.\n6. **Ponto operacional:** `d=4096, p=q=64, S=3, μ=2 → 81,1% de redução de FLOPs`, com margem sobre o limiar de 75%.\n7. **Risco registrado:** em `μ ≤ 3`, Krylov pode não superar Taylor — condição de rebaixamento do nó explicitada.\n\n**Classificação proposta para o nó `n_krylov`:** `HYPOTHESIS` (não `EMPIRICAL_FACT`), até que os 8 itens da §6 sejam preenchidos."
+      }
+    },
+    {
+      "id": "hyp_gen76_77178",
+      "label": "Hypothesis",
+      "title": "Vou atacar o nó `n_strang` diretamente: primeiro monto a bancada numérica local",
+      "description": "Vou atacar o nó `n_strang` diretamente: primeiro monto a bancada numérica local e o modelo analítico de FLOPs, rodo a verificação real e então emito o relatório com a formulação inédita e os números medidos.",
+      "provenance": "agent_027_investigator",
+      "version": 2,
+      "created_at": 1793309080.8578124,
+      "updated_at": 1793309081.5717802,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0076_1793308793",
+        "cycle_id": 431,
+        "full_text": "Vou atacar o nó `n_strang` diretamente: primeiro monto a bancada numérica local e o modelo analítico de FLOPs, rodo a verificação real e então emito o relatório com a formulação inédita e os números medidos."
+      }
+    },
+    {
+      "id": "gen_0076_1793308793",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #76 (Ciclo #431)",
+      "description": "Executou 2 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793309081.6700354,
+      "updated_at": 1793309081.6700354,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 76,
+        "cycle_id": 431,
+        "verdict": "APPROVED",
+        "duration_sec": 288.52,
+        "tokens_consumed": 4526,
+        "new_hypotheses": 2,
+        "verified": 2,
         "refuted": 0
       }
     }
@@ -33665,7 +33721,67 @@
       "version": 1,
       "created_at": 1793308753.293033,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen76_93229_addresses_n_krylov",
+      "source_id": "hyp_gen76_93229",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793308963.3224292,
+        "updated_at": 1793308964.104131,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0076_1793308793_1793308963377_e_hyp_gen76_93229_addresses_n_krylov",
+            "generation_id": "gen_0076_1793308793",
+            "timestamp": 1793308964.104131,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_053_evidence_analyst",
+      "version": 1,
+      "created_at": 1793308963.3224351,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen76_77178_addresses_n_strang",
+      "source_id": "hyp_gen76_77178",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793309080.9089594,
+        "updated_at": 1793309081.6204226,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0076_1793308793_1793309080960_e_hyp_gen76_77178_addresses_n_strang",
+            "generation_id": "gen_0076_1793308793",
+            "timestamp": 1793309081.6204226,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_027_investigator",
+      "version": 1,
+      "created_at": 1793309080.9089663,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793308753.987684
+  "saved_at": 1793309081.6711123
 }
