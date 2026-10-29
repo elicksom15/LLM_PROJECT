@@ -1,10 +1,10 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-29 16:03:08",
+  "last_sync": "2026-10-29 16:04:56",
   "stats": {
-    "total_cycles": 397,
-    "approved_count": 50,
+    "total_cycles": 398,
+    "approved_count": 51,
     "rejected_count": 66
   },
   "approved_hypotheses": [
@@ -507,9 +507,29 @@
       "speedup_pct": 2348.407041249574,
       "kl_divergence": 0.0,
       "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #44."
+    },
+    {
+      "cycle_id": 398,
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "top1_accuracy": 99.01477832512316,
+      "flops_reduction": 95.77,
+      "tokens_per_sec": 44.5,
+      "speedup_pct": 1814.5224950663235,
+      "kl_divergence": 0.0,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #45."
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 398,
+      "timestamp": "2026-10-29 16:03:27",
+      "title": "GPT3B_H355_INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL",
+      "verdict": "APPROVED",
+      "flops_reduction": 95.77,
+      "top1_accuracy": 99.01477832512316,
+      "tokens_per_sec": 44.5,
+      "next_step": "Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva preservada para geração #45."
+    },
     {
       "cycle_id": 397,
       "timestamp": "2026-10-29 16:01:21",
@@ -998,16 +1018,6 @@
       "flops_reduction": 79.11625051831288,
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 11489.383081220398,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 348,
-      "timestamp": "2026-10-29 13:11:29",
-      "title": "GPT3B_H348_TRANSICAO_SIMPLETICA_RESIDUAL_TSR_CSI",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 12384.455673372024,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
     }
   ]
