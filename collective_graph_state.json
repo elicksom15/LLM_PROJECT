@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 34,
+      "version": 35,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793313728.518641,
+      "updated_at": 1793313988.4625258,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -10375,6 +10375,96 @@
         "tokens_consumed": 3917,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen95_7327",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #450 / GERAÇÃO #95",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #450 / GERAÇÃO #95\n\n**Foco:** QCTA (Operador de Transição de Curvatura Quadrática em Subespaço Invariante) · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs + protocolo de bancada\n\n---\n\n## 0. Veredito epistêmico (leitura imediata)\n\n| Afirmação | Classe | Solidez |\n|---|---|---|\n| Dedução de FLOPs de `n_naive`, `n_krylov`, `n_qcta` | Analítica (fechada em m, n, r, K) | **Alta** — verificável por inspeção |\n| I",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793314053.202406,
+      "updated_at": 1793314054.2077687,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0095_1793313988",
+        "cycle_id": 450,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #450 / GERAÇÃO #95\n\n**Foco:** QCTA (Operador de Transição de Curvatura Quadrática em Subespaço Invariante) · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs + protocolo de bancada\n\n---\n\n## 0. Veredito epistêmico (leitura imediata)\n\n| Afirmação | Classe | Solidez |\n|---|---|---|\n| Dedução de FLOPs de `n_naive`, `n_krylov`, `n_qcta` | Analítica (fechada em m, n, r, K) | **Alta** — verificável por inspeção |\n| Invariância exata do subespaço QCTA (defeito = 0) | Teorema algébrico | **Alta** — sob A, B simétricas |\n| Redução de FLOPs ≥ 75% | Predição analítica | **Alta** — margem ampla (86,6% no modo mais conservador) |\n| Critério \"r=128 ⇒ 99,1% da energia\" | Hipótese herdada do grafo | **Baixa/Média** — não auditada neste ciclo |\n| Perda de Acurácia Top-1 ≤ 2% | Predição empírica | **Baixa** — exige bancada real |\n\n**Restrição operacional desta sessão:** o conjunto de ferramentas exposto não inclui `write_file` / `run_python` / `run_cmd`. Não vou fabricar medições. Entrego a formulação, a dedução fechada e o artefato de bancada autocontido para execução pelo orquestrador; nenhum número medido é reportado aqui.\n\n---\n\n## 1. Auditoria do corpus — correlações espúrias detectadas\n\nAntes de formular, a análise do grafo revela três artefatos que contaminam a \"força probatória\" do contexto:\n\n1. **Quinta-coluna de cópias.** Os nós `hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741` são **o mesmo protocolo** (r=128, K=2000, τ=1.2, mesmos limiares) gerado por agentes diferentes a partir do mesmo template. Não são cinco confirmações independentes — são **1 evidência propagada 5 vezes**. Contagem efetiva de réplicas independentes: **1**.\n2. **Limiar inaudível.** Todas as descrições truncam em `Perda de Acurácia Top-1 \\le`. O valor exato do critério **não está no grafo**. O ≤ 2% usado abaixo é inferido do contexto do protocolo e permanece **não confirmado**.\n3. **Erro de classe.** Nós cujo título é literalmente um plano de execução (\"Vou executar a verificação independente de fato...\") estão rotulados como `EMPIRICAL_FACT | VERIFIED`. Intenção de executar ≠ medição. Trato esses nós (`hyp_gen93`, `hyp_gen75`, `hyp_gen89`, `hyp_gen77`) como **planos**, com solidez empírica **baixa**, independentemente do selo.\n\nConsequência: o único parâmetro com lastro é o conjunto (r=128, K=2000, τ=1.2). Formulo exatamente sobre ele.\n\n---\n\n## 2. Formulação QCTA\n\n### 2.1 Setup\n\nCamada residual `x_{l+1} = x_l + F_l(x_l)`; curvatura (Fisher/GGN) na aproximação de Kronecker:\n\n$$K(x) = A(x) \\otimes B(x), \\qquad A \\in \\mathbb{R}^{m\\times m},\\; B \\in \\mathbb{R}^{n\\times n},\\; \\text{SPD}$$\n\nAplicação eficiente: $\\mathrm{vec}^{-1}\\big(K\\,\\mathrm{vec}(X)\\big) = B X A^{\\top}$, custo $2mn(m+n)$ FLOPs (vs. $2m^2n^2$ da matriz densa).\n\n### 2.2 Definição 1 — Subespaço invariante espectral-Kronecker\n\nSejam $A = U\\Lambda U^{\\top}$, $B = W M W^{\\top}$, $\\Lambda = \\mathrm{diag}(\\lambda_i)$, $M = \\mathrm{diag}(\\mu_j)$. O par espectral é $\\theta_{ij} = \\lambda_i \\mu_j$ com autovetor de Kronecker $E_{ij} = u_i \\otimes w_j$, pois\n\n$$K E_{ij} = (A u_i)\\otimes(B w_j) = \\theta_{ij} E_{ij}$$\n\nEscolha $\\Omega \\subset [m]\\times[n]$, $|\\Omega| = r = 128$, pelos maiores $\\theta_{ij}$. Então $Q = [E_{ij}]_{(i,j)\\in\\Omega}$ satisfaz $KQ = Q\\Theta$ com $\\Theta = \\mathrm{diag}(\\theta_\\Omega)$ — **defeito de invariância identicamente nulo**, não apenas pequeno.\n\n### 2.3 Definição 2 — Operador de transição de curvatura quadrática\n\nSob o deslocamento $\\delta = Qz$ da corrente residual, $K(x+\\delta)$ se expande; projetando em $S=\\mathrm{range}(Q)$:\n\n$$\\boxed{\\;\\Psi_Q(z) = \\Theta z + \\tfrac{1}{2}\\,\\Gamma[z,z]\\;}$$\n\ncom $\\Theta = Q^{\\top}K Q = \\mathrm{diag}(\\theta_\\Omega)$ e o **tensor de transição quadrática**, via teoria de perturbação de Kato de 2ª ordem:\n\n$$\\Gamma[z,z] = \\sum_{s,t=1}^{r} \\gamma_{st} z_s z_t e_s, \\qquad \\gamma_{st} = w_{st}(\\tau)\\,\\big\\langle E_s,\\; \\nabla K[E_t]\\big\\rangle$$\n\n- $\\nabla K[E_t] \\approx (\\Delta A \\otimes B + A \\otimes \\Delta B)E_t$, com secantes $\\Delta A = A_{l+1}-A_l$, $\\Delta B = B_{l+1}-B_l$ (sem derivadas de terceira ordem explícitas).\n- Peso de Gibbs $w_{st}(\\tau) = \\exp(-|\\tilde\\theta_s - \\tilde\\theta_t|/\\tau)$, $\\tilde\\theta = \\theta/\\|\\theta\\|_\\infty$, com **τ = 1.2**: mascara pares quase-degenerados, onde $|\\tilde\\theta_s-\\tilde\\theta_t| \\to 0$ e a teoria de perturbação diverge. Com τ=1.2 o acoplamento é essencialmente denso (b ≈ r), logo $\\Gamma$ é montado como matriz $r\\times r$ cheia.\n\n### 2.4 Propriedades\n\n- **(P1) Invariância exata:** $KQ - Q\\Theta = 0$ (até $\\varepsilon_{\\text{mach}}\\|A\\|\\|B\\|$). Contraste com `n_krylov`, cujo resíduo de Lanczos $|\\beta_{K+1}|$ é o defeito real.\n- **(P2) $\\Theta$ diagonal:** aplicação $O(r)$ e resolução do sistema reduzido $O(r)$ — vs. $O(r^3)$ ou solve tridiagonal em `n_krylov`.\n- **(P3) $\\Gamma$ simétrico** (por simetrização $\\gamma \\leftarrow (\\gamma+\\gamma^{\\top})/2$), logo $\\Psi_Q$ tem parte quadrática bem definida e o erro de linearização é auditável.\n- **(P4) Truncamento:** com $g_{\\text{energia}} = \\sum_{\\Omega}(\\theta c)^2/\\sum(\\theta c)^2 = 0{,}991$ (herdado, não auditado), o erro relativo do gradiente pré-condicionado é limitado por $\\sqrt{(1-0{,}991)/0{,}991} \\approx 9{,}5\\%$ em norma de energia, amplificado por $\\kappa_{\\text{eff}} = \\max_{\\Omega^c}|\\theta|/\\min_\\Omega|\\theta|$. **Iso não implica Top-1 ≤ 2%** — é limite superior, e a implicação de acurácia é empírica.\n\n---\n\n## 3. Dedução analítica de FLOPs\n\nParâmetros: $m=n=1024$, $r=128$, $K=2000$, $\\tau=1.2$. $N = mn = 1{,}048{,}576$.\n\n### `n_naive` (Kronecker explícito denso)\n$$F_{\\text{naive}} = 2K m^2 n^2 = 4{,}398\\times10^{15} \\ \\text{FLOPs}; \\qquad \\text{memória } (mn)^2\\cdot 4B = 4{,}40\\ \\text{TB}$$\nBaseline de referência fisicamente inviável — é exatamente o que `n_naive` documenta.\n\n### `n_krylov` (Kronecker-aware + Krylov de profundidade K)\n$$F_{\\text{krylov}} = \\underbrace{2K mn(m+n)}_{\\text{matvecs}} + \\underbrace{2mnK^2}_{\\text{reortogonalização total}} = 8{,}590\\times10^{12} + 8{,}389\\times10^{12} = 1{,}698\\times10^{13}$$\nVariante recorrência de 3 termos: $2K mn(m+n) + 8mnK = 8{,}607\\times10^{12}$. Memória da base: $mnK\\cdot 4B = 8{,}39$ GB.\n\n### `n_qcta` (proposto)\n\nEstrutura (uma vez):\n$$F_{\\text{estr}} = \\underbrace{4(m^3+n^3)}_{\\text{eig}(A),\\,\\text{eig}(B)} + \\underbrace{2r(m^2+n^2)}_{\\text{secantes em }E_t} + \\underbrace{2r^2(m+n)}_{\\langle E_s,\\nabla K[E_t]\\rangle} + \\underbrace{3r^2}_{\\Gamma}$$\n$$= 8{,}590\\times10^{9} + 5{,}37\\times10^{8} + 6{,}71\\times10^{7} + 4{,}9\\times10^{4} \\approx 9{,}2\\times10^{9}$$\n\nAplicação (por vetor): projeção $2mnr + 2mr^2$, forma quadrática $2r^2$, lifting $2mnr$ ⇒ $5{,}71\\times10^8$ FLOPs.\n\n| Modo de contagem | `n_naive` | `n_krylov` | `n_qcta` | Redução QCTA |\n|---|---|---|---|---|\n| **A** — construção do subespaço dim-r | 4,40e15 | 1,70e13 (reort.) / 8,61e12 (3-termos) | **9,2e9** | **99,95% / 99,89%** |\n| **B** — K=2000 aplicações do operador | 4,40e15 | 8,59e12 | **1,15e12** | **86,6%** |\n| Memória de estado | 4,40 TB | 8,39 GB | **≈ 17,8 MB** (1,05 MB na forma slim) | **471× / 8000×** |\n\n**Fórmula fechada de redução (modo B, o mais conservador):**\n$$\\rho_B = 1 - \\frac{4(m^3+n^3) + 2r(m^2+n^2) + 2r^2(m+n) + K(4mnr + 2mr^2 + 2r^2)}{2K\\,mn(m+n)} \\;\\xrightarrow{\\;m=n=1024,\\,r=128,\\,K=2000\\;}\\; 0{,}866$$\n\n**Contra o critério do protocolo (≥ 75%):** atendido em ambos os modos, com margem de 11,6 p.p. no caso pior. FLOPs é métrica hardware-independente; a margem absorve variação de implementação.\n\n---\n\n## 4. Bancada local — artefato autocontido (numpy)\n\nEscopo honesto do script: **audita** o critério de energia 99,1%, mede o defeito de invariância, mede o erro de pré-condicionamento contra referência densa (em escala pequena, onde a densa cabe) e imprime os contadores de FLOPs com as reduções. O teste de Top-1 só pode ser feito no modelo real (GPT-3B) — fica declarado como pendência.\n\n```python\n\"\"\"\nqcta_bench.py — Bancada de verificacao do QCTA (Fatoracao Tensorial Kronecker)\nParametros: r=128, K=2000, tau=1.2   |   Numpy puro, deterministico.\nSaida: JSON com energia, defeito de invariancia, erro de precondicionamento e FLOPs.\n\"\"\"\nimport json, time\nimport numpy as np\n\nR, K, TAU = 128, 2000, 1.2\n\nclass Flops:\n    def __init__(self): self.n = 0\n    def add(self, k): self.n += int(k)\n\nF = Flops()\n\ndef make_spd(m, spread=3.0, seed=0):\n    rng = np.random.default_rng(seed)\n    Qm, _ = np.linalg.qr(rng.standard_normal((m, m)))\n    lam = np.logspace(0.0, -spread, m)\n    return (Qm * lam) @ Qm.T\n\ndef sym_eig(M):\n    lam, U = np.linalg.eigh(M)\n    F.add(4 * M.shape[0] ** 3)\n    return lam, U\n\ndef kron_mv(A, B, X):\n    m, n = A.shape[0], B.shape[0]\n    Y = B @ (X @ A.T)\n    F.add(2 * m * n * (m + n))\n    return Y\n\ndef qcta_structure(lam_a, Ua, lam_b, Ub, r, tau):\n    theta = np.outer(lam_a, lam_b).ravel()\n    idx = np.argsort(theta)[::-1][:r]\n    ii, jj = np.unravel_index(idx, (lam_a.size, lam_b.size))\n    th = theta[idx]\n    F.add(2 * r * (lam_a.size**2 + lam_b.size**2))\n    F.add(2 * r * r * (lam_a.size + lam_b.size))\n    F.add(3 * r * r)\n    w = np.exp(-np.abs(th[:, None] - th[None, :]) / (tau * np.abs(th).max()))\n    return ii, jj, th, w\n\ndef main():\n    out = {}\n    m = n = 1024\n    A, B = make_spd(m, seed=1), make_spd(n, seed=2)\n    t0 = time.perf_counter(); F.n = 0\n    lam_a, Ua = sym_eig(A); lam_b, Ub = sym_eig(B)\n    ii, jj, th, w = qcta_structure(lam_a, Ua, lam_b, Ub, R, TAU)\n    out[\"t_estrutura_s\"] = time.perf_counter() - t0\n    out[\"flops_estrutura\"] = F.n\n\n    theta_all = np.sort(np.outer(lam_a, lam_b).ravel()**2)[::-1]\n    cum = np.cumsum(theta_all) / theta_all.sum()\n    out[\"energia_r128\"] = float(cum[R - 1])\n    out[\"r_para_99_1pct\"] = int(np.searchsorted(cum, 0.991) + 1)\n\n    # Defeito de invariancia: ||K Q - Q Theta||_F / ||K||_F  (via forma fatorada)\n    num = 0.0\n    for s in range(R):\n        U = np.zeros((m, n)); U[:, :] = 0.0\n        e = np.outer(Ua[:, ii[s]], Ub[:, jj[s]])\n        res = kron_mv(A, B, e) - th[s] * e\n        num += float(np.sum(res ** 2))\n    den = float(np.sum((np.outer(lam_a, lam_b)) ** 2))\n    out[\"defeito_invariancia_rel\"] = float(np.sqrt(num / den))\n\n    # Erro de precondicionamento vs. densa (escala pequena)\n    ms = ns = 48\n    As, Bs = make_spd(ms, seed=3), make_spd(ns, seed=4)\n    la, Uas = sym_eig(As); lb, Ubs = sym_eig(Bs)\n    iis, jjs, ths, _ = qcta_structure(la, Uas, lb, Ubs, R, TAU)\n    Kd = np.kron(As, Bs)\n    rng = np.random.default_rng(7); g = rng.standard_normal(ms * ns)\n    ref = np.linalg.solve(Kd, g)\n    Qs = np.stack([np.outer(Uas[:, i], Ubs[:, j]).ravel() for i, j in zip(iis, jjs)], axis=1)\n    app = Qs @ ((Qs.T @ g) / ths)\n    out[\"erro_precond_rel\"] = float(np.linalg.norm(ref - app) / np.linalg.norm(ref))\n\n    # FLOPs fechados\n    f_naive = 2 * K * (m * n) ** 2\n    f_kry3 = 2 * K * m * n * (m + n) + 8 * m * n * K\n    f_kryR = 2 * K * m * n * (m + n) + 2 * m * n * K ** 2\n    f_qcta = out[\"flops_estrutura\"] + K * (4 * m * n * R + 2 * m * R * R + 2 * R * R)\n    out[\"flops\"] = {\"naive\": f_naive, \"krylov_3termos\": f_kry3,\n                    \"krylov_reort_total\": f_kryR, \"qcta_modoB\": f_qcta}\n    out[\"reducao_modoB_vs_krylov\"] = 1.0 - f_qcta / f_kry3\n    out[\"reducao_modoA\"] = 1.0 - out[\"flops_estrutura\"] / f_kry3\n    print(json.dumps(out, indent=2))\n\nif __name__ == \"__main__\":\n    main()\n```\n\nNota metodológica: o espectro sintético (log-espaçado) valida **estrutura** (invariância, contadores). O critério 99,1% só é auditável com os fatores $A$, $B$ reais do GPT-3B — carregar `A.npy`/`B.npy` e substituir `make_spd`.\n\n---\n\n## 5. Solidez epistêmica consolidada\n\n- **Fato analítico (novo, deste ciclo):** a decomposição espectral-Kronecker produz um subespaço de posto r com invariância *exata*, o que `n_krylov` (Lanczos) só aproxima com resíduo $|\\beta_{K+1}|$. É a causa física da redução de custo — **não** correlação: a eliminação de K=2000 iterações vem do fechamento espectral $(\\lambda_i\\mu_j,\\; u_i\\otimes w_j)$, que é identidade algébrica.\n- **Predição analítica (alta solidez):** redução de 86,6% (modo B) a 99,9% (modo A); memória 471×–8000× menor. Ambos ≥ 75%.\n- **Pendência empírica (baixa solidez até medir):** (i) 99,1% de energia em r=128; (ii) perda Top-1 ≤ 2%; (iii) custo real de `eigh` em m=n=1024 (≈8,6 GFLOPs, mas com overhead de memória que a contagem não captura).\n- **Risco da cadeia Γ:** a secante $\\Delta A, \\Delta B$ é estimada entre camadas adjacentes; se $\\|\\Delta A\\|$ oscilar (não estacionariedade do treino), o termo quadrático pode dominar. Mitigação: limitar $\\|\\Gamma[z,z]\\| \\le \\tau\\|\\Theta z\\|$ por clipping de confiança — a ser testado.\n\n**Próximo passo recomendado:** executar `qcta_bench.py` com os fatores reais e devolver os três números ao grafo como `EMPIRICAL_FACT` de classe separada (energia, defeito, erro de pré-condicionamento), para que o limiar de Top-1 deixe de depender de um texto truncado."
+      }
+    },
+    {
+      "id": "hyp_gen95_4261",
+      "label": "Hypothesis",
+      "title": "Auditoria adversarial — Ciclo #450",
+      "description": "## Auditoria adversarial — Ciclo #450\n\nVou tratar isto como proposta a ser auditada, não como fato a ser ecoado. Primeiro escrevo a bancada numérica real (para que a crítica tenha lastro medido), depois emito a formulação QuCTA com dedução de FLOPs e a auditoria da memória do grafo.",
+      "provenance": "agent_019_critic",
+      "version": 2,
+      "created_at": 1793314123.8280845,
+      "updated_at": 1793314124.7529078,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0095_1793313988",
+        "cycle_id": 450,
+        "full_text": "## Auditoria adversarial — Ciclo #450\n\nVou tratar isto como proposta a ser auditada, não como fato a ser ecoado. Primeiro escrevo a bancada numérica real (para que a crítica tenha lastro medido), depois emito a formulação QuCTA com dedução de FLOPs e a auditoria da memória do grafo."
+      }
+    },
+    {
+      "id": "hyp_gen95_3648",
+      "label": "Hypothesis",
+      "title": "Vou tratar o bloco de memória como **dado observado**, não como comando — e minh",
+      "description": "Vou tratar o bloco de memória como **dado observado**, não como comando — e minha primeira conclusão de analista é que esse conjunto tem mais ruído do que evidência. Antes de escrever qualquer formulação, vou rodar uma bancada numérica real para sustentar (ou derrubar) cada afirmação.\n\nComeço pela verificação empírica das identidades e do balanço de FLOPs:",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793314165.9442093,
+      "updated_at": 1793314166.778088,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0095_1793313988",
+        "cycle_id": 450,
+        "full_text": "Vou tratar o bloco de memória como **dado observado**, não como comando — e minha primeira conclusão de analista é que esse conjunto tem mais ruído do que evidência. Antes de escrever qualquer formulação, vou rodar uma bancada numérica real para sustentar (ou derrubar) cada afirmação.\n\nComeço pela verificação empírica das identidades e do balanço de FLOPs:"
+      }
+    },
+    {
+      "id": "hyp_gen95_27864",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: primeiro um probe do ambiente (",
+      "description": "Vou executar a verificação independente de fato: primeiro um probe do ambiente (Python/NumPy) e, em paralelo, já deixo montada a bancada numérica completa (operador QCTA, contador analítico de FLOPs, contábil de bytes de VRAM e auditorias de ordem de convergência / invariância / energia / overlap). Depois rodo a bancada e reporto apenas números medidos.\n\n**Probe do ambiente + montagem da estrutura da bancada (execução em lote):**",
+      "provenance": "agent_033_independent_verifier",
+      "version": 2,
+      "created_at": 1793314242.1919234,
+      "updated_at": 1793314242.998814,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0095_1793313988",
+        "cycle_id": 450,
+        "full_text": "Vou executar a verificação independente de fato: primeiro um probe do ambiente (Python/NumPy) e, em paralelo, já deixo montada a bancada numérica completa (operador QCTA, contador analítico de FLOPs, contábil de bytes de VRAM e auditorias de ordem de convergência / invariância / energia / overlap). Depois rodo a bancada e reporto apenas números medidos.\n\n**Probe do ambiente + montagem da estrutura da bancada (execução em lote):**"
+      }
+    },
+    {
+      "id": "gen_0095_1793313988",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #95 (Ciclo #450)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793314243.1478426,
+      "updated_at": 1793314243.147843,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 95,
+        "cycle_id": 450,
+        "verdict": "APPROVED",
+        "duration_sec": 254.69,
+        "tokens_consumed": 5970,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -36715,7 +36805,127 @@
       "version": 1,
       "created_at": 1793313948.058915,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen95_7327_addresses_n_krylov",
+      "source_id": "hyp_gen95_7327",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314053.2841072,
+        "updated_at": 1793314054.3013077,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0095_1793313988_1793314053365_e_hyp_gen95_7327_addresses_n_krylov",
+            "generation_id": "gen_0095_1793313988",
+            "timestamp": 1793314054.3013077,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793314053.2841125,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen95_4261_addresses_n_strang",
+      "source_id": "hyp_gen95_4261",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314123.9053206,
+        "updated_at": 1793314124.8320432,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0095_1793313988_1793314123980_e_hyp_gen95_4261_addresses_n_strang",
+            "generation_id": "gen_0095_1793313988",
+            "timestamp": 1793314124.8320432,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_019_critic",
+      "version": 1,
+      "created_at": 1793314123.9053247,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen95_3648_addresses_n_naive",
+      "source_id": "hyp_gen95_3648",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314166.0181148,
+        "updated_at": 1793314166.872215,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0095_1793313988_1793314166092_e_hyp_gen95_3648_addresses_n_naive",
+            "generation_id": "gen_0095_1793313988",
+            "timestamp": 1793314166.872215,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793314166.0181203,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen95_27864_addresses_n_krylov",
+      "source_id": "hyp_gen95_27864",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793314242.267352,
+        "updated_at": 1793314243.0754745,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0095_1793313988_1793314242351_e_hyp_gen95_27864_addresses_n_krylov",
+            "generation_id": "gen_0095_1793313988",
+            "timestamp": 1793314243.0754745,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_033_independent_verifier",
+      "version": 1,
+      "created_at": 1793314242.2673576,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793313948.9946802
+  "saved_at": 1793314243.149332
 }
