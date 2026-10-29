@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 38,
+      "version": 39,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793314757.0599155,
+      "updated_at": 1793315018.131296,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -10716,6 +10716,79 @@
         "verdict": "APPROVED",
         "duration_sec": 224.87,
         "tokens_consumed": 2670,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen99_27446",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de fechar a formulação: identidade e",
+      "description": "Vou executar a bancada numérica real antes de fechar a formulação: identidade e custo do matvec Kronecker, melhor aproximação de posto-`S` via realinhamento, ordem de convergência do splitting, defeito simpletico e erro do fecho de Krylov.",
+      "provenance": "agent_053_evidence_analyst",
+      "version": 2,
+      "created_at": 1793315096.7587044,
+      "updated_at": 1793315097.68552,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0099_1793315018",
+        "cycle_id": 454,
+        "full_text": "Vou executar a bancada numérica real antes de fechar a formulação: identidade e custo do matvec Kronecker, melhor aproximação de posto-`S` via realinhamento, ordem de convergência do splitting, defeito simpletico e erro do fecho de Krylov."
+      }
+    },
+    {
+      "id": "hyp_gen99_26187",
+      "label": "Hypothesis",
+      "title": "AUDITARIA ADVERSARIAL — CICLO #454 / GERAÇÃO #99",
+      "description": "# AUDITARIA ADVERSARIAL — CICLO #454 / GERAÇÃO #99\n## Alvo: nó `n_strang` (Fecho de Krylov Simpético da Corrente Residual)\n### Veredito antecipado: **REPROVADO como está** — formulação internamente inconsistente com o protocolo `r=128, K=2000, τ=1.2`, com gargalo de memória material em escala GPT-3 e critério de validação aritmeticamente inalcançável sob as premissas declaradas.\n\n---\n\n## 1. Auditoria da memória coletiva (contaminação antes da física)\n\nAntes de qualquer matemática: o grafo de ref",
+      "provenance": "agent_043_critic",
+      "version": 2,
+      "created_at": 1793315139.3217778,
+      "updated_at": 1793315140.2821083,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0099_1793315018",
+        "cycle_id": 454,
+        "full_text": "# AUDITARIA ADVERSARIAL — CICLO #454 / GERAÇÃO #99\n## Alvo: nó `n_strang` (Fecho de Krylov Simpético da Corrente Residual)\n### Veredito antecipado: **REPROVADO como está** — formulação internamente inconsistente com o protocolo `r=128, K=2000, τ=1.2`, com gargalo de memória material em escala GPT-3 e critério de validação aritmeticamente inalcançável sob as premissas declaradas.\n\n---\n\n## 1. Auditoria da memória coletiva (contaminação antes da física)\n\nAntes de qualquer matemática: o grafo de referência está **epistemicamente sujo** e isso invalida o peso das tags `[VERIFIED]`.\n\n| Achado | Evidência | Impacto |\n|---|---|---|\n| **Template replicado, não replicação real** | 6 nós (`hyp_gen16`, `gen55`, `gen22`, `gen2`, `gen30`, + variantes) repetem literalmente `r=128, K=2000, τ=1.2` com texto truncado idêntico | Não são 6 evidências independentes. É **1 protocolo copiado 6 vezes**. Contar como convergência de evidência é fraude estatística |\n| **Critérios de validação truncados** | `\"Perda de Acurácia Top-1 \\le \"` — o valor **não existe** no nó | O critério de sucesso é **inauditável**. Qualquer resultado passa |\n| **`[VERIFIED]` sem dado** | Nenhum nó registra valor medido, desvio, n amostral, hardware, semente | Classe `EMPIRICAL_FACT` aplicada a **procedimento**, não a **resultado**. Deveria ser `PROTOCOL` |\n| **`τ=1.2` sem definição dimensional** | Aparece em todos os protocolos, nunca definido | Passo de integração? Temperatura? Fator de amortecimento? Sem definição não há reprodutibilidade |\n| **Nós que são texto de agente, não hipótese** | `hyp_gen93`, `gen75`, `gen89`, `gen77` são literalmente *\"Vou executar a verificação...\"* | Pipeline de raciocínio vazando para a base de conhecimento como fato. Ruído estrutural |\n\n**Ação:** rebaixar todos os nós-protocolo para `PROTOCOL/UNVERIFIED`, deduplicar por hash de parâmetros, e exigir nó-filho com **número medido** antes de qualquer tag `VERIFIED`.\n\n---\n\n## 2. Auditoria da formulação `n_strang` — premissas infundadas\n\n### P1. A corrente residual **não é um fluxo Hamiltoniano**\nA proposta assume `x_{l+1} = x_l + F_l(x_l)` é discretização de um campo simplético. Falso por construção:\n\n- **GELU/SiLU não é preservador de volume.** `det(DF) ≠ 1`; o mapa residual composto **não é simplctomorfismo**, independentemente do integrador. Escolher `Ω = J` constante em `R^{2m}` é **imposição arbitrária**, não descoberta: a invariância provada vale para o `Ω` escolhido, não para a geometria dos dados.\n- **LayerNorm/RMSNorm é conformalmente simplético no melhor caso** (escalamento global), com fator `λ(x)` dependente do estado — logo `L_X Ω = λ Ω ≠ 0`. A corrente não preserva `Ω`; preserva uma classe conforme.\n- **Atenção softmax é dissipativa** em `L₂` (normalização para soma 1). Não há função de Hamilton `H` com `F = Ω∇H` para esse bloco.\n\n**Consequência:** o splitting de Strang pode até ser **de ordem 2** (é uma propriedade do compositor, não da física), mas **não será simplético**. O nome do nó promete uma propriedade que a arquitetura nega. Isso não é detalhe: é o *core claim*.\n\n### P2. Truncagem de Krylov **quebra exatamente** o que se quer preservar\nOrdem 2 + simplética exige que cada subfluxo seja simplético. Aproximação por subespaço de Krylov de dimensão `r` produz um mapa simplético **apenas se** o projetor for uma **imersão simplética** (`U^T Ω U = Ω_{2r}`). Arnoldi padrão produz base **ortogonal euclidiana**, não `Ω`-ortogonal. Resultado: defeito de invariância `ε = ‖U^T Ω U − Ω_{2r}‖` que **não decai com o passo** — é erro de representação, não de discretização. Backward error analysis (o argumento do \"shadow Hamiltonian\") **só se aplica a mapas simpléticos exatos próximos de integráveis**; transformer não é próximo de integrável. O argumento do nó `GPT3B_H11/sombra residual` é **inválido**.\n\n### P3. O erro de convergência medido não tem ground truth\nMedir ordem de convergência de `n_strang` exige solução de referência. Em transformer **não existe trajetória exata**. Bancada numérica em problema manufaturado (e.g. pêndulo, Toda) valida o **compositor**, não a **transferência para rede treinada**. Gap de validade externa não declarado.\n\n### P4. Conflito fatal: **ordem 2 não se aplica a subfluxos resolvidos por 1 passo explícito**\nStrang é ordem 2 **somente se** cada subfluxo for resolvido exato ou com erro local `O(h³)`. Um bloco de transformer não tem fluxo analítico — resolver por Euler explícito dá erro local `O(h²)` por subfluxo, e o composto colapsa para **ordem global 1**. A bancada vai medir ordem 1 e o nó vai falhar. Isso é **previsível a priori**, sem GPU.\n\n---\n\n## 3. Dedução analítica de FLOPs (a que deveria estar no nó)\n\nNotação: `d` = dimensão oculta, `n` = comprimento de contexto, `r` = 128, `K` = 2000, MAC = 2 FLOPs, L = nº de camadas, B = batch.\n\n**Custo de referência (forward, por token, por camada):**\n```\nC_f = 2·(12 d² + 2 n d)   FLOPs        [4d² QKVO + 8d² MLP + 2nd attn]\n```\nPara `d = 2048, n = 1024`: `C_f ≈ 1,09 × 10⁸` FLOPs/token/camada.\n\n**Custo do fecho Cayley–Krylov (aplicação do propagador comprimido):**\n```\nC_apply = 2·(4 r d) + 2·((2r)²) + (2r)³/3 (amortizado)\n        ≈ 2,1 × 10⁶ FLOPs/token/camada     →  −98,1% vs C_f\n```\n\n**Custo de construção da base (o que o nó omite):**\n```\nC_build = K · C_f + 4 K r d   (K JVPs + reortogonalização Ω-ortogonal)\n        ≈ 2000 · 1,09e8 + 1,3e8 ≈ 2,18 × 10¹¹  FLOPs/camada/base\n```\n\n**Ponto de equilíbrio (tokens que precisam reutilizar a mesma base, por camada):**\n```\nN* = C_build / (C_f − C_apply) ≈ 2,18e11 / 1,07e8 ≈ 2.040 tokens\n```\n\n### Conclusão aritmética\n| Contexto | `N*` vs `n` | Resultado |\n|---|---|---|\n| `n = 1024` | `n < N*` | **Custo total MAIOR que baseline** (≈ 2,1×) |\n| `n = 2048` | limítrofe | neutro antes do backward |\n| `n = 8192` | `n > N*` | amortiza, **se** a base for válida para todos os tokens |\n\nE o backward multiplica `C_build` por ≈3 (JVP + VJP + checkpoint). Logo o critério **\"Redução de FLOPs ≥ 75%\"** só é atingido medindo **apply-only** — métrica de vitrine, não fim-a-fim. Ou o critério é falso, ou está sendo medido errado. Não há terceira opção.\n\n**Agravante `K=2000` vs `r=128`:** se `K` é a dimensão efetiva do Arnoldi, `K − r = 1872` iterações de JVP são **trabalho jogado fora**. Se `K` é apenas iteração interna e só `r` é materializado, o critério \"r=128 = 99,1% da energia\" é medido **após** pagar `K` passos — ou seja, a energia é cara demais para o que rende. **Protocolo economicamente auto-destrutivo.**\n\n---\n\n## 4. Gargalos de hardware (memória e bandwidth)\n\n**Armazenamento da base de Krylov (bf16), por sequência:**\n\n| Item | `d=2048, L=24` | `d=8192, L=96` |\n|---|---|---|\n| Base truncada `d×2r` | 25 MB | 402 MB |\n| Base completa `d×K` | 201 MB | 3,1 GB |\n| × `B=32` (completa) | 6,4 GB | **99,2 GB — não cabe em HBM A100/H100** |\n| Estados extras do Strang (2 meio-passos) | +2× ativações | +2× ativações |\n\n1. **A base completa `K=2000` é fisicamente inviável** em escala GPT-3 com batch razoável. Só a truncagem `r=128` é viável — e aí o custo de `K` fica sem amortização.\n2. **Symplectic integrator é memory-bound, não FLOP-bound.** GPU moderna tem FLOPs baratos e HBM caro: reduzir 75% de FLOPs enquanto se adicionam `2×` estados e reortogonalização (`O(Krd)` com acessos irregulares) pode **aumentar** o wall-clock. Métrica-alvo errada: `FLOPs ≠ tempo`. Reportar `tokens/s`, `HBM pico`, `bytes movidos`.\n3. **Reortogonalização é o gargalo real:** `4Krd` FLOPs com padrão de acesso não contíguo, com barreira de sincronização a cada iteração de MGS. Em `K=2000` isso é ~2000 sincronizações de kernel por camada por base.\n4. **Precisão:** bf16/fp16 destroem a conservação de `Ω` por arredondamento; o defeito acumula linearmente no nº de passos. Exigir acumulação em fp32 nos produtos internos `Ω` — senão a bancada mede ruído de ponto flutuante, não erro de integrador.\n\n---\n\n## 5. Formulação inédita corrigida (para a bancada) — **CayK-Strang**\n\nProposta defensável, com premissas explícitas e falsificáveis:\n\n**Construção.** Seja `d = 2m`, `Ω = J = [[0, I], [−I, 0]]`. Para cada camada, `F_l = A_l + B_l` (atenção / MLP).\n\n1. **Base `Ω`-ortogonal:** J-Arnoldi sobre `K_K(DF_l(x̄_l), v)`, truncado em `2r`, com reortogonalização simplética tal que `U_l^T Ω U_l = Ω_{2r}`. Registrar o **defeito** `ε_l = ‖U_l^T Ω U_l − Ω_{2r}‖`.\n2. **Gerador reduzido:** `H_l = U_l^T Ω^T DF_l(x̄_l) U_l`. Verificar `H_l ∈ sp(2r)`; caso contrário registrar `δ_l = ‖Ω_{2r}H_l + H_l^TΩ_{2r}‖` (defeito de Hamiltonianidade — **será não-nulo por causa da GELU/Norm**).\n3. **Subfluxo exato no subespaço:** `Ψ_l(h) = U_l · Cay(h H_l) · U_l^†`, com `Cay(z) = (I − z/2)^{-1}(I + z/2)`. `Cay ∈ Sp(2r)` **exatamente**, é simétrica: `Cay(−z) = Cay(z)^{-1}` → composição simétrica ⇒ **ordem 2 garantida**.\n4. **Strang simétrico:** `x_{l+1} = Ψ_A(h/2) ∘ Ψ_B(h) ∘ Ψ_A(h/2)(x_l)`.\n\n**Propriedades prováveis:** preservação de `Ω` **exata** no subespaço (independente de `h`), ordem global 2, custo de aplicação `O(rd + r²)`. **Propriedades não prováveis:** preservação fora do subespaço (limitada por `ε_l`, `δ_l`), que devem ser reportadas como métrica primária, não escondidas.\n\n**Dedução de FLOPs (fim-a-fim, honesta):**\n```\nC_total/camada/token = C_build/N + 3·C_apply + 2·C_A + C_B\n```\ncom `C_build = K·C_f + 4Krd`, `N` = tokens que reutilizam a base. Conforme §3, `N > 2.040` é condição necessária. **A bancada deve reportar `N*` medido, não assumido.**\n\n---\n\n## 6. Checklist de falsificabilidade (obrigatório antes de qualquer `[VERIFIED]`)\n\n1. Definir `τ` dimensionalmente e fixar semente, hardware, dtype, `n`, `L`, `B`.\n2. Reportar **fim-a-fim**: `C_build`, `C_apply`, `N*` medido, `tokens/s`, HBM pico — não só FLOPs de aplicação.\n3. Medir ordem de convergência **e** declarar que o ground truth é manufaturado; separar validade de compositor × validade de rede treinada.\n4. Reportar `ε_l` (defeito simplético) e `δ_l` (defeito de Hamiltonianidade) por camada, com estatística sobre o dataset, não por exemplo único.\n5. Baseline explícita: qual modelo, qual dataset, qual Top-1 de referência, perda máxima permitida (hoje está **truncada**).\n6. Ablação de `r ∈ {32, 64, 128, 256}` e `K ∈ {r, 4r, 2000}` — se `K=2000` não vencer `K=r`, o protocolo está errado.\n7. Teste de sensibilidade a dtype (fp32 vs bf16) para separar deriva numérica de erro de integrador.\n\n---\n\n## 7. Recomendação final\n\nO nó `n_strang` mistura **três reivindicações que se contradizem**: (i) preservação simplética exata, (ii) ordem 2, (iii) redução de FLOPs ≥ 75% sob `K=2000, r=128`. A aritmética do §3 mostra que (iii) é **falso para contexto ≤ 2048**; a §2-P4 mostra que (ii) **colapsa para ordem 1** com subfluxos explícitos; a §2-P1/P2 mostra que (i) **não se sustenta** na presença de GELU/LayerNorm/softmax.\n\n**Redirecionamento produtivo:** abandonar o claim \"simpético da corrente residual\" (não é verificável e provavelmente falso) e reenquadrar como **método de subespaço Krylov com fecho de Cayley para compressão de camadas residuais**, medindo **economia de memória e latência** em vez de FLOPs, com `r=128` e `K ≈ 2r` (não 2000). É a versão que sobrevive à bancada — e é a única que tem chance de converter em hipótese `[VERIFIED]` legítima."
+      }
+    },
+    {
+      "id": "hyp_gen99_85285",
+      "label": "Hypothesis",
+      "title": "Vou primeiro rodar a bancada numérica real (corretude da fatoração Kronecker, co",
+      "description": "Vou primeiro rodar a bancada numérica real (corretude da fatoração Kronecker, contagem de FLOPs, ordem de convergência Strang vs. Lie, defeito simpletico e Krylov) e só então emitir o relatório com a auditoria epistêmica dos nós recuperados.",
+      "provenance": "agent_053_evidence_analyst",
+      "version": 2,
+      "created_at": 1793315208.0124938,
+      "updated_at": 1793315208.7032297,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0099_1793315018",
+        "cycle_id": 454,
+        "full_text": "Vou primeiro rodar a bancada numérica real (corretude da fatoração Kronecker, contagem de FLOPs, ordem de convergência Strang vs. Lie, defeito simpletico e Krylov) e só então emitir o relatório com a auditoria epistêmica dos nós recuperados."
+      }
+    },
+    {
+      "id": "gen_0099_1793315018",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #99 (Ciclo #454)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793315208.8229885,
+      "updated_at": 1793315208.8229885,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 99,
+        "cycle_id": 454,
+        "verdict": "APPROVED",
+        "duration_sec": 190.69,
+        "tokens_consumed": 4920,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -37508,7 +37581,97 @@
       "version": 1,
       "created_at": 1793314981.0736022,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen99_27446_addresses_n_krylov",
+      "source_id": "hyp_gen99_27446",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315096.8268023,
+        "updated_at": 1793315097.758862,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0099_1793315018_1793315096891_e_hyp_gen99_27446_addresses_n_krylov",
+            "generation_id": "gen_0099_1793315018",
+            "timestamp": 1793315097.758862,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_053_evidence_analyst",
+      "version": 1,
+      "created_at": 1793315096.8268077,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen99_26187_addresses_n_strang",
+      "source_id": "hyp_gen99_26187",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315139.3871064,
+        "updated_at": 1793315140.3600256,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0099_1793315018_1793315139450_e_hyp_gen99_26187_addresses_n_strang",
+            "generation_id": "gen_0099_1793315018",
+            "timestamp": 1793315140.3600256,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_043_critic",
+      "version": 1,
+      "created_at": 1793315139.3871117,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen99_85285_addresses_n_naive",
+      "source_id": "hyp_gen99_85285",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793315208.0816853,
+        "updated_at": 1793315208.7638137,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0099_1793315018_1793315208143_e_hyp_gen99_85285_addresses_n_naive",
+            "generation_id": "gen_0099_1793315018",
+            "timestamp": 1793315208.7638137,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_053_evidence_analyst",
+      "version": 1,
+      "created_at": 1793315208.081692,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793314981.9335365
+  "saved_at": 1793315208.8244002
 }
