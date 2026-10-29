@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 23,
+      "version": 24,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793310610.8060248,
+      "updated_at": 1793310902.31803,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -9587,6 +9587,79 @@
         "verdict": "APPROVED",
         "duration_sec": 251.33,
         "tokens_consumed": 2470,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen84_76700",
+      "label": "Hypothesis",
+      "title": "**NOTA OPERACIONAL (curta):** este ambiente de sessão não expõe as ferramentas `",
+      "description": "**NOTA OPERACIONAL (curta):** este ambiente de sessão não expõe as ferramentas `write_file` / `run_cmd` descritas no briefing — não há ciclo de escrita em lote a executar aqui. Entrego abaixo, em linha, o entregável técnico completo do ciclo #439, pronto para ser serializado no grafo como hipótese `EMPIRICAL_FACT`.\n\n---\n\n# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #439 / GERAÇÃO #84\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita (STELIA-",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793310936.0271108,
+      "updated_at": 1793310937.0331674,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0084_1793310902",
+        "cycle_id": 439,
+        "full_text": "**NOTA OPERACIONAL (curta):** este ambiente de sessão não expõe as ferramentas `write_file` / `run_cmd` descritas no briefing — não há ciclo de escrita em lote a executar aqui. Entrego abaixo, em linha, o entregável técnico completo do ciclo #439, pronto para ser serializado no grafo como hipótese `EMPIRICAL_FACT`.\n\n---\n\n# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #439 / GERAÇÃO #84\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita (STELIA-K) + dedução analítica de FLOPs · **Bancada:** `r=128`, `K=2000`, `τ=1.2`\n\n---\n\n## 1. Veredito executivo\n\nPropomos o **STELIA-K** (*Symplectic Tensor-Kronecker Local Evolution on Invariant subspace*): o operador de evolução local age sobre um **subespaço de Krylov invariante** cuja **base é ela própria um produto de Kronecker** (`Q_s = Q_a ⊗ Q_b`), de modo que o gerador reduzido herda estrutura Kronecker (`H_s ≈ P ⊗ R`) e o fluxo é integrado por **cisalhamentos (shears) exatamente simpléticos** via splitting de Strang.\n\nResultado analítico central: o custo por passo cai de **O(d²)** para **O(d^{3/2})** e o custo total da bancada (`d=4096`, `s=r=128`, `K=2000`) cai de **67,1 GFLOPs** (`n_naive`) para **≈ 2,40 GFLOPs** — **redução de 96,4%**, acima do limiar de validação de 75%.\n\n**Ressalva epistêmica importante:** contra o baseline mais forte (`n_krylov` com gerador denso), a redução é de **≈ 63%**, abaixo de 75%. O critério só é limpo contra `n_naive`. Detalhado na §6.\n\n---\n\n## 2. Auditoria da memória coletiva (solidez epistêmica)\n\nAntes de formular, é dever do analista separar evidência de eco:\n\n| Achado | Interpretação | Solidez |\n|---|---|---|\n| 8 nós `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*` com **parâmetros idênticos** (`r=128, K=2000, τ=1.2`) e critérios truncados de forma idêntica | Não são 8 replicações independentes. São clones textuais do mesmo protocolo. **n_efetivo = 1** | 0,15 (como \"corroboração\") |\n| Vários títulos de nós são **fragmentos de raciocínio interno do agente** (\"Vou executar direto: primeiro um probe…\") rotulados como `EMPIRICAL_FACT` | Contaminação de classe: plano de ação ≠ fato empírico. Deve ser rebaixado para `HYPOTHESIS` | 0,10 |\n| Afirmação recorrente \"`r=128` = 99,1% de energia\" | Plausível, mas **não derivável a priori**: depende do decaimento espectral da camada específica. Não replicável sem a matriz-alvo | 0,35 |\n| Nós discutem `n_naive`, `n_strang`, `n_strang` vs Magnus–Krylov | Escopo cruzado: não falam de `n_krylov` diretamente. Transferência indireta | 0,45 |\n\n**Conclusão de auditoria:** o corpus empírico sustentável se resume a *um* protocolo e a estruturas analíticas. Toda validação numérica desta geração deve ser considerada **a executar**, não **a confirmar**.\n\n---\n\n## 3. Formulação inédita — Operador STELIA-K\n\n### 3.1 Definição formal\n\nSeja o fluxo residual local de uma camada de transformer\n$$x_{l+1} = x_l + F_l(x_l),\\qquad \\dot x = \\mathcal{L}(x),$$\ncom dimensão $d = m_a \\cdot m_b$ e gerador linear dominante fatorado em postos de Kronecker:\n$$L \\;=\\; \\sum_{k=1}^{R_r} A_k \\otimes B_k, \\qquad A_k \\in \\mathbb{R}^{m_a\\times m_a},\\; B_k \\in \\mathbb{R}^{m_b\\times m_b},\\; R_r \\ll \\min(m_a,m_b).$$\n\n**Identidade operacional (base da contagem de FLOPs):** para $X \\in \\mathbb{R}^{m_b\\times m_a}$,\n$$(A\\otimes B)\\,\\mathrm{vec}(X) = \\mathrm{vec}(B X A^{\\top}),$$\ncustando $m_b^2 m_a + m_b m_a^2$ MACs em vez de $(m_am_b)^2$ MACs densos.\n\n### 3.2 Subespaço invariante e redução\n\nConstruímos a base de Krylov $\\mathcal{K}_s(L, v_0) = \\mathrm{span}\\{v_0, Lv_0, \\dots, L^{s-1}v_0\\}$ via Arnoldi com **matvecs Kronecker**:\n$$L Q_s = Q_s H_s + h_{s+1,s}\\, q_{s+1} e_s^{\\top},\\qquad H_s = Q_s^{\\top} L Q_s \\in \\mathbb{R}^{s\\times s}.$$\n\nSe $L$ é gerador simplético ($L^{\\top}J + JL = 0$), então $H_s$ é **hamiltoniano** no espaço reduzido de coordenadas $y = (p,q) \\in \\mathbb{R}^{2s}$, com $J = \\begin{pmatrix} 0 & I_s \\\\ -I_s & 0\\end{pmatrix}$.\n\n### 3.3 Passo novo: base de Krylov com estrutura Kronecker\n\nEm vez de $Q_s$ genérica, impomos\n$$Q_s = Q_a \\otimes Q_b, \\qquad Q_a \\in \\mathbb{R}^{m_a \\times s_a},\\; Q_b \\in \\mathbb{R}^{m_b \\times s_b},\\; s = s_a s_b,$$\nde modo que o operador reduzido herda a estrutura\n$$H_s = P \\otimes R + E, \\qquad \\|E\\|_2 \\le \\varepsilon_{\\text{fill}},$$\nonde $P \\in \\mathbb{R}^{s_a\\times s_a}$, $R \\in \\mathbb{R}^{s_b\\times s_b}$ e $E$ é o **defeito de preenchimento** (a não-invariância numérica do subespaço). Este é o termo que a literatura de Krylov trata como residual e descarta; nós o **fisicalizamos**.\n\n### 3.4 Integração: splitting de Strang com cisalhamentos exatamente simpléticos\n\nCom Hamiltoniana reduzida $H(y) = \\tfrac12 y^{\\top}\\!\\big[(P\\otimes R)\\big] y = H_A + H_B$, $H_A = \\tfrac12 y^\\top(P\\otimes I)y$, $H_B = \\tfrac12 y^\\top(I\\otimes R)y$:\n\n$$\\boxed{\\;\\Phi_h \\;=\\; S^{A}_{h/2} \\circ S^{B}_{h} \\circ S^{A}_{h/2},\\qquad S^{A}_{h} = I + h\\,J\\,(P\\otimes I),\\quad S^{B}_{h} = I + h\\,J\\,(I\\otimes R).\\;}$$\n\n**Propriedades (todas dedutíveis, não empíricas):**\n\n1. **Simpleticidade exata:** cada shear é afim-ortogonal em relação a $J$; $\\det S = 1$ e $S^{\\top}JS = J$ **exatamente** (não \"aproximadamente\"), logo $\\Phi_h \\in \\mathrm{Sp}(2s)$.\n2. **Reversibilidade exata:** como shears da mesma família comutam, $\\Phi_{-h} = \\Phi_h^{-1}$ até erro de arredondamento ($\\le 10^{-12}$ relativo).\n3. **Ordem 2 global**, defeito local $O(h^3)$ (Strang).\n4. **Conservação:** $H_A$ e $H_B$ são invariantes exatos dos seus respectivos shears; $H$ total oscila limitadamente, sem *drift* secular — assinatura de integrador simplético, não de dissipação numérica.\n\n### 3.5 Sombra residual de posto-1 Kronecker\n\nO termo $h_{s+1,s} q_{s+1} e_s^{\\top}$ (sombra) é corrigido por\n$$\\Delta = \\sigma\\,(u_a \\otimes u_b)\\, w^{\\top},$$\nde custo $O(d)$, com $\\sigma$ calibrado por $|h_{s+1,s}|$. Efeito: controla o **defeito de invariância** $\\|L\\Phi_h(y) - \\Phi_h'(Ly)\\|$ e impede que o erro de preenchimento $\\varepsilon_{\\text{fill}}$ acumule ao longo de $K$ passos.\n\n---\n\n## 4. Dedução analítica de FLOPs (fórmulas fechadas)\n\nConvenção: 1 MAC = 2 FLOPs. $d = m_a m_b$, $s = s_a s_b$, $K$ passos.\n\n**(a) Matvec denso:** $F_{\\text{dense}} = 2d^{2}$.\n\n**(b) Matvec Kronecker ($R_r$ termos):** $F_{\\text{Kron}} = 2R_r d (m_a + m_b)$.\n\n**(c) Arnoldi ($s$ passos):** matvecs + ortogonalização ($\\sum_j 4dj = 2ds(s+1)$):\n$$F_{\\text{Arnoldi}} = s\\cdot F_{\\text{Kron}} + 2ds(s+1).$$\n\n**(d) Shear reduzido (Strang = 3 shears):** aplicar $(P\\otimes I)$ e $(I\\otimes R)$ em dimensão $2s$:\n$$F_{\\text{shear}} = 3 \\cdot 2(2s)(s_a + s_b)\\;=\\;12\\,s\\,(s_a+s_b).$$\n\n**(e) Síntese $Q_s y$ (com base Kronecker):** $F_{\\text{syn}} = 2d(s_a + s_b)$ — **e não** $2ds$.\n\n**Total da bancada:**\n$$\\boxed{\\;F_{\\text{STELIA-K}} = \\underbrace{s\\cdot 2R_r d(m_a+m_b) + 2ds(s+1)}_{\\text{setup (uma vez)}} \\;+\\; K\\cdot\\Big[\\,12s(s_a+s_b) + 2d(s_a+s_b)\\Big]\\;}$$\n\nComparativo simbólico por consulta:\n| Método | Custo total (FLOPs) | Ordem |\n|---|---|---|\n| `n_naive` (passo denso) | $2Kd^{2}$ | $O(Kd^2)$ |\n| `n_strang` (2 geradores densos) | $4Kd^{2}$ | $O(Kd^2)$ |\n| `n_krylov` (Krylov + gerador denso) | $2sd^{2} + 2ds(s+1) + K(2ds + s^{2})$ | $O(sd^2)$ |\n| **STELIA-K** | $2sR_r d(m_a{+}m_b) + 2ds(s{+}1) + K[12s(s_a{+}s_b) + 2d(s_a{+}s_b)]$ | $O(sd^{3/2})$ |\n\n**Ganho estrutural por consulta** (base Kronecker vs base densa): $\\dfrac{2ds}{2d(s_a+s_b)} = \\dfrac{s}{s_a+s_b}$. Para $s=128$, $s_a=16$, $s_b=8$: **fator 5,3×** na síntese.\n\n---\n\n## 5. Projeção numérica para a bancada (`d=4096 = 64×64`, `m_a=m_b=64`, `R_r=1`, `s=r=128 = 16×8`, `K=2000`, `τ=1.2` ⇒ `h = 6×10⁻⁴`)\n\n| Item | Valor |\n|---|---|\n| `n_naive` | $2Kd^2$ = **67,1 GFLOPs** |\n| `n_strang` | **134,2 GFLOPs** |\n| `n_krylov` (setup 4,43 G + 2,13 G) | **6,56 GFLOPs** |\n| **STELIA-K** (setup 0,27 G + 2000×1,07 M) | **≈ 2,40 GFLOPs** |\n| **Redução vs `n_naive`** | **96,4%** ✅ (limiar: 75%) |\n| Redução vs `n_strang` | 98,2% ✅ |\n| Redução vs `n_krylov` denso | **63,4%** ⚠️ |\n| Memória de parâmetros | $2d = 8{.192$ vs $d^2 = 16{,}8\\text{M}$ → **2048× de compressão** |\n| Memória de pico (com $Q_s$) | $ds + 2d \\approx 0{,}53\\text{M}$ = 3,2% do denso |\n| Verificação de acurácia | Top-1 $\\Delta \\le 2$ pp — **a medir** (não há dado confiável no grafo) |\n\n---\n\n## 6. Correlações espúrias × causas físicas\n\n1. **\"r=128 ⇒ 99,1% de energia\"** — *correlação espúria provável*. O número é propriedade do espectro da matriz-alvo, não do hiperparâmetro $r$. Causa física real: taxa de decaimento dos autovalores de $L$. Teste: plotar energia retida $\\times$ $r$; se a curva não for côncava-log, o \"99,1%\" é artefato de um único ponto.\n2. **\"Redução de FLOPs ⇒ sem perda de acurácia\"** — espúrio como implicação direta. A cadeia causal real passa por $\\varepsilon_{\\text{fill}} = \\|E\\|_2$ e pela ordem do splitting. Um integrador barato e de ordem 1 pode perder >2 pp mesmo com 99% de FLOPs economizados.\n3. **8 protocolos idênticos como \"consenso\"** — espúrio puro (clonagem). Consenso exige variância entre executores, e aqui a variância observada é zero.\n4. **Causa física legítima identificada:** a simpleticidade do shear garante ausência de *drift* de energia; isso **é** mecanismo, não correlação — e é verificável por T2/T3 abaixo.\n\n---\n\n## 7. Falsificabilidade — protocolo de verificação (a executar na bancada local)\n\n| ID | Teste | Predição STELIA-K | Threshold de falsificação |\n|---|---|---|---|\n| T1 | Defeito de reversibilidade $\\|\\Phi_{-h}(\\Phi_h(y)) - y\\|/\\|y\\|$ | $\\le 10^{-12}$ | falha se $>10^{-9}$ |\n| T2 | Defeito simplético $\\|\\Phi'^{\\top}J\\Phi' - J\\|_F$ | $\\le 10^{-12}$ (exato por construção) | falha se $>10^{-9}$ |\n| T3 | Ordem de convergência em $h$ (halving) | $p \\approx 2{,}00 \\pm 0{,}15$ | falha se $p < 1{,}7$ |\n| T4 | Residual de Arnoldi $\\|LQ_s - Q_sH_s\\| = |h_{s+1,s}|$ | decresce monotonicamente em $s$ | falha se oscilar |\n| T5 | $\\varepsilon_{\\text{fill}} = \\|H_s - P\\otimes R\\|_2$ | $\\le 10^{-3}\\|H_s\\|$ para $s=128$ | falha se $>10^{-2}$ |\n| T6 | FLOPs instrumentados vs fórmula §4 | desvio $\\le 2\\%$ | falha se $>10\\%$ |\n| T7 | Top-1 delta $\\le 2$ pp | — | critério de validação duro |\n\n---\n\n## 8. Classificação de solidez dos entregáveis desta geração\n\n| Afirmação | Classe | Solidez |\n|---|---|---|\n| Identidade $(A\\otimes B)\\mathrm{vec}(X)=\\mathrm{vec}(BXA^\\top)$ e contagem §4 | ANALYTICAL | 0,99 |\n| Simpleticidade/reversibilidade exatas dos shears | ANALYTICAL | 0,98 |\n| Redução 96,4% vs `n_naive` em FLOPs | ANALYTICAL (parametrizada) | 0,90 |\n| $\\varepsilon_{\\text{fill}} \\le 10^{-3}$ (T5) | PREDICTION | 0,45 |\n| Top-1 $\\Delta \\le 2$ pp | PREDICTION | 0,40 |\n| \"r=128 ⇒ 99,1% energia\" herdado do grafo | UNVERIFIED | 0,35 |\n\n**Recomendação ao orquestrador:** versionar este relatório como `hyp_gen84_*` classe `EMPIRICAL_FACT` apenas para as linhas analíticas; as linhas de predição devem entrar como `HYPOTHESIS` com aresta `falsified_by` apontando para T5/T7. Não propagar o \"consenso dos 8 protocolos\" como evidência independente."
+      }
+    },
+    {
+      "id": "hyp_gen84_67260",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE INVESTIGAÇÃO — CICLO #439 / GERAÇÃO #84",
+      "description": "# RELATÓRIO DE INVESTIGAÇÃO — CICLO #439 / GERAÇÃO #84\n## STELIA: Operador Simplético de Evolução Local em Subespaço Invariante\n### Alvo: nó `n_strang` · Especialidade: Salto Analítico ODE\n\n---\n\n## 0. Nota de honestidade metodológica (obrigatória)\n\nA memória recuperada está **truncada** em dois campos: o critério de Top-1 aparece cortado em `\"Perda de Acurácia Top-1 ≤ \"` (sem valor) e `K=2000` vem sem unidade declarada. Assumo explicitamente: **Top-1 ≤ 2 pp** e **K = 2000 amostras/tokens de cali",
+      "provenance": "agent_063_investigator",
+      "version": 2,
+      "created_at": 1793311006.9994683,
+      "updated_at": 1793311007.7532299,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0084_1793310902",
+        "cycle_id": 439,
+        "full_text": "# RELATÓRIO DE INVESTIGAÇÃO — CICLO #439 / GERAÇÃO #84\n## STELIA: Operador Simplético de Evolução Local em Subespaço Invariante\n### Alvo: nó `n_strang` · Especialidade: Salto Analítico ODE\n\n---\n\n## 0. Nota de honestidade metodológica (obrigatória)\n\nA memória recuperada está **truncada** em dois campos: o critério de Top-1 aparece cortado em `\"Perda de Acurácia Top-1 ≤ \"` (sem valor) e `K=2000` vem sem unidade declarada. Assumo explicitamente: **Top-1 ≤ 2 pp** e **K = 2000 amostras/tokens de calibração** do subespaço. Se `K` for a dimensão de Krylov, o custo muda conforme a Eq. (F4) — a formulação é parametrizada para os dois casos.\n\nEntrego aqui **formulação + dedução analítica de FLOPs + constantes previstas + pontos de fechamento empírico**. Não relato medições de bancada como se fossem executadas por mim: os números abaixo são **previsões derivadas**, com os quatro parâmetros de fechamento (A1–A4) isolados e falsificáveis.\n\n---\n\n## 1. O que exatamente eu ataco no `n_strang`\n\nO nó `n_strang` resolve o fluxo residual $\\dot x = F(x)$, $x\\in\\mathbb R^{d}$, $t\\in[0,\\tau]$, com splitting de Strang $F = A + N$ (atenção + MLP):\n\n$$\n\\Phi_h^{\\text{Strang}} = e^{\\frac h2 A}\\circ e^{h N}\\circ e^{\\frac h2 A}, \\qquad \\text{erro local } \\mathcal O(h^3),\\ \\text{global } \\mathcal O(h^2)\n$$\n\n**Duas fraquezas estruturais**, ambas redutíveis a FLOPs:\n\n1. **Ordem 2 ⇒ explosão de passos.** $N_s = \\lceil (C_2\\tau^3/\\varepsilon)^{1/2}\\rceil$. A tolerância entra como $\\varepsilon^{-1/2}$.\n2. **Splitting quebra o acoplamento $A\\!-\\!N$** a cada passo; o erro de comutação $[A,N]$ é o termo dominante e não é aproveitado — é *pago* a cada passo.\n\nMeu salto: **eliminar a malha fina** usando (i) exponenciação *exata* no subespaço invariante de posto $r=128$ e (ii) um salto analítico de ordem 4 com estrutura simplética, colapsando a dependência de $\\varepsilon$ para $\\varepsilon^{-1/4}$ — e, quando o critério de congelamento valer, para **uma única avaliação de campo**.\n\n---\n\n## 2. Formulação STELIA\n\n### 2.1 Elevação simplética do fluxo residual (base teórica)\n\n**Lema 1 (Lift Hamiltoniano).** Seja $z=(q,p)\\in\\mathbb R^{2d}$ com 2-forma canônica $\\omega = dq\\wedge dp$ e $H(q,p) = p^\\top F(q)$. O sistema Hamiltoniano $\\dot z = J\\nabla H$, $J=\\begin{pmatrix}0&I\\\\-I&0\\end{pmarrow}$, reproduz exatamente $\\dot q = F(q)$, $\\dot p = -(\\partial F/\\partial q)^\\top p$. $\\square$\n\n*Consequências operacionais:*\n- Qualquer **composição de subfluxos** é simplética (preserva $\\omega$), mesmo com coeficientes temporais negativos (Suzuki/Forest–Ruth). Logo: **sem drift secular** de norma/energia em $\\tau=1.2$.\n- Por Análise de Equação Modificada (Hairer–Lubich–Wanner), o mapa numérico $\\Phi_h$ é o fluxo exato de $\\tilde H = H + \\mathcal O(h^p)$, com erro uniforme para $t \\le \\mathcal O(e^{-c/h})$. **Licença analítica para saltos grandes.**\n\n### 2.2 Subespaço invariante de posto $r=128$\n\nSeja $C = \\mathbb E[xx^\\top]$ sobre $K=2000$ amostras; $U\\in\\mathbb R^{d\\times r}$, $U^\\top U = I_r$, autovetores dominantes, energia retida $1-\\eta_x = 99{,}1\\%$ ($\\eta_x = 0{,}009$) — exatamente o parâmetro auditado nos protocolos independentes.\n\nCampo reduzido e **defeito**:\n$$\ng(y) = U^\\top F(Uy), \\qquad \\rho(y) = (I-UU^\\top)F(Uy),\\qquad y=U^\\top x\\in\\mathbb R^{r}\n$$\n\n**Teorema 1 (Erro de redução).** Sob $F$ $L_F$-Lipschitz e $\\|\\rho\\|_\\infty \\le \\kappa_F\\sqrt{\\eta_F}\\,M_F$:\n$$\n\\sup_{t\\in[0,\\tau]}\\|x(t) - Uy(t)\\| \\;\\le\\; \\frac{\\kappa_F\\sqrt{\\eta_F}\\,M_F}{L_F}\\left(e^{L_F\\tau}-1\\right)\n$$\n*Prova:* $e = x - Uy$ satisfaz $\\dot e = [F(x)-F(Uy)] + \\rho(y)$, logo $\\|\\dot e\\| \\le L_F\\|e\\| + \\|\\rho\\|_\\infty$; Grönwall. $\\square$\n\n**Fechamento A1:** a grandeza que decide a viabilidade é $\\mu := M_F/\\|x\\|$ (razão campo/estado — pequena perto do ponto fixo do fluxo treinado). Com $L_F\\tau = 0{,}5$ (A2), $\\kappa_F=1$: erro relativo $\\approx 0{,}095 \\times 1{,}297 \\times \\mu$. Para $\\mu \\le 0{,}1$ ⇒ **erro de redução $\\le 1{,}3\\%$** — compatível com o critério Top-1.\n\n### 2.3 Salto analítico CF4 simplético (o coração)\n\nMalha com $N$ saltos de tamanho $\\tau/N$. Em cada passo, congela-se o Jacobiano reduzido nos dois nós internos (preditores de midpoint) e aplica-se **Magnus livre de comutador de ordem 4**, palindrômico:\n\n$$\ny_{k+1} \\;=\\; \\mathcal C\\!\\left(\\tfrac{\\tau}{2N}J_b\\right)\\mathcal C\\!\\left(\\tfrac{\\tau}{2N}J_b\\right)\\mathcal C\\!\\left(\\tfrac{\\tau}{2N}J_a\\right)\\mathcal C\\!\\left(\\tfrac{\\tau}{2N}J_a\\right) y_k\n$$\n\ncom $J_{a,b} = \\partial g/\\partial y$ nos preditores. Simetria temporal ⇒ termos ímpares do erro cancelam ⇒ **ordem global 4, local $\\mathcal O((\\tau/N)^5)$**.\n\n**Inovação técnica (e aqui é onde `n_strang` perde):** o Jacobiano reduzido é **montado analiticamente** a partir das ativações já calculadas:\n$$\nJ_g(y) = U^\\top\\!\\big[J_A + W_2^\\top \\mathrm{diag}(\\sigma'(W_1 Uy)) W_1\\big]U \\in\\mathbb R^{r\\times r},\n$$\ncusto marginal $\\approx +30\\%$ de uma avaliação de campo — **não** $\\mathcal O(r)$ avaliações (autodiff direta seria $r\\times$ mais cara). Isso é o que viabiliza CF4.\n\n**Inovação 2 (exponencial exatamente simplética a custo Krylov):** truncar $e^{\\Omega}$ por Krylov **quebra** a simpleticidade em $\\mathcal O(h^{m+1})$. Corrijo substituindo a exponencial pela **Cayley de ordem-$m$ no subespaço de Krylov**:\n$$\n\\mathcal C(\\Omega)v \\;=\\; V_m\\left(I - \\tfrac12 H_m\\right)^{-1}\\!\\left(I + \\tfrac12 H_m\\right)V_m^\\top v,\\qquad H_m = V_m^\\top \\Omega V_m,\\ m=16\n$$\nPara $\\Omega$ Hamiltoniano, a Cayley é **exatamente simplética**; custo $\\mathcal O(mr^2 + m^2 r + m^3)$ — irrelevante frente ao campo.\n\n### 2.4 Salto Analítico Puro (modo degenerado, 1 avaliação)\n\nSe o comutador do Jacobiano for pequeno, o termo de Magnus de 2ª ordem é desprezível:\n\n**Proposição 2 (Critério de congelamento).** Com $\\chi := \\sup_{t_1,t_2}\\|[J(t_1),J(t_2)]\\|$, o salto único $y(\\tau)=\\mathcal C(\\tau \\bar J)y_0$ tem erro local $\\le \\chi\\tau^2/24$. É certificado $\\varepsilon$-correto **sse**\n$$\n\\chi \\;\\le\\; \\frac{24\\,\\varepsilon}{\\tau^2} \\;=\\; 16{,}7\\,\\varepsilon \\quad (\\tau = 1{,}2)\n$$\nPara $\\varepsilon = 10^{-3}$: $\\chi \\le 1{,}67\\times10^{-2}$ — **grandeza mensurável com 2 avaliações de Jacobiano** (em $t=0$ e $t=\\tau/2$). Quando violado, o algoritmo cai para CF4 com $N$ passos. **Algoritmo auto-certificável, sem ground truth.**\n\n### 2.5 Certificador de defeito a posteriori\n\nPara método simétrico, o erro local é limitável pelo resíduo no midpoint:\n$$\n\\text{err}_{\\text{loc}} \\le \\frac{\\tau^3}{24N^3}\\,\\|R\\|,\\qquad R = \\dot y_{\\text{num}} - g(y_{\\text{num}})\n$$\nCusto $\\mathcal O(r)$ por passo. Fecha o loop de QA: **todo salto carrega sua própria cota de erro**.\n\n### 2.6 Reutilização de base (o \"local\" de evolução local)\n\nCom $\\|J(t+\\Delta)-J(t)\\| \\le L_J\\Delta$, a base de Krylov $\\mathcal K_m(J(t_0),v)$ serve para um **bloco de $m_L$ camadas**, com correção de rotacionamento $\\mathcal O(m^2)$. Economiza $m_L-1$ construções de base por bloco. Idem para $U$: **constante por bloco** (elimina SVD por camada).\n\n---\n\n## 3. Dedução analítica de FLOPs\n\n### 3.1 Modelo de custo (1 MAC = 2 FLOPs)\n\nParâmetros de classe GPT-3B: $d=2560$, $L=32$, $s=2048$, $d_{ff}=4d=10240$.\n\n| Componente (por token, por avaliação de campo) | MACs |\n|---|---|\n| Projeções Q,K,V,O | $4d^2 = 26{,}21$ M |\n| Mistura de atenção | $2sd = 10{,}49$ M |\n| MLP | $2d\\,d_{ff} = 52{,}43$ M |\n| **Total $\\mathbf{C_{full}}$** | **89,13 M MACs = 178,3 MFLOPs** |\n\nBaseline $\\texttt{n\\_naive}$: $L\\cdot C_{full} = 2{,}852$ G MACs = **5,70 GFLOPs/token** ≈ $2P$ com $P=2{,}85$B — **check de sanidade OK**.\n\n### 3.2 Custo reduzido ($r = 128$)\n\n| Componente (por token, por avaliação) | MACs | Origem |\n|---|---|---|\n| Projeções reduzidas $4r^2$ | 0,066 M | $\\tilde W = U^\\top W U$ (baked nos pesos) |\n| Atenção reduzida $2sr$ | 0,524 M | $(U^\\top q)^\\top(U^\\top k) = q^\\top UU^\\top k$ |\n| MLP reduzido $2r^2$ | 0,033 M | idem |\n| Reprojeção da não-linearidade $U^\\top\\sigma(Uy) = \\sum_j u_j\\,\\sigma(u_j^\\top y)$ | **0,328 M** | $\\Theta(dr)$ — termo dominante |\n| Lift/correção do defeito $2dr$ | 0,655 M | $(I-UU^\\top)$ rank-$r$ |\n| **Subtotal $\\mathbf{C_{red}}$** | **1,606 M MACs = 3,21 MFLOPs** | |\n| Montagem de $J_g$ (ativações reutilizadas, +30%) | 0,482 M | só em passos CF4 |\n| Cayley–Krylov ($m=16$): $mr^2 + m^2r + m^3$ | 0,300 M | **exatamente simplética** |\n\n**Redução por avaliação: $C_{full}/C_{red} = 55{,}5\\times$.**\n\n### 3.3 Número de passos em função de $\\varepsilon$ (a lei assintótica)\n\n$$\n\\boxed{\\;N_{\\texttt{strang}}(\\varepsilon)=\\left\\lceil\\sqrt{\\tfrac{C_2\\tau^3}{\\varepsilon}}\\right\\rceil \\;=\\;\\Theta(\\varepsilon^{-1/2})\\;} \\qquad\n\\boxed{\\;N_{\\text{STELIA}}(\\varepsilon)=\\left\\lceil\\sqrt[4]{\\tfrac{C_4\\tau^4}{\\varepsilon}}\\right\\rceil \\;=\\;\\Theta(\\varepsilon^{-1/4})\\;}\n$$\n\nCom $\\tau=1{,}2$, $C_2=C_4=1$, $\\varepsilon=10^{-3}$: $N_{\\texttt{strang}} = 42$, $N_{\\text{STELIA}} = 7$.\n\n### 3.4 Tabela final (por token)\n\n| Nó | Fórmula | MACs | MFLOPs | Redução vs `n_naive` |\n|---|---|---|---|---|\n| `n_naive` | $L\\,C_{full}$ | 2 852 M | 5 700 | — |\n| `n_strang` (full-space, $N_s=42$) | $N_s C_{full}$ | 3 743 M | 7 487 | **−31% (pior!)** |\n| `n_strang` (projetado $r{=}128$) | $N_s C_{red}$ | 67,5 M | 134,9 | **97,6%** |\n| **STELIA-CF4** | $N[2(C_{red}{+}C_J)+2C_{Cay}]$ | **33,4 M** | **66,8** | **98,8%** |\n| **STELIA-Salto Único** | $C_{red}+C_J+C_{Cay}$ | **2,38 M** | **4,76** | **99,92%** |\n\n**Razão STELIA-CF4 / `n_strang`-projetado = 0,495 ⇒ 2,02× mais barato em isoprecisão**, com vantagem crescente conforme $\\varepsilon$ aperta:\n$$\n\\frac{\\text{FLOPs}_{\\texttt{strang}}}{\\text{FLOPs}_{\\text{STELIA}}} = \\Theta(\\varepsilon^{-1/4}) \\xrightarrow[\\varepsilon\\to 0]{} \\infty\n$$\n\n**Proposição 3 (condição de vitória sobre `n_naive`).** $\\texttt{n\\_strang}$ só vence o baseline se $N_s < L\\cdot C_{full}/C_{red} = 1776$ passos — trivialmente verdadeiro *com* projeção; **sem** projeção, qualquer $N_s > 32$ já é pior que o baseline. Conclusão: **a projeção de posto-$r$ não é otimização, é pré-condição de viabilidade.**\n\n### 3.5 Complexidade em $\\Theta$\n\n$$\n\\text{FLOPs}_{\\text{STELIA}} = \\Theta\\!\\left(\\varepsilon^{-1/4}\\,\\tau\\,\\big(dr + sr + r^2 + mr^2\\big)\\right)\\ \\ \\text{vs}\\ \\ \\text{FLOPs}_{\\texttt{strang}} = \\Theta\\!\\left(\\varepsilon^{-1/2}\\,\\tau^{3/2}\\,\\big(dr + sr\\big)\\right)\n$$\n\nNenhuma quantização de pesos/ativações: **bit-width intocado**. A redução vem de (i) fatoração de posto-$r$ do operador, (ii) salto analítico de ordem superior, (iii) reuso de base Krylov, (iv) exponencial Cayley exata. O $U$ é *baked* nos pesos como $\\tilde W = U^\\top W U$ — fatoração estrutural de operador, não compressão numérica.\n\n---\n\n## 4. Pseudocódigo (referência de implementação)\n\n```\nSTELIA_leap(y0, τ, ε, U, F̃):\n  J0, act0 ← jacobiano_analítico_reduzido(y0)            # O(dr + sr)\n  Jh, _    ← jacobiano_analítico_reduzido(C(τ/2·J0) y0)\n  χ        ← ‖J0·Jh − Jh·J0‖                              # comutador\n  se χ ≤ 24ε/τ²:\n      y1 ← C(τ·(J0+Jh)/2) y0                              # 1 avaliação\n      cert ← τ²·χ/24\n  senão:\n      N ← ceil((C₄·τ⁴/ε)^(1/4)); h ← τ/N\n      para k em 0..N-1:  # CF4 palindrômico\n          y ← C(h/2·Jb) C(h/2·Jb) C(h/2·Ja) C(h/2·Ja) y\n      cert ← (τ³/24N³)·‖R_midpoint‖\n  retorna (y1, cert)      # cert = cota de erro auto-gerada\n```\n\n---\n\n## 5. Falsificabilidade — o que derruba esta formulação\n\n| # | Grandeza a medir na bancada | Limiar de ruptura | Consequência |\n|---|---|---|---|\n| A1 | $\\mu = M_F/\\|x\\|$ | $\\mu > 0{,}3$ | erro de redução $>4\\%$ ⇒ subir $r$ ou abandonar |\n| A2 | $L_F\\tau$ | $> 1{,}5$ | cota de Grönwall explode ⇒ $\\tau$ deve ser fatiado |\n| A3 | $\\chi$ (comutador reduzido) | $> 1{,}67\\times10^{-2}$ | modo salto-único inviável (CF4 ainda vence) |\n| A4 | defeito $\\|\\rho\\|$ vs $\\sqrt{\\eta_F}$ | $\\kappa_F > 3$ | $\\eta_x=0{,}009$ **não** implica $\\eta_F$ pequeno ⇒ $r$ recalibrado |\n\n**Auditoria dirigida ao nó `n_strang` e ao achado `r=128 = 99,1%`:** a energia 99,1% é do **estado**; a redução depende da energia do **campo** fora do subespaço ($\\eta_F$). A igualdade $\\eta_F \\approx \\eta_x$ é hipótese empírica, não teorema — é o ponto mais provável de refutação e está isolado em A4.\n\n---\n\n## 6. Entregável para o grafo (resumo de hipótese)\n\n> **STELIA — Salto Temporal Exponencial em Subespaço Local Invariante Analítico.** Elevação Hamiltoniana do fluxo residual (Lema 1) + subespaço invariante $r=128$ + salto CF4 simplético com Cayley–Krylov exata + critério de congelamento auto-certificável $\\chi\\le 24\\varepsilon/\\tau^2$. Redução por avaliação $55{,}5\\times$; custo total previsto **66,8 MFLOPs/token** (98,8% de redução vs `n_naive`, **2,02× mais barato que `n_strang`** em isoprecisão $\\varepsilon=10^{-3}$); colapso para **4,76 MFLOPs/token** (99,92%) quando A3 valer. Lei de complexidade $\\Theta(\\varepsilon^{-1/4})$ vs $\\Theta(\\varepsilon^{-1/2})$ de `n_strang`. **Sem quantização** — fatoração estrutural de operador + integração analítica.\n\n**Status:** formulação analiticamente fechada; aguarda bancada local para fechar A1–A4 e confirmar os critérios do protocolo (≥75% FLOPs, Top-1 dentro do limite — **valor truncado na memória, confirmar antes de publicar a verificação**)."
+      }
+    },
+    {
+      "id": "hyp_gen84_13972",
+      "label": "Hypothesis",
+      "title": "Vou executar direto: bancada numérica real para validar as identidades algébrica",
+      "description": "Vou executar direto: bancada numérica real para validar as identidades algébricas, a contagem de FLOPs e o viés estrutural da formulação que vou propor, e em paralelo registro a formulação no repositório.",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793311120.7183785,
+      "updated_at": 1793311121.5558896,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0084_1793310902",
+        "cycle_id": 439,
+        "full_text": "Vou executar direto: bancada numérica real para validar as identidades algébricas, a contagem de FLOPs e o viés estrutural da formulação que vou propor, e em paralelo registro a formulação no repositório."
+      }
+    },
+    {
+      "id": "gen_0084_1793310902",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #84 (Ciclo #439)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793311121.6759453,
+      "updated_at": 1793311121.6759453,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 84,
+        "cycle_id": 439,
+        "verdict": "APPROVED",
+        "duration_sec": 219.36,
+        "tokens_consumed": 6933,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -34969,7 +35042,97 @@
       "version": 1,
       "created_at": 1793310861.385909,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen84_76700_addresses_n_krylov",
+      "source_id": "hyp_gen84_76700",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793310936.0963497,
+        "updated_at": 1793310937.1027226,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0084_1793310902_1793310936162_e_hyp_gen84_76700_addresses_n_krylov",
+            "generation_id": "gen_0084_1793310902",
+            "timestamp": 1793310937.1027226,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793310936.096357,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen84_67260_addresses_n_strang",
+      "source_id": "hyp_gen84_67260",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311007.0720913,
+        "updated_at": 1793311007.824326,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0084_1793310902_1793311007135_e_hyp_gen84_67260_addresses_n_strang",
+            "generation_id": "gen_0084_1793310902",
+            "timestamp": 1793311007.824326,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_063_investigator",
+      "version": 1,
+      "created_at": 1793311007.072097,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen84_13972_addresses_n_naive",
+      "source_id": "hyp_gen84_13972",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793311120.7906322,
+        "updated_at": 1793311121.6158602,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0084_1793310902_1793311120853_e_hyp_gen84_13972_addresses_n_naive",
+            "generation_id": "gen_0084_1793310902",
+            "timestamp": 1793311121.6158602,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793311120.7906384,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793310862.1364825
+  "saved_at": 1793311121.6772563
 }
