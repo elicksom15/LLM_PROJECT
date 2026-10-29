@@ -4,9 +4,9 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `82`
+- **Total de Ciclos Científicos Executados:** `86`
 - **Hipóteses Aprovadas (Incorporadas):** `🏆 7`
-- **Hipóteses Falsificadas / Rejeitadas:** `❌ 55`
+- **Hipóteses Falsificadas / Rejeitadas:** `❌ 56`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
 ## 🏆 Hipóteses Aprovadas
@@ -24,6 +24,10 @@
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#86** | 2026-10-29 00:35:29 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
+| **#85** | 2026-10-29 00:27:47 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#84** | 2026-10-29 00:10:59 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
+| **#83** | 2026-10-28 23:54:13 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#82** | 2026-10-28 23:41:34 | `GPT3B_H82_KRONECKER_SPECTRAL_CONTRACTION` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
 | **#81** | 2026-10-28 23:28:24 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#80** | 2026-10-28 23:18:33 | `GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB` | 🔴 REJEITADA | 0.0% | 0.0% | Iniciando debate |
@@ -70,7 +74,3 @@
 | **#39** | 2026-10-28 14:37:20 | `GPT3B_H39_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#38** | 2026-10-28 14:32:34 | `GPT3B_H38_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
 | **#37** | 2026-10-28 14:27:45 | `GPT3B_H37_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#36** | 2026-10-28 14:23:01 | `GPT3B_H36_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#35** | 2026-10-28 14:18:16 | `GPT3B_H35_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#34** | 2026-10-28 14:13:31 | `GPT3B_H34_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
-| **#33** | 2026-10-28 14:08:46 | `GPT3B_H33_CROSS_LAYER_SPARSITY` | 🔴 REJEITADA | 79.1% | 99.0% | Investigar causa de falsificação no próximo ciclo. |
