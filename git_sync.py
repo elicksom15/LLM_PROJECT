@@ -218,7 +218,7 @@ class GitSyncEngine:
         # Salva ledger.json estruturado
         ledger_data = {
             "project": "Dual MiMo Autonomous Research Engine",
-            "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
+            "target": "Redução Extrema de FLOPs em Bancada GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
             "last_sync": time.strftime("%Y-%m-%d %H:%M:%S"),
             "stats": {
                 "total_cycles": total_cycles,
@@ -356,7 +356,7 @@ O benchmark comparativo rigoroso (`collective/benchmark_experiment.py`) comprovo
 
 ---
 
-## 🎯 Missão Principal: Qwen 32B em RTX 3060 Sem Quantização Convencional
+## 🎯 Missão Ativa: Bancada GPT (~3B) em RTX 3060 Sem Quantização Convencional
 Desenvolver uma formulação matemática inédita que reduza o custo computacional e o tráfego de memória de inferência autorregressiva em mais de **75% a 85%**, eliminando as perdas de precisão das quantizações convencionais (AWQ/GPTQ) através de:
 - **Álgebra de Subespaços Invariantes de Krylov**
 - **Transporte Paralelo Espectral entre Camadas**

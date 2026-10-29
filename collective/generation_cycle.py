@@ -159,9 +159,9 @@ class GenerationCycleEngine:
         open_problems = knowledge_graph.find_nodes(label="Problem", validation_status="PROPOSED")
         if not open_problems:
             prob_root = KnowledgeNode(
-                id="prob_qwen32b_rtx3060",
+                id="prob_gpt3b_rtx3060",
                 label="Problem",
-                title="Execução do Qwen 32B na RTX 3060 12GB sem Quantização Convencional",
+                title="Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
                 description="Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
                 provenance="system",
                 validation_status="OPEN",
@@ -266,7 +266,7 @@ class GenerationCycleEngine:
                 e_new = KnowledgeEdge(
                     id=edge_id,
                     source_id=h_id,
-                    target_id=task.target_node_id if task.target_node_id in knowledge_graph.embedded.nodes else "prob_qwen32b_rtx3060",
+                    target_id=task.target_node_id if task.target_node_id in knowledge_graph.embedded.nodes else "prob_gpt3b_rtx3060",
                     relation_type="ADDRESSES",
                     weights=RelationshipWeights(weight_semantic=0.88, weight_epistemic=0.60, weight_operational=0.50),
                     provenance=agent.id

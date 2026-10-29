@@ -1,7 +1,7 @@
 # ⚡ Dual MiMo Autonomous Research Engine & Sistema Cognitivo Multiagente (LLM_PROJECT)
 
-[![Research Cycles](https://img.shields.io/badge/Cycles-415-blue.svg)](#)
-[![Approved Hypotheses](https://img.shields.io/badge/Approved-68-success.svg)](#)
+[![Research Cycles](https://img.shields.io/badge/Cycles-416-blue.svg)](#)
+[![Approved Hypotheses](https://img.shields.io/badge/Approved-69-success.svg)](#)
 [![Hardware](https://img.shields.io/badge/GPU-RTX%203060%2012GB-76B900.svg)](#)
 [![Methodology](https://img.shields.io/badge/Method-Cálculo%20Primeiro%20(Fase%200)-orange.svg)](#)
 [![Architecture](https://img.shields.io/badge/Architecture-Graph--Oriented%20Multi--Agent-purple.svg)](#)
@@ -90,7 +90,7 @@ O benchmark comparativo rigoroso (`collective/benchmark_experiment.py`) comprovo
 
 ---
 
-## 🎯 Missão Principal: Qwen 32B em RTX 3060 Sem Quantização Convencional
+## 🎯 Missão Ativa: Bancada GPT (~3B) em RTX 3060 Sem Quantização Convencional
 Desenvolver uma formulação matemática inédita que reduza o custo computacional e o tráfego de memória de inferência autorregressiva em mais de **75% a 85%**, eliminando as perdas de precisão das quantizações convencionais (AWQ/GPTQ) através de:
 - **Álgebra de Subespaços Invariantes de Krylov**
 - **Transporte Paralelo Espectral entre Camadas**

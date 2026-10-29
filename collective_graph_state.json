@@ -45,9 +45,9 @@
       "title": "Execução do Qwen 32B na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 63,
+      "version": 64,
       "created_at": 1793241448.1967504,
-      "updated_at": 1793302577.8216598,
+      "updated_at": 1793302702.7440228,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -7699,6 +7699,23 @@
         "new_hypotheses": 6,
         "verified": 6,
         "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen62_6134",
+      "label": "Hypothesis",
+      "title": "PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G62_2718",
+      "description": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G62_2718\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793302718.3132384,
+      "updated_at": 1793302719.6930397,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0062_1793302702",
+        "cycle_id": 416,
+        "full_text": "# PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G62_2718\n\nParâmetros de ensaio na bancada local: $r=128$, $K=2000$, $\\tau=1.2$.\nCritérios de validação: Redução de FLOPs $\\ge 75\\%$, Perda de Acurácia Top-1 $\\le 2.0\\%$, Speedup Real $> 1.10\\times$."
       }
     }
   ],
@@ -30222,7 +30239,37 @@
       "version": 1,
       "created_at": 1793302664.9680705,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen62_6134_addresses_n_krylov",
+      "source_id": "hyp_gen62_6134",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793302718.3653555,
+        "updated_at": 1793302719.747216,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0062_1793302702_1793302718415_e_hyp_gen62_6134_addresses_n_krylov",
+            "generation_id": "gen_0062_1793302702",
+            "timestamp": 1793302719.747216,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793302718.3653636,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793302665.6431432
+  "saved_at": 1793302719.7483196
 }

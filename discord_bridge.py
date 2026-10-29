@@ -572,7 +572,7 @@ class DiscordBridge:
                     f"• **Fórmula:** `{formula}`\n"
                     f"• **Redução Teórica:** {make_bar(flops_pct, length=8)}\n"
                     f"• **Complexidade:** `{audit_res.get('complexity_proposed', 'N/A')}`\n"
-                    f"• **Parecer:** {audit_res.get('rejection_reason', 'Cálculo aprovado com corte >= 75% comprovado no papel.')}"
+                    f"• **Parecer:** {audit_res.get('rejection_reason') or 'Cálculo matemático auditado e verificado com corte comprovado no papel.'}"
                 ),
                 "inline": False
             })

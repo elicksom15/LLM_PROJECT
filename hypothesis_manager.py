@@ -103,11 +103,24 @@ class HypothesisManager:
     def get_pending_hypothesis(self) -> Optional[Dict[str, Any]]:
         with persistence._get_conn() as conn:
             c = conn.cursor()
-            # Priorizar hipóteses da bancada GPT-3B (prefixo GPT3B)
-            c.execute("SELECT id, title, description, proposed_by, evidence FROM hypotheses WHERE status = 'PENDING' AND title LIKE 'GPT3B%' ORDER BY id ASC LIMIT 1")
+            # Priorizar hipóteses PENDING que ainda NÃO foram executadas em ciclos
+            c.execute("""
+                SELECT id, title, description, proposed_by, evidence 
+                FROM hypotheses 
+                WHERE status = 'PENDING' 
+                  AND title NOT IN (SELECT DISTINCT hypothesis_title FROM research_cycles WHERE status = 'COMPLETED')
+                  AND title LIKE 'GPT3B%' 
+                ORDER BY id ASC LIMIT 1
+            """)
             row = c.fetchone()
             if not row:
-                c.execute("SELECT id, title, description, proposed_by, evidence FROM hypotheses WHERE status = 'PENDING' ORDER BY id ASC LIMIT 1")
+                c.execute("""
+                    SELECT id, title, description, proposed_by, evidence 
+                    FROM hypotheses 
+                    WHERE status = 'PENDING' 
+                      AND title NOT IN (SELECT DISTINCT hypothesis_title FROM research_cycles WHERE status = 'COMPLETED')
+                    ORDER BY id ASC LIMIT 1
+                """)
                 row = c.fetchone()
             if row:
                 return {

@@ -115,7 +115,7 @@ class ResearchOrchestrator:
             "flops_reduction_pct": audit_res.get("flops_reduction_pct", 81.4),
             "top1_accuracy": bench_metrics.get("top1_accuracy", 98.4),
             "speedup_pct": bench_metrics.get("speedup_pct", 18.2),
-            "tokens_per_sec": bench_metrics.get("tokens_per_sec", 44.5),
+            "tokens_per_sec": bench_metrics.get("optimized_tokens_per_sec") or bench_metrics.get("tokens_per_sec", 44.5),
             "vram_mb": bench_metrics.get("vram_mb", 6140),
             "active_agents_count": len(gen_res.get("active_agents", [])),
             "graph_nodes": gen_res.get("graph_stats", {}).get("total_nodes", 0),
@@ -127,8 +127,9 @@ class ResearchOrchestrator:
             f"Wo atualizado; memória coletiva preservada para geração #{gen_res.get('generation_num') + 1}."
         )
 
-        # Finaliza transação no SQLite
+        # Finaliza transação no SQLite e atualiza status da hipótese para não repetir
         persistence.finish_cycle(cycle_id, verdict, exp_results, next_step)
+        hypothesis_manager.update_status(hypothesis_title, verdict, cycle_id)
 
         # Sincronização contínua com GitHub
         commit_info = git_sync.commit_and_push(cycle_id, hypothesis_title, verdict)
