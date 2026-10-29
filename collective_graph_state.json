@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "id": "n_krylov",
+      "label": "Hypothesis",
+      "title": "Subespaço de Krylov",
+      "description": "",
+      "provenance": "system",
+      "version": 9,
+      "created_at": 1793240928.9200044,
+      "updated_at": 1793241325.3975015,
+      "validation_status": "PROPOSED",
+      "epistemic_class": "HYPOTHESIS",
+      "properties": {}
+    },
+    {
+      "id": "n_strang",
+      "label": "Hypothesis",
+      "title": "Splitting de Strang",
+      "description": "",
+      "provenance": "system",
+      "version": 9,
+      "created_at": 1793240928.9200113,
+      "updated_at": 1793241325.399943,
+      "validation_status": "PROPOSED",
+      "epistemic_class": "HYPOTHESIS",
+      "properties": {}
+    },
+    {
+      "id": "n_naive",
+      "label": "Hypothesis",
+      "title": "Truncamento SVD Ingênuo",
+      "description": "",
+      "provenance": "system",
+      "version": 9,
+      "created_at": 1793240928.9200153,
+      "updated_at": 1793241325.4007401,
+      "validation_status": "PROPOSED",
+      "epistemic_class": "HYPOTHESIS",
+      "properties": {}
+    },
+    {
+      "id": "prob_qwen32b_rtx3060",
+      "label": "Problem",
+      "title": "Execução do Qwen 32B na RTX 3060 12GB sem Quantização Convencional",
+      "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
+      "provenance": "system",
+      "version": 1,
+      "created_at": 1793241448.1967504,
+      "updated_at": 1793241448.1967506,
+      "validation_status": "OPEN",
+      "epistemic_class": "PROBLEM",
+      "properties": {}
+    }
+  ],
+  "edges": [
+    {
+      "id": "rel_krylov_projection",
+      "source_id": "n_krylov",
+      "target_id": "n_strang",
+      "relation_type": "DEPENDS_ON",
+      "weights": {
+        "weight_semantic": 0.85,
+        "weight_epistemic": 0.7,
+        "weight_operational": 0.5,
+        "uncertainty": 0.5,
+        "update_count": 0,
+        "created_at": 1793241325.4014997,
+        "updated_at": 1793241325.4015,
+        "update_history": []
+      },
+      "provenance": "system",
+      "version": 1,
+      "created_at": 1793241325.4015038,
+      "metadata": {}
+    },
+    {
+      "id": "rel_naive_svd_truncation",
+      "source_id": "n_krylov",
+      "target_id": "n_naive",
+      "relation_type": "DEPENDS_ON",
+      "weights": {
+        "weight_semantic": 0.6,
+        "weight_epistemic": 0.4,
+        "weight_operational": 0.5,
+        "uncertainty": 0.5,
+        "update_count": 0,
+        "created_at": 1793241325.4015055,
+        "updated_at": 1793241325.4015055,
+        "update_history": []
+      },
+      "provenance": "system",
+      "version": 1,
+      "created_at": 1793241325.401507,
+      "metadata": {}
+    }
+  ],
+  "saved_at": 1793241448.1967976
+}

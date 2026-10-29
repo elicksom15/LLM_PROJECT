@@ -1,9 +1,9 @@
 {
   "project": "Dual MiMo Autonomous Research Engine",
   "target": "Redução Extrema de Computação em LLMs sem Quantização Convencional (Qwen 32B na RTX 3060 12GB)",
-  "last_sync": "2026-10-28 23:03:27",
+  "last_sync": "2026-10-28 23:40:40",
   "stats": {
-    "total_cycles": 78,
+    "total_cycles": 81,
     "approved_count": 7,
     "rejected_count": 54
   },
@@ -80,6 +80,36 @@
     }
   ],
   "recent_cycles": [
+    {
+      "cycle_id": 81,
+      "timestamp": "2026-10-28 23:28:24",
+      "title": "GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 80,
+      "timestamp": "2026-10-28 23:18:33",
+      "title": "GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
+    {
+      "cycle_id": 79,
+      "timestamp": "2026-10-28 23:08:10",
+      "title": "GPT3B_H79_POINCARE_HYPERBOLIC_VOCAB",
+      "verdict": "PENDING",
+      "flops_reduction": 0.0,
+      "top1_accuracy": 0.0,
+      "tokens_per_sec": 0.0,
+      "next_step": "Iniciando debate"
+    },
     {
       "cycle_id": 78,
       "timestamp": "2026-10-28 22:30:38",
@@ -548,36 +578,6 @@
       "flops_reduction": 79.11625051831288,
       "top1_accuracy": 99.01477832512316,
       "tokens_per_sec": 448.1362887546409,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 31,
-      "timestamp": "2026-10-28 13:59:15",
-      "title": "GPT3B_H31_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 380.18500672679477,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 30,
-      "timestamp": "2026-10-28 13:54:29",
-      "title": "GPT3B_H30_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 438.71935562989114,
-      "next_step": "Investigar causa de falsificação no próximo ciclo."
-    },
-    {
-      "cycle_id": 29,
-      "timestamp": "2026-10-28 13:49:42",
-      "title": "GPT3B_H29_CROSS_LAYER_SPARSITY",
-      "verdict": "REJECTED",
-      "flops_reduction": 79.11625051831288,
-      "top1_accuracy": 99.01477832512316,
-      "tokens_per_sec": 406.844670149723,
       "next_step": "Investigar causa de falsificação no próximo ciclo."
     }
   ]

@@ -36,6 +36,11 @@ TRACKED_FILES = [
     "README.md",
     "ledger.json",
     ".gitignore",
+    "docker-compose.yml",
+    "neo4j_schema.cypher",
+    "config_collective.yaml",
+    "collective_graph_state.json",
+    "docs/CURRENT_ARCHITECTURE.md",
     "git_sync.py",
     "analytical_engine.py",
     "benchmark.py",
@@ -50,7 +55,22 @@ TRACKED_FILES = [
     "PAUSE_RESEARCH.bat",
     "RESUME_RESEARCH.bat",
     "START_RESEARCH.bat",
-    "STOP_RESEARCH.bat"
+    "STOP_RESEARCH.bat",
+    "tests/run_tests.py",
+    "tests/test_collective_intelligence.py",
+    "collective/__init__.py",
+    "collective/config.py",
+    "collective/weights.py",
+    "collective/graph_engine.py",
+    "collective/agent_pool.py",
+    "collective/inference_scheduler.py",
+    "collective/subgraph_extractor.py",
+    "collective/gds_engine.py",
+    "collective/verifier.py",
+    "collective/graph_orchestrator.py",
+    "collective/generation_cycle.py",
+    "collective/benchmark_experiment.py",
+    "collective/observability.py"
 ]
 
 class GitSyncEngine:

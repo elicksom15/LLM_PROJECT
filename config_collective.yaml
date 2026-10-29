@@ -1,0 +1,55 @@
+# ==============================================================================
+# CONFIGURAÇÃO DA INTELIGÊNCIA COLETIVA ADAPTATIVA (LLM_PROJECT)
+# ==============================================================================
+
+agents:
+  logical_pool: 100
+  max_logical_pool: 500
+  active_limit: 12
+  inference_concurrency: 4
+  dynamic_activation: true
+  specialized_roles: true
+  default_temperature: 0.35
+  max_tokens_per_call: 2048
+
+knowledge_graph:
+  provider: "neo4j"
+  uri: "bolt://localhost:7687"
+  user: "neo4j"
+  password: "password123"
+  database: "neo4j"
+  persistence: true
+  adaptive_weights: true
+  provenance_required: true
+  fallback_to_embedded: true
+  state_file: "collective_graph_state.json"
+
+weights:
+  learning_rate: 0.15 # alpha na fórmula de atualização
+  min_weight: 0.05
+  max_weight: 0.95
+  unproductive_penalty: 0.08
+  exploration_rate: 0.10
+  uncertainty_discount: 0.90
+
+execution:
+  continuous: true
+  generation_budget_enabled: true
+  max_generation_time_sec: 180
+  max_tokens_per_generation: 64000
+  max_tasks_per_generation: 24
+  checkpoint_enabled: true
+  graceful_shutdown: true
+  circuit_breaker_error_limit: 5
+  stagnation_generation_limit: 4
+
+verification:
+  require_independent_verifier: true
+  min_math_reduction_threshold: 0.75 # 75% corte analítico
+  reproducibility_runs: 2
+  reward_scale: 1.0
+
+benchmark:
+  modes: ["baseline_no_graph", "static_graph", "adaptive_graph"]
+  seeds: [42, 137, 2026]
+  replications: 3
