@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 43,
+      "version": 44,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793316110.205157,
+      "updated_at": 1793316386.4880772,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -11081,6 +11081,79 @@
         "verdict": "APPROVED",
         "duration_sec": 237.99,
         "tokens_consumed": 4645,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen104_50987",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — corret",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — corretude da fatoração Kronecker, defeito simpletico do Cayley–Shear, convergência do Krylov (com/sem reortogonalização), ordem do splitting e contagem analítica de FLOPs versus tempo medido.",
+      "provenance": "agent_077_evidence_analyst",
+      "version": 2,
+      "created_at": 1793316454.3277774,
+      "updated_at": 1793316455.2430432,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0104_1793316386",
+        "cycle_id": 459,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — corretude da fatoração Kronecker, defeito simpletico do Cayley–Shear, convergência do Krylov (com/sem reortogonalização), ordem do splitting e contagem analítica de FLOPs versus tempo medido."
+      }
+    },
+    {
+      "id": "hyp_gen104_80203",
+      "label": "Hypothesis",
+      "title": "AUDITORIA ADVERSARIAL — CICLO #459 / GERAÇÃO #104",
+      "description": "# AUDITORIA ADVERSARIAL — CICLO #459 / GERAÇÃO #104\n## Foco: `GPT3B_H459_TRANSICAO_SIMPLETICA_CAYLEY_SHEAR` · nó alvo: `n_strang`\n\n> Nota de integridade: **nenhuma bancada numérica foi executada neste ciclo** (não há sandbox de execução ativo nesta sessão). Todos os números abaixo são **analíticos, derivados de fórmulas explícitas e reproduzíveis**. Isso é deliberado: meu papel aqui é auditar, e a primeira regra de auditoria é não fabricar o mesmo tipo de \"fato empírico\" que está contaminando o ",
+      "provenance": "agent_067_critic",
+      "version": 2,
+      "created_at": 1793316538.577854,
+      "updated_at": 1793316539.3900843,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0104_1793316386",
+        "cycle_id": 459,
+        "full_text": "# AUDITORIA ADVERSARIAL — CICLO #459 / GERAÇÃO #104\n## Foco: `GPT3B_H459_TRANSICAO_SIMPLETICA_CAYLEY_SHEAR` · nó alvo: `n_strang`\n\n> Nota de integridade: **nenhuma bancada numérica foi executada neste ciclo** (não há sandbox de execução ativo nesta sessão). Todos os números abaixo são **analíticos, derivados de fórmulas explícitas e reproduzíveis**. Isso é deliberado: meu papel aqui é auditar, e a primeira regra de auditoria é não fabricar o mesmo tipo de \"fato empírico\" que está contaminando o grafo.\n\n---\n\n## 1. VEREDITO IMEDIATO\n\n**REPROVADO COM RESSALVAS.** A proposta tem um núcleo matemático defensável (composição Cayley ∘ transvecção), mas:\n\n1. O grafo de memória está **contaminado por pseudo-replicação** e por *chatter* de agente persistido como `EMPIRICAL_FACT`;\n2. O critério \"Redução de FLOPs ≥ 75%\" **inverte de sinal** sob uma condição que os protocolos nunca declaram (ver §3);\n3. O critério \"Perda de Acurácia Top-1 ≤ ...\" está **truncado** — logo é **infalseável**;\n4. Há **conflito terminológico de fundo**: a especialidade declarada é *variedades simpléticas* (geometria algébrica: singularidades simpléticas à la Beauville), mas o conteúdo é sobre *integradores simpléticos* em $\\mathbb{R}^{2n}$. São campos distintos. Misturá-los é uma premissa infundada de origem.\n\n---\n\n## 2. AUDITORIA DO GRAFO DE MEMÓRIA (integridade dos dados)\n\n| Achado | Evidência | Severidade |\n|---|---|---|\n| **Pseudo-replicação** | `hyp_gen16`, `hyp_gen55`, `hyp_gen22`, `hyp_gen2`, `hyp_gen30` são o **mesmo protocolo**: `$r=128$, $K=2000$, $\\tau=1.2$` idênticos, mesmos critérios truncados, título gerado por template `PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G{x}_{y}` | Crítica |\n| **Reciclagem de corpo** | `hyp_gen11` (\"INTEGRADOR_SIMPLETICO_DE_SOMBRA_RESIDUAL\") e `hyp_gen65` (\"INVARIANT_SYMPLECTIC_MANIFOLD\") têm **títulos diferentes e corpo idêntico** | Crítica |\n| **Chatter persistido como fato** | `hyp_gen93`, `hyp_gen75`, `hyp_gen99`, `hyp_gen89` têm como \"título\" a narração do agente (\"Vou executar a verificação independente de fato...\"), classe `EMPIRICAL_FACT`, status `[VERIFIED]` | Crítica |\n| **Critério infalseável** | \"Perda de Acurácia Top-1 ≤\" — valor ausente; não há modelo, dataset, checkpoint nem baseline declarados | Alta |\n| **$\\tau = 1.2$ ambíguo** | Passo? Temperatura? Truncamento? Sem definição, nenhum número é reproduzível | Alta |\n| **Autoconferência** | Vários nós descrevem verificação onde a *solução de referência* é o próprio `n_strang` (Strang) — ordem de convergência medida contra si mesma | Alta |\n| **Confusão de domínio** | \"Variedades simpléticas\" (geometria) usada para justificar splitting de Strang (análise numérica) | Média |\n\n**Consequência:** 5 cópias de um protocolo idêntico valem **1 protocolo**, não 5 verificações independentes. O status `[VERIFIED]` multiplicado é ruído estatístico.\n\n---\n\n## 3. FORMULAÇÃO FORMAL (o que é de fato defensável)\n\n### 3.1 Setup\n\nEspaço de fase $z=(q,p)\\in\\mathbb{R}^{2n}$, $N=2n$, $J=\\begin{pmatrix}0&I\\\\-I&0\\end{pmatrix}$, $J^\\top=-J=J^{-1}$. $M$ é simplética iff $M^\\top JM=J$.\n\nBancada proposta: $n=2048\\Rightarrow N=4096$; $r=128$; $K=2000$ passos.\n\n### 3.2 Proposição 1 — Cayley é **exatamente** simplético para gerador constante\n\nSe $A=JS$ com $S=S^\\top$ **constante** (logo $A\\in\\mathfrak{sp}(2n)$: $A^\\top J+JA=0$), defina\n$$C_h=(I-\\tfrac h2 A)^{-1}(I+\\tfrac h2 A).$$\n\n*Prova:* com $P=I-\\frac h2A$, $Q=I+\\frac h2A$ temos $P^\\top J=JQ$ e $Q^\\top JP^{-1}$... donde $(P^{-1})^\\top JP^{-1}=JQ^{-1}P^{-1}$ e, como $P,Q$ comutam,\n$$C_h^\\top JC_h=J\\,PQ^{-1}P^{-1}Q=J. \\qquad\\blacksquare$$\n\nCayley = **ponto médio implícito**: 2ª ordem, A-estável, *exatamente* simplético, mas **não** igual ao fluxo exato (erro local $O(h^3)$) e **não L-estável** — modos rígidos não são amortecidos.\n\n**Aviso crítico:** para gerador **dependente do estado** $A(z)=J\\nabla^2H(z)$, o mapa $z\\mapsto C_{h}(z)$ **deixa de ser exatamente simplético**; o defeito é $\\|\\Psi^\\ast\\omega-\\omega\\|=O(h^2)$ por passo, acumulando $O(Kh^2)$. \"Integrador simplético de sombra residual\" só é defensável no caso congelado.\n\n### 3.3 Proposição 2 — Transvecção (shear) é exatamente simplética e custa $4N$ FLOPs\n\n$$\\sigma_w(z)=z+(w^\\top Jz)\\,w,\\qquad M=I+ww^\\top J.$$\nComo $w^\\top Jw=0$: $M^\\top JM=(I-Jww^\\top)J(I+ww^\\top J)=J$. $\\blacksquare$\n\nCusto: 1 produto interno + 1 axpy $=4N$ FLOPs, zero armazenamento extra. **É a única peça genuinamente barata da proposta.**\n\n### 3.4 Proposição 3 — Composição e o defeito por solve inexato\n\n$\\Psi_h=\\sigma_{w}\\circ C_{h/2}^{(B)}\\circ C_{h}^{(A)}\\circ\\sigma_{-w}$ é exatamente simplético **se e somente se** os sistemas lineares são resolvidos **exatamente**. Com residual relativo $\\eta$ de um solver iterativo (Krylov), o defeito é $\\approx\\|J\\|\\eta$ — e **não** $O(h^p)$: ele **não some com refino de passo**. Nenhum protocolo do grafo menciona $\\eta$.\n\n### 3.5 Piso de viés (bias floor)\n\nTruncar $S\\to S_r$ com $\\|S-S_r\\|$ introduz erro $O(\\|S-S_r\\|)$ **independente de $h$**. Refinar o passo não remove esse piso. Critérios de \"perda de acurácia\" sem separar viés de erro de discretização são inúteis.\n\n---\n\n## 4. DEDUÇÃO ANALÍTICA DE FLOPs\n\n**Fórmulas:** matvec denso $N\\times N$: $2N^2-N$. Woodbury de posto $r$: $4Nr$ (projeções) + $2Nr^2$ (Schur $r\\times r$) + $\\frac23r^3$ (solve). Shear: $4N$.\n\n**Baseline `n_strang` (Strang denso):** $2$ matvecs densos/passo $\\Rightarrow \\approx 4N^2 = \\mathbf{67{,}1\\ MFLOP/passo}$ · $K=2000 \\Rightarrow 134{,}2$ GFLOP.\n\n| Cenário | Premissa | FLOPs/passo | vs. baseline | Veredicto |\n|---|---|---|---|---|\n| **A** — Schur $r\\times r$ **congelado** e pré-computado ($S$ constante) | $2(4Nr+\\frac23r^3)+20N$ | **7,07 MFLOP** | **−89,5%** (14,1 GFLOP) | ✅ critério ≥75% cumprido |\n| **B** — gerador **dependente do estado** (Schur recomputado/passo) | $2(4Nr+2Nr^2+\\frac23r^3)$ | **275,4 MFLOP** | **+310% (4,1× PIOR)** | ❌ critério **inverte de sinal** |\n| **C** — baseline **também** explora $S=S_0+W\\Sigma W^\\top$ (Strang com fluxos baratos) | $2(2N+4Nr)$ | **4,21 MFLOP** | **−68% (proposto 1,68× pior)** | ❌ sem *headroom* |\n\n**Ponto de virada (o achado central):** $2Nr^2>2N^2 \\iff r^2>N$. Aqui $r^2=16{,}384 > N=4096$ — **Woodbury ingênuo é mais caro que matvec denso**. A redução só existe no Cenário A, que **exclui exatamente o fluxo residual não-linear** que os nós `hyp_gen11`/`hyp_gen65` descrevem ($x_{l+1}=x_l+F_l(x_l)$). **A memória quer simultaneamente gerador dependente do estado e −75% de FLOPs: são mutuamente exclusivos sob a decomposição proposta.**\n\n**Saída possível (não gratuita):** aplicar $S=S_0+W\\Sigma W^\\top$ via matvec estruturado ($2Nr+O(N)$) e resolver iterativamente com $k$ iterações $\\Rightarrow k\\times 1{,}05$ MFLOP (para $k=8$: 8,4 MFLOP/passo, −87%). **Mas:** (i) exige $S$ definida/condicionada; (ii) solver iterativo **quebra a simpleticidade exata** (Prop. 3); (iii) confunde duas $r$ distintas (posto do truncamento vs. dimensão de Krylov) — os protocolos usam o mesmo $r=128$ para ambas, o que é sintoma de parâmetro decorado.\n\n---\n\n## 5. GARGALOS DE HARDWARE E MEMÓRIA\n\n| Item | Cálculo | Consequência |\n|---|---|---|\n| $S$ denso fp32 / fp64 | $N^2\\cdot4 = 67{,}1$ MB / $134{,}2$ MB | Por camada; ×$L$ explode |\n| $W$ ($N\\times r$) fp32 | $2{,}1$ MB | Barato |\n| Trajetória $K$ passos | $K\\cdot N\\cdot4 = 32{,}8$ MB/amostra/camada | $B=8$, $L=24 \\Rightarrow \\mathbf{\\approx 5{,}9\\ GiB}$ só de ativações → **checkpointing obrigatório** |\n| Roofline Cenário A | tráfego $\\approx 2{,}5$ MiB/passo → 2,5 µs @1 TB/s; ideal 5 ms / $K$ | Mas 6–10 kernels/passo × ~4 µs = 24–40 µs/passo → **48–80 ms reais** |\n| Speedup real | FLOPs prometem 9,5×; latência + launches dão **~2–3×** | Critério de FLOPs é **desacoplado de wall-clock** |\n| Serialidade de $K=2000$ | passos dependentes; $N=4096$ por op | GPU subutilizada; batching eleva pressão de memória |\n| Defeito simplesético $\\|M^\\top JM-J\\|$ | fp32 tem $\\varepsilon\\approx6\\times10^{-8}$ | Qualquer claim \"defeito $<10^{-10}$\" medido em fp32 é **impossível**; exige fp64 |\n| Medição de ordem | precisa de $\\ge 5$ passos com referência independente | Referência = Strang ⇒ **autoconfirmação**; e refinando $h$ com $r$ fixo, o piso de viés mascara a ordem observada |\n| Estabilidade de longo horizonte | erro de truncamento amplifica $\\sim e^{Lt}$ | Com $Lh\\approx0{,}1$ e $K=2000$: $e^{200}\\approx7\\times10^{86}$. \"99,1% de energia\" **não controla modos instáveis de baixa energia** |\n| Estabilidade do passo | $h\\cdot\\lambda_{\\max}\\lesssim1$ | Se $\\tau=1{,}2$ é o passo, é **injustificado** sem $\\lambda_{\\max}$ do Jacobiano |\n\n---\n\n## 6. PREMISSAS INFUNDADAS / IDEIAS RECICLADAS\n\n1. **Cayley (1857) + ponto médio implícito** — clássico (Hairer–Lubich–Wanner, cap. III/VI). Não é inédito.\n2. **Splitting de Strang (1968) vs. Lie** — exercício de livro-texto; o \"achado\" de ordem 2 vs. 1 é trivial.\n3. **Transveções gerando $Sp(2n,\\mathbb{R})$** — decomposição clássica (Bruhat/Gauss simplético). \"Shear simplesético\" não é descoberta.\n4. **Woodbury (1950)** — e, como mostrado, **contraproducente** quando $r^2>N$.\n5. **\"$r=128=99{,}1\\%$ de energia\"** — \"energia\" indefinida (Frobenius? covariância? KL?); 99,1% em base de snapshot **não implica** inatividade dinâmica dos 0,9% restantes; exige espectro do Jacobiano ao longo da trajetória **e** constante de Lyapunov.\n6. **\"Sombra residual\"/shadowing** — alegar shadowing para truncamento requer condições analíticas não citadas.\n7. **Nomenclatura \"simplicético\"** — confunde variedade simplética (singularidade com 2-forma fechada não degenerada no regular locus) com integrador simplético (preservação de $\\omega$ por mapa discretizado). São objetos diferentes.\n\n**O que *poderia* ser inédito** (e deve ser o escopo honesto): o **acoplamento específico** de correção de posto $r$ por transveções com o solve de Cayley para o fluxo residual de transformer, sob gerador congelado — e mesmo isso exige busca bibliográfica e diferenciação frente a Redes Neurais Simpléticas / HNN / SympNets. **Não posso certificar novidade sem essa varredura.**\n\n---\n\n## 7. BANCADA MÍNIMA VERIFICÁVEL (corretivo)\n\n1. Declarar **dtype**, $N$, $B$, $L$, $K$, e se $K$ é por camada ou por amostra.\n2. Declarar explicitamente se o Schur $r\\times r$ é **congelado** (Cenário A) ou **recomputado** (Cenário B) — e reportar FLOPs **e** wall-clock dos dois.\n3. Separação de erros: **viés de truncamento** ($h$ fixo, $r$ variado) × **erro de discretização** ($r$ fixo, $h$ variado) × **defeito simplético** (fp64, norma de $\\Psi^\\ast\\omega-\\omega$).\n4. Referência independente de Strang (solução de alta precisão com tolerância $\\le10^{-12}$, passo adaptativo não simplético).\n5. Critério de acurácia com **número, modelo, dataset e baseline** — sem isso é infalseável.\n6. Reportar o **residual do solver** $\\eta$ e sua relação com o defeito simplético.\n7. Amortização declarada: custo de setup vs. $K=2000$.\n\n---\n\n**Fechamento.** A proposta tem mérito técnico local (Prop. 2 é limpa e barata; Cenário A é real), mas os critérios de validação do grafo são infalseáveis e a premissa central é internamente contraditória. Antes de qualquer rodada de bancada, uma única decisão determina se os números são 89,5% ou +310%:\n\n**O gerador $S$ do nó `n_strang` é congelado ao longo dos $K=2000$ passos, ou dependente do estado?**"
+      }
+    },
+    {
+      "id": "hyp_gen104_3270",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação. Primeir",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação. Primeiro o ensaio empírico (corretude simpletica, ordem de convergência, contagem/latência de FLOPs e auditoria do critério de energia); depois escrevo os artefatos com os números medidos.\n\n## 1) Bancada empírica — execução real",
+      "provenance": "agent_077_evidence_analyst",
+      "version": 2,
+      "created_at": 1793316635.110542,
+      "updated_at": 1793316635.9114103,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0104_1793316386",
+        "cycle_id": 459,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação. Primeiro o ensaio empírico (corretude simpletica, ordem de convergência, contagem/latência de FLOPs e auditoria do critério de energia); depois escrevo os artefatos com os números medidos.\n\n## 1) Bancada empírica — execução real"
+      }
+    },
+    {
+      "id": "gen_0104_1793316386",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #104 (Ciclo #459)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793316636.0295134,
+      "updated_at": 1793316636.0295138,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 104,
+        "cycle_id": 459,
+        "verdict": "APPROVED",
+        "duration_sec": 249.54,
+        "tokens_consumed": 4682,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -38323,7 +38396,97 @@
       "version": 1,
       "created_at": 1793316347.3398001,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen104_50987_addresses_n_krylov",
+      "source_id": "hyp_gen104_50987",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316454.3936136,
+        "updated_at": 1793316455.3028495,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0104_1793316386_1793316454456_e_hyp_gen104_50987_addresses_n_krylov",
+            "generation_id": "gen_0104_1793316386",
+            "timestamp": 1793316455.3028495,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_077_evidence_analyst",
+      "version": 1,
+      "created_at": 1793316454.393618,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen104_80203_addresses_n_strang",
+      "source_id": "hyp_gen104_80203",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316538.6352196,
+        "updated_at": 1793316539.4643295,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0104_1793316386_1793316538693_e_hyp_gen104_80203_addresses_n_strang",
+            "generation_id": "gen_0104_1793316386",
+            "timestamp": 1793316539.4643295,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_067_critic",
+      "version": 1,
+      "created_at": 1793316538.6352239,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen104_3270_addresses_n_naive",
+      "source_id": "hyp_gen104_3270",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793316635.1712868,
+        "updated_at": 1793316635.969587,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0104_1793316386_1793316635227_e_hyp_gen104_3270_addresses_n_naive",
+            "generation_id": "gen_0104_1793316386",
+            "timestamp": 1793316635.969587,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_077_evidence_analyst",
+      "version": 1,
+      "created_at": 1793316635.1712923,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793316348.1977882
+  "saved_at": 1793316636.0309823
 }
