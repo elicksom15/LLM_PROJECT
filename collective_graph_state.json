@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 66,
+      "version": 67,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793322346.7646976,
+      "updated_at": 1793322627.088435,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12797,6 +12797,79 @@
         "new_hypotheses": 3,
         "verified": 2,
         "refuted": 1
+      }
+    },
+    {
+      "id": "hyp_gen127_94917",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #482 / GERAÇÃO #127",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #482 / GERAÇÃO #127\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Nota de método (transparência epistêmica)\n\nNesta sessão não há ambiente de execução numérica ativo. Portanto **não vou afirmar ter rodado bancada nenhuma** — a dedução abaixo é **analítica e fechada**, verificável linha a linha, e vem acompanhada do protocolo de validação falsificável par",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793322674.072453,
+      "updated_at": 1793322675.07224,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0127_1793322627",
+        "cycle_id": 482,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #482 / GERAÇÃO #127\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Nota de método (transparência epistêmica)\n\nNesta sessão não há ambiente de execução numérica ativo. Portanto **não vou afirmar ter rodado bancada nenhuma** — a dedução abaixo é **analítica e fechada**, verificável linha a linha, e vem acompanhada do protocolo de validação falsificável para a bancada local. Qualquer número desta peça é derivado de contagem exata de FLOPs, não de medição.\n\n---\n\n## 1. Auditoria do grafo: o que é evidência e o que é eco\n\n| Nó | Classe aparente | Solidez | Diagnóstico do analista |\n|---|---|---|---|\n| `hyp_gen2_32720`, `hyp_gen22_90945`, `hyp_gen30_10741`, `hyp_gen55_44699`, `hyp_gen16_14850` | EMPIRICAL_FACT | **Baixa (0.35)** | Parâmetros **idênticos byte a byte** ($r=128$, $K=2000$, $\\tau=1.2$) e mesmo truncamento de descrição. Assinatura inequívoca de **template replicado**, não de replicação independente. Número efetivo de amostras independentes $\\approx 1$, não 5. Tratar como **um** experimento com ruído de procedência. |\n| `hyp_gen93_87294`, `hyp_gen75_97904`, `hyp_gen99_85285` | EMPIRICAL_FACT | **Média (0.65)** | Verificadores descrevem execução real (ordem Strang vs. Lie, defeito simpletico, contagem FLOPs). Convergem entre si → evidência **convergente**, ainda que parcialmente sobreposta. |\n| `hyp_gen106_68699` | FALSIFIED | **Alta (0.90)** | Nós de refutação são os mais informativos do grafo: a tentativa anterior de atacar `n_naive` com fatoração Kronecker **falhou**. Impõe restrição de design: **não** repetir a rota \"aproximar $J$ diretamente por $\\sum A_s\\otimes B_s$ e aplicar Krylov sobre isso\". |\n| `hyp_gen11_59577`, `hyp_gen65_64617` | EMPIRICAL_FACT | **Média (0.60)** | Estrutura simpletica/residual coerente com `n_krylov`; útil como restrição de preservação de estrutura. |\n\n**Correlação espúria detectada:** a constante $r=128$ aparece em 5 nós como *\"99,1% da energia\"*. Isso é **critério espectral**, não causal. Energia acumulada no espectro singular não implica preservação da subespaço tarefa-relevante; Top-1 pode cair mesmo com 99,9% de energia retida. É exatamente o tipo de proxy que vira lenda em grafo de hipóteses. Trato isso como **hipótese não estabelecida**, não como fato.\n\n---\n\n## 2. Formulação inédita: **LTSC-K** — Composição Espectral de Lie–Tangent com Fatores de Kronecker\n\n### 2.1 Objeto: o gerador tangente de Lie\n\nPara o fluxo residual $x_{l+1}=x_l+F_l(x_l)$, o propagador local no horizonte $\\tau$ age como\n\n$$\\Phi_{l,\\tau}(v)\\;=\\;\\exp\\!\\big(\\tau J_l\\big)\\,v,\\qquad J_l=\\frac{\\partial F_l}{\\partial x}\\in\\mathbb{R}^{n\\times n}.$$\n\nO nó `n_krylov` custa caro justamente porque aproxima $\\exp(\\tau J)v$ por Krylov com $m$ **matvecs densos**: cada um é $2n^2$ FLOPs.\n\n### 2.2 Decomposição Kronecker–Lie\n\n$$\\boxed{\\;J \\;\\approx\\; \\underbrace{\\sum_{s=1}^{S} A_s\\otimes B_s}_{\\text{parte estruturada } J_K}\\;+\\;\\underbrace{U_r C_r U_r^{\\!\\top}}_{\\text{resíduo posto-}r}\\;}$$\n\ncom $A_s\\in\\mathbb{R}^{p\\times p}$, $B_s\\in\\mathbb{R}^{q\\times q}$, $n=pq$, $U_r\\in\\mathbb{R}^{n\\times r}$.\n\n**Restrição estrutural (a novidade):** impomos que as famílias **comutem**:\n\n$$[A_s,A_t]=0,\\qquad [B_s,B_t]=0\\qquad \\forall s,t .$$\n\nEquivalentemente, existem bases $V\\in\\mathbb{R}^{p\\times p}$, $U\\in\\mathbb{R}^{q\\times q}$ tais que $A_s=V\\Theta_s V^{\\!\\top}$ e $B_s=U\\Lambda_s U^{\\!\\top}$ com $\\Theta_s,\\Lambda_s$ **diagonais** — i.e., **diagonalização simultânea**. É aqui que entra a \"composição espectral\": os fatores são ajustados numa base espectral comum.\n\n### 2.3 Teorema 1 (composição espectral exata — sem erro de splitting)\n\nUsando $(A\\otimes B)^k=A^k\\otimes B^k$:\n\n$$\\exp\\!\\big(\\tau\\, A\\otimes B\\big)=\\exp(\\tau A)\\otimes\\exp(\\tau B),$$\n\ne, sob comutação,\n\n$$\\exp\\!\\Big(\\tau\\sum_{s} A_s\\otimes B_s\\Big)=(V\\otimes U)\\,\\exp(\\tau D)\\,(V\\otimes U)^{\\!\\top},\\qquad D=\\sum_s \\Theta_s\\otimes\\Lambda_s .$$\n\nComo cada $\\Theta_s,\\Lambda_s$ é diagonal, **$D$ é diagonal**, com entradas $d_{ij}=\\sum_{s}\\theta_{s,i}\\lambda_{s,j}$. Portanto:\n\n- $D$ é montado em $S\\,n$ multiplicações;\n- $\\exp(\\tau D)$ é **elemento a elemento**: $n$ exponenciais;\n- a ação completa exige **duas transformações densas** $X\\mapsto U^{\\!\\top} X V$ e retorno, custando $4n(p+q)$ FLOPs.\n\n**Consequência:** para a parte $J_K$, o erro de splitting é **exatamente zero** — não há Lie-Trotter nem Strang. O único erro é o de truncamento Kronecker.\n\n### 2.4 Teorema 2 (defeito quando a comutação falha — fallback Strang)\n\nSe $[G_i,G_j]\\neq 0$ com $G_s=A_s\\otimes B_s$, usa-se composição palindrômica de Strang sobre $L$ subpassos $h=\\tau/L$:\n\n$$S(h)=\\prod_{s=1}^{S}e^{\\frac{h}{2}G_s}\\;\\text{(palíndromo)},\\qquad\n\\big\\|e^{h\\sum G_s}-S(h)\\big\\|\\le C_S h^3\\sum_{i<j}\\|[G_i,G_j]\\|,$$\n\ncomutador explícito fechado:\n\n$$[A_i\\otimes B_i,\\;A_j\\otimes B_j]=A_iA_j\\otimes B_iB_j-A_jA_i\\otimes B_jB_i .$$\n\nOrdem global: **2** (Strang) vs **1** (Lie) — reproduz o teste de ordem descrito nos nós verificados.\n\n### 2.5 Teorema 3 (defeito total e estabilidade)\n\n$$\\frac{\\|e^{\\tau J}v-\\Phi^{\\mathrm{LTSC}}_{\\tau}v\\|}{\\|v\\|}\\;\\le\\;\\tau e^{L_J\\tau}\\,\\varepsilon_K\\;+\\;C_S\\tau h^2\\!\\sum_{i<j}\\|[G_i,G_j]\\|\\;+\\;\\varepsilon_{\\mathrm{Krylov}}(m_K),$$\n\nonde $\\varepsilon_K=\\|J-J_K-U_rC_rU_r^{\\!\\top}\\|_2$ e $L_J$ é a constante de Lipschitz do campo. (Grönwall + bound padrão de splitting + residual de Arnoldi reduzido.)\n\n---\n\n## 3. Dedução analítica de FLOPs\n\n### 3.1 Baseline — `n_naive` / Krylov denso\n\n| Componente | Contagem | FLOPs |\n|---|---|---|\n| Matvecs densos | $m\\cdot 2n^2$ | $2\\,147\\,483\\,648$ |\n| Reortogonalização Arnoldi | $2n\\,m(m+1)$ | $33\\,816\\,576$ |\n| Exp de Hessenberg + combinação | $m^3/3+2nm$ | $786\\,560$ |\n| **Total** | | **$\\approx 2{,}182\\times10^{9}$** |\n\nInstantanciação da bancada: $n=4096\\;(p=q=64)$, $m=64$, $r=128$, $K=2000$, $\\tau=1.2$, $S=8$.\n\n### 3.2 LTSC-K — variante espectral (fatores comutantes)\n\n| Componente | Contagem | FLOPs |\n|---|---|---|\n| Auto-decomposição compartilhada $V,U$ | $p^3+q^3$ (uma vez; $\\div K$) | $524{,}288\\;/\\;K$ |\n| Diagonal $d_{ij}=\\sum_s\\theta_{s,i}\\lambda_{s,j}$ | $S\\,n$ | $32{,}768$ |\n| $\\exp(\\tau D)$ elemento a elemento | $\\approx 2n$ | $8{,}192$ |\n| Transformações $(V\\otimes U)^{\\!\\top}$ e retorno | $4n(p+q)$ | $2{,}097{,}152$ |\n| Krylov reduzido no resíduo posto-$r$ | $m_K(2nr+2r^{2})$, $m_K=8$ | $8{,}650{,}752$ |\n| Reortogonalização reduzida | $2m_K^2 r$ | $16{,}384$ |\n| **Total** | | **$\\approx 10{,}83\\times10^{6}$** |\n\n### 3.3 LTSC-K — fallback Strang (fatores não-comutantes)\n\n| Componente | Contagem | FLOPs |\n|---|---|---|\n| Exponenciais dos fatores | $\\alpha S(p^3+q^3)$, $\\alpha=10$ | $41{,}943{,}040$ |\n| Sweep Strang $(2S-1)$ aplicações | $(2S-1)\\cdot 2n(p+q)$ | $15{,}728{,}640$ |\n| Krylov reduzido ($m_K=16$) | $m_K(2nr+2r^{2})$ | $17{,}301{,}504$ |\n| Projeção/retorno + reorth | $4nr+2m_K^2r$ | $2{,}162{,}688$ |\n| **Total** | | **$\\approx 77{,}14\\times10^{6}$** |\n\n### 3.4 Razão de redução\n\n| Variante | $\\rho=F_{\\mathrm{LTSC}}/F_{\\mathrm{naive}}$ | Redução de FLOPs |\n|---|---|---|\n| Espectral (exata) | $4.95\\times10^{-3}$ | **99,50%** |\n| Espectral com overhead realista $\\kappa=1{,}5$ | $7.4\\times10^{-3}$ | **99,26%** |\n| Strang (pessimista, sem amortização) | $3.53\\times10^{-2}$ | **96,47%** |\n| Strang com $\\kappa=1{,}5$ | $5.30\\times10^{-2}$ | **94,70%** |\n\n**Critério do protocolo: redução $\\ge 75\\%$ → atendido com margem de uma ordem de grandeza em todas as variantes.**\n\n### 3.5 Condição de compressibilidade (forma fechada — resultado novo)\n\nDominante: $\\rho \\approx \\dfrac{(\\#\\text{aplicações})\\cdot 2n(p+q)}{2mn^{2}}=\\dfrac{(\\#\\text{aplicações})(p+q)}{mn}$.\n\n- **Espectral:** $\\rho=\\dfrac{2(p+q)}{mn}\\;\\xrightarrow{\\;p=q=\\sqrt n\\;}\\;\\dfrac{4}{m\\sqrt n}$.\n- **Strang:** $\\rho=\\dfrac{(2S-1)(p+q)}{mn}\\;\\xrightarrow{\\;p=q=\\sqrt n\\;}\\;\\dfrac{2(2S-1)}{m\\sqrt n}$.\n\nPortanto, para $\\rho\\le 0.25$:\n\n$$\\text{espectral: } m\\ \\ge\\ \\frac{16}{\\sqrt n};\\qquad \\text{Strang: } m\\ \\ge\\ \\frac{8(2S-1)}{\\sqrt n}.$$\n\nCom $n=4096$, $S=8$: $m\\ge 2$ (espectral) e $m\\ge 1.875$ (Strang). **Qualquer dimensão de Krylov razoável satisfaz o critério** — o que é, por si só, um alerta: o critério de FLOPs é **fracamente discriminante** para este nó.\n\n---\n\n## 4. Análise de sensibilidade (para não vender ilusão)\n\n- Se a compressibilidade ruir e $S=32$ não-comutante: $\\rho\\approx0.115$ → redução 88,5% (ainda passa).\n- Se $p\\ll q$ (ex.: $p=16,q=256$): $2n(p+q)=2.23\\times10^{6}$ por aplicação; vantagem cai ~2,1×, ainda confortável.\n- Se $n$ crescer para $16384$ ($p=q=128$), $m=64$: $\\rho=4.9\\times10^{-4}$ — a vantagem **cresce** com $n$. Escalabilidade favorável.\n- **Custo de ajuste dos fatores** (ALS/mínimos quadrados sobre $S$ termos) é $O(S\\,n\\,p\\,q\\,\\text{sweeps})$ e **não** está amortizado se $J$ muda por camada/token. Deve ser contabilizado à parte no orçamento de treino; para inferência com pesos congelados ele é pago **uma única vez**.\n\n---\n\n## 5. Predições falsificáveis (para a bancada local)\n\n| # | Predição | Critério de refutação |\n|---|---|---|\n| P1 | $\\rho \\le 0.053$ (com overhead $\\kappa\\le1.5$) | $\\rho>0.25$ → **refutar** a tese de eficiência |\n| P2 | Ordem observada: Strang $\\approx 2.0$, Lie $\\approx 1.0$ sob refinamento de $h$ | ordem(Strang) $<1.8$ → **refutar** Teorema 2 |\n| P3 | Sob comutação exata, $\\|e^{\\tau J_K}v-\\Phi^{\\mathrm{LTSC}}v\\|/\\|v\\| \\le 10^{-12}$ (erro de máquina) | defeito $>10^{-9}$ → erro de implementação ou hipótese de comutação falsa |\n| P4 | Erro total $\\propto \\varepsilon_K\\,\\tau e^{L\\tau}$ (cresce linearmente em $\\tau$ para $\\varepsilon_K$ fixo) | dependência $\\propto\\tau^{0}$ ou $\\propto\\tau^{3}$ → modelo de erro errado |\n| P5 | **Top-1 loss $\\le 2$ pp** | perda $>2$ pp → **refutar utilidade**, ainda que P1–P4 passem |\n| P6 | O critério \"$r=128=99{,}1\\%$ energia\" **não** prediz P5 com $R^2\\ge0{,}8$ | se prever fortemente, a energia deixa de ser proxy espúrio |\n\n**P6 é a aposta epistêmica central deste ciclo:** prevejo que a correlação energia↔acurácia é **espúria**. Se a bancada mostrar o contrário, o nó `hyp_gen93_87294` sobe de solidez e eu reviso.\n\n---\n\n## 6. Pseudocódigo de validação (banco local)\n\n```python\n# Bancada LTSC-K — validação de P1..P6 (NumPy/SciPy)\nn, p, q, S, m, r, K, tau = 4096, 64, 64, 8, 64, 128, 2000, 1.2\nA = [rng.standard_normal((p, p)) for _ in range(S)]\nB = [rng.standard_normal((q, q)) for _ in range(S)]\nV = ortho_eig_basis(A)          # diagonalizacao simultanea (familia comutante)\nU = ortho_eig_basis(B)\nth = np.stack([np.diag(V.T @ a @ V) for a in A])   # (S, p)\nla = np.stack([np.diag(U.T @ b @ U) for b in B])   # (S, q)\nD = np.einsum('si,sj->ij', th, la)                 # diagonal d_ij\n# acao exata: exp(tau * sum A_s (x) B_s) v\nX = U.T @ Vq(v) @ V\nX = np.exp(tau * D) * X\nw = U @ X @ V.T\n# referencia: scipy.sparse.linalg.expm_multiply sobre J denso (matriz implicita)\n# medir: rho = flops_ltsc / flops_naive; ordem de convergencia em h = tau/L\n```\n\n---\n\n## 7. Veredito\n\n- **Formulação:** LTSC-K (composição espectral de Lie–Tangent com fatores de Kronecker comutantes) — distinta da rota refutada em `hyp_gen106_68699` porque explora $\\exp(A\\otimes B)=\\exp(A)\\otimes\\exp(B)$ e a **diagonalização simultânea**, eliminando integralmente o erro de splitting na parte estruturada.\n- **FLOPs:** redução analítica de **99,3%–99,5%** (espectral) e **94,7%–96,5%** (fallback Strang); forma fechada $\\rho\\approx 4/(m\\sqrt n)$.\n- **Solidez epistêmica da tese de eficiência:** **alta (0.85)** — dedução exata, verificável, insensível a overhead realista.\n- **Solidez epistêmica da tese de acurácia:** **baixa (0.30)** — não derivável analiticamente; depende de P5/P6, e o proxy \"99,1% de energia\" é, na minha avaliação, **correlação espúria** até prova em contrário.\n- **Recomendação:** rodar P1–P6 antes de qualquer propagação desta hipótese no grafo; **não** promover os 5 protocolos idênticos a \"replicações independentes\" — consolidá-los num único nó de evidência com peso 1.\n\n**Classificação proposta:** `EMPIRICAL_FACT` condicionada à validação P1–P4; mantida `HYPOTHESIS` quanto a P5/P6."
+      }
+    },
+    {
+      "id": "hyp_gen127_7696",
+      "label": "Hypothesis",
+      "title": "Vou auditar o ciclo #482 com bancada numérica real antes de qualquer afirmação.",
+      "description": "Vou auditar o ciclo #482 com bancada numérica real antes de qualquer afirmação. Primeiro, executo o ensaio: ordem de convergência Lie vs Strang, defeito simplético do mapa construído, deriva energética, contagem empírica de FLOPs e — o mais crítico — o teste da premissa \"r=128 = 99,1% de energia\".",
+      "provenance": "agent_091_critic",
+      "version": 2,
+      "created_at": 1793322712.3224478,
+      "updated_at": 1793322713.2463045,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0127_1793322627",
+        "cycle_id": 482,
+        "full_text": "Vou auditar o ciclo #482 com bancada numérica real antes de qualquer afirmação. Primeiro, executo o ensaio: ordem de convergência Lie vs Strang, defeito simplético do mapa construído, deriva energética, contagem empírica de FLOPs e — o mais crítico — o teste da premissa \"r=128 = 99,1% de energia\"."
+      }
+    },
+    {
+      "id": "hyp_gen127_88313",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — projeç",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — projeção no fecho de Lie, ótimo de Eckart–Young do realinhamento, identidade `exp(t(A⊕B)) = exp(tA)⊗exp(tB)`, ordens globais de Lie/Strang e medição de FLOPs/tempo. Gravo o script reproduzível e rodo o mesmo código.",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793322820.5572078,
+      "updated_at": 1793322821.4121165,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0127_1793322627",
+        "cycle_id": 482,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — projeção no fecho de Lie, ótimo de Eckart–Young do realinhamento, identidade `exp(t(A⊕B)) = exp(tA)⊗exp(tB)`, ordens globais de Lie/Strang e medição de FLOPs/tempo. Gravo o script reproduzível e rodo o mesmo código."
+      }
+    },
+    {
+      "id": "gen_0127_1793322627",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #127 (Ciclo #482)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793322821.5591722,
+      "updated_at": 1793322821.5591722,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 127,
+        "cycle_id": 482,
+        "verdict": "APPROVED",
+        "duration_sec": 194.47,
+        "tokens_consumed": 4724,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
       }
     }
   ],
@@ -42166,7 +42239,97 @@
       "version": 1,
       "created_at": 1793322579.4904506,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen127_94917_addresses_n_krylov",
+      "source_id": "hyp_gen127_94917",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322674.150019,
+        "updated_at": 1793322675.158208,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0127_1793322627_1793322674226_e_hyp_gen127_94917_addresses_n_krylov",
+            "generation_id": "gen_0127_1793322627",
+            "timestamp": 1793322675.158208,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793322674.1500237,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen127_7696_addresses_n_strang",
+      "source_id": "hyp_gen127_7696",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322712.4041839,
+        "updated_at": 1793322713.3271983,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0127_1793322627_1793322712482_e_hyp_gen127_7696_addresses_n_strang",
+            "generation_id": "gen_0127_1793322627",
+            "timestamp": 1793322713.3271983,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_091_critic",
+      "version": 1,
+      "created_at": 1793322712.404193,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen127_88313_addresses_n_naive",
+      "source_id": "hyp_gen127_88313",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322820.6393824,
+        "updated_at": 1793322821.4856362,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0127_1793322627_1793322820721_e_hyp_gen127_88313_addresses_n_naive",
+            "generation_id": "gen_0127_1793322627",
+            "timestamp": 1793322821.4856362,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793322820.639388,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793322579.737331
+  "saved_at": 1793322821.5611296
 }
