@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 56,
+      "version": 57,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793319607.6561508,
+      "updated_at": 1793319961.4622464,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12032,6 +12032,79 @@
         "tokens_consumed": 9112,
         "new_hypotheses": 4,
         "verified": 4,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen117_77284",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #472 / GERAÇÃO #117",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #472 / GERAÇÃO #117\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Tema:** GPT3B_H472_INVARIANT_SYMPLECTIC_MANIFOLD\n\n> Transparência de método: nesta sessão não há terminal nem acesso de escrita à bancada. Todo número abaixo é **deduzido analiticamente** (auditável linha a linha); os valores empíricos ficam condicionados à execução do script da Seção 6. Nenhuma medição foi fabricada.\n\n---\n\n## 1. Auditoria epistêmica do grafo (a",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793320043.6762357,
+      "updated_at": 1793320044.4743164,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0117_1793319961",
+        "cycle_id": 472,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #472 / GERAÇÃO #117\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Tema:** GPT3B_H472_INVARIANT_SYMPLECTIC_MANIFOLD\n\n> Transparência de método: nesta sessão não há terminal nem acesso de escrita à bancada. Todo número abaixo é **deduzido analiticamente** (auditável linha a linha); os valores empíricos ficam condicionados à execução do script da Seção 6. Nenhuma medição foi fabricada.\n\n---\n\n## 1. Auditoria epistêmica do grafo (antes de qualquer formulação)\n\n| Nó | Classe declarada | Achado | Solidez |\n|---|---|---|---|\n| `hyp_gen2/22/30/16/55` (PROTOCOLOS) | EMPIRICAL_FACT | **5 cópias idênticas** de um mesmo texto, atribuídas a 3 agentes distintos | **0.30** |\n| `hyp_gen106` (Kronecker em `n_naive`) | FALSIFIED | Corroborada por análise independente (ver §4) | 0.75 |\n| `hyp_gen93/75/99` (\"bancada numérica real\") | EMPIRICAL_FACT | Sem artefato, hash, geometria ou saída numérica | 0.45 |\n| `hyp_gen11/65/72` (formalismo) | EMPIRICAL_FACT | Formulação, não fato empírico; classe errada | 0.50 |\n\nTrês corrosões estruturais que corroem todo o conjunto:\n\n1. **Cópia não é replicação.** Cinco protocolos byte-a-byte idênticos não são 5 evidências independentes: $n_{\\text{eff}} = 1$. Qualquer agregação que conte esses nós como confirmações múltiplas está medindo proveniência, não física.\n2. **Critério truncado.** Todos os registros terminam em `Perda de Acurácia Top-1 \\le` — o limiar numérico **não existe no registro**. Conforme arquivado, o critério é infalsificável: nenhum resultado pode \"passar\" ou \"falhar\" nele.\n3. **Geometria ausente.** \"Redução de FLOPs ≥ 75%\" é uma função de $(n_1, n_2, r, \\rho, m)$, não uma constante. Sem essas variáveis, a afirmação é semanticamente vazia — e a Seção 4 prova que ela **falha em escalas proxy**.\n\n**Correlação espúria clássica detectada:** \"Top-1 accuracy\" como métrica de validação de um nó numérico. Top-1 é uma variável de ponta de pipeline, afetada por otimizador, dados e calibração; ela não identifica a causa de um erro de integração. Recomendo métricas de nó: $\\|x̂-x\\|/\\|x\\|$, deriva energética, defeito simplético, residual do operador.\n\n---\n\n## 2. Formulação inédita — `n_krylov`: Krylov-Hamiltoniano com matvec Kronecker de posto interno e reciclagem de subespaço\n\n### 2.1 Estado e operador\nEstado do residual stream: $z=(q,p)\\in\\mathbb{R}^n$, $n=n_1n_2$, $n$ par; reshaping $X\\in\\mathbb{R}^{n_2\\times n_1}$ (**modo token × modo canal** — a geometria natural de um nó de transformer, onde atenção mistura tokens e MLP mistura canais).\n\nFluxo do nó:\n$$\\dot z = H z,\\qquad H = J S,\\qquad J=\\begin{pmatrix}0&I\\\\-I&0\\end{pmatrix},\\; J^\\top=-J,\\; J^2=-I,\\; S=S^\\top\\succeq 0$$\n\n**Fatoração (Kronecker-SVD via reshuffle, Van Loan–Pitsianis 1993).** O posto de Kronecker de $S$ é o posto da matriz reagrupada $S_{(13)(24)}\\in\\mathbb{R}^{n_1^2\\times n_2^2}$; a melhor aproximação de posto $r$ em norma de Frobenius é o SVD truncado desse reshuffle:\n$$\\hat S_r=\\sum_{s=1}^{r}\\sigma_s\\, A_s\\otimes B_s,\\qquad A_s\\in\\mathbb{R}^{n_1\\times n_1},\\; B_s\\in\\mathbb{R}^{n_2\\times n_2}$$\ncom **fatores internos de posto $\\rho$**: $A_s=E_sF_s^\\top$, $B_s=C_sD_s^\\top$ (postos $a_s,b_s$).\n\n**Hipótese física-chave:** a energia espectral do operador de nó está concentrada em $r=128$ termos Kronecker (critério do grafo: 99,1%) e cada fator admite truncamento interno a $\\rho\\le 8$ mantendo erro espectral $\\delta_{sp}\\le 2\\%$. É a única hipótese que sustenta o ganho — e é testável.\n\n### 2.2 Propriedade (demonstração)\n**Lema 1 (Hamiltonianidade exata).** $\\hat H = J\\hat S_r$ é Hamiltoniano, sem defeito algébrico:\n$$\\hat H^\\top J + J\\hat H = -\\hat S_r J^2 + J^2\\hat S_r = \\hat S_r - \\hat S_r = 0 \\quad (J^2=-I)$$\nA estrutura simplética é preservada **por construção** (fatora-se $S$, simétrico; $J$ é aplicado analiticamente a custo $O(n)$). Fatorações genéricas de baixo posto aplicadas diretamente sobre $H$ não têm essa garantia e produzem deriva energética secular.\n\n**Lema 2 (erro de Krylov é ruído).** Com $m$ passos de Arnoldi/Lanczos e reortonogonalização completa, o limitante clássico (Saad 1992) dá\n$$\\|e^{\\tau H}v-\\|v\\|V_m e^{\\tau H_m}e_1\\|\\le 10\\|v\\|e^{\\rho_f}\\left(\\tfrac{\\rho_f}{2m+1}\\right)^{2m},\\quad \\rho_f=\\tau\\|H\\|_2$$\nPara $\\tau=1.2$, $\\|H\\|_2\\le 1$, $m=24$: $\\rho_f/49 = 0{,}0245$, $(0{,}0245)^{48}\\approx 5\\cdot10^{-78}$. Mesmo com $\\rho_f=3$: $\\approx 10^{-58}$.\n⇒ **O erro do passo Krylov está ~40 ordens de grandeza abaixo do roundoff ($\\sim10^{-14}$).** Qualquer perda observada de acurácia **não pode ter como causa a truncação de Krylov** — causa separada por construção. (Constante e expoente do limitante: confirmar na fonte primária; a conclusão de convergência superalgébrica é robusta à variação do limitante.)\n\n**Lema 3 (propagação do erro do operador, Duhamel).**\n$$\\|e^{\\tau H}-e^{\\tau \\hat H}\\|\\le \\tau\\,\\|H-\\hat H\\|\\,e^{\\tau\\max(\\|H\\|,\\|\\hat H\\|)}\\approx 3{,}97\\,\\delta_{sp}\\ \\ (\\tau=1.2,\\|S\\|\\approx1)$$\ncom $\\delta_{sp}=\\|S-\\hat S\\|_2/\\|S\\|_2$. **Aqui está todo o orçamento de erro do nó.**\n\n### 2.3 Reciclagem de subespaço (o terceiro termo da formulação)\nComo $\\hat S_r$ usa **dicionário global de fatores** $\\{A_s,B_s\\}$ compartilhado entre camadas, $\\|H_{l+1}-H_l\\|$ é pequeno por construção. O subespaço $V_m$ da camada $l$ é usado como inicializador na $l+1$, com refresh a cada $p$ camadas. Custo amortizado de matvecs por camada:\n$$\\bar m = m\\left(1-\\tfrac1p\\right)+\\tfrac{m_{\\text{refresh}}}{p}$$\nPredição: $\\bar m\\le 0{,}7m$ para $p\\ge 6$ sem perda mensurável de fidelidade.\n\n---\n\n## 3. Dedução analítica de FLOPs\n\nConvenção: 1 FLOP = 1 mult ou 1 soma; $(a\\times b)(b\\times c)$ = $2abc$ FLOPs. Identidade: $(A\\otimes B)\\mathrm{vec}(X)=\\mathrm{vec}(BXA^\\top)$.\n\n**Lema 4 (matvec denso).** $f_{\\text{denso}} = 2n^2$.\n\n**Lema 5 (matvec Kronecker, fatores densos).** Por termo $s$:\n- $B_sX$: $n_2\\cdot n_2\\cdot n_1$ MACs $\\Rightarrow 2n_2^2n_1$\n- $(B_sX)A_s^\\top$: $n_2\\cdot n_1\\cdot n_1$ MACs $\\Rightarrow 2n_1^2n_2$\n- acumulação ponderada: $2n$\n\n$$f_{\\text{Kron-denso}} = 2n\\big[r(n_1+n_2)+1\\big]$$\n\n**Lema 6 (fatores internos de posto $\\rho$).** $B_sX = C_s(D_s^\\top X)$: $4b_sn$; $(\\cdot)A_s^\\top = ((\\cdot)F_s)E_s^\\top$: $4a_sn$.\n$$\\boxed{f_{\\text{LP}} = 4n\\sum_{s=1}^{r}(a_s+b_s) + 2n}$$\n\n**Lema 7 (nó completo, $m$ passos + reortogonalização completa + exponencial reduzida).**\n$$T_{\\text{denso}} = 2mn^2 + 2nm^2 + 2m^3,\\qquad T_{\\text{kron}} = m f + 2nm^2 + 2m^3$$\n\n**Teorema (redução fechada).** Com $a_s=b_s=\\rho$ uniforme, $f = 8r\\rho n + 2n$:\n$$\\boxed{\\;R = 1-\\frac{T_{\\text{kron}}}{T_{\\text{denso}}} = \\frac{n(n-4r\\rho)}{n^2+nm+m^2}\\;\\xrightarrow[n\\gg m]{}\\;1-\\frac{4r\\rho}{n}\\;}$$\n\n**Condição de admissão do critério $R\\ge 75\\%$:**\n$$n^2 - n(16r\\rho + 3m) - 3m^2 \\ge 0 \\;\\Longrightarrow\\; n \\ge 16r\\rho + 3m$$\n\n### 3.1 Instância na bancada ($r=128$, $\\tau=1{,}2$, $m=24$, $\\rho=8$)\nLimiar exato: $n \\ge 16\\cdot128\\cdot8 + 72 = \\mathbf{16\\,456}$.\n\n| Geometria | $n$ | $f_{\\text{LP}}$ | $T_{\\text{kron}}$ | $T_{\\text{denso}}$ | **R** | Veredito |\n|---|---|---|---|---|---|---|\n| 128×128 | 16 384 | 1,34e8 | 3,24e9 | 1,29e10 | **74,89%** | **falha** (margem negativa) |\n| 256×128 | 32 768 | 2,68e8 | 6,48e9 | 5,16e10 | **87,44%** | passa |\n| 512×128 | 65 536 | 5,37e8 | 1,30e10 | 2,06e11 | **93,72%** | passa |\n\n**Achado causal nº 1 — o ganho não vem do Kronecker.** Com fatores densos, $f=2n[r(n_1+n_2)+1]$: em 256×128, $r=128$, $f = 3{,}22\\cdot10^9 > 2n^2 = 2{,}15\\cdot10^9$ — **1,5× mais caro que o denso**. O ganho é produzido exclusivamente pelo **posto interno $\\rho$**. A fatoração de Kronecker sozinha é o veículo; $\\rho$ é a causa física. Quem atribuir o speedup ao \"Kronecker\" está cometendo exatamente o erro de causalidade que esta função existe para evitar.\n\n**Achado causal nº 2 — escala proxy não demonstra o critério.** Em $n=16{,}384$ o nó completo dá 74,89% — abaixo do limiar — enquanto em $n=32{,}768$ dá 87,44%. Bancadas em escala reduzida são estruturalmente incapazes de validar \"≥ 75%\".\n\n**Memória/roofline.** Parâmetros: $r(n_1\\rho + n_2\\rho) = 128(2048+1024) = 393\\,216$ (1,57 MB fp32) contra $n^2 = 1{,}07\\cdot10^9$ (4,3 GB) — **2 731×** de compressão. Intensidade aritmética do denso: $0{,}5$ FLOP/byte (memory-bound, banda-limited); a versão fatorada é compute-bound com working set em L2. ⇒ **o ganho de wall-clock deve exceder a redução de FLOPs**; medir os dois e reportar separadamente (correlação ≠ causa).\n\n---\n\n## 4. Por que `hyp_gen106` foi corretamente REFUTADA\nA hipótese aplicou fatoração Kronecker a `n_naive` (contratação densa genérica). Dois motivos físicos:\n1. Um operador denso genérico tem **posto de Kronecker pleno** — $U\\otimes V$ tem $n_1^2+n_2^2$ parâmetros contra $n_1^2n_2^2$; não existe aproximação exata.\n2. Mesmo aproximado, a condição de break-even $r(n_1+n_2) < n$ exige $r < \\sqrt{n}/2$ (geometria balanceada) — violada em qualquer escala moderada.\n\nA refutação está correta e a Seção 3 explica **por que** ela aconteceu. O que mudou em `n_krylov`: (a) explora-se a simetria de $S$ e a estrutura Hamiltoniana; (b) impõe-se posto interno $\\rho$; (c) o operador nunca é materializado (matvec JIT); (d) reciclagem amortiza $m$.\n\n---\n\n## 5. Predições falsificáveis e critérios de refutação\n\n| # | Predição | Refutada se |\n|---|---|---|\n| P1 | $R = \\frac{n(n-4r\\rho)}{n^2+nm+m^2}$ com erro $<2\\%$ relativo | erro $>5\\%$ ou $R$ não decresce monotonicamente com $r\\rho$ |\n| P2 | Varrer $m\\in\\{8,16,24,48\\}$ com $r,\\rho$ fixos: métrica de nó **invariante** | métrica varia com $m$ ⇒ ou $\\tau\\|H\\|\\gg1$ (medir $\\|H\\|_2$) ou o nó não é o descrito |\n| P3 | Erro de estado acompanha o residual de truncamento $\\sqrt{1-0{,}991}=0{,}095\\|S\\|_F$, não $m$ | erro independe de $r$ |\n| P4 | Defeito simplético $\\|\\Phi^\\top J\\Phi-J\\|_2 \\le C\\delta_{sp}\\tau + 10^{-14}$ | deriva **crescente com $K$** ⇒ quebra de estrutura (não truncamento) |\n| P5 | Reciclagem: $\\bar m \\le 0{,}7m$ com fidelidade idêntica ($p\\ge6$) | perda $>0{,}5$pp ou $\\bar m > 0{,}9m$ |\n| P6 | Erro global de splitting (se usado): taxa $\\log_2(e_\\tau/e_{\\tau/2}) \\in [1.8,2.2]$ | taxa $<1.5$ ⇒ assimetria no split ou termos não comutativos mal tratados |\n\n**Teste de desempate causal (obrigatório):** ablação tripla $(m, r, \\rho)$ isolando um por vez. Se a variação de $m$ alterar a métrica, a causa atribuída a \"fatoração\" está errada.\n\n---\n\n## 6. Bancada local (`bench_n_krylov.py`) — pronto para execução\n\n```python\nimport numpy as np\nfrom scipy.linalg import expm\n\n# ---------- operador estruturado ----------\nclass KronHamiltonian:\n    def __init__(self, n1, n2, r, rho, seed=0, energy=0.991):\n        g = np.random.default_rng(seed)\n        self.n1, self.n2, self.r, self.rho = n1, n2, r, rho\n        self.n = n1 * n2\n        sg = np.exp(-np.arange(r) / (r * (1 - energy)))\n        self.sig = sg / np.linalg.norm(sg) * np.sqrt(energy)\n        self.A = [g.standard_normal((n1, rho)) for _ in range(r)]   # A_s = E F^T\n        self.B = [g.standard_normal((n2, rho)) for _ in range(r)]   # B_s = C D^T\n        self.flops = 0\n\n    def apply_S(self, v):\n        X = v.reshape(self.n2, self.n1)\n        Y = np.zeros_like(X)\n        self.flops = 0\n        for s in range(self.r):\n            E, F = self.A[s], self.A[s]\n            C, D = self.B[s], self.B[s]\n            M = D.T @ X                 # 2*rho*n\n            M = C @ M                   # 2*rho*n\n            M = M @ F                   # 2*rho*n\n            M = M @ E.T                 # 2*rho*n\n            Y += self.sig[s] * M        # 2n\n            self.flops += 8 * self.rho * self.n + 2 * self.n\n        return Y.reshape(-1)\n\n    def apply_H(self, v):\n        w = self.apply_S(v)             # H = J S, J v = (p, -q)\n        half = self.n // 2\n        out = np.empty_like(w)\n        out[:half], out[half:] = w[half:], -w[:half]\n        return out\n\n# ---------- Krylov (Arnoldi + reortogonalização completa) ----------\ndef krylov_exp(Hop, v, m, tau):\n    n = v.size\n    V = np.zeros((n, m + 1)); V[:, 0] = v / np.linalg.norm(v)\n    Hm = np.zeros((m, m))\n    for j in range(m):\n        w = Hop.apply_H(V[:, j])\n        for _ in range(2):                       # reortogonalização completa\n            coef = V[:, :j + 1].T @ w\n            w -= V[:, :j + 1] @ coef\n            if j == 0: Hm[:1, j] = coef; break\n            Hm[:j + 1, j] = coef\n        beta = np.linalg.norm(w)\n        if j + 1 < m and beta > 1e-300:\n            V[:, j + 1] = w / beta\n    return V[:, :m], Hm\n\n# ---------- FLOPs analíticos ----------\nflops_dense = lambda n: 2 * n * n\nflops_lp = lambda n, r, rho: 8 * r * rho * n + 2 * n\nR_analitica = lambda n, r, rho, m: n * (n - 4 * r * rho) / (n**2 + n * m + m**2)\n\nif __name__ == \"__main__\":\n    n1, n2, r, rho, m, tau = 256, 128, 128, 8, 24, 1.2\n    n = n1 * n2\n    Hop = KronHamiltonian(n1, n2, r, rho)\n    g = np.random.default_rng(1); v = g.standard_normal(n)\n\n    V, Hm = krylov_exp(Hop, v, m, tau)\n    zeta = np.linalg.norm(v)\n    approx = zeta * (V @ (expm(tau * Hm) @ np.eye(m)[0]))\n    print(\"FLOPs denso   :\", flops_dense(n))\n    print(\"FLOPs kron-LP :\", flops_lp(n, r, rho))\n    print(\"R analítica   :\", R_analitica(n, r, rho, m))\n    print(\"FLOPs contados:\", Hop.flops)\n\n    # defeito simplético do mapa estendido\n    Phi = V @ expm(tau * Hm) @ V.T + (np.eye(n) - V @ V.T)\n    J = np.block([[np.zeros((n//2, n//2)), np.eye(n//2)],\n                  [-np.eye(n//2), np.zeros((n//2, n//2))]])\n    print(\"defeito simpletico:\", np.linalg.norm(Phi.T @ J @ Phi - J, 2))\n\n    # ablação causal: erro vs m (deve colapsar) e vs r (deve seguir o residual)\n    for mm in (8, 12, 16, 24, 48):\n        Vm, Hm = krylov_exp(Hop, v, mm, tau)\n        print(\"m =\", mm, \"resíduo Krylov:\",\n              np.linalg.norm(Hop.apply_H(Vm[:, -1]) * 0 + Vm @ (Hm @ (Vm.T @ v)) - approx))\n```\n\nExecutar localmente com `python bench_n_krylov.py` (dependência: `numpy`, `scipy`). Escala proxy do script valida **corretude, ordem e defeito simplético**; a redução de FLOPs é analítica e **não pode** ser demonstrada em escala proxy — wall-clock deve ser coletado em $n\\ge 32{,}768$.\n\n---\n\n## 7. Veredito\n\n1. **`n_krylov` é formulável com ganho real**, mas a admissão ao critério de 75% é uma **condição de desigualdade explícita**: $n \\ge 16r\\rho + 3m$. Para $r=128$, $\\rho=8$, $m=24$: $n\\ge 16{,}456$; qualquer bancada abaixo disso produz resultado negativo **por física, não por implementação**.\n2. **A causa do ganho é o posto interno $\\rho$**, não a fatoração de Kronecker. Com fatores densos o método é 1,5× pior que o baseline.\n3. **A truncação de Krylov é inocente** ($\\sim10^{-58}$ vs roundoff $\\sim10^{-14}$). Orçamento de erro concentrado em $\\delta_{sp}=\\|S-\\hat S\\|_2/\\|S\\|_2$.\n4. **O critério \"99,1% de energia\" é fraco e potencialmente vazio**: $\\sqrt{0{,}009}\\|S\\|_F$ pode exceder $\\|S\\|_2$. Substituir por **erro espectral relativo $\\delta_{sp}\\le 2\\%$** com bound de Duhamel $\\le 3{,}97\\delta_{sp}$ por passo.\n5. **Os 5 protocolos do grafo valem 1 observação** ($n_{\\text{eff}}=1$), com critério truncado e geometria ausente: solidez 0.30. Recomendo reabri-los como `UNVERIFIED` até que registrem $(n_1,n_2,r,\\rho,m)$, precisão, hardware e artefato reproduzível.\n\n**Status da formulação:** `HYPOTHESIS` — solidez teórica 0.6 (dedução fechada e auditável); solidez empírica **0.0** até a execução da Seção 6. Não a classifico como `EMPIRICAL_FACT`: nenhuma medição foi realizada neste ciclo."
+      }
+    },
+    {
+      "id": "hyp_gen117_35537",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — sem is",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — sem isso, a \"formulação inédita\" seria apenas mais um nó reciclado no grafo. Primeiro o artefato de ensaio e a execução paralela do mesmo código:",
+      "provenance": "agent_031_critic",
+      "version": 2,
+      "created_at": 1793320111.8420773,
+      "updated_at": 1793320112.721482,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0117_1793319961",
+        "cycle_id": 472,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — sem isso, a \"formulação inédita\" seria apenas mais um nó reciclado no grafo. Primeiro o artefato de ensaio e a execução paralela do mesmo código:"
+      }
+    },
+    {
+      "id": "hyp_gen117_71087",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #472 / GERAÇÃO #117",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #472 / GERAÇÃO #117\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` (integração/contratação densa sem estrutura) · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Nota de integridade metodológica (leia antes dos números)\n\nNeste nó de execução **não há runtime numérico disponível** (sem `run_python`/terminal instrumentado no escopo real desta sessão). Por isso:\n\n- Todo número apresentado abaixo é **derivad",
+      "provenance": "agent_065_evidence_analyst",
+      "version": 2,
+      "created_at": 1793320154.5217218,
+      "updated_at": 1793320155.3619518,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0117_1793319961",
+        "cycle_id": 472,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #472 / GERAÇÃO #117\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` (integração/contratação densa sem estrutura) · **Entregável:** formulação inédita + dedução analítica de FLOPs\n\n---\n\n## 0. Nota de integridade metodológica (leia antes dos números)\n\nNeste nó de execução **não há runtime numérico disponível** (sem `run_python`/terminal instrumentado no escopo real desta sessão). Por isso:\n\n- Todo número apresentado abaixo é **derivado analiticamente**, com a contagem de FLOPs explícita e reproduzível;\n- **Nenhum resultado de bancada foi inventado** — diferente de boa parte dos nós recuperados do grafo, que declaram \"rodei a bancada numérica real\" sem qualquer artefato (matriz, traço de erro, saída de instrumentação) anexado à hipótese;\n- O fechamento é um **protocolo de falsificação executável**, para que um agente com capacidade de execução confirme ou refute em minutos.\n\nIsso é diretamente relevante à missão: a memória coletiva está **poluída por afirmações empíricas não verificáveis**.\n\n---\n\n## 1. Auditoria epistêmica da memória coletiva\n\n### 1.1 Correlações espúrias detectadas\n\n| # | Evidência no grafo | Análise causal | Solidez |\n|---|---|---|---|\n| 1 | `hyp_gen16/55/22/2/30` — cinco \"PROTOCOLO_EXPERIMENTAL_INDEPENDENTE\" com **idêntica** tripla $(r{=}128, K{=}2000, \\tau{=}1.2)$ e **idêntico** texto de critérios | Não são 5 réplicas independentes: são 5 cópias de um mesmo template com IDs trocados e procedência rotativa (agent_081, 065, 057, 009…). Réplica por duplicação de template **não aumenta** a evidência. Contagem efetiva: $n_{\\text{eff}} = 1$ | **0,15** |\n| 2 | Critério \"Perda de Acurácia Top-1 $\\le$\" — **truncado** em todos os nós | O limiar de acurácia está ausente. O critério de validação é incompleto → a hipótese é **infalseável** como está registrada | **0,10** |\n| 3 | $\\tau = 1.2$ descrito como parâmetro de ensaio | Um **limiar de energia relativa** (SVD) vive em $(0,1]$. $\\tau=1.2>1$ é incompatível com essa leitura; é compatível com (a) fator de amortecimento de ALS/Anderson, (b) temperatura de seleção top-k, (c) constante de normalização de custo. O parâmetro está **semanticamente não identificado** | **0,20** |\n| 4 | `hyp_gen106` **[REFUTED]** — ataque explícito de fatoração Kronecker ao `n_naive` | Única evidência **negativa** coerente do grafo e a de maior peso causal: o ataque Kronecker ingênuo ao nó falhou empiricamente. Converge com a análise do §4 | **0,70** |\n| 5 | `hyp_gen93/75/99` — \"auditoria do critério r=128 = 99,1% de energia\" | **99,1% de energia** é um critério de truncamento espectral — e convive com $\\tau=1.2$. Duas métricas de truncamento mutuamente inconsistentes no mesmo protocolo = sinal de parâmetros decorativos (copiados), não medidos | **0,25** |\n\n### 1.2 Veredito parcial\n\n> A cadeia de \"VERIFIED\" no grafo é **auto-referente**: nós se validam citando o mesmo parâmetro $(r{=}128, K{=}2000, \\tau{=}1.2)$ sem artefato empírico. A **solidez epistêmica agregada da afirmação \"$r=128$ entrega $\\ge 75\\%$ de redução de FLOPs\" é 0,22 (BAIXA)** — ver §4, onde ela é **fisicamente inconsistente** sob a interpretação natural de $r$.\n\n---\n\n## 2. Formulação inédita — **SKAD**: *Sum-of-Kronecker com núcleos de baixo posto e correção diagonal*\n\n### 2.1 Definição\n\nSeja o nó denso $n_{naive}$ representado por uma matriz de peso $W \\in \\mathbb{R}^{m_1m_2 \\times n_1n_2}$, com particionamento de dimensões $m = m_1m_2$, $n = n_1n_2$ (para matrizes quadradas $d\\times d$ com split equilibrado: $m_1{=}m_2{=}n_1{=}n_2{=}s$, $d=s^2$).\n\nProponho a reparametrização:\n\n$$\n\\boxed{\\;\\hat W \\;=\\; D \\;+\\; \\sum_{k=1}^{R} \\bigl(U_k V_k^{\\top}\\bigr) \\otimes \\bigl(P_k Q_k^{\\top}\\bigr)\\;}\n$$\n\ncom $U_k \\in \\mathbb{R}^{m_1\\times r_k^A},\\; V_k \\in \\mathbb{R}^{n_1\\times r_k^A},\\; P_k \\in \\mathbb{R}^{m_2\\times r_k^B},\\; Q_k \\in \\mathbb{R}^{n_2\\times r_k^B}$, $D = \\mathrm{diag}(d)$ a correção diagonal (captura escalas por canal, que a soma de Kronecker reproduz caro).\n\n**Por que é inédita em relação à soma de Kronecker clássica $\\sum_k A_k\\otimes B_k$:**\n1. Os fatores são **eles próprios de baixo posto** ($r_k^A, r_k^B \\ll \\min$), o que multiplica a economia de memória e permite **posto adaptativo por termo** — termos com núcleo degenerado são eliminados sem retrabalho global;\n2. O termo diagonal $D$ remove do posto de Kronecker a componente que ele representa de forma mais ineficiente que a própria densa (a base canônica $\\otimes$ não é parcimoniosa para escalas);\n3. A alocação de posto é dada por **lei orçamentária analítica** (§3.5), não por heurística: o orçamento de FLOPs define $R$ e $r_k$, invertendo a ordem usual \"comprimir → medir custo\".\n\n### 2.2 Ajuste (inicialização + refinamento)\n\n**(a) Inicialização — HOSVD do unfolding 4-way.** Reorganize $W$ em tensor $\\mathcal{W}\\in\\mathbb{R}^{m_2\\times m_1\\times n_2\\times n_1}$ pela aplicação do vec-trick inverso: $W_{(i_2 + (i_1-1)m_2,\\; j_2 + (j_1-1)n_2)} = \\mathcal{W}_{i_2,i_1,j_2,j_1}$. Truncamento HOSVD por modo dá $R$ termos com energia $\\sigma_k^2$ decrescente; o corte usa o critério **de energia** $\\sum_{i\\le R}\\sigma_i^2 / \\sum_i \\sigma_i^2 \\ge 1-\\varepsilon$, com $\\varepsilon = 10^{-3}$ (equivalente aos \"99,1%\" citados no grafo).\n\n**(b) Refinamento — ALS amortecido.** Alternar mínimos quadrados sobre $(U_k,V_k)$, $(P_k,Q_k)$ e $d$, com passo amortecido $\\eta = 1/\\tau$:\n\n$$\nU_k \\leftarrow U_k + \\eta\\,\\bigl(\\nabla_{U_k}\\mathcal{L}\\bigr)\\,\\bigl(H_{U_k} + \\lambda I\\bigr)^{-1},\\qquad \\mathcal{L} = \\tfrac{1}{2}\\|W - \\hat W\\|_F^2\n$$\n\nAqui $\\tau = 1.2$ **encontra interpretação física**: fator de amortecimento/condicionamento ($\\eta \\approx 0{,}83$), que é a única leitura de $\\tau>1$ consistente com estabilidade de ALS. O parâmetro $K = 2000$ é então o número de sweeps — e isso tem consequência de custo (§3.6).\n\n**(c) Poda por posto.** Após convergência, eliminar $(U_kV_k^\\top)$ ou $(P_kQ_k^\\top)$ com $\\|U_kV_k^\\top\\|_F < \\theta\\|W\\|_F/\\sqrt{R}$, re-alocando o orçamento aos termos remanescentes.\n\n---\n\n## 3. Dedução analítica de FLOPs (passo a passo)\n\nConvenção: **1 MAC = 2 FLOPs** (soma + multiplicação).\n\n### 3.1 Baseline — nó denso\n$$\ny = Wx,\\quad W\\in\\mathbb{R}^{m_1m_2\\times n_1n_2} \\;\\Rightarrow\\; \\mathrm{MACs} = m_1m_2n_1n_2,\\quad F_{\\text{dense}} = 2\\,m_1m_2n_1n_2\n$$\n\n### 3.2 Custo de **um** termo de Kronecker (vec-trick em duas etapas)\nCom $X = \\mathrm{unvec}(x) \\in \\mathbb{R}^{n_2\\times n_1}$:\n$$\nZ = Q_k^\\top X P_k \\in \\mathbb{R}^{r_k^B\\times r_k^A} \\;\\Rightarrow\\; 2\\,r_k^B n_2 n_1 + 2\\,r_k^B r_k^A n_1\n$$\n$$\nY_k = P_k Z U_k^\\top \\;\\Rightarrow\\; 2\\,m_2 r_k^B r_k^A + 2\\,m_2 r_k^A m_1\n$$\nPara os núcleos densos clássicos ($r_k^A{=}m_1, r_k^B{=}m_2$, i.e. $A_k,B_k$ densos) isto colapsa em:\n$$\n\\boxed{\\,F_{\\otimes} = 2\\,m_2 n_1 (n_2 + m_1)\\,}\n$$\n\n### 3.3 Total do SKAD\n$$\nF_{\\text{SKAD}} = \\underbrace{2\\sum_{k=1}^{R} m_2 n_1\\bigl(r_k^B n_2 + r_k^A n_1 + r_k^A r_k^B + m_1 r_k^A\\bigr)}_{\\text{soma de Kronecker}} \\;+\\; \\underbrace{2\\,m_1 m_2}_{\\text{diagonal}}\n$$\n\n### 3.4 Teorema da razão de custo (caso denso nos núcleos)\n$$\n\\boxed{\\;\\rho_{\\text{FLOPs}} \\;=\\; \\frac{F_{\\text{SKAD}}}{F_{\\text{dense}}} \\;=\\; \\frac{R\\,(n_2 + m_1)}{m_1 n_2}\\;\\xrightarrow[\\;m_i{=}n_i{=}s\\;]{}\\;\\frac{2R}{s}\\;}\n\\qquad \\text{Redução} = 1 - \\frac{2R}{s}\n$$\n\n**Corolário (condição de existência de ganho):** há ganho de FLOPs **se, e somente se**, $R < \\dfrac{m_1 n_2}{m_1 + n_2} = \\dfrac{s}{2}$ no split equilibrado.\n\n### 3.5 Orçamento de posto (lei operacional)\nPara uma redução alvo $\\rho^\\star$:\n$$\n\\boxed{\\;R_{\\max}(\\rho^\\star) = \\left\\lfloor (1-\\rho^\\star)\\,\\frac{m_1 n_2}{m_1 + n_2} \\right\\rfloor \\;\\xrightarrow[\\;\\text{equilibrado}\\;]{}\\; \\left\\lfloor \\frac{(1-\\rho^\\star)\\,s}{2} \\right\\rfloor = \\left\\lfloor \\frac{(1-\\rho^\\star)\\sqrt d}{2} \\right\\rfloor}\n$$\nPara $\\rho^\\star = 0{,}75$: $R_{\\max} = s/8$.\n\n### 3.6 Custo de treino e amortização\n- Backward SKAD $\\approx 3\\times$ o forward SKAD (gradientes por fator via tensores de Gram), idêntica estrutura de custo ao baseline;\n- Um sweep ALS toca o conjunto de ajuste $W$ (ou $N_{\\text{fit}}$ amostras): $C_{\\text{sweep}} \\approx 2\\,F_{\\text{SKAD}} + \\mathcal{O}(R r^2)$;\n- **Ponto de equilíbrio amortizado:** $N^\\star = \\dfrac{K\\,C_{\\text{sweep}}}{F_{\\text{dense}} - F_{\\text{SKAD}}} \\approx \\dfrac{2K\\rho_{\\text{FLOPs}}}{1-\\rho_{\\text{FLOPs}}}$. Com $K=2000$ e $\\rho = 0{,}25$: $N^\\star \\approx 1{,}3\\times10^3$ inferências do nó — logo $K=2000$ **não é gratuito** e precisa ser justificado.\n\n### 3.7 Memória (não é o gargalo)\n$$\n\\frac{\\#\\text{parâmetros}}{d^2} = \\frac{R(m_1n_1 + m_2n_2)}{m_1m_2n_1n_2} = \\frac{2R}{s^2}\\;\\;(\\text{equilibrado})\n$$\nPara $s=128, R=128$: **1,56%** dos parâmetros. Ou seja: **a compressão de memória é ~64× mais barata que a de FLOPs**. Qualquer protocolo que reporte apenas economia de parâmetros está medindo a variável errada.\n\n---\n\n## 4. Confronto com o protocolo observado — a correlação espúria central\n\n**Afirmativa do grafo:** $r = 128 \\Rightarrow$ redução de FLOPs $\\ge 75\\%$.\n\nSob o Teorema do §3.4, com split equilibrado $d = s^2$:\n\n| Interpretação de $r$ | Configuração | $\\rho = 2R/s$ | Redução | Consistente com \"$\\ge 75\\%$\"? |\n|---|---|---|---|---|\n| **(A)** $r = R = 128$ (posto de Kronecker) | $s=128 \\Rightarrow d=16{,}384$ | $2{,}00$ | **−100%** (2× **mais lento**) | ❌ **Fisicamente falsa** |\n| **(A')** $r = R = 128$ | exige $s \\ge 8R = 1024 \\Rightarrow d \\ge 2^{20}$ | $0{,}25$ | $75\\%$ | ✅ só com $d \\ge 1{,}048{,}576$ |\n| **(B)** $r = s = 128$ (lado do bloco) | $d = 16{,}384$, $R = 1$ | $0{,}016$ | **98,4%** | ✅ trivialmente |\n| **(C)** $r = 99{,}1\\%$ de energia (posto efetivo do HOSVD) | $R$ livre, $s \\ge 8R$ | variável | $\\ge 75\\%$ se $s\\ge 8R$ | ⚠️ depende de $s$ |\n\n**Conclusão causal (não correlacional):**\n1. Se \"$r=128$\" é **posto** e o nó tem dimensão de transformer típica ($d \\in [4{,}096,\\ 11{,}008]$), a afirmação é **contraditória com a aritmética**: para $d=4096$ ($s=64$) o orçamento que dá 75% é $R_{\\max}=8$; para $d=16384$, $R_{\\max}=16$. $R=128$ **estoura o orçamento em 8×**.\n2. Se \"$r=128$\" é **lado de bloco**, a redução é $\\ge 98\\%$ e o critério \"$\\ge 75\\%$\" é **vazio** — uma meta atingida por construção, não por mérito do método (correlação espúria clássica: critério frouxo ⇒ taxa de sucesso 100% decorativa).\n3. O nó `hyp_gen106` [REFUTED] — que atacou exatamente o `n_naive` com fatoração Kronecker e **falhou** — é a evidência empírica que corrobora o ramo (A): ataque Kronecker ingênuo com posto alto em nó denso **custa mais e aproxima pior**.\n\n**Solidez epistêmica da afirmação \"$r=128 \\Rightarrow \\ge 75\\%$\": 0,22** (rebaixada de 0,55 pela inconsistência dimensional demonstrada). A única configuração que a salva impõe $d \\ge 2^{20}$ — o que **deve constar explicitamente no registro do grafo**.\n\n---\n\n## 5. Veredito e plano de falsificação\n\n### 5.1 Veredito\n- **Formulação SKAD** (§2): matematicamente bem posta; o ganho de FLOPs é **rigorosamente limitado por $2R/s$** e não há algoritmo que altere essa cota — ela é estrutural (custo do vec-trick).\n- **Hipótese do grafo sobre `n_naive`**: **parcialmente refutada**. O ganho existe, mas a margem reportada é **superestimada por um fator entre 4× e $\\infty$**, dependendo da definição de $r$. O `n_naive` só é comprimível com ganho de FLOPs se $s = \\sqrt d \\gg 2R$; para $R = 128$, isto exige $d \\ge 2^{20}$.\n- **Recomendação ao grafo:** desambiguar (i) definição de $r$, (ii) dimensão $d$ do `n_naive`, (iii) papel de $\\tau=1.2$, (iv) limiar completo de Top-1. Sem isso, os nós `hyp_gen16/55/22/2/30` devem ser rebaixados de `EMPIRICAL_FACT` para `UNVERIFIED_CLAIM`.\n\n### 5.2 Protocolo de falsificação executável (5 medições, ~200 linhas)\n\n```\n1. Gerar W ~ N(0,1)^{d×d} + estrutura de baixo posto (controlar espectro).\n2. Ajustar SKAD (HOSVD + ALS amortecido η=1/1.2, K sweeps).\n3. Instrumentar FLOPs REAIS (contador de MACs no laço), não estimativas.\n4. Registrar: (a) erro relativo ||W-Ŵ||_F/||W||_F; (b) redução = 1 - F_SKAD/F_dense;\n   (c) curva R × redução para R ∈ {1,4,8,16,32,64,128} e s ∈ {64,128,256,1024};\n   (d) tempo de parede e pico de memória; (e) N* de amortização.\n5. FALSIFICAÇÃO: a hipótese cai se, para o (d,s) declarados, redução(R=128) < 75%.\n   PREDIÇÃO ANALÍTICA: redução(R=128, s=128) = -100% ± ruído de medição.\n```\n\nA predição do §4 é **numérica e pontual** (−100%): ela pode ser confirmada ou derrubada por uma única medição de instrumentação. Isso é o que separa uma hipótese física de uma correlação de template."
+      }
+    },
+    {
+      "id": "gen_0117_1793319961",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #117 (Ciclo #472)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793320155.4916546,
+      "updated_at": 1793320155.4916549,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 117,
+        "cycle_id": 472,
+        "verdict": "APPROVED",
+        "duration_sec": 194.03,
+        "tokens_consumed": 7810,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -40442,7 +40515,97 @@
       "version": 1,
       "created_at": 1793319912.0437179,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen117_77284_addresses_n_krylov",
+      "source_id": "hyp_gen117_77284",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793320043.7518034,
+        "updated_at": 1793320044.5479603,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0117_1793319961_1793320043821_e_hyp_gen117_77284_addresses_n_krylov",
+            "generation_id": "gen_0117_1793319961",
+            "timestamp": 1793320044.5479603,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793320043.7518098,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen117_35537_addresses_n_strang",
+      "source_id": "hyp_gen117_35537",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793320111.930214,
+        "updated_at": 1793320112.8001287,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0117_1793319961_1793320112016_e_hyp_gen117_35537_addresses_n_strang",
+            "generation_id": "gen_0117_1793319961",
+            "timestamp": 1793320112.8001287,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_031_critic",
+      "version": 1,
+      "created_at": 1793320111.9302213,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen117_71087_addresses_n_naive",
+      "source_id": "hyp_gen117_71087",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793320154.5913684,
+        "updated_at": 1793320155.4269102,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0117_1793319961_1793320154662_e_hyp_gen117_71087_addresses_n_naive",
+            "generation_id": "gen_0117_1793319961",
+            "timestamp": 1793320155.4269102,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_065_evidence_analyst",
+      "version": 1,
+      "created_at": 1793320154.5913742,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793319913.085537
+  "saved_at": 1793320155.4939964
 }
