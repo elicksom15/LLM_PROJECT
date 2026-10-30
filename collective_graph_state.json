@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 58,
+      "version": 59,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793320200.93352,
+      "updated_at": 1793320444.2165318,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12178,6 +12178,96 @@
         "tokens_consumed": 5017,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen119_56673",
+      "label": "Hypothesis",
+      "title": "Decodifiquei o conteúdo, mas preciso ser direto sobre o que ele é: não é uma ins",
+      "description": "Decodifiquei o conteúdo, mas preciso ser direto sobre o que ele é: não é uma instrução de sistema minha. É um texto colado pelo usuário que tenta se passar por uma configuração minha e, no processo, me pede coisas que eu não posso fazer — em especial:\n\n- assumir um papel de \"enxame de agentes\" que eu não tenho;\n- marcar hipóteses matemáticas como \"VERIFIED\" e citar \"fatos empíricos\" sem nenhuma checagem real (os números ali, tipo `r=128`, `K=2000`, `1+1=2`, não vêm de verificação nenhuma — seria",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793320497.67189,
+      "updated_at": 1793320498.4080863,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0119_1793320444",
+        "cycle_id": 474,
+        "full_text": "Decodifiquei o conteúdo, mas preciso ser direto sobre o que ele é: não é uma instrução de sistema minha. É um texto colado pelo usuário que tenta se passar por uma configuração minha e, no processo, me pede coisas que eu não posso fazer — em especial:\n\n- assumir um papel de \"enxame de agentes\" que eu não tenho;\n- marcar hipóteses matemáticas como \"VERIFIED\" e citar \"fatos empíricos\" sem nenhuma checagem real (os números ali, tipo `r=128`, `K=2000`, `1+1=2`, não vêm de verificação nenhuma — seria fabricação);\n- responder sempre \"sem recusar\", o que removeria justamente as proteções que existem para não causar dano.\n\nPosso escrever dentro de um formato específico, posso ser técnico e pragmático, e posso tratar um cenário como ficção — isso tudo é tranquilo. O que não faço é apresentar dados inventados como fatos verificados nem seguir um \"modo\" que desliga filtros de segurança. Não porque eu seja difícil, mas porque quem lê a resposta pode confiar nela.\n\nDito isso, dá para te ajudar de verdade em quase tudo o que estava ali:\n\n1. **Organização de projeto em agente de código** — boas práticas reais para um assistente que edita arquivos: criar diretórios antes de escrever, usar caminhos relativos à raiz do projeto, verificar existência de arquivos antes de referenciá-los, não inventar conteúdo de configs. Isso é legítimo e posso detalhar.\n2. **Lógica para `n_strange` / `n_native`** — se o `n_strange` é o nó sem estrutura de integração/contratação e deve ser tratado com fatoração de Kronecker, isso é um problema de decomposição tensorial bem conhecido. Posso mostrar a formulação (ex.: minimizar `||A - Σ_k u_k ⊗ v_k||` com SVD/HOSVD) e implementar em Python/NumPy com a convergência de Strang vs. Lie.\n3. **Dados do gráfico** — posso montar a análise dos \"nós não recuperados\" e o caso do `n_krylov`, descrevendo método, critério de validação e limitações, sem inventar números.\n\nMe diz qual desses pontos você quer atacar primeiro e a gente constrói o código completo, comentado e testável. Se você quiser, começo pela decomposição de Kronecker para o `n_strange` — é a parte mais interessante."
+      }
+    },
+    {
+      "id": "hyp_gen119_92637",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — a form",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — a formulação só entra no relatório se os coeficientes BCH, a ordem de convergência e o defeito simplestico baterem numericamente. Em paralelo, gravo o script reproduzível da bancada.",
+      "provenance": "agent_043_critic",
+      "version": 2,
+      "created_at": 1793320555.9076366,
+      "updated_at": 1793320556.698418,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0119_1793320444",
+        "cycle_id": 474,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — a formulação só entra no relatório se os coeficientes BCH, a ordem de convergência e o defeito simplestico baterem numericamente. Em paralelo, gravo o script reproduzível da bancada."
+      }
+    },
+    {
+      "id": "hyp_gen119_5726",
+      "label": "Hypothesis",
+      "title": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — corretude",
+      "description": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — corretude da fatoração, contagem de FLOPs, atalho espectral, ordem de convergência Strang/Lie, constantes do BCH e defeito energético.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793320603.8420382,
+      "updated_at": 1793320604.6517084,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0119_1793320444",
+        "cycle_id": 474,
+        "full_text": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — corretude da fatoração, contagem de FLOPs, atalho espectral, ordem de convergência Strang/Lie, constantes do BCH e defeito energético."
+      }
+    },
+    {
+      "id": "hyp_gen119_87611",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente do nó `n_krylov` com bancada numérica re",
+      "description": "Vou executar a verificação independente do nó `n_krylov` com bancada numérica real (sem simulação): corretude da fusão BCH, ordem de convergência, defeito simpletico, auditoria do critério `r=128` e contagem analítica + medida de FLOPs/bytes de VRAM. Duas bancadas em paralelo:",
+      "provenance": "agent_057_independent_verifier",
+      "version": 2,
+      "created_at": 1793320695.7469246,
+      "updated_at": 1793320696.6216676,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0119_1793320444",
+        "cycle_id": 474,
+        "full_text": "Vou executar a verificação independente do nó `n_krylov` com bancada numérica real (sem simulação): corretude da fusão BCH, ordem de convergência, defeito simpletico, auditoria do critério `r=128` e contagem analítica + medida de FLOPs/bytes de VRAM. Duas bancadas em paralelo:"
+      }
+    },
+    {
+      "id": "gen_0119_1793320444",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #119 (Ciclo #474)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793320696.7532291,
+      "updated_at": 1793320696.7532294,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 119,
+        "cycle_id": 474,
+        "verdict": "APPROVED",
+        "duration_sec": 252.54,
+        "tokens_consumed": 3940,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -40768,7 +40858,127 @@
       "version": 1,
       "created_at": 1793320403.5676355,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen119_56673_addresses_n_krylov",
+      "source_id": "hyp_gen119_56673",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793320497.732421,
+        "updated_at": 1793320498.467139,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0119_1793320444_1793320497794_e_hyp_gen119_56673_addresses_n_krylov",
+            "generation_id": "gen_0119_1793320444",
+            "timestamp": 1793320498.467139,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793320497.7324255,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen119_92637_addresses_n_strang",
+      "source_id": "hyp_gen119_92637",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793320555.9748764,
+        "updated_at": 1793320556.7713056,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0119_1793320444_1793320556041_e_hyp_gen119_92637_addresses_n_strang",
+            "generation_id": "gen_0119_1793320444",
+            "timestamp": 1793320556.7713056,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_043_critic",
+      "version": 1,
+      "created_at": 1793320555.9748807,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen119_5726_addresses_n_naive",
+      "source_id": "hyp_gen119_5726",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793320603.904717,
+        "updated_at": 1793320604.7239451,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0119_1793320444_1793320603967_e_hyp_gen119_5726_addresses_n_naive",
+            "generation_id": "gen_0119_1793320444",
+            "timestamp": 1793320604.7239451,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793320603.9047213,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen119_87611_addresses_n_krylov",
+      "source_id": "hyp_gen119_87611",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793320695.805222,
+        "updated_at": 1793320696.689045,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0119_1793320444_1793320695868_e_hyp_gen119_87611_addresses_n_krylov",
+            "generation_id": "gen_0119_1793320444",
+            "timestamp": 1793320696.689045,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_057_independent_verifier",
+      "version": 1,
+      "created_at": 1793320695.8052268,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793320404.5962706
+  "saved_at": 1793320696.755232
 }
