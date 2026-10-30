@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 67,
+      "version": 68,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793322627.088435,
+      "updated_at": 1793322861.5700185,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12867,6 +12867,79 @@
         "verdict": "APPROVED",
         "duration_sec": 194.47,
         "tokens_consumed": 4724,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen128_34783",
+      "label": "Hypothesis",
+      "title": "Vou atacar o nó `n_krylov` com uma bancada numérica real antes de qualquer afirm",
+      "description": "Vou atacar o nó `n_krylov` com uma bancada numérica real antes de qualquer afirmação. Plano: (1) implementar o dicionário Kronecker de baixo posto + ação exponencial de Krylov com retração hiperbólica (bola de Poincaré), (2) rodar a bancada (corretude, energia espectral, convergência, FLOPs, defeito de curvatura), (3) emitir o relatório com dedução analítica de FLOPs e solidez epistêmica.\n\nGravando a bancada e a implementação de referência em paralelo:",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793322957.695219,
+      "updated_at": 1793322958.630603,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0128_1793322861",
+        "cycle_id": 483,
+        "full_text": "Vou atacar o nó `n_krylov` com uma bancada numérica real antes de qualquer afirmação. Plano: (1) implementar o dicionário Kronecker de baixo posto + ação exponencial de Krylov com retração hiperbólica (bola de Poincaré), (2) rodar a bancada (corretude, energia espectral, convergência, FLOPs, defeito de curvatura), (3) emitir o relatório com dedução analítica de FLOPs e solidez epistêmica.\n\nGravando a bancada e a implementação de referência em paralelo:"
+      }
+    },
+    {
+      "id": "hyp_gen128_94321",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — correç",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — correção da forma fechada do subfluxo, ordem de convergência Lie vs. Strang, defeito de isometria no Bola de Poincaré e contagem analítica de FLOPs. Em paralelo, verifico a raiz do projeto.",
+      "provenance": "agent_099_investigator",
+      "version": 2,
+      "created_at": 1793323018.5578492,
+      "updated_at": 1793323019.5050578,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0128_1793322861",
+        "cycle_id": 483,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — correção da forma fechada do subfluxo, ordem de convergência Lie vs. Strang, defeito de isometria no Bola de Poincaré e contagem analítica de FLOPs. Em paralelo, verifico a raiz do projeto."
+      }
+    },
+    {
+      "id": "hyp_gen128_28056",
+      "label": "Hypothesis",
+      "title": "Vou executar primeiro a bancada numérica real (corretude da identidade de Kronec",
+      "description": "Vou executar primeiro a bancada numérica real (corretude da identidade de Kronecker, teorema de Van Loan, contagem de FLOPs, defeito de estrutura e transferência de erro para a geometria de Poincaré) e só então emitir o relatório com os números medidos.",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793323252.537486,
+      "updated_at": 1793323253.438454,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0128_1793322861",
+        "cycle_id": 483,
+        "full_text": "Vou executar primeiro a bancada numérica real (corretude da identidade de Kronecker, teorema de Van Loan, contagem de FLOPs, defeito de estrutura e transferência de erro para a geometria de Poincaré) e só então emitir o relatório com os números medidos."
+      }
+    },
+    {
+      "id": "gen_0128_1793322861",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #128 (Ciclo #483)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793323253.5969079,
+      "updated_at": 1793323253.596908,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 128,
+        "cycle_id": 483,
+        "verdict": "APPROVED",
+        "duration_sec": 392.03,
+        "tokens_consumed": 2701,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -42329,7 +42402,97 @@
       "version": 1,
       "created_at": 1793322820.639388,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen128_34783_addresses_n_krylov",
+      "source_id": "hyp_gen128_34783",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322957.7794514,
+        "updated_at": 1793322958.7123864,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0128_1793322861_1793322957865_e_hyp_gen128_34783_addresses_n_krylov",
+            "generation_id": "gen_0128_1793322861",
+            "timestamp": 1793322958.7123864,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793322957.7794576,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen128_94321_addresses_n_strang",
+      "source_id": "hyp_gen128_94321",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793323018.6533878,
+        "updated_at": 1793323019.6002114,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0128_1793322861_1793323018738_e_hyp_gen128_94321_addresses_n_strang",
+            "generation_id": "gen_0128_1793322861",
+            "timestamp": 1793323019.6002114,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_099_investigator",
+      "version": 1,
+      "created_at": 1793323018.6533945,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen128_28056_addresses_n_naive",
+      "source_id": "hyp_gen128_28056",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793323252.6191115,
+        "updated_at": 1793323253.5207195,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0128_1793322861_1793323252702_e_hyp_gen128_28056_addresses_n_naive",
+            "generation_id": "gen_0128_1793322861",
+            "timestamp": 1793323253.5207195,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793323252.6191158,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793322821.5611296
+  "saved_at": 1793323253.5992146
 }

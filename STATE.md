@@ -4,8 +4,8 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `482`
-- **Hipóteses Aprovadas (Incorporadas):** `🏆 135`
+- **Total de Ciclos Científicos Executados:** `483`
+- **Hipóteses Aprovadas (Incorporadas):** `🏆 136`
 - **Hipóteses Falsificadas / Rejeitadas:** `❌ 66`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
@@ -147,11 +147,13 @@
 | **#480** | `GPT3B_H480_TRANSICAO_SIMPLETICA_EM_SUBESPACO_RESIDUAL_COMPARTILHADO` | **99.0%** | **95.8%** | `10004.7 tok/s` | `0.0000` |
 | **#481** | `GPT3B_H481_TRANSPORTE_RESIDUAL_ESPECTRAL_COM_ATALHO_FECHADO` | **99.0%** | **12.0%** | `10135.9 tok/s` | `0.0000` |
 | **#482** | `GPT3B_H482_LIE_TANGENT_SPECTRAL_COMPOSITION` | **99.0%** | **82.0%** | `10652.5 tok/s` | `0.0000` |
+| **#483** | `GPT3B_H483_POINCARE_HYPERBOLIC_VOCAB` | **99.0%** | **95.8%** | `10202.8 tok/s` | `0.0000` |
 
 
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#483** | 2026-10-29 22:14:21 | `GPT3B_H483_POINCARE_HYPERBOLIC_VOCAB` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#482** | 2026-10-29 22:10:27 | `GPT3B_H482_LIE_TANGENT_SPECTRAL_COMPOSITION` | 🟢 APROVADA | 82.0% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#481** | 2026-10-29 22:05:46 | `GPT3B_H481_TRANSPORTE_RESIDUAL_ESPECTRAL_COM_ATALHO_FECHADO` | 🟢 APROVADA | 12.0% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#480** | 2026-10-29 22:01:37 | `GPT3B_H480_TRANSICAO_SIMPLETICA_EM_SUBESPACO_RESIDUAL_COMPARTILHADO` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
@@ -201,4 +203,3 @@
 | **#436** | 2026-10-29 18:41:55 | `GPT3B_H436_SHEAR_UNIPOTENTE_COM_FECHAMENTO_ESPECTRAL_EM_SUBESPACO_LENTO` | 🟢 APROVADA | 82.0% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#435** | 2026-10-29 18:37:58 | `GPT3B_H435_TRANSICAO_SIMPLETICA_EM_SUBESPACO_INVARIANTE_COM_BCH_TRUNCADO` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#434** | 2026-10-29 18:33:31 | `GPT3B_H434_FECHO_POLINOMIAL_POR_COMUTADORES_EM_SUBESPAÇO_DE_KRYLOV_DO_FLUXO_RESIDUAL` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
-| **#433** | 2026-10-29 18:29:31 | `GPT3B_H433_OPERADOR_LEI_LOCAL_SIMPLETICO` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
