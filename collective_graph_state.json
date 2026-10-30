@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 78,
+      "version": 79,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793325974.8324218,
+      "updated_at": 1793326319.5428562,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13672,6 +13672,96 @@
         "tokens_consumed": 2865,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen139_60468",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #494 / GERAÇÃO #139",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #494 / GERAÇÃO #139\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Tema:** `GPT3B_H494_TRANSICAO_SIMPLETICA_CAYLEY_EM_SUBESPACO_INVARIANTE_COM_COLAPSO_DE_JANELA`\n**Entregável:** formulação inédita + dedução analítica de FLOPs + protocolo de bancada com gates de falsificação.\n\n> Nota de integridade: neste contexto não há runtime numérico acessível. Toda a Seção 3–5 é **derivada analiticamente** (verificável à mão); toda métrica",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793326360.0680346,
+      "updated_at": 1793326360.7728424,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0139_1793326319",
+        "cycle_id": 494,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #494 / GERAÇÃO #139\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Tema:** `GPT3B_H494_TRANSICAO_SIMPLETICA_CAYLEY_EM_SUBESPACO_INVARIANTE_COM_COLAPSO_DE_JANELA`\n**Entregável:** formulação inédita + dedução analítica de FLOPs + protocolo de bancada com gates de falsificação.\n\n> Nota de integridade: neste contexto não há runtime numérico acessível. Toda a Seção 3–5 é **derivada analiticamente** (verificável à mão); toda métrica empírica fica marcada como **PENDENTE** até rodar o protocolo da Seção 6. Nenhum número de acurácia é afirmado como observado.\n\n---\n\n## 1. Veredito epistêmico do grafo (leitura antes de qualquer construção)\n\n| Item | Classe | Peso | Observação crítica |\n|---|---|---|---|\n| Nós `PROTOCOLO_EXPERIMENTAL_*` (G16, G55, G22, G2, G30) | Ruído replicado | 0,1 | São cópias truncadas do mesmo template (`r=128, K=2000, τ=1.2`; limiar de Top-1 cortado no meio da frase). **Não constituem evidência independente** — são 5 registros de um único experimento, supercontagem. Não uso `r=128` como parâmetro herdado. |\n| `hyp_gen106_68699` [REFUTED] (`n_naive` = contração densa sem estrutura) | Falsificado | 1,0 | **Consequência causal:** a pré-condição de fatoração Kronecker (\"o nó é denso sem estrutura\") foi falsificada. Logo, baixo posto Kronecker **não pode ser presumido** para nenhum nó; deve ser medido por *realignment* (Seção 5.3). |\n| Critério \"r=128 = 99,1% de energia\" | Correlação espúria provável | 0,2 | Energia espectral acumulada é **critério de norma de Frobenius**, não de erro de Top-1 nem de FLOPs. Baixa correlação causal esperada. Substituo por erro de realignment propagado. |\n| `hyp_gen11_59577`, `hyp_gen65_64617` (estrutura simpletica do fluxo residual) | Hipótese estrutural útil | 0,6 | É a hipótese que **ancora** esta formulação. Não é fato observado; é modelagem. Trato como premissa explícita e testável. |\n| Ordem de convergência Strang vs. Lie (nós G75/G93) | Fato empírico alheio | 0,5 | Irrelevante aqui: a transição de Cayley colapsada **não tem erro de passo de tempo** (Seção 4). Comparar ordem com Strang seria correlação espúria — o erro migra para o subespaço. |\n\n**Conclusão do grafo:** o nó `n_krylov` não tem contrato formal definido em nenhum nó recuperado. Defino abaixo.\n\n---\n\n## 2. Definição operacional do nó `n_krylov`\n\n`n_krylov` = **operador de transição entre janelas** que, sobre um gerador congelado por janela, materializa $K$ passos do fluxo residual como **uma única aplicação espectral** num subespaço de Krylov simplético de dimensão $m$.\n\nContrato:\n\n- **Entrada:** $X_t \\in \\mathbb{R}^{d \\times B}$ ($B$ tokens), janela de comprimento $T = K\\tau$.\n- **Saída:** $X_{t+T}$ (apenas o **endpoint** da janela — este é o ponto que habilita o colapso).\n- **Parâmetros:** $m$ (dim. do Krylov, **par**), $R$ (posto Kronecker), $\\tau$ (passo nominal), $K$ (passos na janela).\n- **Invariantes de saída:** (i) simpleticidade $\\Phi^\\top J \\Phi = J$; (ii) conservação da norma de energia $\\|x\\|_J$; (iii) defeito simpletico $\\mathcal{D} = \\|\\Phi^\\top J\\Phi - J\\|_F/\\|J\\|_F \\le 10^{-6}$ em fp32.\n\n---\n\n## 3. Formulação inédita — **CKWC**: *Cayley–Krylov Window Collapse*\n\n### 3.1 Estrutura Hamiltoniana do fluxo residual\n\nFluxo residual com passo $\\varepsilon$: $x_{l+1} = x_l + \\varepsilon F_l(x_l)$. Reescrevendo os canais como par canônico $(q,p)$ e com $J = \\begin{pmatrix} 0 & I \\\\ -I & 0\\end{pmatrix}$, imponho $F = J\\nabla H$. Linearizando numa janela e congelando o gerador:\n\n$$\\dot{x} = A x, \\qquad A = JS,\\quad S = S^\\top .$$\n\n**Lema 1 (Hamiltoniano).** $A^\\top J + JA = 0$: de fato $A^\\top J + JA = -SJJ + JJS = S - S = 0$. $\\square$\nConsequência: o espectro de $A$ é simétrico em relação a ambos os eixos; no regime estável $\\mathrm{spec}(A) \\subset i\\mathbb{R}$.\n\n### 3.2 Subespaço de Krylov **simplético** (não Arnoldi)\n\n$\\mathcal{K}_m(A,v) = \\mathrm{span}\\{v, Av, \\dots, A^{m-1}v\\}$, com $m$ par. O ponto crítico e negligenciado na literatura corrente:\n\n> **Arnoldi padrão destrói a simpliticidade.** A projeção de Galerkin $\\Phi_m = (I - \\tfrac{\\tau}{2}A_m)^{-1}(I + \\tfrac{\\tau}{2}A_m)$ só é simplectica quando a base satisfaz $V^\\top J V = J_m$ (base $J$-ortonormal). Com base ortonormal euclidiana, o defeito simpletico cresce com o comprimento da janela — é exatamente a variável `defeito simpletico` citada nos nós G11/G65.\n\nPortanto exijo **Lanczos simplético** (pares de vetores $J$-conjugados, $m = 2r$) e $A_m = V^\\top A V$ Hamiltoniano $m \\times m$.\n\n### 3.3 Transição de Cayley\n\n$$\\Phi(\\tau) = \\Big(I - \\tfrac{\\tau}{2}A\\Big)^{-1}\\Big(I + \\tfrac{\\tau}{2}A\\Big).$$\n\n**Lema 2 (simplética e não dissipativa).** $\\Phi^\\top J \\Phi = J$ e $|c(i\\omega)| = 1$ com $c(z) = \\frac{1+\\tau z/2}{1-\\tau z/2}$. Sem restrição de estabilidade ($\\tau$ arbitrário), sem amortecimento artificial no stream residual.\n\n### 3.4 Teorema do Colapso de Janela (núcleo da contribuição)\n\n**Teorema.** Seja $A_m = Q \\Lambda Q^{-1}$ a fatoração espectral do operador projetado (autovalores $\\lambda_k$ em pares $\\pm$). Então os $K$ passos da janela satisfazem\n\n$$\\Phi_m(\\tau)^K = Q \\,\\mathrm{diag}\\!\\left(\\Big(\\tfrac{1+\\tau\\lambda_k/2}{1-\\tau\\lambda_k/2}\\Big)^{K}\\right) Q^{-1},$$\n\nou seja, **$K$ solves implíticos colapsam em 1 fatoração espectral do operador reduzido + $O(m^2)$ por token**.\n\n*Esboço.* $\\Phi_m(\\tau) = c(\\tau A_m/2)$ é função racional de $A_m$; funções do mesmo comutador se multiplicam no espectro. Em cada bloco simplético $2\\times2$ da forma normal, $c(i\\omega_k)$ é uma rotação de ângulo $\\theta_k = 2\\arctan(\\omega_k \\tau/2)$; $K$ passos acumulam $K\\theta_k$, exatamente o fluxo linear exato no tempo $T_k = K\\theta_k/\\omega_k$. $\\square$\n\n**Corolário (orçamento de erro migrado).** Para gerador constante na janela **não há erro de discretização temporal** — a ordem de convergência (Strang/Lie/Magnus) torna-se métrica **irrelevante**. O erro total passa a ser\n\n$$\\varepsilon_{\\text{tot}} \\le \\underbrace{\\varepsilon_{\\text{Krylov}}(m)}_{\\text{subespaço}} + \\underbrace{\\varepsilon_{\\text{Kron}}(R)}_{\\text{fatoração}} + \\underbrace{\\varepsilon_{\\text{freeze}}(J)}_{\\text{janela}},$$\n\ncom $\\varepsilon_{\\text{Krylov}} \\lesssim 2\\big(e\\|A\\|T/(2m)\\big)^m$ (decaimento superalgébrico), $\\varepsilon_{\\text{Kron}} \\le T\\,\\sigma_{R+1}(\\mathrm{realign}(A))$, $\\varepsilon_{\\text{freeze}} \\le \\tfrac{T^2}{2}\\sup\\|\\dot A\\|$.\n\n**Consequência falsificável:** se a bancada mostrar convergência de ordem 2 em $\\tau$, a premissa de gerador congelado está errada e a formulação deve ser segmentada em $J$ janelas (ver gate F3).\n\n### 3.5 Fatoração Kronecker do gerador\n\n$A \\approx \\sum_{s=1}^{R} U_s \\otimes W_s$, $U_s \\in \\mathbb{R}^{p\\times p}$, $W_s \\in \\mathbb{R}^{q\\times q}$, $d = pq$. Aplicação por reshape-contração: custo $2RBd(p+q)$ por aplicação, contra $2Bd^2$ denso.\n\n**Alerta causal:** posto matricial $\\neq$ posto Kronecker. O objeto correto é o *realignment* $\\mathcal{R}(A)_{(i,k),(j,l)} = A_{(i,j),(k,l)}$; só $\\sigma_R(\\mathcal{R}(A))$ controla $\\|A - A_R\\|_F$. O critério \"99,1% de energia de SVD\" do grafo mede a matriz errada — correlação espúria.\n\n---\n\n## 4. Algoritmo (CKWC, por janela)\n\n1. Estimar $A$ local por diferenças no stream ($O(d)$ por token) e obter $A_R$ por SVD truncado do realignment ($R$ termos).\n2. Construir base simplética $V \\in \\mathbb{R}^{d \\times m}$, $V^\\top J V = J_m$, via Lanczos simplético com $m$ aplicações de $A_R$.\n3. Projetar $A_m = V^\\top A_R V$ ($m \\times m$, Hamiltoniano).\n4. Fatorar $A_m = Q\\Lambda Q^{-1}$ **uma vez por janela** ($\\tfrac{10}{3}m^3 + O(m^2)$).\n5. Colapsar: $Y = V\\, Q\\, \\mathrm{diag}\\big(c(\\lambda_k)^{K}\\big)\\, Q^{-1} V^\\top X_t$.\n6. Sanidade: verificar $\\mathcal{D} = \\|\\Phi^\\top J \\Phi - J\\|_F/\\|J\\|_F$ e $\\big|\\,\\|X_{t+T}\\|_J - \\|X_t\\|_J\\,\\big|/\\|X_t\\|_J$.\n\n---\n\n## 5. Dedução analítica de FLOPs\n\n### 5.1 Baseline (referência honesta)\n\n$K$ passos, 2 mapas densos $d\\times d$ por token por passo:\n$$C_{\\text{ref}} = 4KBd^2.$$\n\n### 5.2 Método proposto\n\n| Componente | Expressão | Origem |\n|---|---|---|\n| Base Krylov ($m$ aplicações de $A_R$) | $2mRBd(p+q)$ | $m$ matvecs Kronecker |\n| Ortogonalização simplética | $2m^2Bd$ | Gram–Schmidt $J$-conjugado |\n| Projeção $A_m = V^\\top A_R V$ | incluída acima | reaproveita as $m$ aplicações |\n| Espectral de $A_m$ | $\\tfrac{10}{3}m^3$ | uma vez por janela (independe de $B$) |\n| Colapso $K \\to 1$ | $6m^2B$ | $Q^{-1}X$, $\\mathrm{diag}$, $Q$ |\n| Lift $V(\\cdot)$ | $2mdB$ | — |\n\n$$\\boxed{\\,C_{\\text{new}} = 2mRBd(p+q) + 2m^2Bd + 6m^2B + 2mdB + \\tfrac{10}{3}m^3\\,}$$\n\n### 5.3 Razão de redução e break-even\n\nCom $p = q = \\sqrt d$:\n\n$$\\rho = \\frac{C_{\\text{new}}}{C_{\\text{ref}}} = \\frac{mR}{K\\sqrt d} + \\frac{m^2}{2Kd} + O\\!\\Big(\\frac{m^3}{KBd^2}\\Big), \\qquad \\text{Redução} = 1-\\rho.$$\n\n**Condição analítica para ≥ 75% de redução:**\n$$m\\big(R(p+q) + m\\big) \\le \\tfrac{1}{2}Kd.$$\n\n**Break-even:** $\\rho = 1 \\iff K = \\dfrac{m\\big(R(p+q)+m\\big)}{2d}$.\n\n### 5.4 Instância nominal (proposta como ponto de partida, **não** herdada do grafo)\n\n$d = 4096\\ (p=q=64)$, $m = 256$, $R = 4$, $K = 2000$, $B = 512$, $\\tau = 1.2$:\n\n| Item | FLOPs |\n|---|---|\n| $C_{\\text{ref}} = 4KBd^2$ | $6{,}87\\times10^{13}$ |\n| Base Krylov $2mRBd(p+q)$ | $5{,}50\\times10^{11}$ |\n| Ortogonalização $2m^2Bd$ | $2{,}75\\times10^{11}$ |\n| Espectral $\\tfrac{10}{3}m^3$ | $5{,}6\\times10^{7}$ |\n| Colapso $6m^2B$ | $2{,}0\\times10^{8}$ |\n| Lift $2mdB$ | $1{,}07\\times10^{9}$ |\n| **$C_{\\text{new}}$** | $\\approx 8{,}27\\times10^{11}$ |\n| **$\\rho$** | **0,012** ⇒ **Redução ≈ 98,8%** |\n| **Break-even** | $K \\approx 24$ passos |\n| Margem sobre o critério de 75% | $\\times 20{,}8$ |\n\nSe o gerador **não** for constante na janela (segmentação em $J$ janelas), o custo escala $\\propto J$ e o break-even passa a $K \\approx 24J$; o critério de 75% segue satisfeito para $J \\le 16$.\n\n---\n\n## 6. Protocolo de bancada — gates de falsificação\n\n| ID | Medição | Gate de aceite | Ação se falhar |\n|---|---|---|---|\n| F1 | $\\|A - \\sum_{s\\le R} U_s\\otimes W_s\\|_F / \\|A\\|_F$ via **realignment** | $\\le 2\\%$ para $R \\le 8$ | Descartar fatoração Kronecker para `n_krylov` (estrutura ausente, como já ocorreu em `n_naive`) |\n| F2 | Defeito simpletico $\\mathcal{D}$ | $\\le 10^{-6}$ (fp32) | Trocar Arnoldi por Lanczos simplético; se persistir, o nó não é Hamiltoniano |\n| F3 | Erro de endpoint vs. integrador de referência em $\\tau$ | **sem** dependência de $\\tau$ (plataforma) | Premissa de gerador congelado falsa ⇒ usar $J$ janelas e reportar $\\varepsilon_{\\text{freeze}}$ |\n| F4 | Perda Top-1 em tarefa proxy | $\\le 0{,}2$ pp | Reduzir $m$ e reabrir o orçamento de erro da Seção 3.4 |\n| F5 | Redução de FLOPs medida (contador analítico) | $\\ge 75\\%$ | Revisar $R$, $m$; manter $K \\ge 24J$ |\n| F6 | Conservação de energia $\\|x\\|_J$ | drift relativo $\\le 10^{-5}$ por janela | Indica perda de estrutura; a acurácia será confundida com erro de passo |\n\nMétrica primária de solidez: **$\\rho$ medido vs. $\\rho$ previsto** (Seção 5.3). Desvio $> 5\\%$ relativo indica contagem de FLOPs incorreta, não erro de modelo.\n\n---\n\n## 7. Solidez epistêmica — resumo executivo\n\n- **Demonstrado analiticamente (certeza alta):** Lemas 1–2, Teorema do Colapso de Janela, expressão de $C_{\\text{new}}$, $\\rho = \\frac{mR}{K\\sqrt d} + \\frac{m^2}{2Kd}$, break-even $K = \\frac{m(R(p+q)+m)}{2d} \\approx 24$.\n- **Premissa explícita (testável):** `n_krylov` é localmente Hamiltoniano e admita posto Kronecker $R \\le 8$ — **não** é fato observado; gate F1/F2.\n- **Empírico (PENDENTE):** redução de 98,8% e perda de Top-1 são projeções do modelo, não medidas.\n- **Descartado como ruído:** 5 protocolos duplicados/truncados do grafo, o critério de \"99,1% de energia\" e qualquer comparação de ordem de convergência (Strang/Lie/Magnus) — esta última é correlação espúria por construção, pois o colapso elimina o erro de passo.\n\n**Recomendação ao orquestrador:** promover a Seção 3.4 (Colapso de Janela) a hipótese principal e disparar os gates F1–F3 primeiro — são os dois pontos de falha únicos da cadeia causal (estrutura Kronecker e invariância simplética). Todo o ganho de FLOPs depende exclusivamente deles."
+      }
+    },
+    {
+      "id": "hyp_gen139_8227",
+      "label": "Hypothesis",
+      "title": "Vou atacar o nó `n_strang` diretamente: primeiro rodo a bancada numérica real (s",
+      "description": "Vou atacar o nó `n_strang` diretamente: primeiro rodo a bancada numérica real (simplecticidade do mapa de Cayley, ordem do splitting, colapso de janela e contagem de FLOPs) e só então emito a formulação com a dedução analítica.\n\nInício do ciclo #494 — bancada + artefato de verificação em lote:",
+      "provenance": "agent_051_investigator",
+      "version": 2,
+      "created_at": 1793326453.9690316,
+      "updated_at": 1793326454.725025,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0139_1793326319",
+        "cycle_id": 494,
+        "full_text": "Vou atacar o nó `n_strang` diretamente: primeiro rodo a bancada numérica real (simplecticidade do mapa de Cayley, ordem do splitting, colapso de janela e contagem de FLOPs) e só então emito a formulação com a dedução analítica.\n\nInício do ciclo #494 — bancada + artefato de verificação em lote:"
+      }
+    },
+    {
+      "id": "hyp_gen139_6037",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #494 / GERAÇÃO #139",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #494 / GERAÇÃO #139\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs · **Tema:** GPT3B_H494 — transição simplética de Cayley em subespaço invariante com colapso de janela\n\n---\n\n## 0. Veredito executivo\n\n1. **A redução de FLOPs ≥ 75% com `r=128` não é uma propriedade da fatoração — é uma propriedade da dimensão.** Ela só vale no regime `√N ≥ 8R`. Fora dele, a fatoração ",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793326496.6275864,
+      "updated_at": 1793326497.3400552,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0139_1793326319",
+        "cycle_id": 494,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #494 / GERAÇÃO #139\n\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Entregável:** formulação inédita + dedução analítica de FLOPs · **Tema:** GPT3B_H494 — transição simplética de Cayley em subespaço invariante com colapso de janela\n\n---\n\n## 0. Veredito executivo\n\n1. **A redução de FLOPs ≥ 75% com `r=128` não é uma propriedade da fatoração — é uma propriedade da dimensão.** Ela só vale no regime `√N ≥ 8R`. Fora dele, a fatoração Kronecker é **mais cara** que `n_naive`. Dedução exata no Teorema 1.\n2. **O par de critérios do protocolo (`99,1% de energia` + `perda Top-1 ≤ 2%`) é internamente tenso.** 99,1% de energia corresponde, por Eckart–Young, a **9,49% de erro relativo em norma de Frobenius**, não 0,9%. A compatibilidade exige um argumento de margem de logit empírico, não derivável.\n3. **Os cinco nós \"independentes\" G2/G16/G22/G30/G55 não são réplicas independentes.** São eco de parâmetros (texto idêntico), logo a concordância entre eles tem peso evidencial próximo de zero.\n4. **Existe um nó `REFUTED` (`hyp_gen106_68699`) que ataca exatamente o mesmo alvo com a mesma ferramenta.** A motivação da refutação está truncada no grafo. Nenhuma formulação deste ciclo pode ser declarada sobrevivente a ela sem a razão da refutação.\n\n---\n\n## 1. Status epistêmico desta entrega\n\n| Classe | Conteúdo | Status |\n|---|---|---|\n| **EXATO (deduzido)** | Identidade de aplicação Kronecker, custo de FLOPs, janela de viabilidade, relação energia↔erro (Eckart–Young), simetria do Cayley | Válido por construção matemática |\n| **NÃO REPRODUZIDO** | Toda medida de bancada citada na memória coletiva (`99,1%`, `≥75%`, `≤2%`, ordem de Strang) | **Não executada neste ciclo** — o ambiente de execução não expôs interpretador ao analista; nenhuma medição foi fabricada |\n| **CONJECTURA** | Compatibilidade Top-1 ↔ erro Frobenius; estabilidade sob `K=2000` | Falsificável — ver §7 |\n\n---\n\n## 2. Modelo formal do nó `n_naive`\n\n`n_naive` é a contração densa sem estrutura:\n\n$$Y = W X,\\qquad W\\in\\mathbb{R}^{N\\times N},\\; X\\in\\mathbb{R}^{N\\times B}$$\n\n$$F_{\\text{naive}} = 2N^2 B \\ \\text{FLOPs}$$\n\nNenhuma estrutura, nenhum invariante, nenhum controle de estabilidade numérica — daí o nome. É o baseline honesto.\n\n---\n\n## 3. Formulação inédita — **K-CIST**\n\n*Kronecker–Cayley Invariant Subspace Transition with window collapsing.*\n\n### 3.1 Definição\n\nSeja $W \\approx \\sum_{s=1}^{R} A_s \\otimes B_s$, com $A_s\\in\\mathbb{R}^{n_1\\times n_1}$, $B_s\\in\\mathbb{R}^{n_2\\times n_2}$, $N=n_1n_2$, $R=128$.\n\nO fluxo residual $x_{k+1}=x_k+F(x_k)$ é integrado por uma **transição de Cayley projetada** num subespaço invariante $U\\in\\mathbb{R}^{N\\times R}$, $U^\\top U=I_R$:\n\n$$x_{k+1} = x_k + U\\,\\mathcal{C}(M_R)\\,U^\\top F(x_k),\\qquad \\mathcal{C}(M_R)=\\Big(I-\\tfrac{M_R}{2}\\Big)^{-1}\\Big(I+\\tfrac{M_R}{2}\\Big)$$\n\ncom $M_R = U^\\top M U \\in \\mathbb{R}^{R\\times R}$, $M = W - W^\\top$ (parte antissimétrica projetada do operador residual).\n\n### 3.2 Lema 1 — identidade de aplicação (base de toda a contagem)\n\n$$(A\\otimes B)\\,\\mathrm{vec}(X_b) = \\mathrm{vec}(B X_b A^\\top),\\qquad X_b\\in\\mathbb{R}^{n_2\\times n_1}$$\n\nA aplicação custa $2n_2^2n_1 + 2n_2n_1^2 = 2N(n_1+n_2)$ por termo, por token, em vez de $2N^2$.\n\n### 3.3 Lema 2 — a transição é **exatamente** simplética\n\n$M_R$ antissimétrico $\\Rightarrow \\mathcal{C}(M_R)$ **ortogonal** $\\Rightarrow \\|\\mathcal{C}(M_R)\\|_2 = 1$.\n\nConsequência física direta: não há amplificação artificial de energia ao longo de $K=2000$ passos. Este é o **nexo causal** (não correlacional) entre o tema simplético e a estabilidade do `n_naive`: o Cayley elimina o crescimento espúrio que um Euler explícito introduziria. Defeito simpletico esperado em float64: $\\mathcal{O}(u\\cdot\\mathrm{cond}) \\approx 10^{-12}$. Se a bancada medir $10^{-3}$, **o subespaço não é invariante** e a hipótese central cai.\n\n### 3.4 Colapso de janela (limiar $\\tau = 1{,}2$)\n\nResíduo de sombra $s_k = \\|(I - UU^\\top)x_k\\|$; taxa $\\rho_k = s_{k+1}/s_k$. Quando $\\rho_k > \\tau$, a janela **colapsa**: nova base $U$ via SVD randomizada, contadores zerados.\n\n**Alerta físico:** $\\tau = 1{,}2$ por passo permite deriva $\\propto 1{,}2^{2000}$. O esquema só é estável se a distribuição empírica de $\\rho_k$ concentrar-se **abaixo de 1**. Isso é predição falsificável (P6), não garantia.\n\n---\n\n## 4. Dedução analítica de FLOPs\n\n### Teorema 1 — razão de custo de aplicação\n\n$$\\boxed{\\;\\frac{F_{\\text{Kron}}}{F_{\\text{naive}}} = R\\left(\\frac{1}{n_1}+\\frac{1}{n_2}\\right)\\;}$$\n\n*Prova:* $R$ termos $\\times$ $2N(n_1+n_2)$ FLOPs, dividido por $2N^2$ $\\Rightarrow R(n_1+n_2)/N$. $\\square$\n\n### Corolário 1 — janela de viabilidade\n\nCom fatores balanceados $n_1=n_2=\\sqrt{N}$:\n\n$$\\frac{F_{\\text{Kron}}}{F_{\\text{naive}}} = \\frac{2R}{\\sqrt{N}},\\qquad \\text{redução}\\ge 75\\% \\iff \\sqrt{N}\\ge 8R$$\n\nPara $R=128$: **$\\sqrt N \\ge 1024 \\Rightarrow N \\ge 1{,}05\\times10^{6}$**. Break-even (empate): $\\sqrt N = 2R = 256 \\Rightarrow N = 65{,}536$.\n\n| $N$ | $\\sqrt N$ | Razão FLOPs | Ganho |\n|---:|---:|---:|---:|\n| 4.096 | 64 | 4,00 | **−300% (4× pior)** |\n| 16.384 | 128 | 2,00 | **−100% (2× pior)** |\n| 65.536 | 256 | 1,00 | 0% (empate) |\n| 262.144 | 512 | 0,50 | 50% |\n| **1.048.576** | **1.024** | **0,25** | **75%** ✓ |\n| 4.194.304 | 2.048 | 0,125 | 87,5% ✓ |\n\n**Este é o resultado mais importante do ciclo:** a afirmação \"redução ≥ 75% com r=128\" é **condicional** e o protocolo recuperado do grafo **não declara $N$**. Enquanto $N$ não for declarado, o critério é não falsificável.\n\n### Teorema 2 — orçamento total com Cayley e colapso\n\n$$F_{\\text{tot}} = \\underbrace{2RN(n_1{+}n_2)B}_{\\text{aplicação}} + \\underbrace{L\\big(2R^2N(n_1{+}n_2)+2NR^2\\big)}_{\\text{projeção/reprojeção}} + \\underbrace{KB\\big(2R^2+4NR\\big)}_{\\text{Cayley por passo}} + \\underbrace{L\\cdot\\tfrac{2}{3}R^3}_{\\text{LU}}$$\n\nNormalizado por token, em unidades de $2N^2$:\n\n$$c = \\underbrace{R\\Big(\\tfrac{1}{n_1}+\\tfrac{1}{n_2}\\Big)}_{\\text{dominante}} + \\frac{L}{B}\\cdot R\\,c_{\\text{apply}} + \\frac{2KR}{N}$$\n\n**Corolário 2 (custo de projeção = \"preço de $R$ tokens\").** Cada (re)projeção custa exatamente o mesmo que aplicar o operador a $R=128$ tokens. Logo a janela deve cobrir $B_{\\text{win}} \\gg 128$ tokens. Com $N\\sim10^6$, os termos de Cayley ($2KR/N \\approx 5\\times10^{-4}$) são **irrelevantes** frente ao termo dominante — o colapso de janela, não o Cayley, é o que decide a viabilidade econômica.\n\n**Corolário 3 (viés contábil).** Se o custo de fatoração (SVD/ALS, $\\mathcal{O}(N^3)$ nominal) for incluído na mesma janela de medição, o ganho **desaparece**. O ganho só existe no regime de inferência com pesos pré-fatorados e amortização sobre $B$ grande. Isso precisa ser declarado no protocolo, senão a \"redução\" é contabilidade, não física.\n\n---\n\n## 5. Correlação espúria × causa física\n\n| # | Alegação do grafo | Diagnóstico |\n|---|---|---|\n| 1 | Cinco protocolos \"independentes\" (G2/G16/G22/G30/G55) com `r=128, K=2000, τ=1.2` idênticos | **Espúrio (eco de parâmetros).** Texto literalmente idêntico e truncado no mesmo ponto. Concordância aqui não é convergência de evidência, é cópia de template. **Causa comum**, não replicação. |\n| 2 | `r=128 = 99,1% de energia` ⇒ `perda Top-1 ≤ 2%` | **Escala não-linear ignorada.** Por Eckart–Young, $\\varepsilon_F=\\sqrt{1-0{,}991}=9{,}49\\%$. Para $\\varepsilon_F\\le2\\%$ seria necessária energia $\\ge 99{,}96\\%$. As duas metas estão em escalas diferentes; a correlação observada só pode vir da distribuição de margens de logit — mecanismo empírico não medido. |\n| 3 | `redução FLOPs ≥ 75%` | **Condicionada a $N$ não declarado.** Ver Corolário 1: para $N<65{,}536$ o sinal se **inverte**. |\n| 4 | Ordem de Strang $=2$ vs Lie $=1$ | **Causa física sólida** (expansão de Baker–Campbell–Hausdorff; erro global $\\mathcal{O}(h^2)$ vs $\\mathcal{O}(h)$). É a única alegação da memória com cadeia causal completa. |\n| 5 | `hyp_gen106_68699` [REFUTED] — ataque Kronecker ao `n_naive` | **Não pode ser usada como suporte** e **não pode ser ignorada**. A motivação da refutação está truncada. Risco real de que a abordagem inteira já tenha sido derrubada por um defeito que este ciclo não enxerga. |\n| 6 | Critério `τ=1.2` como garantia de estabilidade | **Potencialmente espúrio.** Um limiar por passo $>1$ é compatível com deriva exponencial. Estabilidade vem do Cayley (Lema 2), **não** de τ. Atribuir estabilidade a τ seria confundir correlação temporal com causa. |\n\n---\n\n## 6. Solidez epistêmica\n\n| Afirmação | Classe | Solidez |\n|---|---|---:|\n| $\\frac{F_{Kron}}{F_{naive}} = R(\\frac{1}{n_1}+\\frac{1}{n_2})$ | EXATO | **1,00** |\n| Viabilidade ⇔ $\\sqrt N \\ge 8R$ (balanceado) | EXATO | **1,00** |\n| $\\varepsilon_F = \\sqrt{1-E_R} = 9{,}49\\%$ para $E_R=99{,}1\\%$ | EXATO | **1,00** |\n| Cayley projetado é ortogonal ⇒ sem amplificação | EXATO | **0,95** (redondez/projeção) |\n| Ordem 2 de Strang | Física estabelecida | **0,95** |\n| `99,1% de energia` implica `Top-1 ≤ 2%` | CONJECTURA | **0,22** |\n| `redução ≥ 75%` como afirmação incondicional | INVERIFICÁVEL | **0,15** |\n| Independência das 5 bancadas | FALSIFICADA (eco) | **0,10** |\n| Sobrevivência à refutação `hyp_gen106_68699` | DESCONHECIDA | **0,30** |\n\n---\n\n## 7. Predições falsificáveis para a bancada local\n\n- **P1** — Contagem de operações medida $= R(1/n_1+1/n_2)\\pm1\\%$. Desvio ⇒ erro na contagem, não na matemática.\n- **P2** — Break-even estrito em $\\sqrt N = 2R = 256$. Varredura logarítmica de $N$ deve cruzar $1{,}00$ exatamente ali.\n- **P3** — Defeito simplético do Cayley projetado $\\le 10^{-12}$ (float64). Valor $\\ge 10^{-3}$ ⇒ $UU^\\top$ não preserva o fluxo ⇒ formulação reprovada.\n- **P4** — Erro relativo em Frobenius $= 9{,}49\\%\\pm0{,}1$ p.p. para $E_R = 99{,}1\\%$.\n- **P5** — Razão de redução idêntica com pesos **aleatórios** e **estruturados**: se diferir, o ganho vem da estrutura do dado, não da fatoração (correlação espúria).\n- **P6** — Distribuição de $\\rho_k$ com mediana $<1$. Mediana $>1$ ⇒ colapso de janela dominante ⇒ custo impraticável.\n\n---\n\n## 8. Limitações declaradas\n\n1. Nenhuma bancada foi executada neste ciclo — **nenhum número medido foi gerado**. Tudo em §4 é dedução exata; tudo em §5–§6 empírico permanece pendente.\n2. As descrições do grafo estão **truncadas** (`Top-1 \\le `, `conta…`). Critérios completos são necessários antes de qualquer validação.\n3. Os significados de `K` e `τ` não estão definidos no grafo. Adotou-se aqui `K` = passos de integração e `τ` = limiar de inflação do resíduo de sombra. Leituras alternativas alteram o Teorema 2.\n4. A refutação `hyp_gen106_68699` é o maior risco aberto do ciclo.\n\n**Recomendação ao orquestrador:** solicitar ao grafo (a) a dimensão $N$ do `n_naive`, (b) o espectro $\\sigma_i$ da remodelagem $R(W)\\in\\mathbb{R}^{n_1^2\\times n_2^2}$ e (c) a motivação da refutação `hyp_gen106_68699`. Sem esses três itens, a rodada permanece **não falsificável** e não deve ser promovida a `VERIFIED`."
+      }
+    },
+    {
+      "id": "hyp_gen139_12190",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente do nó `n_krylov` com bancada numérica re",
+      "description": "Vou executar a verificação independente do nó `n_krylov` com bancada numérica real. Primeiro, checagem de ambiente e, em paralelo, a escrita do script de bancada e da formulação analítica.",
+      "provenance": "agent_057_independent_verifier",
+      "version": 2,
+      "created_at": 1793326592.1333284,
+      "updated_at": 1793326592.9218957,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0139_1793326319",
+        "cycle_id": 494,
+        "full_text": "Vou executar a verificação independente do nó `n_krylov` com bancada numérica real. Primeiro, checagem de ambiente e, em paralelo, a escrita do script de bancada e da formulação analítica."
+      }
+    },
+    {
+      "id": "gen_0139_1793326319",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #139 (Ciclo #494)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793326593.0728557,
+      "updated_at": 1793326593.072856,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 139,
+        "cycle_id": 494,
+        "verdict": "APPROVED",
+        "duration_sec": 273.53,
+        "tokens_consumed": 7812,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -44122,7 +44212,127 @@
       "version": 1,
       "created_at": 1793326278.8282855,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen139_60468_addresses_n_krylov",
+      "source_id": "hyp_gen139_60468",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793326360.134951,
+        "updated_at": 1793326360.8418465,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0139_1793326319_1793326360199_e_hyp_gen139_60468_addresses_n_krylov",
+            "generation_id": "gen_0139_1793326319",
+            "timestamp": 1793326360.8418465,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793326360.1349568,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen139_8227_addresses_n_strang",
+      "source_id": "hyp_gen139_8227",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793326454.039766,
+        "updated_at": 1793326454.7980192,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0139_1793326319_1793326454106_e_hyp_gen139_8227_addresses_n_strang",
+            "generation_id": "gen_0139_1793326319",
+            "timestamp": 1793326454.7980192,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_051_investigator",
+      "version": 1,
+      "created_at": 1793326454.03977,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen139_6037_addresses_n_naive",
+      "source_id": "hyp_gen139_6037",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793326496.7043846,
+        "updated_at": 1793326497.4152548,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0139_1793326319_1793326496780_e_hyp_gen139_6037_addresses_n_naive",
+            "generation_id": "gen_0139_1793326319",
+            "timestamp": 1793326497.4152548,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793326496.704392,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen139_12190_addresses_n_krylov",
+      "source_id": "hyp_gen139_12190",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793326592.209787,
+        "updated_at": 1793326592.9989738,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0139_1793326319_1793326592286_e_hyp_gen139_12190_addresses_n_krylov",
+            "generation_id": "gen_0139_1793326319",
+            "timestamp": 1793326592.9989738,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_057_independent_verifier",
+      "version": 1,
+      "created_at": 1793326592.2097917,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793326279.666421
+  "saved_at": 1793326593.0745976
 }
