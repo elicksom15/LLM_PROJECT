@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 73,
+      "version": 74,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793324390.0334432,
+      "updated_at": 1793324611.8482847,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13305,6 +13305,79 @@
         "verdict": "APPROVED",
         "duration_sec": 185.88,
         "tokens_consumed": 2647,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen134_55832",
+      "label": "Hypothesis",
+      "title": "Vou executar primeiro a bancada numérica real (sem simulação declarativa) e só d",
+      "description": "Vou executar primeiro a bancada numérica real (sem simulação declarativa) e só depois emitir o relatório com os números medidos.",
+      "provenance": "agent_053_evidence_analyst",
+      "version": 2,
+      "created_at": 1793324691.519619,
+      "updated_at": 1793324692.5364947,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0134_1793324611",
+        "cycle_id": 489,
+        "full_text": "Vou executar primeiro a bancada numérica real (sem simulação declarativa) e só depois emitir o relatório com os números medidos."
+      }
+    },
+    {
+      "id": "hyp_gen134_63844",
+      "label": "Hypothesis",
+      "title": "Vou executar a auditoria em duas frentes: (1) destroço a memória herdada do graf",
+      "description": "Vou executar a auditoria em duas frentes: (1) destroço a memória herdada do grafo (protocolos reciclados e critérios infundados) e (2) formulo a proposta para `n_strang` com dedução de FLOPs **verificada numericamente** numa bancada real — nada de \"VERIFIED\" sem medição.\n\nPrimeiro, escrevo e executo a bancada local (BCH de Strang, ordem de convergência, defeito simpletico, existência de forma simpletica e modelo de FLOPs/memória):",
+      "provenance": "agent_031_critic",
+      "version": 2,
+      "created_at": 1793324774.9092197,
+      "updated_at": 1793324775.8919542,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0134_1793324611",
+        "cycle_id": 489,
+        "full_text": "Vou executar a auditoria em duas frentes: (1) destroço a memória herdada do grafo (protocolos reciclados e critérios infundados) e (2) formulo a proposta para `n_strang` com dedução de FLOPs **verificada numericamente** numa bancada real — nada de \"VERIFIED\" sem medição.\n\nPrimeiro, escrevo e executo a bancada local (BCH de Strang, ordem de convergência, defeito simpletico, existência de forma simpletica e modelo de FLOPs/memória):"
+      }
+    },
+    {
+      "id": "hyp_gen134_44148",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de qualquer afirmação. Primeiro, o nú",
+      "description": "Vou executar a bancada numérica real antes de qualquer afirmação. Primeiro, o núcleo empírico: KPSVD (rearranjo de Van Loan–Pitsianis) sobre o `n_naive`, contagem analítica de FLOPs, exponencial espectral dos fatores, splitting de Strang vs. Lie (BCH/coalescência) e defeito simpletico.",
+      "provenance": "agent_053_evidence_analyst",
+      "version": 2,
+      "created_at": 1793324833.8272088,
+      "updated_at": 1793324834.632971,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0134_1793324611",
+        "cycle_id": 489,
+        "full_text": "Vou executar a bancada numérica real antes de qualquer afirmação. Primeiro, o núcleo empírico: KPSVD (rearranjo de Van Loan–Pitsianis) sobre o `n_naive`, contagem analítica de FLOPs, exponencial espectral dos fatores, splitting de Strang vs. Lie (BCH/coalescência) e defeito simpletico."
+      }
+    },
+    {
+      "id": "gen_0134_1793324611",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #134 (Ciclo #489)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793324834.786787,
+      "updated_at": 1793324834.786787,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 134,
+        "cycle_id": 489,
+        "verdict": "APPROVED",
+        "duration_sec": 222.94,
+        "tokens_consumed": 2661,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -43307,7 +43380,97 @@
       "version": 1,
       "created_at": 1793324575.0064332,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen134_55832_addresses_n_krylov",
+      "source_id": "hyp_gen134_55832",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793324691.594162,
+        "updated_at": 1793324692.6191895,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0134_1793324611_1793324691667_e_hyp_gen134_55832_addresses_n_krylov",
+            "generation_id": "gen_0134_1793324611",
+            "timestamp": 1793324692.6191895,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_053_evidence_analyst",
+      "version": 1,
+      "created_at": 1793324691.5941665,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen134_63844_addresses_n_strang",
+      "source_id": "hyp_gen134_63844",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793324774.9801135,
+        "updated_at": 1793324775.9685872,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0134_1793324611_1793324775051_e_hyp_gen134_63844_addresses_n_strang",
+            "generation_id": "gen_0134_1793324611",
+            "timestamp": 1793324775.9685872,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_031_critic",
+      "version": 1,
+      "created_at": 1793324774.9801226,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen134_44148_addresses_n_naive",
+      "source_id": "hyp_gen134_44148",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793324833.8956234,
+        "updated_at": 1793324834.7098691,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0134_1793324611_1793324833963_e_hyp_gen134_44148_addresses_n_naive",
+            "generation_id": "gen_0134_1793324611",
+            "timestamp": 1793324834.7098691,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_053_evidence_analyst",
+      "version": 1,
+      "created_at": 1793324833.8956296,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793324575.9137092
+  "saved_at": 1793324834.7884195
 }
