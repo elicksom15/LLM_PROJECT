@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 60,
+      "version": 61,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793320734.3834546,
+      "updated_at": 1793320993.8790812,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12322,6 +12322,62 @@
         "verdict": "APPROVED",
         "duration_sec": 218.87,
         "tokens_consumed": 5910,
+        "new_hypotheses": 2,
+        "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen121_10090",
+      "label": "Hypothesis",
+      "title": "Vou executar a investigação em duas frentes paralelas: (1) sondar o ambiente/ban",
+      "description": "Vou executar a investigação em duas frentes paralelas: (1) sondar o ambiente/bancada e o estado do workspace, e em seguida (2) rodar uma bancada numérica real para separar causa física de correlação espúria no nó `n_krylov`.",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793321034.9412024,
+      "updated_at": 1793321035.8308227,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0121_1793320993",
+        "cycle_id": 476,
+        "full_text": "Vou executar a investigação em duas frentes paralelas: (1) sondar o ambiente/bancada e o estado do workspace, e em seguida (2) rodar uma bancada numérica real para separar causa física de correlação espúria no nó `n_krylov`."
+      }
+    },
+    {
+      "id": "hyp_gen121_68716",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de auditar: ordem de convergência Lie",
+      "description": "Vou executar a bancada numérica real antes de auditar: ordem de convergência Lie vs Strang, defeito simplético, o critério \"r=128 = 99,1% de energia\" e o piso de roundoff fp32 para K=2000.",
+      "provenance": "agent_055_critic",
+      "version": 2,
+      "created_at": 1793321227.6598716,
+      "updated_at": 1793321228.5141833,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0121_1793320993",
+        "cycle_id": 476,
+        "full_text": "Vou executar a bancada numérica real antes de auditar: ordem de convergência Lie vs Strang, defeito simplético, o critério \"r=128 = 99,1% de energia\" e o piso de roundoff fp32 para K=2000."
+      }
+    },
+    {
+      "id": "gen_0121_1793320993",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #121 (Ciclo #476)",
+      "description": "Executou 2 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793321228.6697733,
+      "updated_at": 1793321228.6697733,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 121,
+        "cycle_id": 476,
+        "verdict": "APPROVED",
+        "duration_sec": 234.79,
+        "tokens_consumed": 1713,
         "new_hypotheses": 2,
         "verified": 2,
         "refuted": 0
@@ -41094,7 +41150,67 @@
       "version": 1,
       "created_at": 1793320952.3119786,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen121_10090_addresses_n_krylov",
+      "source_id": "hyp_gen121_10090",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321035.028178,
+        "updated_at": 1793321035.9257812,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0121_1793320993_1793321035118_e_hyp_gen121_10090_addresses_n_krylov",
+            "generation_id": "gen_0121_1793320993",
+            "timestamp": 1793321035.9257812,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793321035.0281854,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen121_68716_addresses_n_strang",
+      "source_id": "hyp_gen121_68716",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321227.748659,
+        "updated_at": 1793321228.5901346,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0121_1793320993_1793321227817_e_hyp_gen121_68716_addresses_n_strang",
+            "generation_id": "gen_0121_1793320993",
+            "timestamp": 1793321228.5901346,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_055_critic",
+      "version": 1,
+      "created_at": 1793321227.748664,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793320953.254708
+  "saved_at": 1793321228.6724956
 }
