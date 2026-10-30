@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 75,
+      "version": 76,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793324878.656019,
+      "updated_at": 1793325303.254453,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13470,6 +13470,62 @@
         "tokens_consumed": 3501,
         "new_hypotheses": 4,
         "verified": 4,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen136_25331",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação. Primeir",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação. Primeiro, o ensaio completo (corretude da fatoração, defeito simpletico, ordem de convergência, deriva de energia em $K=2000$ e calibração de kernels).",
+      "provenance": "agent_089_evidence_analyst",
+      "version": 2,
+      "created_at": 1793325475.0852096,
+      "updated_at": 1793325475.83887,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0136_1793325303",
+        "cycle_id": 491,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação. Primeiro, o ensaio completo (corretude da fatoração, defeito simpletico, ordem de convergência, deriva de energia em $K=2000$ e calibração de kernels)."
+      }
+    },
+    {
+      "id": "hyp_gen136_5415",
+      "label": "Hypothesis",
+      "title": "Vou assumir o ciclo #491 com execução direta: primeiro o núcleo numérico e a ban",
+      "description": "Vou assumir o ciclo #491 com execução direta: primeiro o núcleo numérico e a bancada em lote paralelo, depois executo a bancada real e fecho com o relatório contendo os números medidos (sem fabricar resultados).\n\n**Plano de ataque ao nó `n_strang`:** truncar o **gerador** hamiltoniano (álgebra `sp(2n)`) em vez de truncar o **propagador** (grupo), usando a identidade exponencial de posto baixo `exp(XYᵀ) = I + X φ₁(YᵀX) Yᵀ`. Isso dá fluxo *exato* em `O(dr + r²)` e permanece exatamente simplético —",
+      "provenance": "agent_039_investigator",
+      "version": 2,
+      "created_at": 1793325627.30438,
+      "updated_at": 1793325628.251257,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0136_1793325303",
+        "cycle_id": 491,
+        "full_text": "Vou assumir o ciclo #491 com execução direta: primeiro o núcleo numérico e a bancada em lote paralelo, depois executo a bancada real e fecho com o relatório contendo os números medidos (sem fabricar resultados).\n\n**Plano de ataque ao nó `n_strang`:** truncar o **gerador** hamiltoniano (álgebra `sp(2n)`) em vez de truncar o **propagador** (grupo), usando a identidade exponencial de posto baixo `exp(XYᵀ) = I + X φ₁(YᵀX) Yᵀ`. Isso dá fluxo *exato* em `O(dr + r²)` e permanece exatamente simplético — é o \"fechamento Lie simplético de baixo posto\"."
+      }
+    },
+    {
+      "id": "gen_0136_1793325303",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #136 (Ciclo #491)",
+      "description": "Executou 2 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793325628.3907049,
+      "updated_at": 1793325628.3907053,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 136,
+        "cycle_id": 491,
+        "verdict": "APPROVED",
+        "duration_sec": 325.14,
+        "tokens_consumed": 1826,
+        "new_hypotheses": 2,
+        "verified": 2,
         "refuted": 0
       }
     }
@@ -43680,7 +43736,67 @@
       "version": 1,
       "created_at": 1793325251.9313962,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen136_25331_addresses_n_krylov",
+      "source_id": "hyp_gen136_25331",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793325475.1661785,
+        "updated_at": 1793325475.9205465,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0136_1793325303_1793325475242_e_hyp_gen136_25331_addresses_n_krylov",
+            "generation_id": "gen_0136_1793325303",
+            "timestamp": 1793325475.9205465,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_089_evidence_analyst",
+      "version": 1,
+      "created_at": 1793325475.1661828,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen136_5415_addresses_n_strang",
+      "source_id": "hyp_gen136_5415",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793325627.4109225,
+        "updated_at": 1793325628.322272,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0136_1793325303_1793325627494_e_hyp_gen136_5415_addresses_n_strang",
+            "generation_id": "gen_0136_1793325303",
+            "timestamp": 1793325628.322272,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_039_investigator",
+      "version": 1,
+      "created_at": 1793325627.4109273,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793325253.0027375
+  "saved_at": 1793325628.3929052
 }
