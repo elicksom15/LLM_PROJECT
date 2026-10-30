@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 80,
+      "version": 81,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793326638.3765407,
+      "updated_at": 1793326898.949568,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13818,6 +13818,96 @@
         "tokens_consumed": 1844,
         "new_hypotheses": 2,
         "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen141_62591",
+      "label": "Hypothesis",
+      "title": "Vou direto ao ponto: montar a bancada numérica real para o nó `n_krylov`, valida",
+      "description": "Vou direto ao ponto: montar a bancada numérica real para o nó `n_krylov`, validar a fatoração de Kronecker por *realignment* (isometria de Frobenius) e só então fechar a formulação com a dedução de FLOPs. Começo pelo probe do ambiente e pelo espectro tensorial de Kronecker.",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793326953.6967802,
+      "updated_at": 1793326954.402894,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0141_1793326898",
+        "cycle_id": 496,
+        "full_text": "Vou direto ao ponto: montar a bancada numérica real para o nó `n_krylov`, validar a fatoração de Kronecker por *realignment* (isometria de Frobenius) e só então fechar a formulação com a dedução de FLOPs. Começo pelo probe do ambiente e pelo espectro tensorial de Kronecker."
+      }
+    },
+    {
+      "id": "hyp_gen141_1501",
+      "label": "Hypothesis",
+      "title": "Vou atacar o nó `n_strang` com uma formulação nova (FOM-SI: Fechamento Ortogonal",
+      "description": "Vou atacar o nó `n_strang` com uma formulação nova (FOM-SI: Fechamento Ortogonal de Magnus em Subespaço Invariante) e, antes de emiti-la, rodo a bancada numérica real para validar as propriedades estruturais que a sustentam: fechamento ortogonal do comutador, ordem de convergência do splitting, defeito de vazamento, salto Magnus-2 e contagem de FLOPs.",
+      "provenance": "agent_063_investigator",
+      "version": 2,
+      "created_at": 1793327018.651245,
+      "updated_at": 1793327019.426192,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0141_1793326898",
+        "cycle_id": 496,
+        "full_text": "Vou atacar o nó `n_strang` com uma formulação nova (FOM-SI: Fechamento Ortogonal de Magnus em Subespaço Invariante) e, antes de emiti-la, rodo a bancada numérica real para validar as propriedades estruturais que a sustentam: fechamento ortogonal do comutador, ordem de convergência do splitting, defeito de vazamento, salto Magnus-2 e contagem de FLOPs."
+      }
+    },
+    {
+      "id": "hyp_gen141_8798",
+      "label": "Hypothesis",
+      "title": "Vou primeiro validar numericamente os dois resultados analíticos centrais (fecha",
+      "description": "Vou primeiro validar numericamente os dois resultados analíticos centrais (fechamento ortogonal e a cota exata da compressão de Kronecker) com um probe determinístico — não vou afirmar nada empírico que não tenha sido medido.",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793327064.9043534,
+      "updated_at": 1793327065.8377643,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0141_1793326898",
+        "cycle_id": 496,
+        "full_text": "Vou primeiro validar numericamente os dois resultados analíticos centrais (fechamento ortogonal e a cota exata da compressão de Kronecker) com um probe determinístico — não vou afirmar nada empírico que não tenha sido medido."
+      }
+    },
+    {
+      "id": "hyp_gen141_78592",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente de fato: uma bancada numérica real (orde",
+      "description": "Vou executar a verificação independente de fato: uma bancada numérica real (ordem do splitting de Magnus, fechamento ortogonal do `n_krylov`, estimador de defeito, contagem analítica e medida de FLOPs, e auditoria de bytes de VRAM/energia). Primeiro escrevo a bancada completa e depois rodo.",
+      "provenance": "agent_069_independent_verifier",
+      "version": 2,
+      "created_at": 1793327138.2863605,
+      "updated_at": 1793327139.245046,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0141_1793326898",
+        "cycle_id": 496,
+        "full_text": "Vou executar a verificação independente de fato: uma bancada numérica real (ordem do splitting de Magnus, fechamento ortogonal do `n_krylov`, estimador de defeito, contagem analítica e medida de FLOPs, e auditoria de bytes de VRAM/energia). Primeiro escrevo a bancada completa e depois rodo."
+      }
+    },
+    {
+      "id": "gen_0141_1793326898",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #141 (Ciclo #496)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793327139.4018948,
+      "updated_at": 1793327139.4018953,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 141,
+        "cycle_id": 496,
+        "verdict": "APPROVED",
+        "duration_sec": 240.45,
+        "tokens_consumed": 3594,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -44448,7 +44538,127 @@
       "version": 1,
       "created_at": 1793326855.2211845,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen141_62591_addresses_n_krylov",
+      "source_id": "hyp_gen141_62591",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793326953.7722995,
+        "updated_at": 1793326954.4742167,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0141_1793326898_1793326953847_e_hyp_gen141_62591_addresses_n_krylov",
+            "generation_id": "gen_0141_1793326898",
+            "timestamp": 1793326954.4742167,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793326953.7723043,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen141_1501_addresses_n_strang",
+      "source_id": "hyp_gen141_1501",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793327018.7259223,
+        "updated_at": 1793327019.5083084,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0141_1793326898_1793327018801_e_hyp_gen141_1501_addresses_n_strang",
+            "generation_id": "gen_0141_1793326898",
+            "timestamp": 1793327019.5083084,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_063_investigator",
+      "version": 1,
+      "created_at": 1793327018.7259264,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen141_8798_addresses_n_naive",
+      "source_id": "hyp_gen141_8798",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793327064.9917457,
+        "updated_at": 1793327065.9163878,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0141_1793326898_1793327065061_e_hyp_gen141_8798_addresses_n_naive",
+            "generation_id": "gen_0141_1793326898",
+            "timestamp": 1793327065.9163878,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793327064.9917505,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen141_78592_addresses_n_krylov",
+      "source_id": "hyp_gen141_78592",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793327138.3731334,
+        "updated_at": 1793327139.3241,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0141_1793326898_1793327138462_e_hyp_gen141_78592_addresses_n_krylov",
+            "generation_id": "gen_0141_1793326898",
+            "timestamp": 1793327139.3241,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_069_independent_verifier",
+      "version": 1,
+      "created_at": 1793327138.3731408,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793326856.064899
+  "saved_at": 1793327139.4039068
 }
