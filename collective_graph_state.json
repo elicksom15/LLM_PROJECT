@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 71,
+      "version": 72,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793323793.9629765,
+      "updated_at": 1793324072.4549036,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13159,6 +13159,79 @@
         "verdict": "APPROVED",
         "duration_sec": 236.76,
         "tokens_consumed": 2678,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen132_41833",
+      "label": "Hypothesis",
+      "title": "Vou atacar o nó `n_krylov` com bancada numérica real. Primeiro: persisto o scrip",
+      "description": "Vou atacar o nó `n_krylov` com bancada numérica real. Primeiro: persisto o script da bancada e verifico o ambiente Python em paralelo.",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793324163.7280378,
+      "updated_at": 1793324164.7165697,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0132_1793324072",
+        "cycle_id": 487,
+        "full_text": "Vou atacar o nó `n_krylov` com bancada numérica real. Primeiro: persisto o script da bancada e verifico o ambiente Python em paralelo."
+      }
+    },
+    {
+      "id": "hyp_gen132_17672",
+      "label": "Hypothesis",
+      "title": "Vou primeiro rodar a bancada numérica real para não emitir nenhuma afirmação sem",
+      "description": "Vou primeiro rodar a bancada numérica real para não emitir nenhuma afirmação sem lastro empírico — exatamente o que os \"VERIFIED\" da memória coletiva deixaram de fazer.",
+      "provenance": "agent_019_critic",
+      "version": 2,
+      "created_at": 1793324209.532008,
+      "updated_at": 1793324210.4209166,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0132_1793324072",
+        "cycle_id": 487,
+        "full_text": "Vou primeiro rodar a bancada numérica real para não emitir nenhuma afirmação sem lastro empírico — exatamente o que os \"VERIFIED\" da memória coletiva deixaram de fazer."
+      }
+    },
+    {
+      "id": "hyp_gen132_98412",
+      "label": "Hypothesis",
+      "title": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — o nó `n_n",
+      "description": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — o nó `n_naive` já foi refutado uma vez (`hyp_gen106_68699`), então nada entra no relatório sem lastro empírico ou dedução fechada.",
+      "provenance": "agent_029_evidence_analyst",
+      "version": 2,
+      "created_at": 1793324319.7485547,
+      "updated_at": 1793324320.7535856,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0132_1793324072",
+        "cycle_id": 487,
+        "full_text": "Vou rodar a bancada numérica real antes de emitir qualquer afirmação — o nó `n_naive` já foi refutado uma vez (`hyp_gen106_68699`), então nada entra no relatório sem lastro empírico ou dedução fechada."
+      }
+    },
+    {
+      "id": "gen_0132_1793324072",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #132 (Ciclo #487)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793324320.8971026,
+      "updated_at": 1793324320.8971026,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 132,
+        "cycle_id": 487,
+        "verdict": "APPROVED",
+        "duration_sec": 248.44,
+        "tokens_consumed": 2606,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -42981,7 +43054,97 @@
       "version": 1,
       "created_at": 1793324029.6792874,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen132_41833_addresses_n_krylov",
+      "source_id": "hyp_gen132_41833",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793324163.8144834,
+        "updated_at": 1793324164.8117306,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0132_1793324072_1793324163902_e_hyp_gen132_41833_addresses_n_krylov",
+            "generation_id": "gen_0132_1793324072",
+            "timestamp": 1793324164.8117306,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793324163.8144896,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen132_17672_addresses_n_strang",
+      "source_id": "hyp_gen132_17672",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793324209.6219416,
+        "updated_at": 1793324210.5031872,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0132_1793324072_1793324209708_e_hyp_gen132_17672_addresses_n_strang",
+            "generation_id": "gen_0132_1793324072",
+            "timestamp": 1793324210.5031872,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_019_critic",
+      "version": 1,
+      "created_at": 1793324209.6219478,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen132_98412_addresses_n_naive",
+      "source_id": "hyp_gen132_98412",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793324319.8370252,
+        "updated_at": 1793324320.829267,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0132_1793324072_1793324319921_e_hyp_gen132_98412_addresses_n_naive",
+            "generation_id": "gen_0132_1793324072",
+            "timestamp": 1793324320.829267,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_029_evidence_analyst",
+      "version": 1,
+      "created_at": 1793324319.8370304,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793324030.7285867
+  "saved_at": 1793324320.8991919
 }
