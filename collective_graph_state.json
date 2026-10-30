@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 61,
+      "version": 62,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793320993.8790812,
+      "updated_at": 1793321263.9659824,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12380,6 +12380,79 @@
         "tokens_consumed": 1713,
         "new_hypotheses": 2,
         "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen122_49796",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de formalizar o nó `n_krylov` — sem m",
+      "description": "Vou executar a bancada numérica real antes de formalizar o nó `n_krylov` — sem medição empírica não há separação possível entre causa física e correlação espúria.\n\n## 1. Pré-registro do que a bancada deve responder\n\n| # | Afirmação sob teste | Teste discriminante |\n|---|---|---|\n| A | Splitting de Strang tem ordem 2, Lie tem ordem 1 | ajuste de slope em `log(err) × log(h)` |\n| B | A transição residual é de fato simplética | defeito `‖ΦᵀJΦ − J‖` e deriva de energia em `K=2000` passos |\n| C | \"r=1",
+      "provenance": "agent_077_evidence_analyst",
+      "version": 2,
+      "created_at": 1793321314.464943,
+      "updated_at": 1793321315.2763069,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0122_1793321263",
+        "cycle_id": 477,
+        "full_text": "Vou executar a bancada numérica real antes de formalizar o nó `n_krylov` — sem medição empírica não há separação possível entre causa física e correlação espúria.\n\n## 1. Pré-registro do que a bancada deve responder\n\n| # | Afirmação sob teste | Teste discriminante |\n|---|---|---|\n| A | Splitting de Strang tem ordem 2, Lie tem ordem 1 | ajuste de slope em `log(err) × log(h)` |\n| B | A transição residual é de fato simplética | defeito `‖ΦᵀJΦ − J‖` e deriva de energia em `K=2000` passos |\n| C | \"r=128 ⇒ 99,1% de energia\" | auditoria da razão espectral e do expoente de decaimento necessário |\n| D | Fatoração Kronecker é a causa da redução de FLOPs | decomposição rank × Kronecker + validação da contagem contra loop explícito |\n| E | Limite de erro de Krylov é preditivo | limite de Saad vs. erro real medido |"
+      }
+    },
+    {
+      "id": "hyp_gen122_38581",
+      "label": "Hypothesis",
+      "title": "Vou executar direto: primeiro probe do ambiente numérico e a escrita da bancada",
+      "description": "Vou executar direto: primeiro probe do ambiente numérico e a escrita da bancada de verificação, em paralelo.",
+      "provenance": "agent_063_investigator",
+      "version": 2,
+      "created_at": 1793321414.9655216,
+      "updated_at": 1793321415.8703547,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0122_1793321263",
+        "cycle_id": 477,
+        "full_text": "Vou executar direto: primeiro probe do ambiente numérico e a escrita da bancada de verificação, em paralelo."
+      }
+    },
+    {
+      "id": "hyp_gen122_19281",
+      "label": "Hypothesis",
+      "title": "Vou executar a análise em duas frentes: (1) auditoria epistêmica dos nós recuper",
+      "description": "Vou executar a análise em duas frentes: (1) auditoria epistêmica dos nós recuperados do grafo e (2) bancada numérica real para sustentar (ou refutar) a formulação proposta. Primeiro, o probe empírico — identidade de fatoração de Kronecker, defeito simplético, ordem de convergência, deriva de energia e sensibilidade do critério de energia — em paralelo com a escrita do script da bancada.",
+      "provenance": "agent_077_evidence_analyst",
+      "version": 2,
+      "created_at": 1793321468.9988782,
+      "updated_at": 1793321469.8521385,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0122_1793321263",
+        "cycle_id": 477,
+        "full_text": "Vou executar a análise em duas frentes: (1) auditoria epistêmica dos nós recuperados do grafo e (2) bancada numérica real para sustentar (ou refutar) a formulação proposta. Primeiro, o probe empírico — identidade de fatoração de Kronecker, defeito simplético, ordem de convergência, deriva de energia e sensibilidade do critério de energia — em paralelo com a escrita do script da bancada."
+      }
+    },
+    {
+      "id": "gen_0122_1793321263",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #122 (Ciclo #477)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793321470.0072074,
+      "updated_at": 1793321470.0072074,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 122,
+        "cycle_id": 477,
+        "verdict": "APPROVED",
+        "duration_sec": 206.04,
+        "tokens_consumed": 2747,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -41210,7 +41283,97 @@
       "version": 1,
       "created_at": 1793321227.748664,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen122_49796_addresses_n_krylov",
+      "source_id": "hyp_gen122_49796",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321314.5453866,
+        "updated_at": 1793321315.3459787,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0122_1793321263_1793321314629_e_hyp_gen122_49796_addresses_n_krylov",
+            "generation_id": "gen_0122_1793321263",
+            "timestamp": 1793321315.3459787,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_077_evidence_analyst",
+      "version": 1,
+      "created_at": 1793321314.5453942,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen122_38581_addresses_n_strang",
+      "source_id": "hyp_gen122_38581",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321415.0494246,
+        "updated_at": 1793321415.9530222,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0122_1793321263_1793321415124_e_hyp_gen122_38581_addresses_n_strang",
+            "generation_id": "gen_0122_1793321263",
+            "timestamp": 1793321415.9530222,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_063_investigator",
+      "version": 1,
+      "created_at": 1793321415.0494301,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen122_19281_addresses_n_naive",
+      "source_id": "hyp_gen122_19281",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321469.068067,
+        "updated_at": 1793321469.9306624,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0122_1793321263_1793321469137_e_hyp_gen122_19281_addresses_n_naive",
+            "generation_id": "gen_0122_1793321263",
+            "timestamp": 1793321469.9306624,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_077_evidence_analyst",
+      "version": 1,
+      "created_at": 1793321469.068071,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793321228.6724956
+  "saved_at": 1793321470.0086727
 }
