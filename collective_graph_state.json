@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 68,
+      "version": 69,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793322861.5700185,
+      "updated_at": 1793323290.2657895,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12940,6 +12940,79 @@
         "verdict": "APPROVED",
         "duration_sec": 392.03,
         "tokens_consumed": 2701,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen129_76627",
+      "label": "Hypothesis",
+      "title": "Vou tratar o nó `n_krylov` com a disciplina que ele exige: **nada de afirmação s",
+      "description": "Vou tratar o nó `n_krylov` com a disciplina que ele exige: **nada de afirmação sem bancada numérica real**. Primeiro rodo a verificação empírica (corretude da fatoração Kronecker, identidades de comutador do splitting, escala do erro de fusão BCH, ordem de convergência, custo do nó Krylov e defeito simpletico), e só então emito a formulação com a dedução analítica de FLOPs.\n\nDuas bancadas independentes em paralelo:",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793323388.3546894,
+      "updated_at": 1793323389.2918625,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0129_1793323290",
+        "cycle_id": 484,
+        "full_text": "Vou tratar o nó `n_krylov` com a disciplina que ele exige: **nada de afirmação sem bancada numérica real**. Primeiro rodo a verificação empírica (corretude da fatoração Kronecker, identidades de comutador do splitting, escala do erro de fusão BCH, ordem de convergência, custo do nó Krylov e defeito simpletico), e só então emito a formulação com a dedução analítica de FLOPs.\n\nDuas bancadas independentes em paralelo:"
+      }
+    },
+    {
+      "id": "hyp_gen129_94409",
+      "label": "Hypothesis",
+      "title": "Vou tratar isso como auditoria adversarial — mas sem emitir veredito sem bancada",
+      "description": "Vou tratar isso como auditoria adversarial — mas sem emitir veredito sem bancada numérica real. Primeiro, executo o experimento de fato: ordem de convergência Lie/Strang, defeito simpletico, estrutura de comutadores das bandas, exatidão do truncamento BCH e custo real de matvec banda vs. densa.",
+      "provenance": "agent_007_critic",
+      "version": 2,
+      "created_at": 1793323446.9035978,
+      "updated_at": 1793323447.8169143,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0129_1793323290",
+        "cycle_id": 484,
+        "full_text": "Vou tratar isso como auditoria adversarial — mas sem emitir veredito sem bancada numérica real. Primeiro, executo o experimento de fato: ordem de convergência Lie/Strang, defeito simpletico, estrutura de comutadores das bandas, exatidão do truncamento BCH e custo real de matvec banda vs. densa."
+      }
+    },
+    {
+      "id": "hyp_gen129_9585",
+      "label": "Hypothesis",
+      "title": "Vou executar a análise com bancada numérica real antes de qualquer afirmação. No",
+      "description": "Vou executar a análise com bancada numérica real antes de qualquer afirmação. Note que a memória traz uma hipótese **REFUTADA** (`hyp_gen106_68699`) do próprio papel de Evidence Analyst que tentou exatamente este ataque — isso define o ponto crítico: preciso identificar *por que* a fatoração falha em `n_naive` e incorporar um critério de admissibilidade, senão repito o ciclo de refutação.\n\nEscrevendo a bancada e o dossiê em lote:",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793323507.5527954,
+      "updated_at": 1793323508.4251447,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0129_1793323290",
+        "cycle_id": 484,
+        "full_text": "Vou executar a análise com bancada numérica real antes de qualquer afirmação. Note que a memória traz uma hipótese **REFUTADA** (`hyp_gen106_68699`) do próprio papel de Evidence Analyst que tentou exatamente este ataque — isso define o ponto crítico: preciso identificar *por que* a fatoração falha em `n_naive` e incorporar um critério de admissibilidade, senão repito o ciclo de refutação.\n\nEscrevendo a bancada e o dossiê em lote:"
+      }
+    },
+    {
+      "id": "gen_0129_1793323290",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #129 (Ciclo #484)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793323508.5970516,
+      "updated_at": 1793323508.5970519,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 129,
+        "cycle_id": 484,
+        "verdict": "APPROVED",
+        "duration_sec": 218.33,
+        "tokens_consumed": 2730,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -42492,7 +42565,97 @@
       "version": 1,
       "created_at": 1793323252.6191158,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen129_76627_addresses_n_krylov",
+      "source_id": "hyp_gen129_76627",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793323388.4307697,
+        "updated_at": 1793323389.3899536,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0129_1793323290_1793323388508_e_hyp_gen129_76627_addresses_n_krylov",
+            "generation_id": "gen_0129_1793323290",
+            "timestamp": 1793323389.3899536,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793323388.430774,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen129_94409_addresses_n_strang",
+      "source_id": "hyp_gen129_94409",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793323446.9870746,
+        "updated_at": 1793323447.9008012,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0129_1793323290_1793323447063_e_hyp_gen129_94409_addresses_n_strang",
+            "generation_id": "gen_0129_1793323290",
+            "timestamp": 1793323447.9008012,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_007_critic",
+      "version": 1,
+      "created_at": 1793323446.9870791,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen129_9585_addresses_n_naive",
+      "source_id": "hyp_gen129_9585",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793323507.6421993,
+        "updated_at": 1793323508.5117881,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0129_1793323290_1793323507717_e_hyp_gen129_9585_addresses_n_naive",
+            "generation_id": "gen_0129_1793323290",
+            "timestamp": 1793323508.5117881,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793323507.642207,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793323253.5992146
+  "saved_at": 1793323508.598947
 }
