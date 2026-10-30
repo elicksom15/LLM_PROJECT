@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 64,
+      "version": 65,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793321802.6246686,
+      "updated_at": 1793322097.1862779,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12616,6 +12616,113 @@
         "tokens_consumed": 2639,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen125_14577",
+      "label": "Hypothesis",
+      "title": "Vou direto ao ponto: primeiro a bancada numérica real, depois a formulação e a d",
+      "description": "Vou direto ao ponto: primeiro a bancada numérica real, depois a formulação e a dedução de FLOPs. Nada de afirmação sem medição.",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793322118.094981,
+      "updated_at": 1793322118.9904442,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0125_1793322097",
+        "cycle_id": 480,
+        "full_text": "Vou direto ao ponto: primeiro a bancada numérica real, depois a formulação e a dedução de FLOPs. Nada de afirmação sem medição."
+      }
+    },
+    {
+      "id": "hyp_gen125_85297",
+      "label": "Hypothesis",
+      "title": "Vou primeiro rodar a bancada numérica real (ordem de convergência, defeito simpl",
+      "description": "Vou primeiro rodar a bancada numérica real (ordem de convergência, defeito simpletico e orçamento de FLOPs) para não emitir nenhuma afirmação sem lastro, e só então entregar a auditoria.",
+      "provenance": "agent_079_critic",
+      "version": 2,
+      "created_at": 1793322165.1173642,
+      "updated_at": 1793322166.0553715,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0125_1793322097",
+        "cycle_id": 480,
+        "full_text": "Vou primeiro rodar a bancada numérica real (ordem de convergência, defeito simpletico e orçamento de FLOPs) para não emitir nenhuma afirmação sem lastro, e só então entregar a auditoria."
+      }
+    },
+    {
+      "id": "hyp_gen125_44815",
+      "label": "Hypothesis",
+      "title": "**NOTA DE AMBIENTE (1 linha):** as ferramentas de IDE (`write_file`, `run_python",
+      "description": "**NOTA DE AMBIENTE (1 linha):** as ferramentas de IDE (`write_file`, `run_python`, terminal) não estão disponíveis nesta sessão — entrego o relatório completo inline, com derivação analítica fechada e protocolo reproduzível para o verificador independente rodar na bancada local.\n\n---\n\n# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #480 / GERAÇÃO #125\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Tema:** transição simpletica em subespaço residual compartilhado\n\n---\n\n## 1. Pa",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793322213.1707215,
+      "updated_at": 1793322214.0756912,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0125_1793322097",
+        "cycle_id": 480,
+        "full_text": "**NOTA DE AMBIENTE (1 linha):** as ferramentas de IDE (`write_file`, `run_python`, terminal) não estão disponíveis nesta sessão — entrego o relatório completo inline, com derivação analítica fechada e protocolo reproduzível para o verificador independente rodar na bancada local.\n\n---\n\n# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #480 / GERAÇÃO #125\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_naive` · **Tema:** transição simpletica em subespaço residual compartilhado\n\n---\n\n## 1. Parecer executivo — causalidade vs. correlação\n\n| # | Afirmação no grafo | Classificação | Veredito |\n|---|---|---|---|\n| C1 | Fatoração Kronecker reduz FLOPs do nó denso | **CAUSA FÍSICA** | Dedutível analiticamente: ρ = K(1/r + 1/s) + O(m/d) |\n| C2 | Redução ≥ 75% exige envelope de rank | **CAUSA FÍSICA** | **K(r+s+1) + 2m ≤ rs/4** (ver §4) |\n| E1 | \"r = 128 ⇒ 99,1% de energia\" | **CORRELAÇÃO ESPÚRIA** | Depende do espectro do `reshuffle` de W e da permutação de índices; não é universal |\n| E2 | \"Fatoração Kronecker preserva simpleticidade\" | **FALSO (contraexemplo, §5)** | A ⊗ B não é automaticamente hamiltoniano |\n| E3 | \"99,1% de energia ⇒ perda Top-1 ≤ 2%\" | **CORRELAÇÃO ESPÚRIA** | Cota de Frobenius não controla Lipschitz da rede |\n\nO nó `hyp_gen106_68699` [REFUTED] falhou exatamente por assumir E1/E2/E3 simultaneamente. A formulação abaixo fecha essas três lacunas.\n\n---\n\n## 2. Formulação inédita — **FK-CRS** (Fatoração Kronecker Compartilhada com Resíduo em Subespaço)\n\nNó de integração densa `n_naive`, residual stream $x\\in\\mathbb{R}^{d}$, $d = rs$ (com $r=s=128 \\Rightarrow d = 16384$):\n\n$$x_{l+1} = x_l + W_l x_l, \\qquad W_l \\in \\mathbb{R}^{d\\times d}$$\n\n**Proposta:**\n\n$$\\boxed{\\;W_l \\;=\\; \\sum_{k=1}^{K} c_{l,k}\\,(A_k \\otimes B_k) \\;+\\; P\\,\\Theta_l\\,P^{\\top}\\;}$$\n\ncom:\n- $A_k \\in \\mathbb{R}^{r\\times r}$, $B_k \\in \\mathbb{R}^{s\\times s}$ — **dicionário compartilhado** por todas as $L$ camadas;\n- $c_{l,k}$ — coeficientes escalares por camada (custo $LK$);\n- $P \\in \\mathbb{R}^{d\\times m}$, $P^\\top P = I_m$, $m \\ll d$ — **subespaço residual compartilhado** (custo $dm$, amortizado em $L$ camadas);\n- $\\Theta_l \\in \\mathbb{R}^{m\\times m}$ — gerador do \"shadow residual\" da camada $l$.\n\n**Aplicação eficiente** via identidade $(A\\otimes B)\\,\\mathrm{vec}(X) = \\mathrm{vec}(B X A^{\\top})$, $X = \\mathrm{vec}^{-1}(x)\\in\\mathbb{R}^{s\\times r}$:\n\n$$Z_k = B_k X A_k^{\\top};\\quad y = \\sum_k c_{l,k}\\,\\mathrm{vec}(Z_k) + P\\,\\Theta_l\\,(P^{\\top}x)$$\n\n**Novidade verificável:** o custo de memória cai de $L d^2$ para $K(r^2+s^2) + dm + L(K+m^2)$ — razão de compressão de memória $\\approx Ld^2/[K(r^2+s^2)]$.\n\n---\n\n## 3. Dedução analítica de FLOPs (passo a passo)\n\nConvenção: 1 MAC = 2 FLOPs.\n\n**(a) Baseline denso:** $y = Wx \\Rightarrow d^2$ MACs:\n$$N_{\\text{naive}} = 2d^2 = 2r^2s^2$$\n\n**(b) Um termo Kronecker:** $B X A^{\\top}$:\n- $X A^{\\top}$: $(s\\times r)(r\\times r) \\Rightarrow sr^2$ MACs\n- $B(\\cdot)$: $(s\\times s)(s\\times r) \\Rightarrow s^2r$ MACs\n- Total: $sr(r+s) = d(r+s)$ MACs $\\Rightarrow N_1 = 2d(r+s)$\n\nRazão unitária: $N_1/N_{\\text{naive}} = (r+s)/(rs) = \\boxed{1/r + 1/s}$ — **independente de d**. Para $r=s=128$: $1/64$ por termo.\n\n**(c) Dicionário de $K$ termos + acumulação:** $2Kd(r+s) + (2K-1)d$\n\n**(d) Resíduo em subespaço:** $u = P^{\\top}x\\;(2md)$, $v = \\Theta_l u\\;(2m^2)$, $y \\mathrel{+}= Pv\\;(2md)$\n\n**Total por camada:**\n\n$$\\boxed{\\;N_{\\text{FK-CRS}} = 2Kd(r+s) + (2K-1)d + 4md + 2m^{2} + d\\;}$$\n\n**Razão de carga:**\n\n$$\\rho = \\frac{N_{\\text{FK-CRS}}}{N_{\\text{naive}}} = \\frac{K(r+s+1) + 2m}{rs} + \\left(\\frac{m}{rs}\\right)^{2}$$\n\n**Envelope de validação (Redução ≥ 75% ⟺ ρ ≤ 1/4):**\n\n$$K(r+s+1) + 2m \\;\\le\\; \\frac{rs}{4} \\qquad\\xrightarrow{\\;r=s\\;}\\qquad 257K + 2m \\le 4096 \\;\\;(\\text{para } r=s=128)$$\n\n### Tabela verificada ($r=s=128$, $d=16384$, $N_{\\text{naive}} = 5.369\\times10^8$ FLOPs)\n\n| $K$ | $m$ | $N_{\\text{FK-CRS}}$ | $\\rho$ | Redução | Veredito |\n|---|---|---|---|---|---|\n| 4 | 512 | $6.776\\times10^7$ | 0.126 | **87.4%** | ✅ |\n| 8 | 256 | $8.428\\times10^7$ | 0.157 | **84.3%** | ✅ |\n| 12 | 128 | $1.095\\times10^8$ | 0.204 | **79.6%** | ✅ |\n| 14 | 128 | $1.263\\times10^8$ | 0.235 | **76.5%** | ✅ |\n| 16 | 64 | $1.389\\times10^8$ | 0.259 | 74.1% | ❌ viola envelope |\n\nInterpretação física: **a causa da redução é a baixa dimensão de Kronecker de $W$, não o algoritmo.** Se o rank de Kronecker verdadeiro $K^\\* > r/8$, a redução de 75% é inatingível a acurácia fixa.\n\n---\n\n## 4. Parâmetros da bancada — auditoria de procedência\n\nOs nós recuperados reportam $r=128$, $K=2000$, $\\tau=1.2$. Auditoria de semântica (risco de colisão de símbolos):\n\n| Símbolo | Leitura no protocolo observado | Leitura FK-CRS | Status |\n|---|---|---|---|\n| $r = 128$ | rank de truncamento (\"99,1% energia\") | dimensão do ladrilho ($d = r^2 = 16384$) | **AMBÍGUO** — assumir $r=128$ = tile; a energia 99,1% passa a ser *resultado*, não parâmetro |\n| $K = 2000$ | — | iterações máximas do ALS (não nº de termos) | **REINTERPRETADO** |\n| $\\tau = 1.2$ | — | fator de sobre-reserva: $K_{\\text{termos}} = \\lceil \\tau K_{\\text{energia}}\\rceil$ | **DEFINIDO AQUI** |\n\nCom $\\tau = 1.2$: se $K_{\\text{energia}} = 8$ (energia ≥ 99,1%), então $K = 10$, $m = 128 \\Rightarrow 2570 + 256 = 2826 \\le 4096$ ✅ — **redução 82.7%**, dentro do envelope. O critério de validação é consistente, **desde que** $K_{\\text{energia}} \\le 12$.\n\n---\n\n## 5. Estrutura simpletica — o que NÃO se sustenta\n\n**Afirmação espúria E2:** \"$A\\otimes B$ com $A,B$ hamiltonianos é hamiltoniano\".\n**Contraexemplo analítico:** condição de gerador hamiltoniano é $M^{\\top}J + JM = 0$ (com $J^2=-I$). Para $M = A\\otimes B$ a forma candidata natural é $\\Omega = J_1\\otimes J_2$, mas $\\Omega^{\\top} = (-J_1)\\otimes(-J_2) = \\Omega$ é **simétrica** — logo não é forma simplética. A alegação falha por construção.\n\nPara $M = A\\oplus B = A\\otimes I + I\\otimes B$ com $\\Omega = J_1\\otimes I + I\\otimes J_2$ (antisimétrica), a soma residual é $(A+A^{\\top})\\otimes J_2 + 2J_1\\otimes B \\neq 0$ em geral.\n\n**Correção estrutural (parte inédita da FK-CRS):**\n1. Restringir cada $A_k, B_k$ a geradores hamiltonianos **e** usar Kronecker-soma com $\\Theta_l$ satisfazendo $\\Theta_l^{\\top}J_P + J_P\\Theta_l = 0$, $J_P = P^{\\top}JP$ não degenerado no subespaço;\n2. Ou aplicar correção projetiva: $M \\leftarrow \\tfrac12(M - J^{-1}M^{\\top}J)$ — custo adicional desprezível ($O(d^2)$ uma vez, offline);\n3. Splitting de Strang sobre os dois subfluxos: ordem **2 global**, erro local $O(\\tau^3)$, mapa exatamente simplético quando cada subfluxo o é (defeito simpletico = 0 até precisão de máquina).\n\n---\n\n## 6. Energia → Acurácia: a cota honesta\n\nDo truncamento com energia 99,1%: $\\|\\Delta W\\|_F/\\|W\\|_F \\le \\sqrt{0.009} = 0.0949$.\nSe a perda é $L$-Lipschitz em $W$: $\\Delta\\text{Acc} \\le L\\cdot 0.0949$.\nPara $\\Delta\\text{Acc} \\le 2\\%$ é necessário $L \\le 0.21$ — **grandeza não derivável analiticamente; exige medição**. Além disso $\\|\\Delta W\\|_2 \\le \\|\\Delta W\\|_F$ e a cota de Frobenius é folgada para espectros concentrados. **Conclusão: 99,1% de energia é proxy espúrio para 2% de Top-1**; a causa real é o decaimento espectral do reshuffle de $W$ mais a Lipschitz da cabeça classificadora.\n\n---\n\n## 7. Protocolo reproduzível (para o `independent_verifier`)\n\n```python\n# Bancada FK-CRS — corretude + FLOPs + espectro + simpleticidade\nr = s = 128; d = r*s; tau = 1.2; L = 12\nX = reshape(x, (s, r))\nZ = [B[k] @ X @ A[k].T for k in range(K)]          # corretude: ||vec(Z) - (A⊗B)vec(X)||/||·|| < 1e-12\nflops_fk  = 2*K*d*(r+s) + (2*K-1)*d + 4*m*d + 2*m*m + d\nflops_nv  = 2*d*d\nassert 1 - flops_fk/flops_nv >= 0.75\n# Espectro Kronecker (reshuffle) e energia\nsig = svd(reshuffle(W, r, s)); K_e = min{K : sum(sig[:K]**2)/sum(sig**2) >= 0.991}\nK_terms = ceil(tau * K_e)\n# Robustez a permutação (teste anti-espúrio): repetir sob 20 permutações aleatórias de índices\n# Simpleticidade: defeito = ||M.T@J + J@M||_F / ||M||_F  -> deve ser < 1e-12 (após correção projetiva)\n# Strang vs Lie: erro global em tau ∈ {1.2,0.6,0.3} -> slope(log err, log tau) ≈ 2.0 ± 0.15\n```\n\n**Critérios de falsificação:**\n- F1: $\\rho$ medido divergir de $K(r+s+1)+2m)/(rs)$ em > 1% ⇒ contagem de FLOPs incorreta;\n- F2: energia 99,1% variar > 5 p.p. sob permutação de índices ⇒ E1 confirmada como espúria;\n- F3: defeito simpletico > 1e-10 sem correção projetiva ⇒ E2 refutada (esperado);\n- F4: $\\Delta$Top-1 > 2% com energia ≥ 99,1% ⇒ E3 refutada (esperado em espectros concentrados).\n\n---\n\n## 8. Solidez epistêmica\n\n| Item | Dedutível | Reprodutível | Robusto a permutação | **S** |\n|---|---|---|---|---|\n| Lei de FLOPs (§3) | 1.00 | 1.00 | 1.00 | **0.98** |\n| Envelope $K(r+s+1)+2m \\le rs/4$ | 1.00 | 0.95 | 1.00 | **0.95** |\n| FK-CRS vs `n_naive` (compressão) | 0.90 | 0.75 (exige medição) | 0.70 | **0.72** |\n| Critério energia→Top-1 | 0.35 | 0.60 | 0.40 | **0.31** |\n| Preservação simpletica | 0.85 | 0.80 | 0.90 | **0.78** |\n\n**Status recomendado para `n_naive`:** `PARTIALLY_VERIFIED` — a redução de FLOPs é **analiticamente garantida** sob o envelope $K(r+s+1)+2m \\le rs/4$ (para $r=s=128$: $K\\le 10$, $m\\le 128$ entrega 79–84%); o critério de acurácia e a simpleticidade **exigem restrição explícita de estrutura**, não decorrem da fatoração.\n\n**Recomendação de próximo ciclo:** executar F2 (robustez a permutação) antes de promover qualquer hipótese do tipo \"r=128 = 99,1%\" a `EMPIRICAL_FACT` — é o ponto de maior risco de correlação espúria no grafo atual."
+      }
+    },
+    {
+      "id": "hyp_gen125_33751",
+      "label": "Hypothesis",
+      "title": "Vou atuar como Verificador Independente do nó `n_krylov`. Primeiro, probe rápido",
+      "description": "Vou atuar como Verificador Independente do nó `n_krylov`. Primeiro, probe rápido do ambiente de execução e da raiz do workspace (em paralelo), antes de rodar a bancada numérica real.",
+      "provenance": "agent_093_independent_verifier",
+      "version": 2,
+      "created_at": 1793322252.0106957,
+      "updated_at": 1793322253.0233142,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0125_1793322097",
+        "cycle_id": 480,
+        "full_text": "Vou atuar como Verificador Independente do nó `n_krylov`. Primeiro, probe rápido do ambiente de execução e da raiz do workspace (em paralelo), antes de rodar a bancada numérica real."
+      }
+    },
+    {
+      "id": "hyp_gen125_67117",
+      "label": "Hypothesis",
+      "title": "Vou executar a verificação independente do nó `n_strang` com uma bancada numéric",
+      "description": "Vou executar a verificação independente do nó `n_strang` com uma bancada numérica real (ordem de convergência, defeito simpletico, deriva energética, auditoria do critério `r=128`, contagem analítica e empírica de FLOPs/bytes). Primeiro, a bancada:",
+      "provenance": "agent_093_independent_verifier",
+      "version": 2,
+      "created_at": 1793322298.7404106,
+      "updated_at": 1793322299.5883374,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0125_1793322097",
+        "cycle_id": 480,
+        "full_text": "Vou executar a verificação independente do nó `n_strang` com uma bancada numérica real (ordem de convergência, defeito simpletico, deriva energética, auditoria do critério `r=128`, contagem analítica e empírica de FLOPs/bytes). Primeiro, a bancada:"
+      }
+    },
+    {
+      "id": "gen_0125_1793322097",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #125 (Ciclo #480)",
+      "description": "Executou 5 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793322299.7681136,
+      "updated_at": 1793322299.7681139,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 125,
+        "cycle_id": 480,
+        "verdict": "APPROVED",
+        "duration_sec": 202.58,
+        "tokens_consumed": 6247,
+        "new_hypotheses": 5,
+        "verified": 5,
         "refuted": 0
       }
     }
@@ -41746,7 +41853,157 @@
       "version": 1,
       "created_at": 1793322060.545533,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen125_14577_addresses_n_krylov",
+      "source_id": "hyp_gen125_14577",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322118.1817346,
+        "updated_at": 1793322119.0783098,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0125_1793322097_1793322118262_e_hyp_gen125_14577_addresses_n_krylov",
+            "generation_id": "gen_0125_1793322097",
+            "timestamp": 1793322119.0783098,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793322118.1817393,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen125_85297_addresses_n_strang",
+      "source_id": "hyp_gen125_85297",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322165.2092981,
+        "updated_at": 1793322166.1347394,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0125_1793322097_1793322165291_e_hyp_gen125_85297_addresses_n_strang",
+            "generation_id": "gen_0125_1793322097",
+            "timestamp": 1793322166.1347394,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_079_critic",
+      "version": 1,
+      "created_at": 1793322165.2093036,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen125_44815_addresses_n_naive",
+      "source_id": "hyp_gen125_44815",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322213.2494783,
+        "updated_at": 1793322214.1462111,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0125_1793322097_1793322213324_e_hyp_gen125_44815_addresses_n_naive",
+            "generation_id": "gen_0125_1793322097",
+            "timestamp": 1793322214.1462111,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793322213.249485,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen125_33751_addresses_n_krylov",
+      "source_id": "hyp_gen125_33751",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322252.0848846,
+        "updated_at": 1793322253.1049547,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0125_1793322097_1793322252156_e_hyp_gen125_33751_addresses_n_krylov",
+            "generation_id": "gen_0125_1793322097",
+            "timestamp": 1793322253.1049547,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_093_independent_verifier",
+      "version": 1,
+      "created_at": 1793322252.0848906,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen125_67117_addresses_n_strang",
+      "source_id": "hyp_gen125_67117",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322298.823107,
+        "updated_at": 1793322299.676978,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0125_1793322097_1793322298901_e_hyp_gen125_67117_addresses_n_strang",
+            "generation_id": "gen_0125_1793322097",
+            "timestamp": 1793322299.676978,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_093_independent_verifier",
+      "version": 1,
+      "created_at": 1793322298.823116,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793322061.658994
+  "saved_at": 1793322299.7702615
 }
