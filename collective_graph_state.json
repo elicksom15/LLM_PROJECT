@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 70,
+      "version": 71,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793323546.4991345,
+      "updated_at": 1793323793.9629765,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13086,6 +13086,79 @@
         "verdict": "APPROVED",
         "duration_sec": 203.14,
         "tokens_consumed": 2625,
+        "new_hypotheses": 3,
+        "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen131_7496",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — corret",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — corretude da fatoração, custo medido vs analítico, ordem de convergência, defeito simpletico e resíduo de Krylov.",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793323863.227374,
+      "updated_at": 1793323864.0853775,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0131_1793323793",
+        "cycle_id": 486,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — corretude da fatoração, custo medido vs analítico, ordem de convergência, defeito simpletico e resíduo de Krylov."
+      }
+    },
+    {
+      "id": "hyp_gen131_32309",
+      "label": "Hypothesis",
+      "title": "CICLO #486 · INVESTIGAÇÃO DO NÓ `n_strang`",
+      "description": "# CICLO #486 · INVESTIGAÇÃO DO NÓ `n_strang`\n\nAntes de emitir qualquer afirmação, rodo a bancada numérica real (ordem de convergência Lie vs. Strang, fecho simpletico, defeito de janela Magnus vs. merge ingênuo, custo/fecho butterfly, energia de rank) e só então deduzo os FLOPs.",
+      "provenance": "agent_015_investigator",
+      "version": 2,
+      "created_at": 1793323947.93597,
+      "updated_at": 1793323948.9850895,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0131_1793323793",
+        "cycle_id": 486,
+        "full_text": "# CICLO #486 · INVESTIGAÇÃO DO NÓ `n_strang`\n\nAntes de emitir qualquer afirmação, rodo a bancada numérica real (ordem de convergência Lie vs. Strang, fecho simpletico, defeito de janela Magnus vs. merge ingênuo, custo/fecho butterfly, energia de rank) e só então deduzo os FLOPs."
+      }
+    },
+    {
+      "id": "hyp_gen131_48778",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — inclus",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — inclusive porque a memória coletiva contém exatamente um nó **REFUTADO** sobre este mesmo alvo (`hyp_gen106`, fatoração Kronecker sobre `n_naive`). Não vou reafirmar a tese falsificada; vou testá-la.\n\nBloco 1: bancada empírica (correção da identidade mista, espectro de Kronecker de `n_naive`, diagrama de fase estrutura × viabilidade, FLOPs analíticos × medidos).",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793324029.5839436,
+      "updated_at": 1793324030.565563,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0131_1793323793",
+        "cycle_id": 486,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — inclusive porque a memória coletiva contém exatamente um nó **REFUTADO** sobre este mesmo alvo (`hyp_gen106`, fatoração Kronecker sobre `n_naive`). Não vou reafirmar a tese falsificada; vou testá-la.\n\nBloco 1: bancada empírica (correção da identidade mista, espectro de Kronecker de `n_naive`, diagrama de fase estrutura × viabilidade, FLOPs analíticos × medidos)."
+      }
+    },
+    {
+      "id": "gen_0131_1793323793",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #131 (Ciclo #486)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793324030.7263923,
+      "updated_at": 1793324030.7263925,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 131,
+        "cycle_id": 486,
+        "verdict": "APPROVED",
+        "duration_sec": 236.76,
+        "tokens_consumed": 2678,
         "new_hypotheses": 3,
         "verified": 3,
         "refuted": 0
@@ -42818,7 +42891,97 @@
       "version": 1,
       "created_at": 1793323748.5774438,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen131_7496_addresses_n_krylov",
+      "source_id": "hyp_gen131_7496",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793323863.2944472,
+        "updated_at": 1793323864.1986656,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0131_1793323793_1793323863367_e_hyp_gen131_7496_addresses_n_krylov",
+            "generation_id": "gen_0131_1793323793",
+            "timestamp": 1793323864.1986656,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793323863.2944515,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen131_32309_addresses_n_strang",
+      "source_id": "hyp_gen131_32309",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793323948.0457244,
+        "updated_at": 1793323949.0739417,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0131_1793323793_1793323948145_e_hyp_gen131_32309_addresses_n_strang",
+            "generation_id": "gen_0131_1793323793",
+            "timestamp": 1793323949.0739417,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_015_investigator",
+      "version": 1,
+      "created_at": 1793323948.0457344,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen131_48778_addresses_n_naive",
+      "source_id": "hyp_gen131_48778",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793324029.6792822,
+        "updated_at": 1793324030.6447875,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0131_1793323793_1793324029765_e_hyp_gen131_48778_addresses_n_naive",
+            "generation_id": "gen_0131_1793323793",
+            "timestamp": 1793324030.6447875,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793324029.6792874,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793323749.6438546
+  "saved_at": 1793324030.7285867
 }
