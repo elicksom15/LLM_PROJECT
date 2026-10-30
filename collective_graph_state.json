@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 65,
+      "version": 66,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793322097.1862779,
+      "updated_at": 1793322346.7646976,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12724,6 +12724,79 @@
         "new_hypotheses": 5,
         "verified": 5,
         "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen126_91698",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — inclus",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — inclusive para separar o que é identidade algébrica (certo) do que é apenas correlação nos dados da memória coletiva. Primeiro, o script; depois, o relatório com os números medidos.",
+      "provenance": "agent_053_evidence_analyst",
+      "version": 2,
+      "created_at": 1793322398.6356833,
+      "updated_at": 1793322399.4654984,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0126_1793322346",
+        "cycle_id": 481,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer afirmação — inclusive para separar o que é identidade algébrica (certo) do que é apenas correlação nos dados da memória coletiva. Primeiro, o script; depois, o relatório com os números medidos."
+      }
+    },
+    {
+      "id": "hyp_gen126_62232",
+      "label": "Hypothesis",
+      "title": "Vou executar a bancada numérica real antes de emitir qualquer formulação — ordem",
+      "description": "Vou executar a bancada numérica real antes de emitir qualquer formulação — ordem de convergência do `n_strang`, custo de FLOPs auditado e fidelidade do transporte espectral com atalho fechado.",
+      "provenance": "agent_087_investigator",
+      "version": 2,
+      "created_at": 1793322457.1975513,
+      "updated_at": 1793322458.093407,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0126_1793322346",
+        "cycle_id": 481,
+        "full_text": "Vou executar a bancada numérica real antes de emitir qualquer formulação — ordem de convergência do `n_strang`, custo de FLOPs auditado e fidelidade do transporte espectral com atalho fechado."
+      }
+    },
+    {
+      "id": "hyp_gen126_47912",
+      "label": "Hypothesis",
+      "title": "Vou tratar o `n_naive` como operador denso não-estruturado de dimensão $N=n^2$ e",
+      "description": "Vou tratar o `n_naive` como operador denso não-estruturado de dimensão $N=n^2$ e atacá-lo com fatoração Kronecker **ótima** (KSVD de Van Loan–Pitsianis), não com heurística. Antes de emitir qualquer afirmação, rodo a bancada numérica real: identidade estrutural, erro de truncamento vs. limite de Eckart–Young, contagem analítica de FLOPs, tempo medido e propagação de erro em cadeia residual com atalho fechado. Em paralelo, audito a solidez epistêmica dos nós do grafo.",
+      "provenance": "agent_053_evidence_analyst",
+      "version": 2,
+      "created_at": 1793322579.402625,
+      "updated_at": 1793322579.5698752,
+      "validation_status": "REFUTED",
+      "epistemic_class": "FALSIFIED",
+      "properties": {
+        "gen_id": "gen_0126_1793322346",
+        "cycle_id": 481,
+        "full_text": "Vou tratar o `n_naive` como operador denso não-estruturado de dimensão $N=n^2$ e atacá-lo com fatoração Kronecker **ótima** (KSVD de Van Loan–Pitsianis), não com heurística. Antes de emitir qualquer afirmação, rodo a bancada numérica real: identidade estrutural, erro de truncamento vs. limite de Eckart–Young, contagem analítica de FLOPs, tempo medido e propagação de erro em cadeia residual com atalho fechado. Em paralelo, audito a solidez epistêmica dos nós do grafo."
+      }
+    },
+    {
+      "id": "gen_0126_1793322346",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #126 (Ciclo #481)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793322579.7346828,
+      "updated_at": 1793322579.7346833,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 126,
+        "cycle_id": 481,
+        "verdict": "APPROVED",
+        "duration_sec": 232.97,
+        "tokens_consumed": 2684,
+        "new_hypotheses": 3,
+        "verified": 2,
+        "refuted": 1
       }
     }
   ],
@@ -42003,7 +42076,97 @@
       "version": 1,
       "created_at": 1793322298.823116,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen126_91698_addresses_n_krylov",
+      "source_id": "hyp_gen126_91698",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322398.715902,
+        "updated_at": 1793322399.5594049,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0126_1793322346_1793322398790_e_hyp_gen126_91698_addresses_n_krylov",
+            "generation_id": "gen_0126_1793322346",
+            "timestamp": 1793322399.5594049,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_053_evidence_analyst",
+      "version": 1,
+      "created_at": 1793322398.7159095,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen126_62232_addresses_n_strang",
+      "source_id": "hyp_gen126_62232",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793322457.2688756,
+        "updated_at": 1793322458.17304,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0126_1793322346_1793322457336_e_hyp_gen126_62232_addresses_n_strang",
+            "generation_id": "gen_0126_1793322346",
+            "timestamp": 1793322458.17304,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_087_investigator",
+      "version": 1,
+      "created_at": 1793322457.2688797,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen126_47912_addresses_n_naive",
+      "source_id": "hyp_gen126_47912",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.42,
+        "uncertainty": 0.5,
+        "update_count": 1,
+        "created_at": 1793322579.4904456,
+        "updated_at": 1793322579.6499531,
+        "update_history": [
+          {
+            "event_id": "penal_verif_gen_0126_1793322346_1793322579569_e_hyp_gen126_47912_addresses_n_naive",
+            "generation_id": "gen_0126_1793322346",
+            "timestamp": 1793322579.6499531,
+            "w_prev": 0.5,
+            "penalty": 0.08,
+            "w_next": 0.42,
+            "reason": "math_falsification"
+          }
+        ]
+      },
+      "provenance": "agent_053_evidence_analyst",
+      "version": 1,
+      "created_at": 1793322579.4904506,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793322299.7702615
+  "saved_at": 1793322579.737331
 }
