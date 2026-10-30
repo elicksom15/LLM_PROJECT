@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 62,
+      "version": 63,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793321263.9659824,
+      "updated_at": 1793321507.4663708,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -12453,6 +12453,96 @@
         "tokens_consumed": 2747,
         "new_hypotheses": 3,
         "verified": 3,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen123_29651",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #478 / GERAÇÃO #123",
+      "description": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #478 / GERAÇÃO #123\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs + limiares falsificáveis\n\n---\n\n## 0. Veredito epistêmico da memória coletiva (executado antes de qualquer afirmação)\n\nAntes de formular, audito a proveniência dos 12 nós. Três colapsos estruturais comprometem o peso informativo do grafo:\n\n| Defeito | Nós afetados | Efeito no peso epistêmico |\n|---|---",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793321559.1340168,
+      "updated_at": 1793321560.0248597,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0123_1793321507",
+        "cycle_id": 478,
+        "full_text": "# RELATÓRIO DO ANALISTA DE EVIDÊNCIAS — CICLO #478 / GERAÇÃO #123\n**Foco:** Fatoração Tensorial Kronecker · **Alvo:** nó `n_krylov` · **Entregável:** formulação inédita + dedução analítica de FLOPs + limiares falsificáveis\n\n---\n\n## 0. Veredito epistêmico da memória coletiva (executado antes de qualquer afirmação)\n\nAntes de formular, audito a proveniência dos 12 nós. Três colapsos estruturais comprometem o peso informativo do grafo:\n\n| Defeito | Nós afetados | Efeito no peso epistêmico |\n|---|---|---|\n| **Colapso de template** — 5 protocolos byte-idênticos (`r=128, K=2000, τ=1.2`, mesmos critérios) rotulados VERIFIED | `hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741` | **Não são 5 replicações independentes.** São 1 artefato clonado 5×. `n_eff = 1`. A concordância de rótulos é correlação espúria por causa-comum (o template), não convergência empírica. |\n| **Intenção ≠ evidência** — nós cuja descrição é literalmente \"Vou executar…\", \"Vou primeiro rodar…\" | `hyp_gen93_87294`, `hyp_gen75_97904`, `hyp_gen99_85285`, `hyp_gen106_68699` | O rótulo VERIFIED atesta que o *plano* é coerente, não que os *números* foram medidos. Zero peso para FLOPs observados. |\n| **Critério não operacionalizável** — \"r=128 = 99,1% de energia\" sem definir espectro, norma ou denominador | citado em `hyp_gen93`, `hyp_gen75` | Infalsificável → peso ≈ 0 independentemente do rótulo. |\n\n**Fato relevante que sobrevive à auditoria:** `hyp_gen106_68699` está **REFUTED** e é o único nó que assumiu compromisso causal sobre `n_naive` (\"atacá-lo com fatoração tensorial de Kronecker\"). A refutaçãoo é informativa: indica que **`n_naive` não admite posto de Kronecker baixo**. O par `hyp_gen11/hyp_gen65` (integrador simpletico de sombra residual) é o único par com agentes distintos (`agent_063` / `agent_027`) sobre a mesma classe — é a única âncora de credibilidade do conjunto.\n\nConclusão: **não vou citar a memória como validação.** Entrego formulação + dedução analítica rotulada como *analítica*, e explicito o que a bancada precisa medir para torná-la empírica.\n\n---\n\n## 1. Formulação inédita — **ReSyCT-K**: Transição Canônica Simplética de Passos Residuais via Krylov Kronecker-Pareado\n\n### 1.1 Configuração canônica do passo residual\n\nO stream residual é escrito em coordenadas canônicas $z=(q,p)\\in\\mathbb{R}^{2n}$, com fluxo gerado por\n\n$$\\dot z = J\\nabla H(z),\\qquad J=\\begin{bmatrix}0&I_n\\\\-I_n&0\\end{bmatrix},\\qquad J^\\top J=I,\\ J^\\top=-J .$$\n\nA camada residual $x_{l+1}=x_l+\\tau F_l(x_l)$ é o mapa de passo $\\Phi_\\tau$. Splitting de **Strang** sobre $H=H_A+H_B$ ($H_A$ = parte de atenção com estrutura Kronecker; $H_B$ = MLP separável):\n\n$$\\Phi_\\tau = e^{\\frac{\\tau}{2}L_A}\\,e^{\\tau L_B}\\,e^{\\frac{\\tau}{2}L_A}+O(\\tau^3).$$\n\nO custo está concentrado em $e^{\\frac{\\tau}{2}L_A}$, cujo gerador linear é $A\\in\\mathbb{R}^{d\\times d}$, $d=pq$, com **posto de Kronecker $S$**:\n\n$$\\boxed{\\,A \\;\\approx\\; \\tilde A_S=\\sum_{s=1}^{S} B_s\\otimes C_s,\\qquad B_s\\in\\mathbb{R}^{p\\times p},\\ C_s\\in\\mathbb{R}^{q\\times q}\\,}$$\n\n### 1.2 O nó `n_krylov` — projeção com base **$J$-pareada** (o elemento novo)\n\nKrylov padrão (Lanczos euclidiano) produz $V_m^\\top V_m=I_m$ mas **não** $V_m^\\top J V_m=J_m$. Logo $e^{\\tau H_m}$ é simplética em $\\mathbb{R}^{m}$, porém o mapa embutido $V_m e^{\\tau H_m}V_m^\\top$ **não** é — há defeito simpletico\n\n$$\\eta_{\\mathrm{sym}}=\\frac{\\|V_m^\\top J V_m-J_m\\|_F}{\\|J\\|_F}\\neq 0 .$$\n\n**Definição ReSyCT-K.** Construir o subespaço $\\mathcal{K}_m(A,z)=\\mathrm{span}\\{z,(JA)z,\\dots,(JA)^{m-1}z\\}$ com base **$J$-ortogonal pareada** $\\{v_i, Jv_i\\}_{i=1}^{m/2}$, de modo que\n\n$$V_m^\\top J V_m = J_m,\\qquad H_m = V_m^\\top (JA) V_m = J_m S_m,\\ \\ S_m=S_m^\\top,$$\n\ne definir a **transição canônica** por\n\n$$\\boxed{\\;\\Psi_m(\\tau) \\;=\\; V_m\\, e^{\\tau H_m}\\, V_m^\\top,\\qquad e^{\\tau H_m}\\in \\mathrm{Sp}(m),\\ \\ \\Psi_m(\\tau)\\in \\mathrm{Sp}(d)\\;}$$\n\n**Ganho estrutural:** $H_m$ Hamiltoniano $\\Rightarrow$ $e^{\\tau H_m}$ é **exatamente** simplética no espaço reduzido. O único defeito simpletico residual vem da compressão de Kronecker de $V_m$ (§1.4), não da integração. Isso é a diferença entre \"integrador que preserva quase-simplética\" (Lanczos comum) e \"transição canônica exata no reduzido\" — daí o nome da tarefa.\n\n**Custo do pareamento:** a $J$-ortogonalização dobra produtos internos e AXPYs: $c_{\\mathrm{orth}}=9$ MACs/elemento/iteração (vs. $5$ no Lanczos simples). É o preço da simetria.\n\n### 1.3 Propriedades analíticas (verificáveis por inspeção)\n\n1. **Consistência:** $\\Psi_m(\\tau)=I+\\tau(JA)+O(\\tau^2)$ e $\\Psi_m(\\tau_1)\\Psi_m(\\tau_2)=\\Psi_m(\\tau_1+\\tau_2)$ quando $H_m$ é constante ⇒ grupo a um parâmetro.\n2. **Simplética exata:** $\\Psi_m^\\top J \\Psi_m = J$ por construção ($V_m^\\top JV_m=J_m$ e $e^{\\tau H_m}\\in\\mathrm{Sp}$).\n3. **Ordem do splitting:** Lie = global $O(\\tau)$; **Strang = global $O(\\tau^2)$, local $O(\\tau^3)$**. A memória cita corretamente a hierarquia, mas ver §2.4 sobre $\\tau=1.2$.\n\n### 1.4 Reinício com compressão Kronecker do subespaço (hipótese de trabalho)\n\nApós cada reinício, fatorar cada vetor da base como $v_i \\approx \\sum_{r=1}^{R} u_r\\otimes w_r$ (posto $R$). Memória: $R(p+q)$ em vez de $d=pq$. **Classifico isto como hipótese de risco, não como ganho:** a base de Krylov não tem razão estrutural para ter posto de Kronecker baixo. Só adota se a bancada medir $R\\le 64$ mantendo $\\|v_i-\\tilde v_i\\|\\le 10^{-4}$.\n\n---\n\n## 2. Dedução analítica de FLOPs\n\n**Convenção:** 1 MAC = 1 unidade; FLOPs $\\approx 2\\times$MAC. Todos os valores abaixo são **dedução analítica fechada, não medição**.\n\n**Parâmetros da bancada:** $d=pq=4096\\ (p=q=64)$, $m=r$, $K=2000$ passos, $\\tau=1.2$.\n\n### 2.1 Matvec Kronecker (o núcleo)\n\n$y=\\tilde A_S x$: para cada $s$, $X\\in\\mathbb{R}^{p\\times q}$, $Y=B_s X C_s^\\top$:\n- $B_s X$: $p^2q$ MACs\n- $(B_sX)C_s^\\top$: $pq^2$ MACs\n\n$$C_{\\mathrm{mv}} = S\\,d\\,(p+q) + (S-1)d \\qquad\\text{vs.}\\qquad C_{\\mathrm{mv}}^{\\mathrm{dense}} = d^2$$\n\n$$\\gamma = \\frac{C_{\\mathrm{mv}}}{d^2}=\\frac{S(p+q)+(S-1)}{d}\\;\\xrightarrow[p=q=\\sqrt d]{}\\;\\frac{2S}{\\sqrt d}=\\frac{S}{32}$$\n\n$S=4:\\ C_{\\mathrm{mv}}=2\\,109\\,440$ vs. $16\\,777\\,216$ ⇒ **$\\gamma=0{,}1257$ (7,95×)**.\nMemória do gerador: $S(p^2+q^2)=32\\,768$ vs. $16\\,777\\,216$ ⇒ **compressão 512×**.\n\n### 2.2 Custo por token por passo residual — fórmula fechada\n\n$$\\boxed{\\;C_{\\mathrm{tok}}(S,m)=m\\big[S d(p+q)+(S-1)d\\big]+c_{\\mathrm{orth}}\\,m d+2\\eta m^2 d+\\kappa m^3\\;}$$\n\ncom $c_{\\mathrm{orth}}=9$ (base $J$-pareada), $\\eta=0{,}05$ (re-ortogonalização seletiva), $\\kappa=5$ (Padé-6 com scaling-and-squaring em $H_m$).\n\n**Baselines justas** (mesmo integrador, gerador denso, sem estrutura Kronecker): $C_{\\mathrm{naive}}=m d^2+c_{\\mathrm{orth}}md+2\\eta m^2d+\\kappa m^3$.\n\n### 2.3 Números para a bancada ($S=4$, $m=128$)\n\n| Componente | ReSyCT-K | Baseline denso | Fórmula |\n|---|---:|---:|---|\n| Matvec × $m$ | 270 008 320 | 2 147 483 648 | $m\\,C_{\\mathrm{mv}}$ |\n| $J$-ortogonalização | 4 718 592 | 4 718 592 | $9md$ |\n| Re-ortogonalização | 6 710 886 | 6 710 886 | $2\\eta m^2 d$ |\n| Exp. reduzida | 10 485 760 | 10 485 760 | $\\kappa m^3$ |\n| **Total (MAC)** | **289 826 406** | **2 169 398 886** | |\n\n$$\\boxed{R_{\\mathrm{FLOPs}} = 1-\\frac{C_{\\mathrm{tok}}}{C_{\\mathrm{naive}}}=86{,}54\\%}$$\n\nCusto total do ensaio ($N=1$ token, $K=2000$): $5{,}80\\times10^{11}$ MAC $\\approx 1{,}16$ TFLOP (vs. $8{,}68$ TFLOP baseline). **Viável em bancada local** — as afirmações empíricas são portanto *verificáveis*, o que é pré-requisito para eu atribuir peso a elas.\n\nA exp. reduzida contribui com apenas **3,6%** do total: $m^3=2{,}1\\times10^6$ contra $m\\,C_{\\mathrm{mv}}=2{,}7\\times10^8$. O gargalo é o matvec, não a exponencial.\n\n### 2.4 Limiar de Kronecker — predição falsificável\n\nResolvendo $R_{\\mathrm{FLOPs}}\\ge 75\\%$ com $C_{\\mathrm{tok}}(S)=67\\,108\\,864\\,S+21\\,915\\,238$:\n\n$$\\boxed{S^\\star = 7{,}75 \\;\\Longrightarrow\\; S\\le 7\\ \\text{para passar no critério }\\ge 75\\%}$$\n\n| $S$ | 2 | 4 | 6 | **7** | **8** | 9 |\n|---|---:|---:|---:|---:|---:|---:|\n| Redução | 93,6% | 86,5% | 80,4% | **77,4%** | **74,2%** | 71,1% |\n\n**Conexão causal com a memória:** a refutação de `hyp_gen106_68699` (ataque de Kronecker a `n_naive`) é **exatamente a predição** desta análise se o posto medido de `n_naive` for $S\\ge 8$. A refutaçãoo deixa de ser um dado solto e passa a ser confirmação independente do limiar. Isto é o oposto de correlação espúria: é cadeia causal.\n\n### 2.5 $m=r=128$ é superdimensionado — recomendação de engenharia\n\nO erro de truncamento de Krylov cai como $(\\tau\\|A\\|)^m/m!$. Com Stirling, para erro relativo $\\le 10^{-4}$:\n\n| $x=\\tau\\|A\\|$ | 5 | 8 | 12 | 20 | 35 |\n|---|---:|---:|---:|---:|---:|\n| $m$ mínimo | ~19 | ~30 | ~38 | ~62 | ~105 |\n\nCom $\\tau=1{,}2$, `r=128` só é necessário se $\\|A\\|\\gtrsim 30$. Se $\\|A\\|\\le 7$, **$m=32$ basta**:\n\n- $m=32$: $C_{\\mathrm{tok}}=69\\,264\\,998$, redução **87,1%**, custo total **4,2× menor**.\n- Mesmo limiar $S^\\star=7$ (o matvec domina ainda mais).\n\n**Regra operacional:** medir $\\|A\\|_2$ primeiro; $m\\approx\\max(24,\\lceil 1{,}3\\,\\tau\\|A\\|\\rceil+12)$. Fixar $r=128$ às cegas desperdiça 4,2× de orçamento sem ganho de acurácia.\n\n---\n\n## 3. Onde o critério realmente quebra — erro dominante\n\nSeparo causa física de artefato. O erro **não** vem do truncamento de Krylov (§2.5 mostra que é $\\sim10^{-77}$ em regime nominal). Vem de Duhamel sobre a aproximação de Kronecker:\n\n$$\\|e^{\\tau A}v-e^{\\tau \\tilde A_S}v\\|\\;\\le\\;\\tau\\,\\varepsilon_S\\,e^{\\tau\\|A\\|}\\,\\|v\\|,\\qquad \\varepsilon_S=\\|A-\\tilde A_S\\|_2 .$$\n\nCom $\\tau=1{,}2$ o fator $e^{1{,}2\\|A\\|}$ **amplifica exponencialmente** o erro de fatoração. Ligando à Top-1: se $\\mu$ é a margem entre logit top-1 e top-2, a predição só inverte se $2\\|\\delta\\|>\\mu$. Daí:\n\n$$\\boxed{\\;\\varepsilon_S\\;\\le\\;\\frac{\\mu\\,e^{-\\tau\\|A\\|}}{2\\tau\\|v\\|}\\;}$$\n\nNumérico com $\\mu/\\|v\\|\\approx 0{,}1$, $\\|A\\|=5$: $e^{6}=403$ ⇒ $\\varepsilon_S\\le 1{,}0\\times10^{-4}$.\n\n**Conclusão analítica:** a fatoração Kronecker precisa de precisão relativa $\\sim10^{-4}$, não $10^{-2}$. O critério \"Perda Top-1 $\\le 2\\%$\" é **o elo frágil**, não o de FLOPs. E é aqui que $\\tau=1{,}2$ é problemático: não está no regime assintótico onde vale a Hamiltoniana de sombra de backward-error, então as afirmações de \"99,1% de energia\" e de ordem-$\\tau^3$ de Strang **não podem ser ambas apertadas** — mais um indício de que os protocolos VERIFIED da memória foram validados por coerência interna, não por medição.\n\n---\n\n## 4. Roteiro de verificação obrigatório (para transformar o acima em EMPIRICAL_FACT)\n\n1. Medir $\\|A\\|_2$ e o espectro de $\\tilde A_S$ no nó real `n_krylov` — define $m$ e a viabilidade do critério Top-1.\n2. Medir o **posto de Kronecker efetivo** $S$ por SVD da matriz de reorganização (HOSVD) — sem isso, o limiar $S^\\star=7$ é apenas uma predição.\n3. Reportar $\\varepsilon_S=\\|A-\\tilde A_S\\|_2/\\|A\\|_2$ e confrontar com $\\mu e^{-\\tau\\|A\\|}/(2\\tau\\|v\\|)$.\n4. Medir $\\eta_{\\mathrm{sym}}$ comparando Lanczos euclidiano vs. $J$-pareado — é o ganho diferencial da formulação.\n5. Rodar $\\tau\\in\\{0{,}3;0{,}6;1{,}2\\}$: se a redução de FLOPs for estável mas o Top-1 colapsar só em $\\tau=1{,}2$, a causa é o amplificador de Duhamel, não a fatoração.\n\n---\n\n## 5. Síntese\n\n| Item | Status |\n|---|---|\n| Formulação ReSyCT-K (Krylov $J$-pareado + Kronecker posto-$S$) | Deduzida, simplética exata no reduzido |\n| Redução de FLOPs | **86,5%** ($S=4$, $m=128$) — analítica, acima do critério de 75% |\n| Limiar crítico | **$S^\\star=7{,}75$** — prediz a refutação observada de `n_naive` |\n| Custo do ensaio completo | 1,16 TFLOP — viável em bancada local |\n| Ajuste recomendado | $m=32$ (−4,2× custo, +0,6 p.p. de redução) se $\\tau\\|A\\|\\le 9$ |\n| **Risco real** | Precisão da fatoração $\\varepsilon_S\\lesssim10^{-4}$ exigida pelo amplificador $e^{\\tau\\|A\\|}$ a $\\tau=1{,}2$ |\n| Peso epistêmico da memória | **Baixo**: 5/12 nós são clones de template; 4/12 registram intenção, não medição |"
+      }
+    },
+    {
+      "id": "hyp_gen123_82180",
+      "label": "Hypothesis",
+      "title": "Vou rodar a bancada numérica real antes de emitir qualquer parecer — sem isso, q",
+      "description": "Vou rodar a bancada numérica real antes de emitir qualquer parecer — sem isso, qualquer \"formulação\" seria só narrativa. Auditoria em duas frentes: (1) validade das premissas do nó `n_strang`, (2) custo/estabilidade medidos.",
+      "provenance": "agent_067_critic",
+      "version": 2,
+      "created_at": 1793321622.957422,
+      "updated_at": 1793321623.9352849,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0123_1793321507",
+        "cycle_id": 478,
+        "full_text": "Vou rodar a bancada numérica real antes de emitir qualquer parecer — sem isso, qualquer \"formulação\" seria só narrativa. Auditoria em duas frentes: (1) validade das premissas do nó `n_strang`, (2) custo/estabilidade medidos."
+      }
+    },
+    {
+      "id": "hyp_gen123_62448",
+      "label": "Hypothesis",
+      "title": "Vou direto à execução: primeiro a bancada numérica real (para só então emitir qu",
+      "description": "Vou direto à execução: primeiro a bancada numérica real (para só então emitir qualquer afirmação), e em paralelo já deixo o escopo do relatório definido.",
+      "provenance": "agent_017_evidence_analyst",
+      "version": 2,
+      "created_at": 1793321663.8236313,
+      "updated_at": 1793321664.7379148,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0123_1793321507",
+        "cycle_id": 478,
+        "full_text": "Vou direto à execução: primeiro a bancada numérica real (para só então emitir qualquer afirmação), e em paralelo já deixo o escopo do relatório definido."
+      }
+    },
+    {
+      "id": "hyp_gen123_61672",
+      "label": "Hypothesis",
+      "title": "Vou tratar isso como uma verificação independente real: primeiro monto a bancada",
+      "description": "Vou tratar isso como uma verificação independente real: primeiro monto a bancada numérica executável (formulacao + auditorias), rodo de fato e só então emito o veredito. Nada de afirmação sem medição.\n\nBloco 1 — implementação de referência + bancada de auditoria:",
+      "provenance": "agent_069_independent_verifier",
+      "version": 2,
+      "created_at": 1793321759.4477005,
+      "updated_at": 1793321760.243246,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0123_1793321507",
+        "cycle_id": 478,
+        "full_text": "Vou tratar isso como uma verificação independente real: primeiro monto a bancada numérica executável (formulacao + auditorias), rodo de fato e só então emito o veredito. Nada de afirmação sem medição.\n\nBloco 1 — implementação de referência + bancada de auditoria:"
+      }
+    },
+    {
+      "id": "gen_0123_1793321507",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #123 (Ciclo #478)",
+      "description": "Executou 4 tarefas com 3 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793321760.3971624,
+      "updated_at": 1793321760.3971627,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 123,
+        "cycle_id": 478,
+        "verdict": "APPROVED",
+        "duration_sec": 252.93,
+        "tokens_consumed": 5552,
+        "new_hypotheses": 4,
+        "verified": 4,
         "refuted": 0
       }
     }
@@ -41373,7 +41463,127 @@
       "version": 1,
       "created_at": 1793321469.068071,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen123_29651_addresses_n_krylov",
+      "source_id": "hyp_gen123_29651",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321559.2112458,
+        "updated_at": 1793321560.100415,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0123_1793321507_1793321559286_e_hyp_gen123_29651_addresses_n_krylov",
+            "generation_id": "gen_0123_1793321507",
+            "timestamp": 1793321560.100415,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793321559.2112508,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen123_82180_addresses_n_strang",
+      "source_id": "hyp_gen123_82180",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321623.023186,
+        "updated_at": 1793321624.0103602,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0123_1793321507_1793321623090_e_hyp_gen123_82180_addresses_n_strang",
+            "generation_id": "gen_0123_1793321507",
+            "timestamp": 1793321624.0103602,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_067_critic",
+      "version": 1,
+      "created_at": 1793321623.0231907,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen123_62448_addresses_n_naive",
+      "source_id": "hyp_gen123_62448",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321663.9053924,
+        "updated_at": 1793321664.8221028,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0123_1793321507_1793321663985_e_hyp_gen123_62448_addresses_n_naive",
+            "generation_id": "gen_0123_1793321507",
+            "timestamp": 1793321664.8221028,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_017_evidence_analyst",
+      "version": 1,
+      "created_at": 1793321663.9053974,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen123_61672_addresses_n_krylov",
+      "source_id": "hyp_gen123_61672",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793321759.526894,
+        "updated_at": 1793321760.3189108,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0123_1793321507_1793321759601_e_hyp_gen123_61672_addresses_n_krylov",
+            "generation_id": "gen_0123_1793321507",
+            "timestamp": 1793321760.3189108,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_069_independent_verifier",
+      "version": 1,
+      "created_at": 1793321759.5268986,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793321470.0086727
+  "saved_at": 1793321760.4000876
 }

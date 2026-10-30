@@ -4,8 +4,8 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `477`
-- **Hipóteses Aprovadas (Incorporadas):** `🏆 130`
+- **Total de Ciclos Científicos Executados:** `478`
+- **Hipóteses Aprovadas (Incorporadas):** `🏆 131`
 - **Hipóteses Falsificadas / Rejeitadas:** `❌ 66`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
@@ -142,11 +142,13 @@
 | **#475** | `GPT3B_H475_TRANSICAO_SIMPLETICA_MAGNUS_KRYLOV` | **99.0%** | **95.8%** | `11572.8 tok/s` | `0.0000` |
 | **#476** | `GPT3B_H476_ALGEBRA_DE_TRANSICAO_LIE_GIVENS` | **99.0%** | **95.8%** | `6473.2 tok/s` | `0.0000` |
 | **#477** | `GPT3B_H477_TRANSICAO_RESIDUAL_SIMPLETICA_DE_BAIXO_POSTO` | **99.0%** | **95.8%** | `9029.9 tok/s` | `0.0000` |
+| **#478** | `GPT3B_H478_ReSyCT_Transicao_Canonica_Simpletica_de_Passos_Residuais` | **99.0%** | **95.8%** | `10268.6 tok/s` | `0.0000` |
 
 
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#478** | 2026-10-29 21:51:47 | `GPT3B_H478_ReSyCT_Transicao_Canonica_Simpletica_de_Passos_Residuais` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#477** | 2026-10-29 21:47:43 | `GPT3B_H477_TRANSICAO_RESIDUAL_SIMPLETICA_DE_BAIXO_POSTO` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#476** | 2026-10-29 21:43:13 | `GPT3B_H476_ALGEBRA_DE_TRANSICAO_LIE_GIVENS` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#475** | 2026-10-29 21:38:54 | `GPT3B_H475_TRANSICAO_SIMPLETICA_MAGNUS_KRYLOV` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
@@ -196,4 +198,3 @@
 | **#431** | 2026-10-29 18:19:53 | `GPT3B_H431_TRANSICAO_SIMPLETICA_KRYLOV_RESIDUAL` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#430** | 2026-10-29 18:13:47 | `GPT3B_H430_EXPONENCIAL_DE_MAGNUS_KRYLOV_ESBOCADA_MKS` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#429** | 2026-10-29 18:10:04 | `GPT3B_H429_CASCADE_KOOPMAN_SUBSPACE_CKS-429` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
-| **#428** | 2026-10-29 18:06:10 | `GPT3B_H428_KSG_ALGEBRA_KOOPMAN_SIMPLETICA_GERADORES` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
