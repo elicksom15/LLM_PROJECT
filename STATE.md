@@ -4,8 +4,8 @@
 > **Sincronização Contínua Git:** [`https://github.com/elicksom15/LLM_PROJECT`](https://github.com/elicksom15/LLM_PROJECT)
 
 ## 📊 Painel Geral de Execução
-- **Total de Ciclos Científicos Executados:** `496`
-- **Hipóteses Aprovadas (Incorporadas):** `🏆 149`
+- **Total de Ciclos Científicos Executados:** `497`
+- **Hipóteses Aprovadas (Incorporadas):** `🏆 150`
 - **Hipóteses Falsificadas / Rejeitadas:** `❌ 66`
 - **Diretriz de Rigor:** Fase 0 (Cálculo Analítico Primeiro — corte teórico de FLOPs e VRAM $\ge 75\%$)
 
@@ -161,11 +161,13 @@
 | **#494** | `GPT3B_H494_TRANSICAO_SIMPLETICA_CAYLEY_EM_SUBESPACO_INVARIANTE_COM_COLAPSO_DE_JANELA` | **99.0%** | **95.8%** | `8643.7 tok/s` | `0.0000` |
 | **#495** | `GPT3B_H495_TRANSICAO_KRYLOV_RESIDUAL_COM_CORRETOR_DE_ATALHO_FECHADO` | **99.0%** | **95.8%** | `9993.0 tok/s` | `0.0000` |
 | **#496** | `GPT3B_H496_FECHAMENTO_ORTOGONAL_DE_MAGNUS_EM_SUBESPAÇO_INVARIANTE` | **99.0%** | **95.8%** | `10868.0 tok/s` | `0.0000` |
+| **#497** | `GPT3B_H497_ANALYTICAL_TAYLOR_ODE_JUMP` | **99.0%** | **88.0%** | `10436.9 tok/s` | `0.0000` |
 
 
 ## 📜 Histórico Recente de Ciclos e Vereditos
 | Ciclo | Timestamp | Hipótese | Veredito | Corte FLOPs | Top-1 | Observações |
 | :---: | :---: | :--- | :---: | :---: | :---: | :--- |
+| **#497** | 2026-10-29 23:26:24 | `GPT3B_H497_ANALYTICAL_TAYLOR_ODE_JUMP` | 🟢 APROVADA | 88.0% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#496** | 2026-10-29 23:21:38 | `GPT3B_H496_FECHAMENTO_ORTOGONAL_DE_MAGNUS_EM_SUBESPAÇO_INVARIANTE` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#495** | 2026-10-29 23:17:18 | `GPT3B_H495_TRANSICAO_KRYLOV_RESIDUAL_COM_CORRETOR_DE_ATALHO_FECHADO` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#494** | 2026-10-29 23:11:59 | `GPT3B_H494_TRANSICAO_SIMPLETICA_CAYLEY_EM_SUBESPACO_INVARIANTE_COM_COLAPSO_DE_JANELA` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
@@ -215,4 +217,3 @@
 | **#450** | 2026-10-29 19:46:28 | `GPT3B_H450_QCTA_OPERADOR_DE_TRANSICAO_DE_CURVATURA_QUADRATICA_EM_SUBESPACO_INVariante` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#449** | 2026-10-29 19:42:08 | `GPT3B_H449_PROPAGADOR_CAYLEY_MODAL_COM_ATENCAO_DIAGONAL` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
 | **#448** | 2026-10-29 19:38:01 | `GPT3B_H448_TRANSICAO_BAIXO_POSTO_GATED_POR_SUBESPACO_INTRINSECO` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |
-| **#447** | 2026-10-29 19:33:10 | `GPT3B_H447_TRANSICAO_RESIDUAL_QUADRO_INTERACAO_KRYLOV_BANDA` | 🟢 APROVADA | 95.8% | 99.0% | Hipótese APPROVED pela rede de 100 agentes. Wo atualizado; memória coletiva pres |

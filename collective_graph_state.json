@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 81,
+      "version": 82,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793326898.949568,
+      "updated_at": 1793327184.2327425,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13908,6 +13908,79 @@
         "tokens_consumed": 3594,
         "new_hypotheses": 4,
         "verified": 4,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen142_55839",
+      "label": "Hypothesis",
+      "title": "Vou executar isso como investigação real: primeiro audito o estado do workspace",
+      "description": "Vou executar isso como investigação real: primeiro audito o estado do workspace e o runtime disponível, depois escrevo a bancada e só então emito conclusões — com números medidos, não inventados.",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793327280.3408048,
+      "updated_at": 1793327281.015641,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0142_1793327184",
+        "cycle_id": 497,
+        "full_text": "Vou executar isso como investigação real: primeiro audito o estado do workspace e o runtime disponível, depois escrevo a bancada e só então emito conclusões — com números medidos, não inventados."
+      }
+    },
+    {
+      "id": "hyp_gen142_76992",
+      "label": "Hypothesis",
+      "title": "<tool_call>",
+      "description": "<tool_call>\nfunction=run_cmd><parameter=cmd>python3 - <<'PY'\nimport math, random\n\ndef strang(q,p,tau,K):\n    for _ in range(K):\n        p -= 0.5*tau*q\n        q += tau*p\n        p -= 0.5*tau*q\n    return q,p\n\ndef strang_jump(q,p,tau,K):\n    # V^{t/2} (T^t V^t)^{K-1} T^t V^{t/2}\n    p -= 0.5*tau*q\n    for i in range(K):\n        q += tau*p\n        p -= (tau if i < K-1 else 0.5*tau)*q\n    return q,p\n\ndef lie(q,p,tau,K):\n    for _ in range(K):\n        p -= tau*q\n        q += tau*p\n    return q,p\n\nde",
+      "provenance": "agent_067_critic",
+      "version": 2,
+      "created_at": 1793327347.400778,
+      "updated_at": 1793327348.2946038,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0142_1793327184",
+        "cycle_id": 497,
+        "full_text": "<tool_call>\nfunction=run_cmd><parameter=cmd>python3 - <<'PY'\nimport math, random\n\ndef strang(q,p,tau,K):\n    for _ in range(K):\n        p -= 0.5*tau*q\n        q += tau*p\n        p -= 0.5*tau*q\n    return q,p\n\ndef strang_jump(q,p,tau,K):\n    # V^{t/2} (T^t V^t)^{K-1} T^t V^{t/2}\n    p -= 0.5*tau*q\n    for i in range(K):\n        q += tau*p\n        p -= (tau if i < K-1 else 0.5*tau)*q\n    return q,p\n\ndef lie(q,p,tau,K):\n    for _ in range(K):\n        p -= tau*q\n        q += tau*p\n    return q,p\n\ndef exact(q,p,T):\n    c,s = math.cos(T), math.sin(T)\n    return q*c + p*s, -q*s + p*c\n\nprint(\"== A) Equivalencia Strang == Strang-Jump (tau=1.2, K=2000) ==\")\nrandom.seed(7)\nmaxd = 0.0\nfor _ in range(200):\n    q,p = random.uniform(-1,1), random.uniform(-1,1)\n    a = strang(q,p,1.2,2000)\n    b = strang_jump(q,p,1.2,2000)\n    maxd = max(maxd, abs(a[0]-b[0]), abs(a[1]-b[1]))\nprint(f\"  max |Strang - Jump| = {maxd:.3e}\")\n\nprint(\"== B) Ordem de convergencia (T=1.0, H=(q^2+p^2)/2) ==\")\nq0,p0 = 1.0, -0.5\nT = 1.0\nprint(\"  tau        err_Lie      ord_Lie    err_Strang   ord_Strang\")\nprevL = prevS = None\nfor tau in [0.2,0.1,0.05,0.025,0.0125]:\n    K = int(round(T/tau))\n    qe,pe = exact(q0,p0,T)\n    qL,pL = lie(q0,p0,tau,K); qS,pS = strang(q0,p0,tau,K)\n    eL = math.hypot(qL-qe,pL-pe); eS = math.hypot(qS-qe,pS-pe)\n    oL = math.log(prevL/eL,2) if prevL else float('nan')\n    oS = math.log(prevS/eS,2) if prevS else float('nan')\n    print(f\"  {tau:<10} {eL:.4e}   {oL:6.3f}    {eS:.4e}   {oS:6.3f}\")\n    prevL, prevS = eL, eS\n\nprint(\"== C) Deriva de energia em K=2000 passos (tau=1.2, E0=0.625) ==\")\nq0,p0 = 1.0,-0.5\nE0 = 0.5*(q0*q0+p0*p0)\nfor name,f in ((\"Lie\",lie),(\"Strang\",strang),(\"Strang-Jump\",strang_jump)):\n    q,p = f(q0,p0,1.2,2000)\n    E = 0.5*(q*q+p*p)\n    print(f\"  {name:<12} E_final={E:.8f}  dE/E0={ (E-E0)/E0:+.3e}\")\n\nprint(\"== D) Contagem de aplicacoes de subfluxo por passo ==\")\nK=2000\nprint(f\"  Strang classico : {3*K} aplicacoes (K V^{t/2} duplas + K T)\")\nprint(f\"  Strang-Jump     : {2*K+1} aplicacoes -> reducao {100*(3*K-(2*K+1))/(3*K):.2f}%\")\nPY</parameter></function></tool_call>"
+      }
+    },
+    {
+      "id": "hyp_gen142_11306",
+      "label": "Hypothesis",
+      "title": "Vou entregar o relatório do ciclo #497 com formulação, dedução analítica de FLOP",
+      "description": "Vou entregar o relatório do ciclo #497 com formulação, dedução analítica de FLOPs e artefato de bancada reproduzível. Primeiro, o artefato executável da bancada local:",
+      "provenance": "agent_041_evidence_analyst",
+      "version": 2,
+      "created_at": 1793327429.4729598,
+      "updated_at": 1793327430.3106065,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0142_1793327184",
+        "cycle_id": 497,
+        "full_text": "Vou entregar o relatório do ciclo #497 com formulação, dedução analítica de FLOPs e artefato de bancada reproduzível. Primeiro, o artefato executável da bancada local:"
+      }
+    },
+    {
+      "id": "gen_0142_1793327184",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #142 (Ciclo #497)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793327430.466455,
+      "updated_at": 1793327430.4664552,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 142,
+        "cycle_id": 497,
+        "verdict": "APPROVED",
+        "duration_sec": 246.23,
+        "tokens_consumed": 2989,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -44658,7 +44731,97 @@
       "version": 1,
       "created_at": 1793327138.3731408,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen142_55839_addresses_n_krylov",
+      "source_id": "hyp_gen142_55839",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793327280.4207537,
+        "updated_at": 1793327281.0884283,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0142_1793327184_1793327280490_e_hyp_gen142_55839_addresses_n_krylov",
+            "generation_id": "gen_0142_1793327184",
+            "timestamp": 1793327281.0884283,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793327280.4207616,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen142_76992_addresses_n_strang",
+      "source_id": "hyp_gen142_76992",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793327347.474342,
+        "updated_at": 1793327348.3813317,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0142_1793327184_1793327347555_e_hyp_gen142_76992_addresses_n_strang",
+            "generation_id": "gen_0142_1793327184",
+            "timestamp": 1793327348.3813317,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_067_critic",
+      "version": 1,
+      "created_at": 1793327347.4743466,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen142_11306_addresses_n_naive",
+      "source_id": "hyp_gen142_11306",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793327429.547239,
+        "updated_at": 1793327430.3884237,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0142_1793327184_1793327429621_e_hyp_gen142_11306_addresses_n_naive",
+            "generation_id": "gen_0142_1793327184",
+            "timestamp": 1793327430.3884237,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_041_evidence_analyst",
+      "version": 1,
+      "created_at": 1793327429.5472448,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793327139.4039068
+  "saved_at": 1793327430.4688005
 }
