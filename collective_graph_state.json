@@ -7724,9 +7724,9 @@
       "title": "Otimização e Redução de FLOPs no Modelo GPT (~3B) na RTX 3060 12GB sem Quantização Convencional",
       "description": "Reduzir o poder computacional e tráfego de ativações em >75% via operadores matemáticos exatos.",
       "provenance": "system",
-      "version": 76,
+      "version": 77,
       "created_at": 1793303529.2411802,
-      "updated_at": 1793325303.254453,
+      "updated_at": 1793325732.1978166,
       "validation_status": "OPEN",
       "epistemic_class": "PROBLEM",
       "properties": {}
@@ -13526,6 +13526,79 @@
         "tokens_consumed": 1826,
         "new_hypotheses": 2,
         "verified": 2,
+        "refuted": 0
+      }
+    },
+    {
+      "id": "hyp_gen137_51560",
+      "label": "Hypothesis",
+      "title": "RELATÓRIO DE EVIDÊNCIAS — CICLO #492 · nó `n_krylov`",
+      "description": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #492 · nó `n_krylov`\n\n## 1. Auditoria da memória coletiva (isto vem antes de qualquer física)\n\nAntes de fechar o operador, a cadeia de evidências precisa ser auditada. Três defeitos sérios:\n\n**D1 — Réplicas independentes são clones de template.** Os nós `hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741`, `hyp_gen40_3620` são **byte-idênticos** (`PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*_****`, mesmos $r=128$, $K=2000$, $\\ta",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793325794.2421062,
+      "updated_at": 1793325795.2360325,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0137_1793325732",
+        "cycle_id": 492,
+        "full_text": "# RELATÓRIO DE EVIDÊNCIAS — CICLO #492 · nó `n_krylov`\n\n## 1. Auditoria da memória coletiva (isto vem antes de qualquer física)\n\nAntes de fechar o operador, a cadeia de evidências precisa ser auditada. Três defeitos sérios:\n\n**D1 — Réplicas independentes são clones de template.** Os nós `hyp_gen16_14850`, `hyp_gen55_44699`, `hyp_gen22_90945`, `hyp_gen2_32720`, `hyp_gen30_10741`, `hyp_gen40_3620` são **byte-idênticos** (`PROTOCOLO_EXPERIMENTAL_INDEPENDENTE_G*_****`, mesmos $r=128$, $K=2000$, $\\tau=1.2$), atribuídos a cinco agentes distintos. São cópias de um mesmo artefato, não medições independentes. **Tamanho amostral efetivo = 1, não 6.** Qualquer agregação que conte 6 votos está inflando a confiança em ~$\\sqrt{6}\\approx 2.4\\times$.\n\n**D2 — Contaminação de classe.** `hyp_gen93_87294`, `hyp_gen75_97904`, `hyp_gen89_34140`, `hyp_gen77_10685` contêm texto literal de intenção do agente (*\"Vou executar a verificação independente de fato…\"*) classificado como `EMPIRICAL_FACT`. Isso não é fato empírico; é plano de execução. Solidez $\\approx 0{,}05$.\n\n**D3 — Critério de aceitação truncado.** Todos os protocolos declaram *\"Perda de Acurácia Top-1 $\\le$\"* — **o valor do limiar está cortado no grafo**. Não é possível auditar conformidade contra um limiar desconhecido. Qualquer relatório que declare \"critério atendido\" está declarando vazio.\n\n**D4 —** A afirmação \"$r=128 = 99{,}1\\%$ de energia\" não tem espectro associado no grafo. Não verificável no estado atual.\n\n| Observação | Classe real | Solidez |\n|---|---|---|\n| $r=128,\\ K=2000,\\ \\tau=1.2$ | configuração de bancada (consistente, 1 fonte) | 0,55 |\n| \"Redução FLOPs $\\ge 75\\%$\" | critério definido, não medido | 0,50 |\n| \"Top-1 $\\le$ *[cortado]*\" | **inoperante** | 0,00 |\n| \"$r=128=99{,}1\\%$ energia\" | não suportada | 0,10 |\n| Nós com texto de intenção | contaminação | 0,05 |\n\n**Consequência útil:** os parâmetros $r=128$, $K=2000$, $\\tau=1.2$ são perfeitamente aproveitáveis como **config-alvo da bancada**: $d=r=128$ (dimensão por token), $N=K=2000$ (comprimento de sequência), $\\tau=1.2$ (passo efetivo de profundidade). É sobre essa config que fecho a conta.\n\n---\n\n## 2. Formulação — **SKCK**: *Symplectic Kronecker–Cayley–Krylov closure*\n\n### 2.1 Estado e gerador\n\nResidual stream emparelhado: $z=(q,p)\\in\\mathbb{R}^{2n}$, $n=Nd$, com estrutura simplética bloco-diagonal\n$$\\omega=\\sum_{i=1}^{N}dq_i\\wedge dp_i,\\qquad J=I_N\\otimes J_d,\\quad J_d=\\begin{pmatrix}0&I_d\\\\-I_d&0\\end{pmatrix},\\quad J^\\top=-J,\\ J^2=-I.$$\n\nFluxo residual linearizado: $\\dot z = G_l z$, $G_l=\\partial F_l/\\partial z$. Para que o fechamento preserve $\\omega$, o gerador deve ser **hamiltoniano** ($JG$ simétrica). Projeção ortogonal no produto de Frobenius:\n$$\\boxed{\\;A \\;=\\; J\\,\\mathrm{sym}(J^\\top G)\\;=\\;J\\,\\mathrm{sym}(-JG)\\;}$$\n*Verificação:* $A=JS$ com $S=\\mathrm{sym}(-JG)=S^\\top$ $\\Rightarrow$ $JA=-S$... e $A^\\top J+JA = S J^\\top J + JJS = -S(-I)+(-I)S = S-S=0$. ✓ É exatamente o gerador do grupo simplético $\\mathfrak{sp}(2n)$.\n\n### 2.2 Fatoração tensorial de Kronecker\n\nEm vez de materializar $A\\in\\mathbb{R}^{2n\\times 2n}$ ($2n=512\\,000$ — inviável), fatoramos\n$$A \\;\\approx\\; \\sum_{s=1}^{S} C_s\\otimes B_s,\\qquad C_s\\in\\mathbb{R}^{N\\times N}\\ (\\text{mistura entre tokens}),\\quad B_s\\in\\mathbb{R}^{2d\\times 2d}\\ (\\text{mistura intra-token}),$$\ncom $S=4$ obtido por HOSVD do Jacobiano remoldado. A projeção hamiltoniana é **fechada no espaço das fatores** ($(\\mathrm{C}\\otimes\\mathrm{B})^\\top=\\mathrm{C}^\\top\\otimes\\mathrm{B}^\\top$), portanto custo $O(S(N^2+d^2))$ e o rank dobra $S\\to 2S$.\n\n### 2.3 Fechamento espectral + Cayley no subespaço\n\nBase de Krylov $V_m\\in\\mathbb{R}^{2n\\times m}$, $T_m=V_m^\\top A V_m$ (Hessenberg, obtido de graça na recorrência de Arnoldi). O **fechamento** é a projeção de $T_m$ no cone hamiltoniano reduzido e a aplicação do Cayley:\n$$J_m=V_m^\\top J V_m,\\qquad T_m^{H}=J_m^{-1}\\,\\mathrm{sym}(J_m T_m),$$\n$$\\Psi_m=\\Big(I-\\tfrac{\\tau}{2}T_m^{H}\\Big)^{-1}\\Big(I+\\tfrac{\\tau}{2}T_m^{H}\\Big),\\qquad z(\\tau)=\\|v\\|\\,V_m\\Psi_m e_1 .$$\n\n**Restrição estrutural:** $\\det J_m\\neq 0$ exige $m$ **par**. Logo $\\;n\\_krylov\\in 2\\mathbb{N}$. Isso não é detalhe de implementação — é restrição de dimensionalidade da forma simplética.\n\n---\n\n## 3. Dedução analítica de FLOPs (contabilidade exata, por termo)\n\nConfig-alvo: $N=2000$, $d=128$, $n=Nd=256\\,000$, $2n=512\\,000$, $S=4$, $\\tau=1.2$.\n\n**(a) Um matvec $(C\\otimes B)\\,\\mathrm{vec}(V)$**, $V\\in\\mathbb{R}^{N\\times 2d}$:\n- $W=CV$: $(N\\times N)(N\\times 2d)$ $\\to N\\cdot 2d\\cdot(2N-2)\\approx 4N^2d$\n- $Z=WB^\\top$: $(N\\times 2d)(2d\\times 2d)$ $\\to N\\cdot 2d\\cdot(4d-2)\\approx 8Nd^2$\n\n$$f_{\\mathrm{mv}} = S(4N^2d+8Nd^2)+4SNd = 4(2{,}048\\times10^{8}+2{,}621\\times10^{7})+4{,}10\\times10^{6} = \\mathbf{9{,}245\\times10^{9}}\\ \\text{flops}$$\n\n**(b) $m$ matvecs:** $m\\,f_{\\mathrm{mv}}$\n\n**(c) Ortogonalização (MGS, base $J$-pareada):** passo $k$ custa $k$ produtos internos ($4n$) + $k$ axpy ($4n$) $=8nk$; somando $\\sum_{k=1}^{m-1}$:\n$$f_{\\mathrm{orth}} = 4n\\,m(m-1) = 1{,}024\\times10^{6}\\,m(m-1)$$\n\n**(d) Núcleo:** projeção hamiltoniana reduzida $O(2m^3)$ + LU do Cayley $\\tfrac23 m^3$ + 2 GEMM $2m^3$ + 2 solves $2m^2$:\n$$f_{\\mathrm{core}} \\approx \\tfrac83 m^3$$\n\n**(e) Lift:** $4nm = 1{,}024\\times10^{6} m$\n\n$$\\boxed{\\;F(m)=9{,}245\\times10^{9}\\,m \\;+\\; 1{,}024\\times10^{6}\\,m^{2} \\;+\\; \\tfrac83 m^{3}\\;}$$\n\n**Baseline honesta** (aplicar o propagador denso em $2n$): $B = 8N^2d^2 = 5{,}243\\times10^{11}$ flops. *(E a matriz densa sequer é materializável: $(2n)^2 = 2{,}62\\times10^{11}$ entradas $= 1{,}05$ TB em fp32, contra $S(N^2+4d^2)=1{,}63\\times10^{7}$ parâmetros $= 65$ MB nas fatores — redução de memória de $\\approx 16\\,000\\times$.)*\n\n| $m$ | $F(m)$ | redução FLOPs | $\\ge 75\\%$? |\n|---:|---:|---:|:---:|\n| 6 | $5{,}55\\times10^{10}$ | 89,4% | ✓ |\n| **8** | $7{,}40\\times10^{10}$ | **85,9%** | ✓ |\n| 10 | $9{,}26\\times10^{10}$ | 82,3% | ✓ |\n| 12 | $1{,}11\\times10^{11}$ | 78,8% | ✓ |\n| 14 | $1{,}30\\times10^{11}$ | 75,3% | ✓ (marginal) |\n| 16 | $1{,}48\\times10^{11}$ | 71,7% | ✗ |\n\n**Teto duro: $m\\le 14$; teto confortável $m\\le 12$.**\n\n---\n\n## 4. Seleção de $n\\_krylov$ — o outro lado da restrição\n\nEstimativa de Saad (1992) para o erro do exponencial de Krylov:\n$$\\varepsilon_m(\\tau)\\;\\approx\\;\\frac{2(\\tau\\|A\\|)^m}{m!},\\qquad \\theta:=\\tau\\|A\\| = 1{,}2 .$$\n\n| $m$ | $\\varepsilon_m$ | $\\le 10^{-3}$? |\n|---:|---:|:---:|\n| 4 | $1{,}7\\times10^{-1}$ | ✗ |\n| 6 | $8{,}3\\times10^{-3}$ | ✗ |\n| **8** | $2{,}1\\times10^{-4}$ | **✓** |\n| 10 | $3{,}4\\times10^{-6}$ | ✓ |\n\n### Resultado do ciclo\n\n$$\\boxed{\\;n\\_krylov^{*} = 8\\;}$$\n\nJustificativa tripla:\n1. **Mínimo par** que satisfaz $\\varepsilon_m\\le 10^{-3}$ (m=6 erra por uma ordem de grandeza; m=7 seria o mínimo real, mas $m$ deve ser par);\n2. **Redução de 85,9% em FLOPs** — cumpre o critério $\\ge 75\\%$ com margem de 11 p.p.;\n3. **Janela viável** por interseção das duas restrições: $m\\in\\{8,10,12,14\\}$; $m=8$ é o mínimo de custo.\n\n**Sensibilidade (risco real):** se $\\theta$ dobrar para $2{,}4$, $m=8$ degrada para $5{,}5\\times10^{-2}$ e exige $m=14$ — que dá exatamente 75,3%, **no limiar do critério**. Ou seja: o método é robusto para $\\theta\\lesssim1{,}5$ e **marginal para $\\theta\\ge2{,}4$**. A bancada deve reportar $\\tau\\|A\\|$ medido, não apenas $\\tau$.\n\n---\n\n## 5. Bancada local (executar: `python bancada_skck.py`)\n\n```python\n# -*- coding: utf-8 -*-\n\"\"\"bancada_skck.py — validação do fechamento SKCK para o nó `n_krylov`.\nDeps: numpy, scipy.  Config-alvo (analítica): N=2000, d=128, S=4, tau=1.2.\"\"\"\nimport numpy as np\nfrom scipy.linalg import expm\nfrom time import perf_counter\n\n# ---------- 1. contabilidade analítica ----------\ndef f_matvec(N, d, S):\n    return S * (4 * N * N * d + 8 * N * d * d) + 4 * S * N * d\n\ndef f_total(m, N, d, S):\n    n = N * d\n    return (m * f_matvec(N, d, S) + 4 * n * m * (m - 1)\n            + (8.0 / 3.0) * m ** 3 + 4 * n * m)\n\ndef f_baseline(N, d):\n    return 8 * N * N * d * d\n\n# ---------- 2. operador em forma de Kronecker ----------\ndef make_op(N, d, S, seed=0):\n    rng = np.random.default_rng(seed)\n    d2 = 2 * d\n    B, C = [], []\n    for _ in range(S):\n        B.append(rng.standard_normal((d2, d2)) / np.sqrt(d2))\n        c = rng.standard_normal((N, N)) / np.sqrt(N)\n        C.append(0.5 * (c + c.T))\n    Jd = np.block([[np.zeros((d, d)), np.eye(d)],\n                   [-np.eye(d), np.zeros((d, d))]])\n\n    def mv(v):\n        V = v.reshape(N, d2); Z = np.zeros_like(V)\n        for s in range(S):\n            Z += (C[s] @ V) @ B[s].T\n        return Z.reshape(-1)\n\n    def Jmat(X):\n        Y = X.reshape(N, d2, -1)\n        return np.einsum('ab,nbk->nak', Jd, Y).reshape(N * d2, -1)\n\n    A = sum(np.kron(C[s], B[s]) for s in range(S))\n    return mv, Jmat, A\n\n# ---------- 3. Arnoldi + fechamento ----------\ndef arnoldi(mv, v, m):\n    n = v.size\n    V = np.zeros((n, m)); H = np.zeros((m, m))\n    V[:, 0] = v / np.linalg.norm(v)\n    for k in range(m - 1):\n        w = mv(V[:, k])\n        for i in range(k + 1):\n            H[i, k] = V[:, i] @ w\n            w -= H[i, k] * V[:, i]\n        H[k + 1, k] = np.linalg.norm(w)\n        if H[k + 1, k] > 1e-13:\n            V[:, k + 1] = w / H[k + 1, k]\n    w = mv(V[:, m - 1])\n    for i in range(m):\n        H[i, m - 1] = V[:, i] @ w\n    return V, H\n\ndef skck(mv, Jmat, v, tau, m):\n    V, H = arnoldi(mv, v, m)\n    Jm = V.T @ Jmat(V)\n    M = 0.5 * (Jm @ H + (Jm @ H).T)          # sym(Jm T)\n    Th = np.linalg.solve(Jm, M) if m % 2 == 0 else np.linalg.lstsq(Jm, M, rcond=None)[0]\n    I = np.eye(m)\n    Psi = np.linalg.solve(I - 0.5 * tau * Th, I + 0.5 * tau * Th)   # Cayley\n    return np.linalg.norm(v) * (V @ Psi[:, 0]), V, Psi\n\ndef defeito_simpl(V, Psi, Jmat, n, probes=16, seed=1):\n    rng = np.random.default_rng(seed)\n    M = Psi - np.eye(Psi.shape[0])\n    Phi   = lambda X: X + V @ (M    @ (V.T @ X))\n    PhiT  = lambda X: X + V @ (M.T  @ (V.T @ X))\n    num = den = 0.0\n    for _ in range(probes):\n        u = rng.standard_normal((n, 1))\n        r = PhiT(Jmat(Phi(u))) - Jmat(u)      # (Phi^T J Phi - J) u\n        num += np.linalg.norm(r) ** 2\n        den += np.linalg.norm(Jmat(u)) ** 2\n    return np.sqrt(num / den)\n\n# ---------- 4. execução ----------\nif __name__ == \"__main__\":\n    N, d, S, tau = 32, 8, 4, 1.2       # escala reduzida (expm densa viável)\n    NA, dA = 2000, 128                 # config-alvo para a contagem\n    mv, Jmat, A = make_op(N, d, S)\n    n = 2 * N * d\n    v = np.random.default_rng(7).standard_normal(n)\n    ref = expm(tau * A) @ v\n    print(f\"{'m':>3} {'erro_rel':>12} {'defeito':>12} {'FLOPs(alvo)':>14} {'reducao':>9} {'t_ms':>8}\")\n    for m in (2, 4, 6, 8, 10, 12, 14, 16):\n        t0 = perf_counter()\n        y, V, Psi = skck(mv, Jmat, v, tau, m)\n        dt = (perf_counter() - t0) * 1e3\n        err = np.linalg.norm(y - ref) / np.linalg.norm(ref)\n        dfl = defeito_simpl(V, Psi, Jmat, n)\n        F = f_total(m, NA, dA, S)\n        red = 1 - F / f_baseline(NA, dA)\n        flag = \"OK \" if (red >= 0.75 and err <= 1e-3) else \"REPROVADO\"\n        print(f\"{m:>3} {err:>12.3e} {dfl:>12.3e} {F:>14.3e} {red:>8.2%} {dt:>8.2f}  {flag}\")\n```\n\n**O que a bancada deve reportar (e que a memória atual não contém):**\n1. erro relativo real vs. `expm` — confronta a estimativa $2\\theta^m/m!$;\n2. **defeito simplético** $\\|\\Phi^\\top J\\Phi-J\\|/\\|J\\|$ — o Cayley é exato no subespaço reduzido; o defeito no espaço completo vem da não-invariância de $\\mathcal{K}_m(A,v)$ e deve escalar como $O(\\varepsilon_m)$;\n3. $\\theta=\\tau\\|A\\|$ medido (não presumido);\n4. $\\mathrm{sym}(-JG)$ vs. $G$: a norma $\\|A-G\\|/\\|G\\|$ é o **preço da estrutura** — se for $O(1)$, a projeção hamiltoniana está distorcendo a dinâmica e o ganho de FLOPs é ilusório.\n\n---\n\n## 6. O que **não** está provado (declarar explicitamente)\n\n- $\\varepsilon_m\\approx 2\\theta^m/m!$ é **assintótica**, não afiada, e degrada para $A$ não-normal (comuns em Jacobianos de atenção). É estimativa, não medição.\n- O critério \"Top-1 $\\le$ *[truncado]*\" **não pode ser verificado** até que o grafo restitua o limiar.\n- A redução de 85,9% vale para $S=4$ **denso**. Se $C_s$ admitir estrutura circulante/Toeplitz, $4N^2d\\to O(Nd\\log N)$ e o teto de $m$ sobe muito — mas isso é hipótese nova, não observação.\n- A projeção hamiltoniana impõe $\\|A-G\\|$; se o Jacobiano real de $F_l$ não for \"quase hamiltoniano\", o operador SKCK é o modelo errado, por mais barato que seja.\n\n**Recomendação de encerramento do ciclo:** adotar $n\\_krylov=8$ como configuração de bancada, registrar os 6 nós-clone como **1 observação** (não 6), reprovar como `EMPIRICAL_FACT` os 4 nós de texto de intenção, e devolver ao grafo o limiar de acurácia truncado antes de qualquer veredito de conformidade."
+      }
+    },
+    {
+      "id": "hyp_gen137_67210",
+      "label": "Hypothesis",
+      "title": "AUDITÉ — CICLO #492 / nó `n_strang`",
+      "description": "# AUDITÉ — CICLO #492 / nó `n_strang`\n**Papel: Crítico Adversarial Sênior — Variedades Simpléticas**\n\n**Veredito: REPROVADO como está.** O nó `n_strang` herda uma cadeia de premissas não verificadas, um parâmetro de hardware inexecutável (`K=2000`) e uma comparação de FLOPs que só é válida sob um substituto que nunca é declarado. Abaixo: a auditoria, o orçamento analítico que derruba o protocolo atual, e uma formulação substituta com custo fechado.\n\n---\n\n## 1. Auditoria do grafo — reciclagem est",
+      "provenance": "agent_043_critic",
+      "version": 2,
+      "created_at": 1793325871.7767117,
+      "updated_at": 1793325872.590699,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0137_1793325732",
+        "cycle_id": 492,
+        "full_text": "# AUDITÉ — CICLO #492 / nó `n_strang`\n**Papel: Crítico Adversarial Sênior — Variedades Simpléticas**\n\n**Veredito: REPROVADO como está.** O nó `n_strang` herda uma cadeia de premissas não verificadas, um parâmetro de hardware inexecutável (`K=2000`) e uma comparação de FLOPs que só é válida sob um substituto que nunca é declarado. Abaixo: a auditoria, o orçamento analítico que derruba o protocolo atual, e uma formulação substituta com custo fechado.\n\n---\n\n## 1. Auditoria do grafo — reciclagem estrutural\n\nDos 12 nós recuperados, **8 são o mesmo texto** com títulos trocados (`G2_6007`, `G16_7515`, `G22_8221`, `G30_9137`, `G40_177`, `G55_1803`…), todos com os mesmos literais `$r=128$, $K=2000$, $\\tau=1.2$` e os mesmos critérios `≥75% / ≤2%`. Isso não é convergência de evidência empírica — é **injeção de template**. Um nó `VERIFIED` que repete o mesmo texto com 8 IDs distintos tem peso bayesiano próximo de 1: os nós não são independentes, portanto não se acumulam como evidência.\n\nO literal `r = 128 = 99,1% de energia` aparece reciclado sem uma única curva espectral por camada. **Percentual de energia não é constante de modelo** — depende da camada, do dataset e da escala pós-treino. É uma média global apresentada como lei.\n\n## 2. Auditoria matemática — três falhas fatais\n\n**(a) O mapa residual de um transformer não é simplético.** Um residual `x ↦ x + F(x)` preserva `ω` se e somente se\n$J_F^\\top \\mathbb{J} + \\mathbb{J} J_F + J_F^\\top \\mathbb{J} J_F = 0.$\nO Jacobiano de atenção é *data-dependente* e de posto completo, e **LayerNorm tem posto `d−1`** (é uma projeção): `det = 0`, o mapa nem é invertível, logo não pode ser simplético. Um integrador simplético aplicado a um fluxo não-Hamiltoniano não conserva nada além do erro que você medir.\n\n**(b) Splitting de Strang exige fluxos exatos.** A ordem `O(h³)` local vem de `e^{h(A+B)}` vs. `e^{hA/2}e^{hB}e^{hA/2}` — ambos exatos. Substituindo os sub-fluxos por Krylov truncado, o termo dominante passa a ser o resíduo de Krylov `O((hΛ)^{K+1}/(K+1)!)`, e a análise de erro retroativo (Benettin–Giorgilli) que justificaria o \"shadow Hamiltonian\" exige mapa analítico e próximo da identidade. Com LayerNorm no caminho, a premissa cai.\n\n**(c) Composições de ordem 4 usam coeficientes negativos.** Suzuki/Branas exigem passos reversos (`q ≈ −0.659`). Passo negativo exige sub-fluxos invertíveis — novamente falsado por qualquer normalização. Não se pode comprar ordem 4 sem antes resolver (b) e (c).\n\n## 3. Auditoria de hardware — `K = 2000` é inexecutável\n\nBasis de Arnoldi sobre estado por token `d = 2048`, fp16:\n\n| Item | `K = 2000` (protocolo atual) | `K = 12` (corrigido) |\n|---|---|---|\n| Memória base/token | `d·K·2 B = 8,2 MB` | `49 KB` |\n| Memória p/ 8192 tokens | **67 GB** (> placa de 80 GB, sem pesos) | **0,4 GB** |\n| Ortogonalização `2dK²` /token/bloco | **1,64×10¹⁰ FLOPs** = 163× o baseline | 5,9×10⁵ |\n| Forward global (L=24, T=8192) | ~3,7 PFLOP **só para Gram–Schmidt** | — |\n\n`K=2000` destrói o próprio objetivo: **a redução de FLOPs fica negativa**. E matematicamente é desnecessário — para `hΛ ≤ 1`, `K = 12` já dá erro `~1/13! ≈ 1,6×10⁻¹⁰`. O parâmetro é ruído reciclado, não resultado de bancada.\n\n## 4. Formulação substituta — `S₂^{ω,CAYLEY}` (Strang projetado com correção de defeito no núcleo)\n\nDedução do custo. Seja `V ∈ ℝ^{d×r}` projetor fixo por bloco (SVD de calibração), `A_r = VᵀJV` o núcleo canônico `r×r` e `B` a parte diagonal/element-wise. Passo de Strang:\n$$S_2(h)=\\Phi_A(h/2)\\,\\Phi_B(h)\\,\\Phi_A(h/2)$$\ncom correção de Cayley no núcleo `C_h=(I-\\tfrac h2 A_r)^{-1}(I+\\tfrac h2 A_r)`, **amortizada sobre todos os tokens** (custo `8r³/T`, desprezível).\n\nFLOPs por token por bloco:\n- `Φ_A` completo: `4dr + 2r²` = `4·2048·128 + 2·16384` ≈ **1,08×10⁶**\n- `Φ_B`: ≈ `10d` ≈ **2,0×10⁴**\n- Krylov reciclado (uma vez por bloco): `K·(4dr+2r²) + 2dK²`\n- Cayley: `n_strang·8r³/T` ≈ **2×10³** (inviável se não amortizado — este é o ponto que separa a proposta de um baseline ingênuo)\n\n$$\\boxed{\\;\\mathrm{FLOPs}=L\\,T\\Big[n_{strang}(4dr+2r^{2}+10d)+K(4dr+2r^{2})+2dK^{2}\\Big]+L\\,n_{strang}\\,8r^{3}\\;}$$\n\nBaseline por token/bloco: `24d² + 4s_ctx d ≈ 1,18×10⁸` (d = s_ctx = 2048).\n\n| `n_strang` | `K` | FLOPs/token/bloco | vs. baseline | Redução |\n|---|---|---|---|---|\n| 4 | 12 | 1,78×10⁷ | 15,1% | **84,9%** |\n| 8 | 12 | 2,24×10⁷ | 19,0% | **81,0%** |\n| 12 | 12 | 2,68×10⁷ | 22,7% | **77,3%** |\n| 16 | 12 | 3,12×10⁷ | 26,5% | 73,5% ✗ |\n| 8 | 2000 | 1,86×10¹⁰ | 158× | **−15 700%** ✗ |\n\n**Restrição ativa:** `n_strang ≤ 12` com `K = 12`; `n_strang = 8` é o ponto que ainda passa com margem. O objetivo `≥75%` e qualquer esforço para *aumentar* `n_strang` são mutuamente exclusivos — isso precisa estar declarado, não escondido.\n\n**Orçamento de memória:** pesos + ativações + base Krylov com `K=12` ≈ 0,4 GB extras; cabe em uma placa de 80 GB com `L=24`, `T=8192`, batch 4.\n\n## 5. Protocolo de bancada com critérios de falsificação (obrigatórios)\n\n```python\nimport numpy as np\nd, r, K = 2048, 128, 12\nJ = np.random.randn(d, d).astype(np.float64); J = J - J.T   # núcleo canônico\nV, _ = np.linalg.qr(np.random.randn(d, r))\nAr = V.T @ J @ V\nC = np.linalg.solve(np.eye(r) - 0.5*Ar, np.eye(r) + 0.5*Ar)  # Cayley: simplético\nprint(\"defeito Cayley:\", np.linalg.norm(C.T@Ar@C - Ar))      # ~1e-14\nfor n in [2,4,8,16,32]:\n    h = 1.0/n; S = np.eye(d)\n    for _ in range(n): S = V@C@V.T + (np.eye(d)-V@V.T)        # passo reduzido\n    e = np.linalg.norm(S.T@J@S - J)/np.linalg.norm(J)\n    print(n, e)   # esperado O(h^2) => inclinação 2 no log-log; <1.8 reprova\n```\n\nTrês curvas exigidas antes de qualquer claim:\n1. **Ordem de convergência:** `‖x_n − x_ref‖` vs `n_strang ∈ {2,4,8,16,32}`. Inclinação `< 1,8` no log-log ⇒ a truncagem Krylov ou o defeito não-Hamiltoniano domina ⇒ **reprova**.\n2. **Defeito simplético** `ε(h)=‖SᵀJS − J‖_F/‖J‖_F`. Se `ε` cresce com `n_strang`, o \"shadow symplectic\" é retórica.\n3. **Reversibilidade** `‖S(−h)S(h)x − x‖`. Desvio `> 1e-3` (bf16) ⇒ sub-fluxos não são exatos ⇒ ordem de Strang não se sustenta.\n\n## 6. Decisões\n\n**Matar:** `K = 2000` (inexecutável e matematicamente injustificado); os 8 nós protocolares duplicados (colapsar em 1, com proveniência real); a asserção `99,1% de energia` até sair a curva espectral por camada; qualquer composição de ordem 4 enquanto LayerNorm estiver no caminho.\n\n**Manter sob condição:** a estrutura splitting + Cayley amortizado — ela é a única que fecha em `~19%` do baseline com memória viável.\n\n**Premissa que decide tudo e ninguém declarou:** o integrador **substitui** o bloco ou **acrescenta** a ele? Se for acrescentar, a redução de FLOPs é negativa e todo o critério `≥75%` colapsa. Isso é a primeira linha do protocolo, não uma nota de rodapé."
+      }
+    },
+    {
+      "id": "hyp_gen137_70967",
+      "label": "Hypothesis",
+      "title": "Vou executar o ciclo em três movimentos: (1) auditoria forense do grafo, (2) ban",
+      "description": "Vou executar o ciclo em três movimentos: (1) auditoria forense do grafo, (2) bancada numérica real para separar causa física de artefato de baseline, (3) formulação FSS-K com dedução analítica de FLOPs. Começo gravando o script de bancada e o veredito de evidências em paralelo.",
+      "provenance": "agent_005_evidence_analyst",
+      "version": 2,
+      "created_at": 1793325930.6887844,
+      "updated_at": 1793325931.5742738,
+      "validation_status": "VERIFIED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "gen_id": "gen_0137_1793325732",
+        "cycle_id": 492,
+        "full_text": "Vou executar o ciclo em três movimentos: (1) auditoria forense do grafo, (2) bancada numérica real para separar causa física de artefato de baseline, (3) formulação FSS-K com dedução analítica de FLOPs. Começo gravando o script de bancada e o veredito de evidências em paralelo."
+      }
+    },
+    {
+      "id": "gen_0137_1793325732",
+      "label": "Generation",
+      "title": "Geração de Inteligência Coletiva #137 (Ciclo #492)",
+      "description": "Executou 3 tarefas com 2 agentes ativos.",
+      "provenance": "orchestrator",
+      "version": 1,
+      "created_at": 1793325931.748186,
+      "updated_at": 1793325931.7481863,
+      "validation_status": "BUDGET_EXCEEDED",
+      "epistemic_class": "EMPIRICAL_FACT",
+      "properties": {
+        "generation_num": 137,
+        "cycle_id": 492,
+        "verdict": "APPROVED",
+        "duration_sec": 199.55,
+        "tokens_consumed": 6242,
+        "new_hypotheses": 3,
+        "verified": 3,
         "refuted": 0
       }
     }
@@ -43796,7 +43869,97 @@
       "version": 1,
       "created_at": 1793325627.4109273,
       "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen137_51560_addresses_n_krylov",
+      "source_id": "hyp_gen137_51560",
+      "target_id": "n_krylov",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793325794.3317494,
+        "updated_at": 1793325795.3342164,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0137_1793325732_1793325794420_e_hyp_gen137_51560_addresses_n_krylov",
+            "generation_id": "gen_0137_1793325732",
+            "timestamp": 1793325795.3342164,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793325794.33176,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen137_67210_addresses_n_strang",
+      "source_id": "hyp_gen137_67210",
+      "target_id": "n_strang",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793325871.8588786,
+        "updated_at": 1793325872.6712217,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0137_1793325732_1793325871937_e_hyp_gen137_67210_addresses_n_strang",
+            "generation_id": "gen_0137_1793325732",
+            "timestamp": 1793325872.6712217,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_043_critic",
+      "version": 1,
+      "created_at": 1793325871.8588839,
+      "metadata": {}
+    },
+    {
+      "id": "e_hyp_gen137_70967_addresses_n_naive",
+      "source_id": "hyp_gen137_70967",
+      "target_id": "n_naive",
+      "relation_type": "ADDRESSES",
+      "weights": {
+        "weight_semantic": 0.88,
+        "weight_epistemic": 0.6,
+        "weight_operational": 0.575,
+        "uncertainty": 0.425,
+        "update_count": 1,
+        "created_at": 1793325930.7767825,
+        "updated_at": 1793325931.65842,
+        "update_history": [
+          {
+            "event_id": "reward_verif_gen_0137_1793325732_1793325930859_e_hyp_gen137_70967_addresses_n_naive",
+            "generation_id": "gen_0137_1793325732",
+            "timestamp": 1793325931.65842,
+            "w_prev": 0.5,
+            "reward": 1.0,
+            "w_next": 0.575,
+            "method": "gpu_physical_verification"
+          }
+        ]
+      },
+      "provenance": "agent_005_evidence_analyst",
+      "version": 1,
+      "created_at": 1793325930.7767887,
+      "metadata": {}
     }
   ],
-  "saved_at": 1793325628.3929052
+  "saved_at": 1793325931.7499878
 }
